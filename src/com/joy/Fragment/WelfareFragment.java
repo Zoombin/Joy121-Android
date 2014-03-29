@@ -36,7 +36,7 @@ public class WelfareFragment extends QFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_home, container, false);
+		View v = inflater.inflate(R.layout.fragment_welfare, container, false);
 		return v;
 	}
 

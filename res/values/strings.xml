@@ -16,4 +16,12 @@
 	<string name="menu_mall">在线商城</string>
 	<string name="menu_personal">个人空间</string>
 	
+	<!-- personal -->
+	<string name="ret">返回</string>
+	<string name="changepwd">修改密码</string>
+	<string name="orderquery">订单查询</string> 
+	<string name="integrationhistory">积分历史</string> 
+	<string name="checkupdate">检查更新</string>
+	<string name="exit">退出登录</string>
+	
 </resources>
