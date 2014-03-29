@@ -19,7 +19,7 @@ import com.joy.R;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.LoginEntity;
-import com.joy.json.model.LoginObjEntity;
+import com.joy.json.model.UserInfo;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.LoginOp;
 
@@ -88,7 +88,7 @@ public class LoginActivity extends QActivity {
 						return;
 					}
 					LoginEntity entity = (LoginEntity) resList.get(0);
-					LoginObjEntity loginObjEntity = entity.getRetobj();
+					UserInfo loginObjEntity = entity.getRetobj();
 					if (loginObjEntity == null) {
 						Toast.show(self, "用户名或密码错误！");
 						return;

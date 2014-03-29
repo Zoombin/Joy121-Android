@@ -10,6 +10,7 @@ import java.io.File;
 
 import android.os.Environment;
 
+import com.joy.json.model.UserInfo;
 import com.lidroid.xutils.HttpUtils;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -18,10 +19,28 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class JoyApplication extends QApplication {
-	
+
 	public static boolean isDebug = true;
-	
+
 	private static JoyApplication self;
+
+	public static JoyApplication getSelf() {
+		return self;
+	}
+
+	public static void setSelf(JoyApplication self) {
+		JoyApplication.self = self;
+	}
+
+	public UserInfo getUserinfo() {
+		return userinfo;
+	}
+
+	public void setUserinfo(UserInfo userinfo) {
+		this.userinfo = userinfo;
+	}
+
+	public UserInfo userinfo;
 
 	public static JoyApplication getInstance() {
 		return self;
@@ -43,8 +62,8 @@ public class JoyApplication extends QApplication {
 					MD5.GetMD5Code("cache"));
 			if (!Environment.getExternalStorageState().equals(
 					Environment.MEDIA_MOUNTED)) {
-				dirPath = String.format("%s/joy/%s/",
-						self.getFilesDir().getPath() + "data/com.joy", MD5.GetMD5Code("cache"));
+				dirPath = String.format("%s/joy/%s/", self.getFilesDir()
+						.getPath() + "data/com.joy", MD5.GetMD5Code("cache"));
 			}
 			cacheFile = new File(dirPath);
 			if (!cacheFile.exists())
@@ -61,10 +80,10 @@ public class JoyApplication extends QApplication {
 				.discCacheFileCount(10000).threadPoolSize(10).build();
 		// default
 		ImageLoader.getInstance().init(config);
-		//	设置屏幕基准分辨率	
+		// 设置屏幕基准分辨率
 		UIAdapter.setSize(480, 800);
 		PLog.setDebug(true);
-		
+
 		new HttpUtils().configTimeout(5000);
 	}
 }

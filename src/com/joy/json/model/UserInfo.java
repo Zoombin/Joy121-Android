@@ -1,7 +1,7 @@
 package com.joy.json.model;
 
 
-public class LoginObjEntity extends TResult {
+public class UserInfo extends TResult {
 	
 	private static final long serialVersionUID = 1L;
 	

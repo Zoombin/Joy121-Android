@@ -1,24 +1,22 @@
 package com.joy.json.model;
 
 /**
- * 用户信息
+ * 福利列表
  * @author daiye
  *
  */
-public class LoginEntity extends TResult {
+public class WelfareEntity extends TResult {
 
 	private static final long serialVersionUID = 1L;
 	
 	private String loginname;
-	
-	private String loginpwd;
 
-	private UserInfo retobj;
+	private CommoditySet retobj;
 	
 	private String msg;
 	
 	private int flag;
-	
+
 	public String getLoginname() {
 		return loginname;
 	}
@@ -27,19 +25,11 @@ public class LoginEntity extends TResult {
 		this.loginname = loginname;
 	}
 
-	public String getLoginpwd() {
-		return loginpwd;
-	}
-
-	public void setLoginpwd(String loginpwd) {
-		this.loginpwd = loginpwd;
-	}
-
-	public UserInfo getRetobj() {
+	public CommoditySet getRetobj() {
 		return retobj;
 	}
 
-	public void setRetobj(UserInfo retobj) {
+	public void setRetobj(CommoditySet retobj) {
 		this.retobj = retobj;
 	}
 

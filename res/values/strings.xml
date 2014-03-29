@@ -16,6 +16,12 @@
 	<string name="menu_mall">在线商城</string>
 	<string name="menu_personal">个人空间</string>
 	
+	<!-- home -->
+	<string name="grid_onlineinquery">在线查询</string>
+	<string name="grid_holidaywelfare">节日福利</string>
+	<string name="grid_sale">每周一团</string>
+	<string name="grid_orderquery">订单查询</string>
+	
 	<!-- personal -->
 	<string name="ret">返回</string>
 	<string name="changepwd">修改密码</string>
