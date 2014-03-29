@@ -2,5 +2,18 @@
 <resources>
 
     <string name="app_name">Joy</string>
+    
+    <!-- login -->
+	<string name="hint_user">请输入用户名</string>
+	<string name="hint_pwd">请输入密码</string>
+	<string name="login">登录</string>
+	<string name="toast_login_empty">请输入用户名和密码！</string>
 
+	<!-- main -->
+	<string name="menu_home">首页</string>
+	<string name="menu_welfare">福利</string>
+	<string name="menu_life">生活服务</string>
+	<string name="menu_mall">在线商城</string>
+	<string name="menu_personal">个人空间</string>
+	
 </resources>
