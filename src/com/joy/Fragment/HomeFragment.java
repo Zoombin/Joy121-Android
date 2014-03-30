@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class HomeFragment extends QFragment {
 
 	private RelativeLayout layout_title;
 	private TextView tv_title;
+	private ViewPager viewpager;
 	private GridView grid_select;
 	private ListView mListView;
 	private WelfareAdapter mAdapter;
@@ -53,6 +55,8 @@ public class HomeFragment extends QFragment {
 		
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, 20);
+		
+		viewpager = (ViewPager) v.findViewById(R.id.viewpager);
 		
 		grid_select = (GridView) v.findViewById(R.id.grid_select);
 		
