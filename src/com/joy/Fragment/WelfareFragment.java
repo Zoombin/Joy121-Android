@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Utils.Constants;
 import com.joy.Widget.WelfareAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
@@ -43,8 +44,7 @@ public class WelfareFragment extends QFragment {
 		View v = inflater.inflate(R.layout.fragment_welfare, container, false);
 		initView(v);
 		
-//		getWelfareList();
-		initData();
+		getWelfareList();
 		return v;
 	}
 
@@ -53,7 +53,7 @@ public class WelfareFragment extends QFragment {
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, 74, 0, 0, 0, 0);
 		
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
-		uiAdapter.setTextSize(tv_title, 20);
+		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 		
 		mListView = (ListView) v.findViewById(R.id.list_welfare);
 		mAdapter = new WelfareAdapter(mActivity);
@@ -67,12 +67,6 @@ public class WelfareFragment extends QFragment {
 				
 			}
 		});
-	}
-	
-	private void initData() {
-		CommoditySet entity = new CommoditySet();
-		
-		mAdapter.addItem(entity);
 	}
 	
 	/**
@@ -94,11 +88,12 @@ public class WelfareFragment extends QFragment {
 					Toast.show(mActivity, "连接超时");
 					return;
 				}
-				WelfareEntity entity = (WelfareEntity) resList.get(0);
-				CommoditySet commoditySet = entity.getRetobj();
+				CommoditySet commoditySet = (CommoditySet) resList.get(0);
 				if (commoditySet == null) {
-//					Toast.show(mActivity, "用户名或密码错误！");
+					Toast.show(mActivity, "无法取得数据！");
 					return;
+				} else {
+					
 				}
 			}
 

@@ -1,6 +1,10 @@
 package com.joy.json.model;
 
-
+/**
+ * 用户信息
+ * @author daiye
+ *
+ */
 public class UserInfo extends TResult {
 	
 	private static final long serialVersionUID = 1L;

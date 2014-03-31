@@ -8,25 +8,21 @@ import org.apache.http.params.HttpConnectionParams;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
-import com.joy.json.model.CommoditySet;
+import com.joy.json.model.PicEntity;
 import com.joy.json.operation.ITaskOperation;
-import com.joy.json.parse.Fp_benefitParse;
+import com.joy.json.parse.PicParse;
 
-public class Fp_benefitOp implements ITaskOperation {
+public class PicOp implements ITaskOperation {
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
-		String loginname = (String) in;
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
 		httpClient.getParams().setParameter(HttpConnectionParams.SO_TIMEOUT, TIMEOUT);
 		HttpApi httpApi = new HttpApiWithBasicAuth(httpClient, "testRest");
 		HttpGet get = httpApi.createHttpGet(IP,
-				new BasicNameValuePair("action", "fp_benefit"),
-				new BasicNameValuePair("json", String
-								.format("{\"loginname\":\"%s\"}",
-										loginname)));
-		return (CommoditySet) httpApi.doHttpRequest(get,
-				new Fp_benefitParse());
+				new BasicNameValuePair("action", "fp_pic"));
+		return (PicEntity) httpApi.doHttpRequest(get,
+				new PicParse());
 	}
 }

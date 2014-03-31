@@ -13,7 +13,7 @@ public class Fp_benefitParse extends AbstractParser<TResult> {
 	@Override
 	public CommoditySet parse(JSONObject json) throws JSONException {
 		CommoditySet commoditySet = new CommoditySet();
-		if(json!=null){ 
+		if(json!=null){
 			commoditySet = new Gson().fromJson(
 					 json.toString(), CommoditySet.class);
 		}

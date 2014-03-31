@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
@@ -65,8 +66,7 @@ public class MainActivity extends QActivity {
 		// 实例化TabHost对象，得到TabHost
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup(self, getSupportFragmentManager(), R.id.layout_fragment);
-		float tabHostHeight = uiAdapter.CalcHeight(480, 1000, 149);
-		uiAdapter.setMargin(mTabHost, 480, tabHostHeight, 0, 0, 0, 0);
+		uiAdapter.setMargin(mTabHost, LayoutParams.MATCH_PARENT, 76, 0, 0, 0, 0);
 		uiAdapter.setPadding(mTabHost, 0, 0, 0, 0);
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
 
@@ -113,23 +113,21 @@ public class MainActivity extends QActivity {
 	private View getTabItemView(int index) {
 		View view = layoutInflater
 				.inflate(R.layout.layout_main_menu_item, null);
-		uiAdapter.setMargin(view, 95, -1, 0, 0, 0, 0);
-		uiAdapter.setPadding(view, 20, 0, 20, 5);
+		uiAdapter.setMargin(view, 95, LayoutParams.MATCH_PARENT, 0, 0, 0, 0);
 
 		// 图标
 		ImageView imageView = (ImageView) view.findViewById(R.id.img_menu);
 		int iconid = ResName2ID.getDrawableID(self, mImageViewArray[index]);
 		imageView.setImageResource(iconid);
 		imageView.setTag(mImageViewArray[index]);
-		Point bmpSize = BmpUtils.getBmpSize(getResources(), iconid);
-		float width = uiAdapter.CalcWidth(30, bmpSize.x, bmpSize.y);
-		float top = (uiAdapter.CalcHeight(480, 1080, 149) - 40) / 2.0f;
-		uiAdapter.setMargin(imageView, width, 30, 0, top, 0, 5);
+		Point bmpSize = BmpUtils.getBmpSizeFromRes(getResources(), iconid);
+		float width = uiAdapter.CalcWidth(40, bmpSize.x, bmpSize.y);
+		uiAdapter.setMargin(imageView, width, 40, 0, 5, 0, 3);
 
 		// 文字
 		TextView textView = (TextView) view.findViewById(R.id.txt_menu);
 		textView.setText(mTextviewArray[index]);
-		uiAdapter.setTextSize(textView, 14);
+		uiAdapter.setTextSize(textView, 16);
 
 		tabViewItem.put(getString(mTextviewArray[index]), view);
 		return view;

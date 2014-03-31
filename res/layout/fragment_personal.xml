@@ -67,11 +67,12 @@
             android:layout_centerHorizontal="true"
             android:textColor="@color/BLACK" />
 
-        <ImageButton
+        <Button
             android:id="@+id/img_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/tv_name"
+            android:textColor="@color/WHITE"
             android:background="@drawable/label" />
     </RelativeLayout>
 
