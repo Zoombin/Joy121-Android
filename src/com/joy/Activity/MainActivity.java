@@ -2,7 +2,6 @@ package com.joy.Activity;
 
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.bmp.BmpUtils;
-import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.utils.ResName2ID;
 
 import java.util.HashMap;

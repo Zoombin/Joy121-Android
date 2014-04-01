@@ -62,6 +62,7 @@ public class HomeFragment extends QFragment {
 		initView(v);
 
 		getPicList();
+		getWelfareList();
 		return v;
 	}
 
@@ -126,6 +127,10 @@ public class HomeFragment extends QFragment {
 		});
 	}
 
+	private void getWelfareList() {
+		
+	}
+	
 	private void getPicList() {
 		OperationBuilder builder = new OperationBuilder().append(new PicOp(),
 				null);

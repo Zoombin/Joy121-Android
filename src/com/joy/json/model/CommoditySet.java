@@ -2,55 +2,119 @@ package com.joy.json.model;
 
 /**
  * 福利套餐
+ * 
  * @author daiye
- *
+ * 
  */
 public class CommoditySet extends TResult {
-	
+
 	private static final long serialVersionUID = 1L;
-//	{"flag":1,"msg":null,"retobj":[{"Id":18,"SetType":"15","SetNo":"delphi_03","SetName":"坚果炒货端午节礼盒一号","Picture":"set 003.jpg","Description":"坚果炒货礼盒一号",
-//		"Points":50,"MarketPrice":60,"Flag":"1","CreateTime":"\/Date(1395817450000+0800)\/","IsDefault":null,"CommSetOrderSx":0,
-//		"EXPIREDDATE":"\/Date(1398873600000+0800)\/","Commodities":null},{"Id":17,"SetType":"15","SetNo":"delphi_02","SetName":"生态草鸡蛋端午节二号礼盒",
-//			"Picture":"delphi_02.png","Description":"生态草鸡蛋50枚","Points":80,"MarketPrice":100,"Flag":"1","CreateTime":"\/Date(1392282955000+0800)\/",
-//			"IsDefault":null,"CommSetOrderSx":0,"EXPIREDDATE":"\/Date(1398873600000+0800)\/","Commodities":null},{"Id":16,"SetType":"15","SetNo":"delphi_01",
-//				"SetName":"有机蔬菜端午节一号礼盒","Picture":"delphi_01.png","Description":"有机绿色蔬菜礼盒 3kg<br />","Points":60,"MarketPrice":100,"Flag":"1",
-//				"CreateTime":"\/Date(1392281517000+0800)\/","IsDefault":null,"CommSetOrderSx":0,"EXPIREDDATE":"\/Date(1398873600000+0800)\/","Commodities":null},
-//				{"Id":19,"SetType":"22","SetNo":"delphi_04","SetName":"员工周年福利一号礼盒","Picture":"delphi_04.jpg","Description":"员工周年福利一号礼盒","Points":180,"MarketPrice":200,"Flag":"1","CreateTime":"\/Date(1395829051000+0800)\/","IsDefault":null,"CommSetOrderSx":0,"EXPIREDDATE":"\/Date(1398787200000+0800)\/","Commodities":null},{"Id":20,"SetType":"22","SetNo":"delphi_05","SetName":"员工周年福利二号礼盒","Picture":"delphi_05.jpg","Description":"员工周年福利二号礼盒","Points":180,"MarketPrice":220,"Flag":"1","CreateTime":"\/Date(1395829221000+0800)\/","IsDefault":null,"CommSetOrderSx":0,"EXPIREDDATE":"\/Date(1398787200000+0800)\/","Commodities":null}]}
-	
-	private int id;
-	
+	// [{"Picture":"set 003.jpg","MarketPrice":60,"Description":"坚果炒货礼盒一号","Flag":"1","CommSetOrderSx":0,"IsDefault":"0","TypeName":"端午节","Points":50,"Commodities":null,
+	// "SetType":"15","AppPicture":"","ExpireDate":"\/Date(-62135596800000+0800)\/","StartDate":"\/Date(1393603200000+0800)\/","EXPIREDDATE":"\/Date(1398873600000+0800)\/",
+	// "CreateTime":"\/Date(1395817450000+0800)\/","SetNo":"delphi_03","SetName":"坚果炒货端午节礼盒一号","AppDescription":null,"Id":18},
+	// {"Picture":"delphi_02.png","MarketPrice":100,"Description":"生态草鸡蛋50枚","Flag":"1","CommSetOrderSx":0,"IsDefault":"0","TypeName":"端午节","Points":80,"Commodities":null,"SetType":"15","AppPicture":"","ExpireDate":"\/Date(-62135596800000+0800)\/","StartDate":"\/Date(1393603200000+0800)\/","EXPIREDDATE":"\/Date(1398873600000+0800)\/","CreateTime":"\/Date(1392282955000+0800)\/","SetNo":"delphi_02","SetName":"生态草鸡蛋端午节二号礼盒","AppDescription":null,"Id":17},{"Picture":"delphi_01.png","MarketPrice":100,"Description":"有机绿色蔬菜礼盒
+	// 3kg<br
+	// \/>","Flag":"1","CommSetOrderSx":0,"IsDefault":"0","TypeName":"端午节","Points":60,"Commodities":null,"SetType":"15","AppPicture":"","ExpireDate":"\/Date(-62135596800000+0800)\/","StartDate":"\/Date(1393603200000+0800)\/","EXPIREDDATE":"\/Date(1398873600000+0800)\/","CreateTime":"\/Date(1392281517000+0800)\/","SetNo":"delphi_01","SetName":"有机蔬菜端午节一号礼盒","AppDescription":null,"Id":16},{"Picture":"delphi_04.jpg","MarketPrice":200,"Description":"员工周年福利一号礼盒","Flag":"1","CommSetOrderSx":0,"IsDefault":"0","TypeName":"员工周年","Points":180,"Commodities":null,"SetType":"22","AppPicture":"","ExpireDate":"\/Date(-62135596800000+0800)\/","StartDate":"\/Date(1393603200000+0800)\/","EXPIREDDATE":"\/Date(1398787200000+0800)\/","CreateTime":"\/Date(1395829051000+0800)\/","SetNo":"delphi_04","SetName":"员工周年福利一号礼盒","AppDescription":null,"Id":19},{"Picture":"delphi_05.jpg","MarketPrice":220,"Description":"员工周年福利二号礼盒","Flag":"1","CommSetOrderSx":0,"IsDefault":"0","TypeName":"员工周年","Points":180,"Commodities":null,"SetType":"22","AppPicture":"","ExpireDate":"\/Date(-62135596800000+0800)\/","StartDate":"\/Date(1393603200000+0800)\/","EXPIREDDATE":"\/Date(1398787200000+0800)\/","CreateTime":"\/Date(1395829221000+0800)\/","SetNo":"delphi_05","SetName":"员工周年福利二号礼盒","AppDescription":null,"Id":20}]
+	private int Id;
+
 	private String SetType;
-	
+
 	private String SetNo;
-	
+
 	private String SetName;
-	
+
 	private String Picture;
-	
+
 	private String Description;
-	
+
+	private String AppDescription;
+
 	private int Points;
-	
+
 	private int MarketPrice;
-	
+
 	private String Flag;
-	
+
 	private String CreateTime;
-	
-	private boolean IsDefault;
-	
+
+	private String IsDefault;
+
 	private int CommSetOrderSx;
-	
-	private String EXPIREDDATE;
-	
+
+	private String ExpireDate;
+
 	private String Commodities;
 
+	private String TypeName;
+
+	private String AppPicture;
+
+	private String StartDate;
+
+	private String EXPIREDDATE;
+
 	public int getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		Id = id;
+	}
+
+	public String getAppDescription() {
+		return AppDescription;
+	}
+
+	public void setAppDescription(String appDescription) {
+		AppDescription = appDescription;
+	}
+
+	public String getIsDefault() {
+		return IsDefault;
+	}
+
+	public void setIsDefault(String isDefault) {
+		IsDefault = isDefault;
+	}
+
+	public String getExpireDate() {
+		return ExpireDate;
+	}
+
+	public void setExpireDate(String expireDate) {
+		ExpireDate = expireDate;
+	}
+
+	public String getTypeName() {
+		return TypeName;
+	}
+
+	public void setTypeName(String typeName) {
+		TypeName = typeName;
+	}
+
+	public String getAppPicture() {
+		return AppPicture;
+	}
+
+	public void setAppPicture(String appPicture) {
+		AppPicture = appPicture;
+	}
+
+	public String getStartDate() {
+		return StartDate;
+	}
+
+	public void setStartDate(String startDate) {
+		StartDate = startDate;
+	}
+
+	public String getEXPIREDDATE() {
+		return EXPIREDDATE;
+	}
+
+	public void setEXPIREDDATE(String eXPIREDDATE) {
+		EXPIREDDATE = eXPIREDDATE;
 	}
 
 	public String getSetType() {
@@ -125,28 +189,12 @@ public class CommoditySet extends TResult {
 		CreateTime = createTime;
 	}
 
-	public boolean isIsDefault() {
-		return IsDefault;
-	}
-
-	public void setIsDefault(boolean isDefault) {
-		IsDefault = isDefault;
-	}
-
 	public int getCommSetOrderSx() {
 		return CommSetOrderSx;
 	}
 
 	public void setCommSetOrderSx(int commSetOrderSx) {
 		CommSetOrderSx = commSetOrderSx;
-	}
-
-	public String getEXPIREDDATE() {
-		return EXPIREDDATE;
-	}
-
-	public void setEXPIREDDATE(String eXPIREDDATE) {
-		EXPIREDDATE = eXPIREDDATE;
 	}
 
 	public String getCommodities() {

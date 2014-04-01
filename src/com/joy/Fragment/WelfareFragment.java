@@ -88,8 +88,9 @@ public class WelfareFragment extends QFragment {
 					Toast.show(mActivity, "连接超时");
 					return;
 				}
-				CommoditySet commoditySet = (CommoditySet) resList.get(0);
-				if (commoditySet == null) {
+				WelfareEntity entity = (WelfareEntity) resList.get(0);
+				List<CommoditySet> commoditySetlist = entity.getRetobj();
+				if (commoditySetlist == null) {
 					Toast.show(mActivity, "无法取得数据！");
 					return;
 				} else {

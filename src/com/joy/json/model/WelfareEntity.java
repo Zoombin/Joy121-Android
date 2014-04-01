@@ -1,25 +1,28 @@
 package com.joy.json.model;
 
+import java.util.List;
+
 /**
  * 福利列表
+ * 
  * @author daiye
- *
+ * 
  */
 public class WelfareEntity extends TResult {
 
 	private static final long serialVersionUID = 1L;
 
-	private CommoditySet retobj;
-	
+	private List<CommoditySet> retobj;
+
 	private String msg;
-	
+
 	private int flag;
 
-	public CommoditySet getRetobj() {
+	public List<CommoditySet> getRetobj() {
 		return retobj;
 	}
 
-	public void setRetobj(CommoditySet retobj) {
+	public void setRetobj(List<CommoditySet> retobj) {
 		this.retobj = retobj;
 	}
 

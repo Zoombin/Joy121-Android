@@ -8,7 +8,7 @@ import org.apache.http.params.HttpConnectionParams;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
-import com.joy.json.model.CommoditySet;
+import com.joy.json.model.WelfareEntity;
 import com.joy.json.operation.ITaskOperation;
 import com.joy.json.parse.Fp_benefitParse;
 
@@ -26,7 +26,7 @@ public class Fp_benefitOp implements ITaskOperation {
 				new BasicNameValuePair("json", String
 								.format("{\"loginname\":\"%s\"}",
 										loginname)));
-		return (CommoditySet) httpApi.doHttpRequest(get,
+		return (WelfareEntity) httpApi.doHttpRequest(get,
 				new Fp_benefitParse());
 	}
 }

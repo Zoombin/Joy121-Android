@@ -5,23 +5,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
-import com.joy.json.model.CommoditySet;
 import com.joy.json.model.TResult;
+import com.joy.json.model.WelfareEntity;
 
 public class Fp_benefitParse extends AbstractParser<TResult> {
 	
 	@Override
-	public CommoditySet parse(JSONObject json) throws JSONException {
-		CommoditySet commoditySet = new CommoditySet();
+	public WelfareEntity parse(JSONObject json) throws JSONException {
+		WelfareEntity entity = new WelfareEntity();
 		if(json!=null){
-			commoditySet = new Gson().fromJson(
-					 json.toString(), CommoditySet.class);
+			entity = new Gson().fromJson(
+					 json.toString(), WelfareEntity.class);
 		}
-		return commoditySet;
+		return entity;
 	}
 	
 	@Override
-	public CommoditySet parseArray(JSONArray json) throws JSONException {
+	public WelfareEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
 }
