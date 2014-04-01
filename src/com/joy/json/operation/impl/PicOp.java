@@ -5,6 +5,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 
+import com.joy.JoyApplication;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
@@ -22,6 +23,9 @@ public class PicOp implements ITaskOperation {
 		HttpApi httpApi = new HttpApiWithBasicAuth(httpClient, "testRest");
 		HttpGet get = httpApi.createHttpGet(IP,
 				new BasicNameValuePair("action", "fp_pic"));
+		new BasicNameValuePair("json", String
+				.format("{\"loginname\":\"%s\"}",
+						JoyApplication.getInstance().getUserinfo().getLoginName()));
 		return (PicEntity) httpApi.doHttpRequest(get,
 				new PicParse());
 	}

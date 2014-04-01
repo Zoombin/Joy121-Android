@@ -3,6 +3,7 @@ package com.joy.Fragment;
 import gejw.android.quickandroid.QFragment;
 import gejw.android.quickandroid.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
@@ -73,11 +74,8 @@ public class WelfareFragment extends QFragment {
 	 * 获取接口数据
 	 */
 	private void getWelfareList() {
-//		String loginname = JoyApplication.getInstance().getUserinfo().getLoginName();
-		String loginname = "steven";
-		
 		OperationBuilder builder = new OperationBuilder().append(
-				new Fp_benefitOp(), loginname);
+				new Fp_benefitOp(), null);
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
 			public void onOperationFinished(List<Object> resList) {
@@ -94,7 +92,11 @@ public class WelfareFragment extends QFragment {
 					Toast.show(mActivity, "无法取得数据！");
 					return;
 				} else {
-					
+					commoditySetlist = getCommoditySetList(commoditySetlist);
+					for (CommoditySet commoditySet : commoditySetlist) {
+						mAdapter.addItem(commoditySet);
+					}
+					mAdapter.notifyDataSetChanged();
 				}
 			}
 
@@ -107,5 +109,22 @@ public class WelfareFragment extends QFragment {
 		JsonCommon task = new JsonCommon(mActivity, builder, listener,
 				JsonCommon.PROGRESSQUERY);
 		task.execute();
+	}
+	
+	private List<CommoditySet> getCommoditySetList(List<CommoditySet> commoditySetlist) {
+		List<CommoditySet> commoditysetlist = new ArrayList<CommoditySet>();
+		String type = "-1";
+		for (CommoditySet commoditySet : commoditySetlist) {
+			String setType = commoditySet.getSetType();
+			if (!setType.equals(type)) {
+				CommoditySet tempcommoditySet = new CommoditySet();
+				tempcommoditySet.setSetName(commoditySet.getTypeName());
+				tempcommoditySet.setSetType(null);
+				commoditysetlist.add(tempcommoditySet);
+				type = setType;
+			}
+			commoditysetlist.add(commoditySet);
+		}
+		return commoditysetlist;
 	}
 }

@@ -15,6 +15,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
@@ -88,11 +89,12 @@ public class LoginActivity extends QActivity {
 						return;
 					}
 					LoginEntity entity = (LoginEntity) resList.get(0);
-					UserInfo loginObjEntity = entity.getRetobj();
-					if (loginObjEntity == null) {
+					UserInfo userInfoEntity = entity.getRetobj();
+					if (userInfoEntity == null) {
 						Toast.show(self, "用户名或密码错误！");
 						return;
 					}
+					JoyApplication.getInstance().setUserinfo(userInfoEntity);
 					Intent intent = new Intent(self, MainActivity.class);
 					startActivity(intent);
 					finish();

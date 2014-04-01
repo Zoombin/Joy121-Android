@@ -9,11 +9,11 @@ import com.joy.JoyApplication;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
-import com.joy.json.model.WelfareEntity;
+import com.joy.json.model.PointEntity;
 import com.joy.json.operation.ITaskOperation;
-import com.joy.json.parse.Fp_benefitParse;
+import com.joy.json.parse.PointParse;
 
-public class Fp_benefitOp implements ITaskOperation {
+public class Point_hisOp implements ITaskOperation {
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
@@ -22,11 +22,11 @@ public class Fp_benefitOp implements ITaskOperation {
 		httpClient.getParams().setParameter(HttpConnectionParams.SO_TIMEOUT, TIMEOUT);
 		HttpApi httpApi = new HttpApiWithBasicAuth(httpClient, "testRest");
 		HttpGet get = httpApi.createHttpGet(IP,
-				new BasicNameValuePair("action", "fp_benefit"),
-				new BasicNameValuePair("json", String
-								.format("{\"loginname\":\"%s\"}",
-										JoyApplication.getInstance().getUserinfo().getLoginName())));
-		return (WelfareEntity) httpApi.doHttpRequest(get,
-				new Fp_benefitParse());
+				new BasicNameValuePair("action", "point_his"));
+		new BasicNameValuePair("json", String
+				.format("{\"loginname\":\"%s\"}",
+						JoyApplication.getInstance().getUserinfo().getLoginName()));
+		return (PointEntity) httpApi.doHttpRequest(get,
+				new PointParse());
 	}
 }
