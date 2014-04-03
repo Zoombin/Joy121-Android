@@ -49,7 +49,17 @@
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="2"
             android:textColor="@color/welfare_item_text" />
+
+        <Button
+            android:id="@+id/btn_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@color/menu_text_press"
+            android:textColor="@color/WHITE"
+            android:text="@string/buy" />
     </LinearLayout>
 
 </LinearLayout>

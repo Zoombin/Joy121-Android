@@ -1,6 +1,7 @@
 package com.joy.Fragment;
 
 import gejw.android.quickandroid.QFragment;
+import gejw.android.quickandroid.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,12 +25,15 @@ import com.joy.R;
 import com.joy.Utils.Constants;
 import com.joy.Widget.GridViewAdapter;
 import com.joy.Widget.GridViewEntity;
+import com.joy.Widget.HomeWelfareGridViewAdapter;
 import com.joy.Widget.PagerviewAdapter;
-import com.joy.Widget.WelfareAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.CommoditySet;
 import com.joy.json.model.PicEntity;
+import com.joy.json.model.WelfareEntity;
 import com.joy.json.operation.OperationBuilder;
+import com.joy.json.operation.impl.Fp_benefitOp;
 import com.joy.json.operation.impl.PicOp;
 
 /**
@@ -47,8 +49,8 @@ public class HomeFragment extends QFragment {
 	private ViewPager viewpager;
 	private LinearLayout mNumLayout;
 	private GridView grid_select;
-	private ListView mListView;
-	private WelfareAdapter mAdapter;
+	private TextView tv_mywelfare;
+	private GridView grid_welfare;
 	private Resources resources;
 	Button mPreSelectedBt;
 
@@ -112,23 +114,47 @@ public class HomeFragment extends QFragment {
 
 		grid_select.setNumColumns(4);
 		grid_select.setAdapter(new GridViewAdapter(mActivity, data));
-
-		mListView = (ListView) v.findViewById(R.id.list_welfare);
-		mAdapter = new WelfareAdapter(mActivity);
-
-		mListView.setAdapter(mAdapter);
-
-		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
-			}
-		});
+		
+		tv_mywelfare = (TextView) v.findViewById(R.id.tv_mywelfare);
+		uiAdapter.setMargin(tv_mywelfare, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 20, 0, 10);
+		uiAdapter.setPadding(tv_mywelfare, 40, 5, 40, 5);
+		
+		grid_welfare = (GridView) v.findViewById(R.id.grid_welfare);
+		grid_welfare.setNumColumns(2);
 	}
 
 	private void getWelfareList() {
-		
+		OperationBuilder builder = new OperationBuilder().append(
+				new Fp_benefitOp(), null);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (mActivity.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					Toast.show(mActivity, "连接超时");
+					return;
+				}
+				WelfareEntity entity = (WelfareEntity) resList.get(0);
+				List<CommoditySet> commoditySetlist = entity.getRetobj();
+				if (commoditySetlist == null) {
+					Toast.show(mActivity, "无法取得数据！");
+					return;
+				} else {
+					grid_welfare.setAdapter(new HomeWelfareGridViewAdapter(mActivity, commoditySetlist));
+				}
+			}
+
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+
+		JsonCommon task = new JsonCommon(mActivity, builder, listener,
+				false);
+		task.execute();
 	}
 	
 	private void getPicList() {
@@ -202,7 +228,6 @@ public class HomeFragment extends QFragment {
 	}
 
 	Runnable r = new Runnable() {
-
 		int i = 0;
 
 		@Override

@@ -119,6 +119,8 @@ public class WelfareFragment extends QFragment {
 			if (!setType.equals(type)) {
 				CommoditySet tempcommoditySet = new CommoditySet();
 				tempcommoditySet.setSetName(commoditySet.getTypeName());
+				tempcommoditySet.setStartDate(commoditySet.getStartDate().substring(6, 19));
+				tempcommoditySet.setEXPIREDDATE(commoditySet.getEXPIREDDATE().substring(6, 19));
 				tempcommoditySet.setSetType(null);
 				commoditysetlist.add(tempcommoditySet);
 				type = setType;

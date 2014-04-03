@@ -8,13 +8,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Utils.Constants;
+import com.joy.json.model.UserInfo;
 
 /**
  * 个人中心
@@ -28,11 +30,12 @@ public class PersonalFragment extends QFragment {
 	private TextView tv_ret;
 	private TextView tv_title;
 	private ImageView img_ok;
-	private RelativeLayout layout_personinfo;
+	private LinearLayout layout_personinfo;
 	private TextView tv_name;
-	private ImageView img_headportrait;
-	private TextView tv_city;
-	private Button img_level;
+	private ImageView img_company;
+	private TextView tv_company;
+	private TextView tv_points;
+	private ImageView img_edit;
 	private RelativeLayout layout_changepwd;
 	private TextView tv_changepwd;
 	private ImageView img_changepwd_arrow;
@@ -51,7 +54,9 @@ public class PersonalFragment extends QFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_personal, container, false);
+		
 		initView(v);
+		initData();
 		return v;
 	}
 
@@ -69,26 +74,27 @@ public class PersonalFragment extends QFragment {
 		img_ok = (ImageView) v.findViewById(R.id.img_ok);
 		uiAdapter.setMargin(img_ok, 34, 34, 0, 0, 20, 0);
 		
-		layout_personinfo = (RelativeLayout) v.findViewById(R.id.layout_personinfo);
+		layout_personinfo = (LinearLayout) v.findViewById(R.id.layout_personinfo);
 		uiAdapter.setMargin(layout_personinfo, LayoutParams.MATCH_PARENT, 113, 0, 0, 0, 0);
 		
 		tv_name = (TextView) v.findViewById(R.id.tv_name);
 		uiAdapter.setTextSize(tv_name, 24);
-		uiAdapter.setMargin(tv_name, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 30, 0, 0);
-		tv_name.setText("张某某");
+		uiAdapter.setMargin(tv_name, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 10, 0, 0);
 		
-		img_headportrait = (ImageView) v.findViewById(R.id.img_headportrait);
-		uiAdapter.setMargin(img_headportrait, 76, 76, 0, 20, 8, 0);
+		img_company = (ImageView) v.findViewById(R.id.img_company);
+		uiAdapter.setMargin(img_company, 76, 76, 30, 20, 8, 0);
 		
-		tv_city = (TextView) v.findViewById(R.id.tv_city);
-		tv_city.setText("中国北京");
-		uiAdapter.setTextSize(tv_city, 20);
-		uiAdapter.setMargin(tv_city, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 5, 0, 0);;
+		tv_company = (TextView) v.findViewById(R.id.tv_company);
+		uiAdapter.setTextSize(tv_company, 16);
+		uiAdapter.setMargin(tv_company, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 30, 5, 0, 0);;
 		
-		img_level = (Button) v.findViewById(R.id.img_level);
-		img_level.setText("V 10");
-		uiAdapter.setTextSize(img_level, 14);
-		uiAdapter.setMargin(img_level, 47, uiAdapter.CalcHeight(60, 62, 24), 5, 36, 0, 0);
+		tv_points = (TextView) v.findViewById(R.id.tv_points);
+		tv_points.setText("300");
+		uiAdapter.setTextSize(tv_points, 16);
+		uiAdapter.setMargin(tv_points, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 5, 0, 0);;
+		
+		img_edit = (ImageView) v.findViewById(R.id.img_edit);
+		uiAdapter.setMargin(img_edit, 30, uiAdapter.CalcHeight(30, 1, 1), 0, 15, 20, 0);
 		
 		layout_changepwd = (RelativeLayout) v.findViewById(R.id.layout_changepwd);
 		uiAdapter.setMargin(layout_changepwd, LayoutParams.MATCH_PARENT, 54, 0, 0, 0, 0);
@@ -132,6 +138,15 @@ public class PersonalFragment extends QFragment {
 				exit();
 			}
 		});
+	}
+	
+	private void initData() {
+		UserInfo userinfo = JoyApplication.getInstance().getUserinfo();
+		if (userinfo != null) {
+			tv_name.setText(userinfo.getUserName());
+			tv_company.setText(userinfo.getCompanyName());
+			tv_points.setText("积分 : " + userinfo.getPoints());
+		}
 	}
 	
 	/**

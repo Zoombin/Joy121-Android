@@ -15,6 +15,7 @@
 	<string name="menu_life">生活服务</string>
 	<string name="menu_mall">在线商城</string>
 	<string name="menu_personal">个人空间</string>
+	<string name="mywelfare">我的福利</string>
 	
 	<!-- home -->
 	<string name="grid_onlineinquery">在线查询</string>
@@ -29,5 +30,8 @@
 	<string name="integrationhistory">积分历史</string> 
 	<string name="checkupdate">检查更新</string>
 	<string name="exit">退出登录</string>
+	
+	<!-- welfare -->
+	<string name="buy">直 接 订 购</string>
 	
 </resources>

@@ -45,10 +45,18 @@
         android:layout_height="wrap_content"
         android:listSelector="@android:color/transparent" />
 
-    <ListView
-        android:id="@+id/list_welfare"
+    <TextView
+        android:id="@+id/tv_mywelfare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/menu_text_press"
+        android:text="@string/mywelfare"
+        android:textColor="@color/WHITE" />
+
+    <GridView
+        android:id="@+id/grid_welfare"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none" />
+        android:listSelector="@android:color/transparent" />
 
 </LinearLayout>
