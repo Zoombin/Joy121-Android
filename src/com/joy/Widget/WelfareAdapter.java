@@ -8,26 +8,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Utils.Constants;
 import com.joy.json.model.CommoditySet;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class WelfareAdapter extends BaseAdapter {
-	// 配置
-	// 头像宽度
-	private static int iconWidth = 60;
-	// 名字字体大小
-	private static int nameTextSize = 25;
-	// 签名字体大小
-	private static int signatureTextSize = 20;
 
 	/**
 	 * 上下文对象
@@ -76,73 +70,81 @@ public class WelfareAdapter extends BaseAdapter {
 			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.welfare_list_item, parent, false);
 			holder = new ViewHolder();
+			
+			holder.layout_title = (LinearLayout) convertView
+					.findViewById(R.id.layout_title);
+			
 			// title
 			holder.tv_title = (TextView) convertView
 					.findViewById(R.id.tv_title);
-			uiAdapter.setTextSize(holder.tv_title, 20);
-			uiAdapter.setPadding(holder.tv_title, 5, 5, 5, 5);
+			uiAdapter.setTextSize(holder.tv_title, 16);
+			uiAdapter.setMargin(holder.tv_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 10, 0, 3);
 
+			// time
+			holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
+			uiAdapter.setTextSize(holder.tv_time, 14);
+			uiAdapter.setMargin(holder.tv_time, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 
+					10, 12, 0, 3);
+			
 			holder.layout_type = (LinearLayout) convertView
 					.findViewById(R.id.layout_type);
-			uiAdapter.setPadding(holder.layout_type, 10, 10, 10, 10);
 
 			// 图片
-			holder.iv_icon = (ImageView) convertView
-					.findViewById(R.id.iv_icon);
-			uiAdapter.setMargin(
-					holder.iv_icon,
-					10,
-					uiAdapter.CalcHeight(10, 1, 1),
-					iconWidth - 10,
-					uiAdapter.CalcHeight(iconWidth, 1, 1)
-							- uiAdapter.CalcHeight(10, 1, 1), 0, 0);
+			holder.iv_icon = (ImageView) convertView.findViewById(R.id.iv_icon);
+			uiAdapter.setMargin(holder.iv_icon, 80, uiAdapter.CalcHeight(80, 1, 1), 20, 10, 0, 5);
 
-			// 图片名
+			// 福利名
 			holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
-			uiAdapter.setTextSize(holder.tv_name, nameTextSize);
-			uiAdapter.setPadding(holder.tv_name, 10, 0, 5, 0);
+			uiAdapter.setTextSize(holder.tv_name, 18);
+			uiAdapter.setMargin(holder.tv_name, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 0, 5, 0);
 
 			// 内容
 			holder.tv_content = (TextView) convertView
 					.findViewById(R.id.tv_content);
-			uiAdapter.setTextSize(holder.tv_content, signatureTextSize);
-			uiAdapter.setPadding(holder.tv_content, 10, 0, 5, 0);
+			uiAdapter.setTextSize(holder.tv_content, 16);
+			uiAdapter.setMargin(holder.tv_content, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 10, 5, 10);
 
 			convertView.setTag(holder);
 		} else {// 有直接获得ViewHolder
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-//		if (entity.isType()) {
-//			holder.tv_title.setText(entity.getName());
-//			holder.tv_title.setVisibility(View.VISIBLE);
-//			holder.layout_type.setVisibility(View.GONE);
-//			holder.tv_content.setVisibility(View.GONE);
-//		} else {
-			holder.tv_title.setVisibility(View.GONE);
+		if (entity.getSetType() == null) {
+			holder.layout_title.setVisibility(View.VISIBLE);
+			holder.iv_icon.setVisibility(View.GONE);
+			holder.layout_type.setVisibility(View.GONE);
+			holder.tv_content.setVisibility(View.GONE);
+			
+			holder.tv_title.setText(entity.getSetName());
+			holder.tv_time.setText("有效期" + entity.getStartDate() + "~" + entity.getExpireDate());
+		} else {
+			holder.layout_title.setVisibility(View.GONE);
+			holder.iv_icon.setVisibility(View.VISIBLE);
 			holder.layout_type.setVisibility(View.VISIBLE);
 			holder.tv_content.setVisibility(View.VISIBLE);
 
 			// 加载头像
 			{
 				DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-						.displayer(
-								new RoundedBitmapDisplayer(uiAdapter
-										.CalcWidth(iconWidth)))
-						.cacheInMemory(true).cacheOnDisc(true)
+				.cacheInMemory(true).cacheOnDisc(true)
 						.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
 						.build();
-				ImageLoader.getInstance().displayImage(entity.getPicture(),//set 003.jpg
-						holder.iv_icon, defaultOptions);
+				if (entity.getAppPicture() != null) {
+					ImageLoader.getInstance().displayImage(
+							Constants.IMGURL + entity.getAppPicture(), holder.iv_icon,
+							defaultOptions);
+				}
 			}
 			holder.tv_name.setText(entity.getSetName());
-			holder.tv_content.setText(entity.getDescription());
-//		}
+			holder.tv_content.setText(entity.getAppDescription());
+		}
 		return convertView;
 	}
 
 	public class ViewHolder {
+		LinearLayout layout_title;
 		TextView tv_title;
+		TextView tv_time;
 		LinearLayout layout_type;
 		ImageView iv_icon;
 		TextView tv_name;

@@ -35,7 +35,7 @@ import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.PicOp;
 
 /**
- * 订单跟踪模块
+ * 首页模块
  * 
  * @author daiye
  * 
@@ -75,11 +75,11 @@ public class HomeFragment extends QFragment {
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 
 		viewpager = (ViewPager) v.findViewById(R.id.viewpager);
-		uiAdapter.setMargin(viewpager, LayoutParams.MATCH_PARENT, 280, 0, 0, 0,
+		uiAdapter.setMargin(viewpager, LayoutParams.MATCH_PARENT, 228, 0, 0, 0,
 				0);
 
 		mNumLayout = (LinearLayout) v.findViewById(R.id.ll_pager_num);
-		uiAdapter.setMargin(mNumLayout, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 250, 0, 0);
+		uiAdapter.setMargin(mNumLayout, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 190, 0, 0);
 		
 		grid_select = (GridView) v.findViewById(R.id.grid_select);
 

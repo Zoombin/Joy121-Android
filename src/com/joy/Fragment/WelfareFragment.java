@@ -107,7 +107,7 @@ public class WelfareFragment extends QFragment {
 		};
 
 		JsonCommon task = new JsonCommon(mActivity, builder, listener,
-				JsonCommon.PROGRESSQUERY);
+				false);
 		task.execute();
 	}
 	

@@ -18,15 +18,18 @@ public class OrderOp implements ITaskOperation {
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
-		httpClient.getParams().setParameter(HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
-		httpClient.getParams().setParameter(HttpConnectionParams.SO_TIMEOUT, TIMEOUT);
+		httpClient.getParams().setParameter(
+				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
+		httpClient.getParams().setParameter(HttpConnectionParams.SO_TIMEOUT,
+				TIMEOUT);
 		HttpApi httpApi = new HttpApiWithBasicAuth(httpClient, "testRest");
-		HttpGet get = httpApi.createHttpGet(IP,
-				new BasicNameValuePair("action", "user_order"));
-		new BasicNameValuePair("json", String
-				.format("{\"loginname\":\"%s\"}",
-						JoyApplication.getInstance().getUserinfo().getLoginName()));
-		return (OrderEntity) httpApi.doHttpRequest(get,
-				new OrderParse());
+		HttpGet get = httpApi.createHttpGet(
+				IP,
+				new BasicNameValuePair("action", "user_order"),
+				new BasicNameValuePair("json", String.format(
+						"{\"loginname\":\"%s\"}",
+						// JoyApplication.getInstance().getUserinfo().getLoginName()
+						"steven")));
+		return (OrderEntity) httpApi.doHttpRequest(get, new OrderParse());
 	}
 }

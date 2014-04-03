@@ -62,9 +62,7 @@ public class GridViewAdapter extends BaseAdapter {
 
 			holder.img_icon = (ImageView) convertView
 					.findViewById(R.id.img_icon);
-			ImageLoader.getInstance().displayImage(
-					String.format("%s%s", "drawable://", entity.getIcon()),
-					holder.img_icon);
+			holder.img_icon.setImageResource(entity.getIcon());
 			uiAdapter.setMargin(holder.img_icon, 90,
 					uiAdapter.CalcHeight(90, 1, 1), 0, 10, 0, 0);
 

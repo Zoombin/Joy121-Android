@@ -18,15 +18,18 @@ public class Point_hisOp implements ITaskOperation {
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
-		httpClient.getParams().setParameter(HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
-		httpClient.getParams().setParameter(HttpConnectionParams.SO_TIMEOUT, TIMEOUT);
+		httpClient.getParams().setParameter(
+				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
+		httpClient.getParams().setParameter(HttpConnectionParams.SO_TIMEOUT,
+				TIMEOUT);
 		HttpApi httpApi = new HttpApiWithBasicAuth(httpClient, "testRest");
-		HttpGet get = httpApi.createHttpGet(IP,
-				new BasicNameValuePair("action", "point_his"));
-		new BasicNameValuePair("json", String
-				.format("{\"loginname\":\"%s\"}",
-						JoyApplication.getInstance().getUserinfo().getLoginName()));
-		return (PointEntity) httpApi.doHttpRequest(get,
-				new PointParse());
+		HttpGet get = httpApi.createHttpGet(
+				IP,
+				new BasicNameValuePair("action", "point_his"),
+				new BasicNameValuePair("json", String.format(
+						"{\"loginname\":\"%s\"}",
+						// JoyApplication.getInstance().getUserinfo().getLoginName()
+						"steven")));
+		return (PointEntity) httpApi.doHttpRequest(get, new PointParse());
 	}
 }
