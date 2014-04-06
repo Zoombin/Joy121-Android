@@ -2,6 +2,10 @@
 <resources>
 
     <color name="bg">#eff3f3</color>
+    
+    <!-- 用户名密码背景色 -->
+    <color name="login_user_pwd">#ff9104</color>
+    
     <color name="menu_text">#5c5c5c</color>
 	<color name="menu_text_press">#ff781f</color>
 	
