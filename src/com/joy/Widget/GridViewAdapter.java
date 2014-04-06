@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joy.R;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * gridview适配器

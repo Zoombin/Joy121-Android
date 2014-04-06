@@ -5,7 +5,7 @@ package com.joy.json.model;
  * @author daiye
  *
  */
-public class PointEntity extends TResult {
+public class UserEntity extends TResult {
 
 	private static final long serialVersionUID = 1L;
 

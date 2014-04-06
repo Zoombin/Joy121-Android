@@ -35,6 +35,7 @@
 	<string name="integrationhistory">积分历史</string> 
 	<string name="checkupdate">检查更新</string>
 	<string name="exit">退出登录</string>
+	<string name="points_title">积分：</string>
 	
 	<!-- welfare -->
 	<string name="buy">直 接 订 购</string>

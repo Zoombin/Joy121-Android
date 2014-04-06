@@ -4,7 +4,7 @@ import gejw.android.quickandroid.QApplication;
 import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
 
-import com.joy.json.model.UserInfo;
+import com.joy.json.model.UserInfoEntity;
 import com.lidroid.xutils.HttpUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,16 +24,6 @@ public class JoyApplication extends QApplication {
 	public static void setSelf(JoyApplication self) {
 		JoyApplication.self = self;
 	}
-
-	public UserInfo getUserinfo() {
-		return userinfo;
-	}
-
-	public void setUserinfo(UserInfo userinfo) {
-		this.userinfo = userinfo;
-	}
-
-	public UserInfo userinfo;
 
 	public static JoyApplication getInstance() {
 		return self;

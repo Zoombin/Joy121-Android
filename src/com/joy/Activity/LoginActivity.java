@@ -19,12 +19,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.joy.JoyApplication;
 import com.joy.R;
+import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.LoginEntity;
-import com.joy.json.model.UserInfo;
+import com.joy.json.model.UserInfoEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.LoginOp;
 
@@ -113,8 +113,8 @@ public class LoginActivity extends QActivity {
 		
 		@Override
 		public void onClick(View v) {
-			String loginname = et_user.getText().toString().trim();
-			String loginpwd = et_pwd.getText().toString().trim();
+			final String loginname = et_user.getText().toString().trim();
+			final String loginpwd = et_pwd.getText().toString().trim();
 			if (TextUtils.isEmpty(loginname) || TextUtils.isEmpty(loginpwd)) {
 				Toast.show(self, resources.getString(R.string.toast_login_empty));
 				return;
@@ -137,12 +137,15 @@ public class LoginActivity extends QActivity {
 						return;
 					}
 					LoginEntity entity = (LoginEntity) resList.get(0);
-					UserInfo userInfoEntity = entity.getRetobj();
+					UserInfoEntity userInfoEntity = entity.getRetobj();
 					if (userInfoEntity == null) {
 						Toast.show(self, "用户名或密码错误！");
 						return;
 					}
-					JoyApplication.getInstance().setUserinfo(userInfoEntity);
+					if (ckb_auto.isChecked()) {
+						SharedPreferencesUtils.setLoginName(self, loginname);
+						SharedPreferencesUtils.setLoginPwd(self, loginpwd);
+					}
 					Intent intent = new Intent(self, MainActivity.class);
 					startActivity(intent);
 					finish();

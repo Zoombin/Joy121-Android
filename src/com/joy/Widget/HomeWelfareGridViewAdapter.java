@@ -70,7 +70,7 @@ public class HomeWelfareGridViewAdapter extends BaseAdapter {
 			holder.img_icon = (ImageView) convertView
 					.findViewById(R.id.img_icon);
 			DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-					.cacheInMemory(true).cacheOnDisc(true)
+					.cacheInMemory(true)
 					.imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
 			if (entity.getAppPicture() != null) {
 				ImageLoader.getInstance().displayImage(

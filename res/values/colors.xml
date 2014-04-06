@@ -3,6 +3,8 @@
 
     <color name="bg">#eff3f3</color>
     
+    <color name="red">#FF0000</color>
+    
     <!-- 用户名密码背景色 -->
     <color name="login_user_pwd">#ff9104</color>
     

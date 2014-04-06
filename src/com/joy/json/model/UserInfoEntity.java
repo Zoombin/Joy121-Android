@@ -5,7 +5,7 @@ package com.joy.json.model;
  * @author daiye
  *
  */
-public class UserInfo extends TResult {
+public class UserInfoEntity extends TResult {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -16,6 +16,12 @@ public class UserInfo extends TResult {
 //	"UserCompanyBenefittype":null,"CreateTime":"\/Date(1303439971000+0800)\/","Gender":"0","StartInsured":"\/Date(1370016000000+0800)\/",
 //	"ExpiredTime":"\/Date(-62135596800000+0800)\/","IsQuitUser":false,"ClaimPrint":"~\/UControls\/Insurance\/ClaimApply\/WSI.ascx","EmployeeId":null},
 //	"msg":null,"flag":1}
+	
+	
+//	{"retobj":{"LoginName":"steven","UserName":"刘想柱","UserPortalMenus":null,"LastLoginTime":"\/Date(1396710348000+0800)\/","Mail":"steven@joy121.com","Company":"DELPHI_SZ","EndInsured":"\/Date(-62135596800000+0800)\/","IsManager":"1",
+//		"CellNumber":"18662652121","Flag":"1","InsCompanyNO":null,"BirthDay":"\/Date(315936000000+0800)\/","PhoneNumber":"0512-88852121","LoginPasswd":"4c56ff4ce4aaf9573aa5dff913df997a","CompanyName":"德尔福电子（苏州）有限公司","Points":380,
+//		"CompanyInfo":null,"IdNo":"320511198001062561","UserCompanyBenefittype":null,"CreateTime":"\/Date(1303439971000+0800)\/","Gender":"0","StartInsured":"\/Date(-62135596800000+0800)\/","ExpiredTime":"\/Date(-62135596800000+0800)\/",
+//		"IsQuitUser":false,"ClaimPrint":null,"EmployeeId":null},"msg":null,"flag":1}
 	
 	private String LoginName;
 	

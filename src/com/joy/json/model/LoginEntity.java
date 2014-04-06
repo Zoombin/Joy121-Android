@@ -13,7 +13,7 @@ public class LoginEntity extends TResult {
 	
 	private String loginpwd;
 
-	private UserInfo retobj;
+	private UserInfoEntity retobj;
 	
 	private String msg;
 	
@@ -35,11 +35,11 @@ public class LoginEntity extends TResult {
 		this.loginpwd = loginpwd;
 	}
 
-	public UserInfo getRetobj() {
+	public UserInfoEntity getRetobj() {
 		return retobj;
 	}
 
-	public void setRetobj(UserInfo retobj) {
+	public void setRetobj(UserInfoEntity retobj) {
 		this.retobj = retobj;
 	}
 
