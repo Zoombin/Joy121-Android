@@ -102,7 +102,7 @@ public class HomeFragment extends QFragment {
 
 		// sale
 		GridViewEntity sale = new GridViewEntity();
-		sale.setIcon(R.drawable.orderquery);
+		sale.setIcon(R.drawable.sale);
 		sale.setName(resources.getString(R.string.grid_sale));
 		data.add(sale);
 

@@ -4,6 +4,7 @@ import gejw.android.quickandroid.QFragment;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Activity.ChangePwdActivity;
 import com.joy.Utils.Constants;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
@@ -32,7 +34,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @author daiye
  * 
  */
-public class PersonalFragment extends QFragment {
+public class PersonalFragment extends QFragment implements OnClickListener {
 
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
@@ -109,6 +111,7 @@ public class PersonalFragment extends QFragment {
 		uiAdapter.setMargin(img_edit, 30, uiAdapter.CalcHeight(30, 1, 1), 0, 30, 20, 0);
 		
 		layout_changepwd = (RelativeLayout) v.findViewById(R.id.layout_changepwd);
+		layout_changepwd.setOnClickListener(this);
 		uiAdapter.setMargin(layout_changepwd, LayoutParams.MATCH_PARENT, 54, 0, 0, 0, 0);
 		tv_changepwd = (TextView) v.findViewById(R.id.tv_changepwd);
 		uiAdapter.setTextSize(tv_changepwd, 20);
@@ -190,5 +193,18 @@ public class PersonalFragment extends QFragment {
 	 */
 	private void exit() {
 		
+	}
+
+	@Override
+	public void onClick(View v) {
+		Intent intent = new Intent();
+		switch (v.getId()) {
+		case R.id.layout_changepwd:
+			intent.setClass(mActivity, ChangePwdActivity.class);
+			startActivity(intent);
+			break;
+		default:
+			break;
+		}
 	}
 }

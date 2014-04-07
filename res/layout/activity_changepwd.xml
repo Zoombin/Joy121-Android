@@ -1,0 +1,126 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/navigationbar" >
+
+        <TextView
+            android:id="@+id/tv_ret"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/ret"
+            android:textColor="@color/WHITE" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/changepwd"
+            android:textColor="@color/WHITE" />
+
+        <ImageView
+            android:id="@+id/img_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ok" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/WHITE"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/iv_currpwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ababab"
+                android:scaleType="fitXY"
+                android:src="@drawable/password" />
+
+            <EditText
+                android:id="@+id/et_currpwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:hint="@string/currpwd"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/iv_newpwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/menu_text_press"
+                android:scaleType="fitXY"
+                android:src="@drawable/password" />
+
+            <EditText
+                android:id="@+id/et_newpwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:hint="@string/newpwd"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/iv_comfirmnewpwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/menu_text_press"
+                android:scaleType="fitXY"
+                android:src="@drawable/password" />
+
+            <EditText
+                android:id="@+id/et_comfirmnewpwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:hint="@string/comfirmnewpwd"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_changepwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/greenbutton"
+        android:text="@string/changepwd"
+        android:textColor="@color/WHITE" />
+
+</LinearLayout>

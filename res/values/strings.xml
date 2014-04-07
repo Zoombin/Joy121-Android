@@ -40,4 +40,10 @@
 	<!-- welfare -->
 	<string name="buy">直 接 订 购</string>
 	
+	<!-- changepwd -->
+	<string name="currpwd">当前密码</string>
+	<string name="newpwd">新密码</string>
+	<string name="comfirmnewpwd">确认新密码</string>
+	<string name="changepwd">修改密码</string>
+	
 </resources>
