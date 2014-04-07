@@ -161,7 +161,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/integrationhistory"
+            android:text="@string/hispoints"
             android:textColor="@color/BLACK" />
 
         <ImageView

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.joy.R;
 import com.joy.Activity.ChangePwdActivity;
+import com.joy.Activity.HisPointsActivity;
 import com.joy.Utils.Constants;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
@@ -203,6 +204,9 @@ public class PersonalFragment extends QFragment implements OnClickListener {
 			intent.setClass(mActivity, ChangePwdActivity.class);
 			startActivity(intent);
 			break;
+		case R.id.layout_integrationhistory:
+			intent.setClass(mActivity, HisPointsActivity.class);
+			startActivity(intent);
 		default:
 			break;
 		}

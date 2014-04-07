@@ -14,4 +14,7 @@
 	<color name="welfare_item_tab_bg">#eff3f3</color>
 	<color name="welfare_item_text">#222222</color>
 	
+	<!-- 积分历史偶数list背景 -->
+	<color name="points_list_two">#eeeeee</color>
+	
 </resources>

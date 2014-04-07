@@ -1,7 +1,9 @@
 package com.joy.Activity;
 
 import gejw.android.quickandroid.QActivity;
+import gejw.android.quickandroid.widget.Toast;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -80,10 +82,26 @@ public class ChangePwdActivity extends QActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_changepwd:
-			
+			String currpwd = et_currpwd.getText().toString();
+			String newpwd = et_newpwd.getText().toString();
+			String comfirmnewpwd = et_comfirmnewpwd.getText().toString();
+			if (TextUtils.isEmpty(currpwd) || TextUtils.isEmpty(newpwd) || TextUtils.isEmpty(comfirmnewpwd)) {
+				Toast.show(self, "请输入密码！");
+				return;
+			} else if (newpwd.equals(comfirmnewpwd)) {
+				Toast.show(self, "新密码输入与确认密码不同！");
+				return;
+			} else {
+				changepwd();
+			}
 			break;
 		default:
 			break;
 		}
+	}
+	
+	private void changepwd() {
+		Toast.show(self, "没有借口！");
+		return;
 	}
 }
