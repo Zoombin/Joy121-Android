@@ -15,31 +15,26 @@ import android.widget.TextView;
 
 import com.joy.R;
 import com.joy.Utils.Constants;
-import com.joy.Widget.HispointsAdapter;
+import com.joy.Widget.OrderQueryAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
-import com.joy.json.model.PointEntity;
-import com.joy.json.model.UserPointsHisEntity;
+import com.joy.json.model.OrderEntity;
+import com.joy.json.model.UserOrderEntity;
 import com.joy.json.operation.OperationBuilder;
-import com.joy.json.operation.impl.Point_hisOp;
+import com.joy.json.operation.impl.OrderOp;
 
-/**
- * 积分历史
- * @author daiye
- *
- */
-public class HisPointsActivity extends QActivity implements OnClickListener {
-
+public class OrderqueryActivity extends QActivity implements OnClickListener {
+	
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
 	private TextView tv_title;
-	private ListView list_hispoints;
-	private HispointsAdapter adapter;
-
+	private ListView list_order;
+	private OrderQueryAdapter adapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_hispoints);
+		setContentView(R.layout.activity_orderquery);
 		
 		initView();
 		initData();
@@ -59,15 +54,15 @@ public class HisPointsActivity extends QActivity implements OnClickListener {
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 
-		list_hispoints = (ListView) findViewById(R.id.list_hispoints);
-		uiAdapter.setMargin(list_hispoints, LayoutParams.MATCH_PARENT,
+		list_order = (ListView) findViewById(R.id.list_order);
+		uiAdapter.setMargin(list_order, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT, 10, 10, 10, 0);
-		adapter = new HispointsAdapter(self);
-		list_hispoints.setAdapter(adapter);
+		adapter = new OrderQueryAdapter(self);
+		list_order.setAdapter(adapter);
 	}
 
 	private void initData() {
-		OperationBuilder builder = new OperationBuilder().append(new Point_hisOp(),
+		OperationBuilder builder = new OperationBuilder().append(new OrderOp(),
 				null);
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
@@ -79,14 +74,14 @@ public class HisPointsActivity extends QActivity implements OnClickListener {
 					Toast.show(self, "连接超时");
 					return;
 				}
-				PointEntity entity = (PointEntity) resList.get(0);
-				List<UserPointsHisEntity> userpointshislist = entity.getRetobj();
-				if (userpointshislist == null) {
-					Toast.show(self, "没有积分历史！");
+				OrderEntity entity = (OrderEntity) resList.get(0);
+				List<UserOrderEntity> userorderlist = entity.getRetobj();
+				if (userorderlist == null) {
+					Toast.show(self, "没有订单信息！");
 					finish();
 					return;
 				}
-				for (UserPointsHisEntity entity1 : userpointshislist) {
+				for (UserOrderEntity entity1 : userorderlist) {
 					adapter.addItem(entity1);
 				}
 				adapter.notifyDataSetChanged();
@@ -109,6 +104,7 @@ public class HisPointsActivity extends QActivity implements OnClickListener {
 		case R.id.tv_ret:
 			finish();
 			break;
+
 		default:
 			break;
 		}

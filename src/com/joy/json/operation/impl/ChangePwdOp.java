@@ -10,14 +10,15 @@ import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
-import com.joy.json.model.WelfareEntity;
+import com.joy.json.model.ChangePwdEntity;
 import com.joy.json.operation.ITaskOperation;
-import com.joy.json.parse.Fp_benefitParse;
+import com.joy.json.parse.ChangePwdParse;
 
-public class Fp_benefitOp implements ITaskOperation {
+public class ChangePwdOp implements ITaskOperation {
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
+		ChangePwdEntity entity = (ChangePwdEntity) in;
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(
 				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
@@ -26,11 +27,12 @@ public class Fp_benefitOp implements ITaskOperation {
 		HttpApi httpApi = new HttpApiWithBasicAuth(httpClient, "testRest");
 		HttpGet get = httpApi.createHttpGet(
 				IP,
-				new BasicNameValuePair("action", "fp_benefit"),
+				new BasicNameValuePair("action", "user_cpwd"),
 				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\"}", SharedPreferencesUtils
-								.getLoginName(JoyApplication.getSelf()))));
-		return (WelfareEntity) httpApi
-				.doHttpRequest(get, new Fp_benefitParse());
+						"{\"loginname\":\"%s\", \"ologinpwd\":\"%s\", \"nloginpwd\":\"%s\"}",
+										SharedPreferencesUtils
+												.getLoginName(JoyApplication
+														.getSelf()), entity.getOloginpwd(), entity.getNloginpwd())));
+		return (ChangePwdEntity) httpApi.doHttpRequest(get, new ChangePwdParse());
 	}
 }

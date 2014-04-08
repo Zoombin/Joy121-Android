@@ -12,15 +12,6 @@
         android:background="@drawable/navigationbar" >
 
         <TextView
-            android:id="@+id/tv_ret"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/ret"
-            android:textColor="@color/WHITE" />
-
-        <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,15 +19,6 @@
             android:layout_centerVertical="true"
             android:text="@string/menu_personal"
             android:textColor="@color/WHITE" />
-
-        <ImageView
-            android:id="@+id/img_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/ok" />
     </RelativeLayout>
 
     <LinearLayout
@@ -99,105 +81,290 @@
             android:src="@drawable/editor" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/layout_changepwd"
+    <LinearLayout
+        android:id="@+id/layout_personal_base"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/tabbar" >
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tv_changepwd"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/layout_changepwd"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/changepwd"
-            android:textColor="@color/BLACK" />
+            android:background="@drawable/tabbar" >
 
-        <ImageView
-            android:id="@+id/img_changepwd_arrow"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_changepwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/changepwd"
+                android:textColor="@color/BLACK" />
+
+            <ImageView
+                android:id="@+id/img_changepwd_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/arrow_right" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_orderquery"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/arrow_right" />
-    </RelativeLayout>
+            android:background="@drawable/tabbar" >
 
-    <RelativeLayout
-        android:id="@+id/layout_orderquery"
+            <TextView
+                android:id="@+id/tv_orderquery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/orderquery"
+                android:textColor="@color/BLACK" />
+
+            <ImageView
+                android:id="@+id/img_orderquery_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/arrow_right" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_integrationhistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tabbar" >
+
+            <TextView
+                android:id="@+id/tv_integrationhistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/hispoints"
+                android:textColor="@color/BLACK" />
+
+            <ImageView
+                android:id="@+id/img_integrationhistory_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/arrow_right" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_checkupdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tabbar" >
+
+            <TextView
+                android:id="@+id/tv_checkupdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/checkupdate"
+                android:textColor="@color/BLACK" />
+
+            <ImageView
+                android:id="@+id/img_checkupdate_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/arrow_right" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_personal_info"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/tabbar" >
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone" >
 
-        <TextView
-            android:id="@+id/tv_orderquery"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/orderquery"
-            android:textColor="@color/BLACK" />
+            android:background="@color/WHITE"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
-        <ImageView
-            android:id="@+id/img_orderquery_arrow"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_loginname_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loginname_title"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:id="@+id/tv_loginname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_text_press" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/arrow_right" />
-    </RelativeLayout>
+            android:background="@color/WHITE"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
-    <RelativeLayout
-        android:id="@+id/layout_integrationhistory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/tabbar" >
+            <TextView
+                android:id="@+id/tv_username_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/username_title"
+                android:textColor="@color/BLACK" />
 
-        <TextView
-            android:id="@+id/tv_integrationhistory"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_text_press" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/hispoints"
-            android:textColor="@color/BLACK" />
+            android:background="@color/WHITE"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
-        <ImageView
-            android:id="@+id/img_integrationhistory_arrow"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_idno_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/idno_title"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:id="@+id/tv_idno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_text_press" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/arrow_right" />
-    </RelativeLayout>
+            android:background="@color/WHITE"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
-    <RelativeLayout
-        android:id="@+id/layout_checkupdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/tabbar" >
+            <TextView
+                android:id="@+id/tv_gender_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender_title"
+                android:textColor="@color/BLACK" />
 
-        <TextView
-            android:id="@+id/tv_checkupdate"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_text_press" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="@string/checkupdate"
-            android:textColor="@color/BLACK" />
+            android:background="@color/WHITE"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
-        <ImageView
-            android:id="@+id/img_checkupdate_arrow"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_birthday_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/birthday_title"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:id="@+id/tv_birthday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_text_press" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/arrow_right" />
-    </RelativeLayout>
+            android:background="@color/WHITE"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_mail_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mail_title"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:id="@+id/tv_mail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_text_press" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/WHITE"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_cellnumber_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cellnumber_title"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:id="@+id/tv_cellnumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_text_press" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/WHITE"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_createtime_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/createtime_title"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:id="@+id/tv_createtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_text_press" />
+        </LinearLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_loginout"

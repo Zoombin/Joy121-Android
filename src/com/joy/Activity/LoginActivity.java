@@ -58,6 +58,15 @@ public class LoginActivity extends QActivity {
 
 		resources = getResources();
 		initView();
+		
+		String loginname = SharedPreferencesUtils.getLoginName(self);
+		String loginpwd = SharedPreferencesUtils.getLoginPwd(self);
+		
+		if (!loginname.equals("")) {
+			et_user.setText(loginname);
+			et_pwd.setText(loginpwd);
+			login();
+		}
 	}
 
 	private void initView() {
@@ -113,53 +122,57 @@ public class LoginActivity extends QActivity {
 		
 		@Override
 		public void onClick(View v) {
-			final String loginname = et_user.getText().toString().trim();
-			final String loginpwd = et_pwd.getText().toString().trim();
-			if (TextUtils.isEmpty(loginname) || TextUtils.isEmpty(loginpwd)) {
-				Toast.show(self, resources.getString(R.string.toast_login_empty));
-				return;
-			}
-			
-			LoginEntity loginentity = new LoginEntity();
-			loginentity.setLoginname(loginname);
-			loginentity.setLoginpwd(loginpwd);
-			
-			OperationBuilder builder = new OperationBuilder().append(
-					new LoginOp(), loginentity);
-			OnOperationListener listener = new OnOperationListener() {
-				@Override
-				public void onOperationFinished(List<Object> resList) {
-					if (self.isFinishing()) {
-						return;
-					}
-					if (resList == null) {
-						Toast.show(self, "连接超时");
-						return;
-					}
-					LoginEntity entity = (LoginEntity) resList.get(0);
-					UserInfoEntity userInfoEntity = entity.getRetobj();
-					if (userInfoEntity == null) {
-						Toast.show(self, "用户名或密码错误！");
-						return;
-					}
-					if (ckb_auto.isChecked()) {
-						SharedPreferencesUtils.setLoginName(self, loginname);
-						SharedPreferencesUtils.setLoginPwd(self, loginpwd);
-					}
-					Intent intent = new Intent(self, MainActivity.class);
-					startActivity(intent);
-					finish();
-				}
-
-				@Override
-				public void onOperationError(Exception e) {
-					e.printStackTrace();
-				}
-			};
-
-			JsonCommon task = new JsonCommon(self, builder, listener,
-					JsonCommon.PROGRESSLOGIN);
-			task.execute();
+			login();
 		}
 	};
+	
+	private void login() {
+		final String loginname = et_user.getText().toString().trim();
+		final String loginpwd = et_pwd.getText().toString().trim();
+		if (TextUtils.isEmpty(loginname) || TextUtils.isEmpty(loginpwd)) {
+			Toast.show(self, resources.getString(R.string.toast_login_empty));
+			return;
+		}
+		
+		LoginEntity loginentity = new LoginEntity();
+		loginentity.setLoginname(loginname);
+		loginentity.setLoginpwd(loginpwd);
+		
+		OperationBuilder builder = new OperationBuilder().append(
+				new LoginOp(), loginentity);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (self.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					Toast.show(self, "连接超时");
+					return;
+				}
+				LoginEntity entity = (LoginEntity) resList.get(0);
+				UserInfoEntity userInfoEntity = entity.getRetobj();
+				if (userInfoEntity == null) {
+					Toast.show(self, "用户名或密码错误！");
+					return;
+				}
+				if (ckb_auto.isChecked()) {
+					SharedPreferencesUtils.setLoginName(self, loginname);
+					SharedPreferencesUtils.setLoginPwd(self, loginpwd);
+				}
+				Intent intent = new Intent(self, MainActivity.class);
+				startActivity(intent);
+				finish();
+			}
+
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+
+		JsonCommon task = new JsonCommon(self, builder, listener,
+				JsonCommon.PROGRESSLOGIN);
+		task.execute();
+	}
 }

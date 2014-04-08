@@ -1,7 +1,7 @@
 package com.joy.json.model;
 
 /**
- * 积分信息
+ * 用户信息
  * @author daiye
  *
  */

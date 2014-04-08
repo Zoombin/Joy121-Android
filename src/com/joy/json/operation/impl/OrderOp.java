@@ -6,6 +6,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 
 import com.joy.JoyApplication;
+import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
@@ -27,9 +28,8 @@ public class OrderOp implements ITaskOperation {
 				IP,
 				new BasicNameValuePair("action", "user_order"),
 				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\"}",
-						// JoyApplication.getInstance().getUserinfo().getLoginName()
-						"steven")));
+						"{\"loginname\":\"%s\"}", SharedPreferencesUtils
+								.getLoginName(JoyApplication.getSelf()))));
 		return (OrderEntity) httpApi.doHttpRequest(get, new OrderParse());
 	}
 }

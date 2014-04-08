@@ -2,7 +2,9 @@ package com.joy.Widget;
 
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -104,7 +106,8 @@ public class HispointsAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.tv_actiontime.setText(entity.getActionTime());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		holder.tv_actiontime.setText(sdf.format(new Date(Long.parseLong(entity.getActionTime().substring(6, 19)))));
 		holder.tv_points.setText(entity.getPoints());
 		holder.tv_remark.setText("备注说明：" + entity.getRemark());
 		

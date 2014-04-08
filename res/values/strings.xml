@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Joy</string>
+    <string name="app_name">我的福利</string>
     
     <!-- login -->
     <string name="login">登录福利平台</string>
@@ -10,7 +10,6 @@
 	<string name="atuologin">自动登录</string>
 	<string name="register">新用户注册</string>
 	<string name="toast_login_empty">请输入用户名和密码！</string>
-	<string name="toast_login_error">用户名或密码错误！</string>
 	<string name="toast_login_error">用户名或密码错误！</string>
 	<string name="consult">有疑问请咨询：400-8558-121</string>
 
@@ -36,6 +35,14 @@
 	<string name="checkupdate">检查更新</string>
 	<string name="exit">退出登录</string>
 	<string name="points_title">积分：</string>
+	<string name="loginname_title">登陆名：</string>
+	<string name="idno_title">身份证：</string>
+	<string name="gender_title">性        别：</string>
+	<string name="birthday_title">出生年月：</string>
+	<string name="mail_title">邮        箱：</string>
+	<string name="username_title">用户名：</string>
+	<string name="cellnumber_title">手        机：</string>
+	<string name="createtime_title">注册日期：</string>
 	
 	<!-- welfare -->
 	<string name="buy">直 接 订 购</string>
@@ -44,8 +51,5 @@
 	<string name="currpwd">当前密码</string>
 	<string name="newpwd">新密码</string>
 	<string name="comfirmnewpwd">确认新密码</string>
-	
-	<!-- hispoints -->
 
-	
 </resources>
