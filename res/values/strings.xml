@@ -15,7 +15,7 @@
 
 	<!-- main -->
 	<string name="menu_home">首页</string>
-	<string name="menu_welfare">福利</string>
+	<string name="menu_welfare">公司福利</string>
 	<string name="menu_life">生活服务</string>
 	<string name="menu_mall">在线商城</string>
 	<string name="menu_personal">个人空间</string>
@@ -30,7 +30,7 @@
 	<!-- personal -->
 	<string name="ret">返回</string>
 	<string name="changepwd">修改密码</string>
-	<string name="orderquery">订单查询</string> 
+	<string name="orderquery">我的订单</string> 
 	<string name="hispoints">积分历史</string> 
 	<string name="checkupdate">检查更新</string>
 	<string name="exit">退出登录</string>
@@ -52,4 +52,7 @@
 	<string name="newpwd">新密码</string>
 	<string name="comfirmnewpwd">确认新密码</string>
 
+	<!-- orderdetail -->
+	<string name="addshoppting">加入购物车</string>
+	
 </resources>

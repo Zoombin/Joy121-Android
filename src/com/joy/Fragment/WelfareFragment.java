@@ -6,6 +6,7 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Activity.OrderDetailActivity;
 import com.joy.Utils.Constants;
 import com.joy.Widget.WelfareAdapter;
 import com.joy.json.JsonCommon;
@@ -60,14 +62,6 @@ public class WelfareFragment extends QFragment {
 		mAdapter = new WelfareAdapter(mActivity);
 		
 		mListView.setAdapter(mAdapter);
-
-		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				
-			}
-		});
 	}
 	
 	/**

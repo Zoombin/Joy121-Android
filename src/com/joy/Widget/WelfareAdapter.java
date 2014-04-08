@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
@@ -19,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Activity.OrderConfirmActivity;
+import com.joy.Activity.OrderDetailActivity;
 import com.joy.Utils.Constants;
 import com.joy.json.model.CommoditySet;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -93,7 +97,8 @@ public class WelfareAdapter extends BaseAdapter {
 
 			holder.layout_type = (LinearLayout) convertView
 					.findViewById(R.id.layout_type);
-
+			holder.layout_type.setOnClickListener(clicklistener);
+			
 			// 图片
 			holder.iv_icon = (ImageView) convertView.findViewById(R.id.iv_icon);
 			uiAdapter.setMargin(holder.iv_icon, 120,
@@ -113,6 +118,7 @@ public class WelfareAdapter extends BaseAdapter {
 					LayoutParams.WRAP_CONTENT, 10, 5, 50, 10);
 
 			holder.btn_buy = (Button) convertView.findViewById(R.id.btn_buy);
+			holder.btn_buy.setOnClickListener(clicklistener);
 			uiAdapter.setTextSize(holder.btn_buy, 16);
 			uiAdapter.setMargin(holder.btn_buy, 120, 35, 0, 5, 50, 10);
 
@@ -140,6 +146,8 @@ public class WelfareAdapter extends BaseAdapter {
 			holder.layout_type.setVisibility(View.VISIBLE);
 			holder.tv_content.setVisibility(View.VISIBLE);
 			holder.btn_buy.setVisibility(View.VISIBLE);
+			holder.layout_type.setTag(entity.getId());
+			holder.btn_buy.setTag(entity.getId());
 			
 			// 加载头像
 			{
@@ -159,6 +167,27 @@ public class WelfareAdapter extends BaseAdapter {
 		return convertView;
 	}
 
+	OnClickListener clicklistener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent();
+			switch (v.getId()) {
+			case R.id.layout_type:
+				intent.putExtra(OrderDetailActivity.EXTRA_COMMSETID, (Integer) v.getTag());
+				intent.setClass(mContext, OrderDetailActivity.class);
+				mContext.startActivity(intent);
+				break;
+			case R.id.btn_buy:
+				intent.setClass(mContext, OrderConfirmActivity.class);
+				mContext.startActivity(intent);
+				break;
+			default:
+				break;
+			}
+		}
+	};
+	
 	public class ViewHolder {
 		LinearLayout layout_title;
 		TextView tv_title;

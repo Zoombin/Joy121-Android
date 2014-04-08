@@ -1,5 +1,7 @@
 package com.joy.json.model;
 
+import java.util.List;
+
 /**
  * 福利套餐
  * 
@@ -43,7 +45,7 @@ public class CommoditySet extends TResult {
 
 	private String ExpireDate;
 
-	private String Commodities;
+	private List<Commodities> Commodities;
 
 	private String TypeName;
 
@@ -197,11 +199,12 @@ public class CommoditySet extends TResult {
 		CommSetOrderSx = commSetOrderSx;
 	}
 
-	public String getCommodities() {
+	public List<Commodities> getCommodities() {
 		return Commodities;
 	}
 
-	public void setCommodities(String commodities) {
+	public void setCommodities(List<Commodities> commodities) {
 		Commodities = commodities;
 	}
+
 }

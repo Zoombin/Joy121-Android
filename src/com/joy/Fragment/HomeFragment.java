@@ -191,7 +191,7 @@ public class HomeFragment extends QFragment {
 				piclist);
 		for (int i = 0; i < piclist.size(); i++) {
 			Button bt = new Button(mActivity);
-			bt.setLayoutParams(new ViewGroup.LayoutParams(uiAdapter.CalcWidth(20), uiAdapter.CalcWidth(20)));
+			bt.setLayoutParams(new ViewGroup.LayoutParams(uiAdapter.CalcWidth(10), uiAdapter.CalcWidth(10)));
 			bt.setBackgroundResource(R.drawable.point);
 			mNumLayout.addView(bt);
 		}
