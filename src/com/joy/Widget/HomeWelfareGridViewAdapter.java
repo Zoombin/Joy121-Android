@@ -74,7 +74,7 @@ public class HomeWelfareGridViewAdapter extends BaseAdapter {
 					.imageScaleType(ImageScaleType.EXACTLY_STRETCHED).build();
 			if (entity.getAppPicture() != null) {
 				ImageLoader.getInstance().displayImage(
-						Constants.IMGURL + entity.getAppPicture(),
+						Constants.IMGSURL + entity.getPicture(),
 						holder.img_icon, defaultOptions);
 			}
 			uiAdapter.setMargin(holder.img_icon, 70,

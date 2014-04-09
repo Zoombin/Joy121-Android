@@ -8,6 +8,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -79,23 +80,29 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 		uiAdapter.setMargin(tv_setname, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 0, 10, 0, 10);
 		
 		viewpager = (ViewPager) findViewById(R.id.viewpager);
-		uiAdapter.setMargin(viewpager, LayoutParams.MATCH_PARENT, 228, 20, 0, 20,
+		uiAdapter.setMargin(viewpager, LayoutParams.MATCH_PARENT, 228, 10, 0, 0,
 				0);
 
 		mNumLayout = (LinearLayout) findViewById(R.id.ll_pager_num);
 		uiAdapter.setMargin(mNumLayout, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 190, 0, 0);
 		
 		iv_shop = (ImageView) findViewById(R.id.iv_shop);
+		uiAdapter.setMargin(iv_shop, 30, uiAdapter.CalcHeight(30, 79, 70), 20, 20, 20, 20);
 		
 		tv_points = (TextView) findViewById(R.id.tv_points);
+		uiAdapter.setTextSize(tv_points, 20);
 		
 		iv_shopping_minus = (ImageView) findViewById(R.id.iv_shopping_minus);
+		uiAdapter.setMargin(iv_shopping_minus, 15, 15, 10, 10, 10, 10);
 		
 		et_shoppingnum = (EditText) findViewById(R.id.et_shoppingnum);
+		uiAdapter.setMargin(et_shoppingnum, 30, LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
 		
 		iv_shopping_plus = (ImageView) findViewById(R.id.iv_shopping_plus);
+		uiAdapter.setMargin(iv_shopping_plus, 15, 15, 10, 10, 10, 10);
 		
 		btn_shopping = (Button) findViewById(R.id.btn_shopping);
+		uiAdapter.setMargin(btn_shopping, 80, 40, 0, 0, 20, 0);
 	}
 	
 	private void initData() {
@@ -141,8 +148,11 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 			piclist.add(Constants.IMGURL + pic);
 		}
 		setviewpager(piclist);
+		
+		tv_points.setText(Integer.toString(commoditySet.getPoints()));
 	}
 	
+	Button mPreSelectedBt;
 	private void setviewpager(List<String> piclist) {
 		PagerviewAdapter pagerviewAdapter = new PagerviewAdapter(self,
 				piclist);
@@ -153,6 +163,35 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 			mNumLayout.addView(bt);
 		}
 		viewpager.setAdapter(pagerviewAdapter);
+		
+		viewpager.setOnPageChangeListener(new OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int position) {
+				if (mPreSelectedBt != null) {
+					mPreSelectedBt
+							.setBackgroundResource(R.drawable.point);
+				}
+
+				Button currentBt = (Button) mNumLayout.getChildAt(position);
+				currentBt
+						.setBackgroundResource(R.drawable.point_press);
+				uiAdapter.setMargin(currentBt, 12, 12, 5, 0, 5, 0);
+				mPreSelectedBt = currentBt;
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 	}
 	
 	@Override

@@ -209,7 +209,7 @@ public class HomeFragment extends QFragment {
 				Button currentBt = (Button) mNumLayout.getChildAt(position);
 				currentBt
 						.setBackgroundResource(R.drawable.point_press);
-				uiAdapter.setMargin(currentBt, 12, 12, 3, 0, 3, 0);
+				uiAdapter.setMargin(currentBt, 12, 12, 5, 0, 5, 0);
 				mPreSelectedBt = currentBt;
 			}
 

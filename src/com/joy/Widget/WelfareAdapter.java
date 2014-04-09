@@ -157,7 +157,7 @@ public class WelfareAdapter extends BaseAdapter {
 						.build();
 				if (entity.getAppPicture() != null) {
 					ImageLoader.getInstance().displayImage(
-							Constants.IMGURL + entity.getAppPicture(),
+							Constants.IMGSURL + entity.getPicture(),
 							holder.iv_icon, defaultOptions);
 				}
 			}
