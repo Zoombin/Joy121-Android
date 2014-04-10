@@ -59,12 +59,13 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_margin="10dp"
-        android:background="@color/welfare_item_tab_bg" />
+        android:background="@color/WHITE" />
 
     <LinearLayout
         android:id="@+id/layout_shop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 
         <ImageView
@@ -101,6 +102,8 @@
                     android:id="@+id/et_shoppingnum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:inputType="numberSigned"
+                    android:maxLength="4"
                     android:text="1" />
 
                 <ImageView
@@ -121,15 +124,23 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_iidd"
+        android:id="@+id/tv_product_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/producttitle"
         android:textColor="@color/menu_text_press" />
 
-    <TextView
-        android:id="@+id/tv_doejf"
+    <ScrollView
+        android:id="@+id/scroll_product"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/BLACK" />
+        android:layout_height="match_parent" 
+        android:background="@color/WHITE">
+
+        <TextView
+            android:id="@+id/tv_product_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/BLACK" />
+    </ScrollView>
 
 </LinearLayout>

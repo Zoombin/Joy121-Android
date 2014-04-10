@@ -22,6 +22,7 @@ import com.joy.json.model.OrderEntity;
 import com.joy.json.model.UserOrderEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.OrderOp;
+import com.umeng.analytics.MobclickAgent;
 
 public class OrderqueryActivity extends QActivity implements OnClickListener {
 	
@@ -108,5 +109,15 @@ public class OrderqueryActivity extends QActivity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+	
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 }

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
@@ -27,6 +28,7 @@ import com.joy.json.model.LoginEntity;
 import com.joy.json.model.UserInfoEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.LoginOp;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 登录
@@ -84,7 +86,7 @@ public class LoginActivity extends QActivity {
 		et_user = (EditText) findViewById(R.id.et_user);
 		uiAdapter.setMargin(et_user, LayoutParams.MATCH_PARENT, 50, 0, 34, 20, 20);
 		uiAdapter.setPadding(et_user, 10, 0, 0, 0);
-		et_user.setText("steven");
+//		et_user.setText("steven");
 		
 		iv_pwd = (ImageView)  findViewById(R.id.iv_pwd);
 		uiAdapter.setMargin(iv_pwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23, 8, 0, 0);
@@ -93,7 +95,7 @@ public class LoginActivity extends QActivity {
 		et_pwd = (EditText) findViewById(R.id.et_pwd);
 		uiAdapter.setMargin(et_pwd, LayoutParams.MATCH_PARENT, 50, 0, 8, 20, 30);
 		uiAdapter.setPadding(et_pwd, 10, 0, 0, 0);
-		et_pwd.setText("121");
+//		et_pwd.setText("121");
 		
 		ckb_auto = (CheckBox) findViewById(R.id.ckb_auto);
 		uiAdapter.setMargin(ckb_auto, 22, 22, 23, 7, 5, 14);
@@ -157,6 +159,7 @@ public class LoginActivity extends QActivity {
 					return;
 				}
 				if (ckb_auto.isChecked()) {
+					JoyApplication.getInstance().setUserinfo(userInfoEntity);
 					SharedPreferencesUtils.setLoginName(self, loginname);
 					SharedPreferencesUtils.setLoginPwd(self, loginpwd);
 				}
@@ -174,5 +177,15 @@ public class LoginActivity extends QActivity {
 		JsonCommon task = new JsonCommon(self, builder, listener,
 				JsonCommon.PROGRESSLOGIN);
 		task.execute();
+	}
+	
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 }

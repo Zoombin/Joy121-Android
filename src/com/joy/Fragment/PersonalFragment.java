@@ -26,6 +26,7 @@ import com.joy.Activity.LoginActivity;
 import com.joy.Activity.OrderqueryActivity;
 import com.joy.Utils.Constants;
 import com.joy.Utils.SharedPreferencesUtils;
+import com.joy.Utils.UpdateManager;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.UserEntity;
@@ -186,6 +187,7 @@ public class PersonalFragment extends QFragment implements OnClickListener {
 				.findViewById(R.id.layout_checkupdate);
 		uiAdapter.setMargin(layout_checkupdate, LayoutParams.MATCH_PARENT, 54,
 				0, 54, 0, 0);
+		layout_checkupdate.setOnClickListener(this);
 		tv_checkupdate = (TextView) v.findViewById(R.id.tv_checkupdate);
 		uiAdapter.setTextSize(tv_checkupdate, 20);
 		uiAdapter.setMargin(tv_checkupdate, LayoutParams.WRAP_CONTENT,
@@ -340,6 +342,10 @@ public class PersonalFragment extends QFragment implements OnClickListener {
 		case R.id.layout_orderquery:
 			intent.setClass(mActivity, OrderqueryActivity.class);
 			startActivity(intent);
+			break;
+		case R.id.layout_checkupdate:
+			UpdateManager updatemanager = new UpdateManager(mActivity);
+			updatemanager.checkUpdate();
 			break;
 		default:
 			break;

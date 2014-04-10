@@ -6,9 +6,12 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -29,6 +32,7 @@ import com.joy.json.model.CommoditySet;
 import com.joy.json.model.OrderDetailEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.OrderDetailOp;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 订单详情
@@ -39,6 +43,8 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 	
 	private int commsetid;
 	public static final String EXTRA_COMMSETID = "commsetid";
+	public static final String EXTRA_SHOPPINGNUM = "shoppingnum";
+	public static final String EXTRA_COMMODITYSET = "commoditySet";
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
 	private TextView tv_title;
@@ -51,6 +57,9 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 	private EditText et_shoppingnum;
 	private ImageView iv_shopping_plus;
 	private Button btn_shopping;
+	private TextView tv_product_title;
+	private TextView tv_product_detail;
+	CommoditySet commoditySet;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,33 +85,47 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 		
 		tv_setname = (TextView) findViewById(R.id.tv_setname);
-		uiAdapter.setTextSize(tv_setname, 18);
-		uiAdapter.setMargin(tv_setname, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 0, 10, 0, 10);
+		uiAdapter.setTextSize(tv_setname, 20);
+		uiAdapter.setMargin(tv_setname, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 0, 10, 0, 5);
 		
 		viewpager = (ViewPager) findViewById(R.id.viewpager);
-		uiAdapter.setMargin(viewpager, LayoutParams.MATCH_PARENT, 228, 10, 0, 0,
+		uiAdapter.setMargin(viewpager, LayoutParams.MATCH_PARENT, 228, 10, 0, 10,
 				0);
 
 		mNumLayout = (LinearLayout) findViewById(R.id.ll_pager_num);
 		uiAdapter.setMargin(mNumLayout, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 190, 0, 0);
 		
 		iv_shop = (ImageView) findViewById(R.id.iv_shop);
-		uiAdapter.setMargin(iv_shop, 30, uiAdapter.CalcHeight(30, 79, 70), 20, 20, 20, 20);
+		uiAdapter.setMargin(iv_shop, 60, uiAdapter.CalcHeight(60, 79, 70), 20, 0, 20, 0);
 		
 		tv_points = (TextView) findViewById(R.id.tv_points);
 		uiAdapter.setTextSize(tv_points, 20);
 		
 		iv_shopping_minus = (ImageView) findViewById(R.id.iv_shopping_minus);
-		uiAdapter.setMargin(iv_shopping_minus, 15, 15, 10, 10, 10, 10);
+		iv_shopping_minus.setOnClickListener(this);
+		uiAdapter.setMargin(iv_shopping_minus, 40, 40, 0, 10, 10, 10);
 		
 		et_shoppingnum = (EditText) findViewById(R.id.et_shoppingnum);
-		uiAdapter.setMargin(et_shoppingnum, 30, LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
+		uiAdapter.setMargin(et_shoppingnum, LayoutParams.WRAP_CONTENT, 50, 0, 10, 0, 10);
+		uiAdapter.setTextSize(et_shoppingnum, 20);
 		
 		iv_shopping_plus = (ImageView) findViewById(R.id.iv_shopping_plus);
-		uiAdapter.setMargin(iv_shopping_plus, 15, 15, 10, 10, 10, 10);
+		iv_shopping_plus.setOnClickListener(this);
+		uiAdapter.setMargin(iv_shopping_plus, 40, 40, 10, 10, 10, 10);
 		
 		btn_shopping = (Button) findViewById(R.id.btn_shopping);
-		uiAdapter.setMargin(btn_shopping, 80, 40, 0, 0, 20, 0);
+		btn_shopping.setOnClickListener(this);
+		uiAdapter.setMargin(btn_shopping, 160, 70, 20, 0, 20, 0);
+		uiAdapter.setTextSize(btn_shopping, 20);
+		uiAdapter.setPadding(btn_shopping, 45, 0, 0, 0);
+		
+		tv_product_title = (TextView) findViewById(R.id.tv_product_title);
+		uiAdapter.setTextSize(tv_product_title, 20);
+		uiAdapter.setMargin(tv_product_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 5);
+		
+		tv_product_detail = (TextView) findViewById(R.id.tv_product_detail);
+		uiAdapter.setTextSize(tv_product_detail, 20);
+		uiAdapter.setPadding(tv_product_detail, 20, 10, 20, 10);
 	}
 	
 	private void initData() {
@@ -140,6 +163,7 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 	}
 	
 	private void initViewForData(CommoditySet commoditySet) {
+		this.commoditySet = commoditySet;
 		tv_setname.setText(commoditySet.getSetName());
 		
 		String[] pics = commoditySet.getAppPicture().split(";");
@@ -149,7 +173,9 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 		}
 		setviewpager(piclist);
 		
-		tv_points.setText(Integer.toString(commoditySet.getPoints()));
+		tv_points.setText("所需积分：" + commoditySet.getPoints());
+		
+		tv_product_detail.setText(Html.fromHtml(commoditySet.getDescription()));
 	}
 	
 	Button mPreSelectedBt;
@@ -182,26 +208,59 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-
+				
 			}
 
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-
+				
 			}
 		});
 	}
 	
 	@Override
 	public void onClick(View v) {
+		String shoppingnum;
 		switch (v.getId()) {
+		case R.id.iv_shopping_minus:
+			shoppingnum = et_shoppingnum.getText().toString();
+			if (!TextUtils.isEmpty(shoppingnum) && !shoppingnum.equals("0")) {
+				et_shoppingnum.setText(Integer.toString(Integer.parseInt(shoppingnum) - 1));
+			}
+			break;
+		case R.id.iv_shopping_plus:
+			shoppingnum = et_shoppingnum.getText().toString();
+			if (!TextUtils.isEmpty(shoppingnum) && !shoppingnum.equals("9999")) {
+				et_shoppingnum.setText(Integer.toString(Integer.parseInt(shoppingnum) + 1));
+			}
+			break;
+		case R.id.btn_shopping:
+			shoppingnum = et_shoppingnum.getText().toString();
+			if (TextUtils.isEmpty(shoppingnum)) {
+				Toast.show(self, "请输入订单数量！");
+				return;
+			}
+			Intent intent = new Intent();
+			intent.setClass(self, OrderConfirmActivity.class);
+			intent.putExtra(EXTRA_SHOPPINGNUM, shoppingnum);
+			intent.putExtra(EXTRA_COMMODITYSET, commoditySet);
+			startActivity(intent);
+			break;
 		case R.id.tv_ret:
 			finish();
 			break;
 		default:
 			break;
 		}
+	}
+	
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 }

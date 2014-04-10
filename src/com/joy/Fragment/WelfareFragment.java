@@ -40,10 +40,12 @@ public class WelfareFragment extends QFragment {
 	private TextView tv_title;
 	private ListView mListView;
 	private WelfareAdapter mAdapter;
+	WelfareFragment self;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		self = this;
 		View v = inflater.inflate(R.layout.fragment_welfare, container, false);
 		initView(v);
 		
@@ -73,7 +75,7 @@ public class WelfareFragment extends QFragment {
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
 			public void onOperationFinished(List<Object> resList) {
-				if (mActivity.isFinishing()) {
+				if (!self.isResumed()) {
 					return;
 				}
 				if (resList == null) {

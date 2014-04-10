@@ -24,6 +24,7 @@ import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.ChangePwdEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.ChangePwdOp;
+import com.umeng.analytics.MobclickAgent;
 
 public class ChangePwdActivity extends QActivity implements OnClickListener {
 	
@@ -147,5 +148,15 @@ public class ChangePwdActivity extends QActivity implements OnClickListener {
 		JsonCommon task = new JsonCommon(self, builder, listener,
 				JsonCommon.PROGRESSCOMMIT);
 		task.execute();
+	}
+	
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 }

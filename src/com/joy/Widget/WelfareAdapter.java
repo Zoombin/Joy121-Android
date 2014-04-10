@@ -147,20 +147,15 @@ public class WelfareAdapter extends BaseAdapter {
 			holder.tv_content.setVisibility(View.VISIBLE);
 			holder.btn_buy.setVisibility(View.VISIBLE);
 			holder.layout_type.setTag(entity.getId());
-			holder.btn_buy.setTag(entity.getId());
+			holder.btn_buy.setTag(entity);
 			
 			// 加载头像
-			{
-				DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-						.cacheInMemory(true).cacheOnDisc(true)
-						.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-						.build();
-				if (entity.getAppPicture() != null) {
-					ImageLoader.getInstance().displayImage(
-							Constants.IMGSURL + entity.getPicture(),
-							holder.iv_icon, defaultOptions);
-				}
+			if (entity.getAppPicture() != null) {
+				ImageLoader.getInstance().displayImage(
+						Constants.IMGSURL + entity.getPicture(),
+						holder.iv_icon);
 			}
+
 			holder.tv_name.setText(entity.getSetName());
 			holder.tv_content.setText("描    述：" + Html.fromHtml(entity.getDescription()));
 		}
@@ -179,6 +174,8 @@ public class WelfareAdapter extends BaseAdapter {
 				mContext.startActivity(intent);
 				break;
 			case R.id.btn_buy:
+				
+				intent.putExtra(OrderDetailActivity.EXTRA_COMMODITYSET, (CommoditySet) v.getTag());
 				intent.setClass(mContext, OrderConfirmActivity.class);
 				mContext.startActivity(intent);
 				break;

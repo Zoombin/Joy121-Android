@@ -17,6 +17,16 @@ public class JoyApplication extends QApplication {
 
 	private static JoyApplication self;
 
+	private UserInfoEntity userinfo;
+
+	public UserInfoEntity getUserinfo() {
+		return userinfo;
+	}
+
+	public void setUserinfo(UserInfoEntity userinfo) {
+		this.userinfo = userinfo;
+	}
+
 	public static JoyApplication getSelf() {
 		return self;
 	}
@@ -35,6 +45,10 @@ public class JoyApplication extends QApplication {
 		self = this;
 
 		createCache();
+		UIAdapter.setSize(480, 800);
+		PLog.setDebug(true);
+
+		new HttpUtils().configTimeout(5000);
 	}
 
 	private void createCache() {
@@ -50,9 +64,5 @@ public class JoyApplication extends QApplication {
 		// default
 		ImageLoader.getInstance().init(config);
 		// 设置屏幕基准分辨率
-		UIAdapter.setSize(480, 800);
-		PLog.setDebug(true);
-
-		new HttpUtils().configTimeout(5000);
 	}
 }

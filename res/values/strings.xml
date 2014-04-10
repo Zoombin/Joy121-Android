@@ -54,5 +54,20 @@
 
 	<!-- orderdetail -->
 	<string name="addshoppting">加入购物车</string>
+	<string name="producttitle">商品描述</string>
+	
+	<!-- orderconfirm -->
+	<string name="orderconfirm">提交订单</string>
+	<string name="peisonginfo">配送信息</string>
+	<string name="beizhu">备注信息</string>
+	<string name="confirm">确认</string>
+	<string name="product">商品信息</string>
+	<string name="input_beizhu">在此输入备注信息</string>
+	<string name="receiver_title">收货人：</string>
+	<string name="recAdd_title">收货地址：</string>
+	<string name="recPhone_title">联系电话：</string>
+	<string name="request_points_title">合计所需积分：</string>
+	<string name="total_points_title">您的剩余积分：</string>
+	
 	
 </resources>

@@ -22,6 +22,7 @@ import com.joy.json.model.PointEntity;
 import com.joy.json.model.UserPointsHisEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.Point_hisOp;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * 积分历史
@@ -112,5 +113,15 @@ public class HisPointsActivity extends QActivity implements OnClickListener {
 		default:
 			break;
 		}
+	}
+	
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 }

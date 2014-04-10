@@ -26,6 +26,7 @@ import com.joy.Fragment.LifeFragment;
 import com.joy.Fragment.MallFragment;
 import com.joy.Fragment.PersonalFragment;
 import com.joy.Fragment.WelfareFragment;
+import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends QActivity {
 
@@ -65,7 +66,8 @@ public class MainActivity extends QActivity {
 		// 实例化TabHost对象，得到TabHost
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup(self, getSupportFragmentManager(), R.id.layout_fragment);
-		uiAdapter.setMargin(mTabHost, LayoutParams.MATCH_PARENT, 76, 0, 0, 0, 0);
+		uiAdapter
+				.setMargin(mTabHost, LayoutParams.MATCH_PARENT, 76, 0, 0, 0, 0);
 		uiAdapter.setPadding(mTabHost, 0, 0, 0, 0);
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
 
@@ -130,5 +132,15 @@ public class MainActivity extends QActivity {
 
 		tabViewItem.put(getString(mTextviewArray[index]), view);
 		return view;
+	}
+
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
 	}
 }
