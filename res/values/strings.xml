@@ -42,6 +42,7 @@
 	<string name="username_title">用户名：</string>
 	<string name="cellnumber_title">手        机：</string>
 	<string name="createtime_title">注册日期：</string>
+	<string name="personalinfo">个人档案</string>
 	
 	<!-- welfare -->
 	<string name="buy">直 接 订 购</string>
@@ -57,12 +58,11 @@
 	
 	<!-- orderconfirm -->
 	<string name="orderconfirm">提交订单</string>
-	<string name="peisonginfo">配送信息</string>
+	<string name="receiverinfo">收货信息</string>
 	<string name="beizhu">备注信息</string>
-	<string name="confirm">确认</string>
 	<string name="product">商品信息</string>
 	<string name="input_beizhu">在此输入备注信息</string>
-	<string name="receiver_title">收货人：</string>
+	<string name="receiver_title">收&#160;&#160;货&#160;&#160;人：</string>
 	<string name="recAdd_title">收货地址：</string>
 	<string name="recPhone_title">联系电话：</string>
 	<string name="request_points_title">合计所需积分：</string>

@@ -67,6 +67,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/field"
                     android:hint="@string/hint_pwd"
+                    android:inputType="textPassword"
                     android:singleLine="true"
                     android:textColor="@color/BLACK" />
             </LinearLayout>

@@ -65,7 +65,7 @@ public class UserOrderEntity extends TResult {
 
 	private int Satisfy;
 
-	private int points;
+	private int Points;
 
 	private String OrderProcessRemark;
 
@@ -224,11 +224,11 @@ public class UserOrderEntity extends TResult {
 	}
 
 	public int getPoints() {
-		return points;
+		return Points;
 	}
 
 	public void setPoints(int points) {
-		this.points = points;
+		Points = points;
 	}
 
 	public String getOrderProcessRemark() {

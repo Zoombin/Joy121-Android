@@ -1,13 +1,9 @@
 package com.joy.Utils;
 
-import gejw.android.quickandroid.widget.Toast;
-
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,7 +15,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
@@ -33,20 +28,17 @@ import com.joy.R;
 public class UpdateManager {
 
 	private Context mContext;
-	
-	// 获取服务器版本url
-	private final String URL_UPDATE = "http://app.sunlighten.com/sunlight111.php";
-	
+
 	//返回的安装包url
-	private String apkUrl = "http://app.sunlighten.com/Sunlighten.apk";
+	private String apkUrl = "http://www.joy121.com/sys/app/joy.apk";
 	
 	private Dialog noticeDialog;
 	
 	private Dialog downloadDialog;
 	 /* 下载包安装路径 */
-    private static final String savePath = Environment.getExternalStorageDirectory().getPath() + "/121/update/";
+    private static final String savePath = Environment.getExternalStorageDirectory().getPath() + "/joy/update/";
 
-    private static String saveFileName = "Sunlighten.apk";
+    private static String saveFileName = "joy.apk";
     
     /* 进度条与通知ui刷新的handler和msg常量 */
     private ProgressBar mProgress;
@@ -62,8 +54,6 @@ public class UpdateManager {
     private Thread downLoadThread;
     
     private boolean interceptFlag = false;
-    
-    private Resources resource;
     
     private Handler mHandler = new Handler(){
     	public void handleMessage(Message msg) {
@@ -85,69 +75,7 @@ public class UpdateManager {
     
 	public UpdateManager(Context context) {
 		this.mContext = context;
-		resource = context.getResources();
 	}
-	
-    public void checkUpdate() {
-		downLoadThread = new Thread(mupcheckRunnable);
-		downLoadThread.start();
-    }
-    
-	private Runnable mupcheckRunnable = new Runnable() {
-		@Override
-		public void run() {
-	    	HttpURLConnection l_connection = null;
-			StringBuffer sTotalString = new StringBuffer();
-			BufferedReader l_reader = null;
-			try {
-				URL l_url = new URL(URL_UPDATE);
-				l_connection = (HttpURLConnection) l_url.openConnection();
-				l_connection.connect();
-				InputStream l_urlStream = l_connection.getInputStream();
-				l_reader = new BufferedReader(new InputStreamReader(l_urlStream, "utf-8"), 8192);
-				String sCurrentLine = "";
-				while ((sCurrentLine = l_reader.readLine()) != null) {
-					sTotalString.append(sCurrentLine);
-				}
-				String version = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0).versionName;
-				if (sTotalString.equals("")) {
-					handler.sendEmptyMessage(4);
-					return;
-				}
-				String lastversion = sTotalString.toString();
-				Message e = new Message();
-				e.what = 2;
-				e.obj = lastversion;
-				handler.sendMessage(e);
-				if (!lastversion.equals(version)) {
-//					showNoticeDialog();
-					handler.sendEmptyMessage(1);
-					return;
-				} else {
-					return;
-				}
-			} catch (Exception ex1) {
-				handler.sendEmptyMessage(3);
-				ex1.printStackTrace();
-				return;
-			} finally {
-				l_connection.disconnect();
-			}
-		}
-	};
-
-	Handler handler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			if (msg.what == 1) {
-				showNoticeDialog();
-			} else if (msg.what == 3) {
-				Toast.show(mContext, "连接超时！");
-			} else if (msg.what == 4) {
-				Toast.show(mContext, "该软件是最新版本！");
-			}
-		}
-	};
 	
 	public void showNoticeDialog(){
 		AlertDialog.Builder builder = new Builder(mContext);

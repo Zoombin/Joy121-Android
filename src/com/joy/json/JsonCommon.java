@@ -19,6 +19,7 @@ public class JsonCommon extends AsyncTask<Void, Void, List<Object>> {
 	public static final String PROGRESSQUERY = "正在查询，请稍等......";
 	public static final String PROGRESSLOGIN = "正在登录，请稍等......";
 	public static final String PROGRESSCOMMIT = "正在提交，请稍等......";
+	public static final String PROGRESSUPDATE = "正在检查，请稍等......";
 	
 	public interface OnOperationListener {
 		void onOperationFinished(List<Object> resList);

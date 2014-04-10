@@ -40,7 +40,7 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
 	private TextView tv_title;
-	private ImageView iv_location;
+	private TextView tv_receiverinfo;
 	private TextView tv_receiver_title;
 	private TextView tv_recAdd_title;
 	private TextView tv_recPhone_title;
@@ -48,12 +48,8 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 	private TextView tv_recAdd;
 	private TextView tv_recPhone;
 	private ImageView iv_arrowright;
-	private TextView tv_peisonginfo_title;
-	private TextView tv_setname;
-	private TextView tv_appdescription;
 	private TextView tv_beizhu_title;
 	private EditText et_beizhu;
-	private Button btn_confirm;
 	private TextView tv_product_title;
 	private LinearLayout layout_points;
 	private TextView tv_request_points_title;
@@ -89,20 +85,25 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 		
-		iv_location = (ImageView) findViewById(R.id.iv_location);
-		uiAdapter.setMargin(iv_location, 50, uiAdapter.CalcHeight(50, 16, 28), 20, 10, 20, 10);
+		tv_receiverinfo = (TextView) findViewById(R.id.tv_receiverinfo);
+		uiAdapter.setTextSize(tv_receiverinfo, 18);
+		uiAdapter.setPadding(tv_receiverinfo, 20, 10, 0, 5);
 		
 		tv_receiver_title = (TextView) findViewById(R.id.tv_receiver_title);
 		uiAdapter.setTextSize(tv_receiver_title, 18);
+		uiAdapter.setMargin(tv_receiver_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 30, 10, 0, 0);
 		
 		tv_recAdd_title = (TextView) findViewById(R.id.tv_recAdd_title);
 		uiAdapter.setTextSize(tv_recAdd_title, 18);
+		uiAdapter.setMargin(tv_recAdd_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 30, 0, 0, 0);
 		
 		tv_recPhone_title = (TextView) findViewById(R.id.tv_recPhone_title);
 		uiAdapter.setTextSize(tv_recPhone_title, 18);
+		uiAdapter.setMargin(tv_recPhone_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 30, 0, 0, 10);
 		
 		tv_receiver = (TextView) findViewById(R.id.tv_receiver);
 		uiAdapter.setTextSize(tv_receiver, 18);
+		uiAdapter.setMargin(tv_receiver, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 10, 0, 0);
 		
 		tv_recAdd = (TextView) findViewById(R.id.tv_recAdd);
 		uiAdapter.setTextSize(tv_recAdd, 18);
@@ -113,18 +114,6 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 		iv_arrowright = (ImageView) findViewById(R.id.iv_arrowright);
 		uiAdapter.setMargin(iv_arrowright, 15, uiAdapter.CalcHeight(15, 16, 28), 0, 0, 10, 0);
 		
-		tv_peisonginfo_title = (TextView) findViewById(R.id.tv_peisonginfo_title);
-		uiAdapter.setTextSize(tv_peisonginfo_title, 18);
-		uiAdapter.setPadding(tv_peisonginfo_title, 20, 10, 0, 5);
-		
-		tv_setname = (TextView) findViewById(R.id.tv_setname);
-		uiAdapter.setTextSize(tv_setname, 18);
-		uiAdapter.setMargin(tv_setname, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 30, 10, 30, 0);
-		
-		tv_appdescription = (TextView) findViewById(R.id.tv_appdescription);
-		uiAdapter.setTextSize(tv_appdescription, 18);
-		uiAdapter.setMargin(tv_appdescription, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 30, 10, 30, 20);
-		
 		tv_beizhu_title = (TextView) findViewById(R.id.tv_beizhu_title);
 		uiAdapter.setTextSize(tv_beizhu_title, 18);
 		uiAdapter.setPadding(tv_beizhu_title, 20, 10, 0, 5);
@@ -134,15 +123,35 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 		uiAdapter.setMargin(et_beizhu, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 60, 10, 10, 10);
 		uiAdapter.setPadding(et_beizhu, 10, 0, 10, 0);
 		
-		btn_confirm = (Button) findViewById(R.id.btn_confirm);
-		uiAdapter.setMargin(btn_confirm, 70, uiAdapter.CalcHeight(70, 62, 24), 0, 0, 10, 10);
-		btn_confirm.setOnClickListener(this);
-		
 		tv_product_title = (TextView) findViewById(R.id.tv_product_title);
 		uiAdapter.setTextSize(tv_product_title, 18);
 		uiAdapter.setPadding(tv_product_title, 20, 10, 0, 5);
 		
 		layout_points = (LinearLayout) findViewById(R.id.layout_points);
+		uiAdapter.setMargin(layout_points, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 60, 10, 10, 10);
+		uiAdapter.setPadding(layout_points, 10, 10, 10, 40);
+		
+		RelativeLayout l = new RelativeLayout(self);
+
+		TextView tv_setname = new TextView(self);
+		tv_setname.setText(commoditySet.getSetName());
+		uiAdapter.setTextSize(tv_setname, 18);
+		RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(  
+		        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		layoutParams1.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		tv_setname.setLayoutParams(layoutParams1);
+		l.addView(tv_setname);
+		
+		TextView tv_point = new TextView(self);
+		tv_point.setText(commoditySet.getPoints() + "×1");
+		uiAdapter.setTextSize(tv_point, 18);
+		RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams(  
+		        LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		layoutParams2.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		tv_point.setLayoutParams(layoutParams2);
+		l.addView(tv_point);
+		
+		layout_points.addView(l);
 		
 		tv_request_points_title = (TextView) findViewById(R.id.tv_request_points_title);
 		uiAdapter.setTextSize(tv_request_points_title, 18);
@@ -171,13 +180,9 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 		if (userinfo != null) { 
 			tv_receiver.setText(userinfo.getUserName());
 			
-			tv_recAdd.setText(userinfo.getCompanyName());
+			tv_recAdd.setText(userinfo.getCompAddr());
 			
 			tv_recPhone.setText(userinfo.getCellNumber());
-			
-			tv_setname.setText(commoditySet.getSetName());
-			
-			tv_appdescription.setText(Html.fromHtml(commoditySet.getDescription()));
 			
 			tv_request_points.setText(commoditySet.getPoints() + "");
 			
@@ -190,10 +195,6 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.tv_ret:
 			finish();
-			break;
-		case R.id.btn_confirm:
-			et_beizhu.setFocusable(false);
-			btn_confirm.setVisibility(View.GONE);
 			break;
 		case R.id.btn_orderconfirm:
 			orderSubmit();

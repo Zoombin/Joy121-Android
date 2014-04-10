@@ -96,7 +96,7 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 		
 		btn_shopping = (Button) findViewById(R.id.btn_shopping);
 		btn_shopping.setOnClickListener(this);
-		uiAdapter.setMargin(btn_shopping, 160, 40, 160, 20, 0, 20);
+		uiAdapter.setMargin(btn_shopping, 160, 40, 140, 20, 0, 20);
 		uiAdapter.setTextSize(btn_shopping, 20);
 		
 		tv_product_title = (TextView) findViewById(R.id.tv_product_title);
