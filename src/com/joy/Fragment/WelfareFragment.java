@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ import com.joy.json.operation.impl.Fp_benefitOp;
 public class WelfareFragment extends QFragment {
 
 	private RelativeLayout layout_title;
+	private ImageView iv_title;
 	private TextView tv_title;
 	private ListView mListView;
 	private WelfareAdapter mAdapter;
@@ -55,7 +57,10 @@ public class WelfareFragment extends QFragment {
 
 	private void initView(View v) {
 		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, 74, 0, 0, 0, 0);
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
+		
+		iv_title = (ImageView) v.findViewById(R.id.iv_title);
+		uiAdapter.setMargin(iv_title, Constants.TitleIvWidth, Constants.TitleIvWidth, 10, 0, 10, 0);
 		
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);

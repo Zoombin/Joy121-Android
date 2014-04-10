@@ -6,17 +6,21 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,10 +46,12 @@ import com.joy.json.operation.impl.PicOp;
  * @author daiye
  * 
  */
-public class HomeFragment extends QFragment {
+public class HomeFragment extends QFragment implements OnClickListener {
 
 	private RelativeLayout layout_title;
+	private ImageView iv_title;
 	private TextView tv_title;
+	private ImageView iv_phone;
 	private ViewPager viewpager;
 	private LinearLayout mNumLayout;
 	private GridView grid_select;
@@ -60,7 +66,7 @@ public class HomeFragment extends QFragment {
 		View v = inflater.inflate(R.layout.fragment_home, container, false);
 
 		resources = getResources();
-
+		
 		initView(v);
 
 		getPicList();
@@ -70,12 +76,19 @@ public class HomeFragment extends QFragment {
 
 	private void initView(View v) {
 		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, 74, 0, 0,
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
 				0, 0);
 
+		iv_title = (ImageView) v.findViewById(R.id.iv_title);
+		uiAdapter.setMargin(iv_title, Constants.TitleIvWidth, Constants.TitleIvWidth, 10, 0, 10, 0);
+		
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 
+		iv_phone = (ImageView) v.findViewById(R.id.iv_phone);
+		uiAdapter.setMargin(iv_phone, 28, 28, 0, 0, 30, 0);
+		iv_phone.setOnClickListener(this);
+		
 		viewpager = (ViewPager) v.findViewById(R.id.viewpager);
 		uiAdapter.setMargin(viewpager, LayoutParams.MATCH_PARENT, 228, 0, 0, 0,
 				0);
@@ -84,7 +97,7 @@ public class HomeFragment extends QFragment {
 		uiAdapter.setMargin(mNumLayout, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 190, 0, 0);
 		
 		grid_select = (GridView) v.findViewById(R.id.grid_select);
-
+		uiAdapter.setMargin(grid_select, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 0, 10, 0, 0);
 		ArrayList<GridViewEntity> data = new ArrayList<GridViewEntity>();
 
 		// onlineinquery
@@ -116,7 +129,7 @@ public class HomeFragment extends QFragment {
 		grid_select.setAdapter(new GridViewAdapter(mActivity, data));
 		
 		tv_mywelfare = (TextView) v.findViewById(R.id.tv_mywelfare);
-		uiAdapter.setMargin(tv_mywelfare, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 20, 0, 10);
+		uiAdapter.setMargin(tv_mywelfare, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 10, 0, 10);
 		uiAdapter.setPadding(tv_mywelfare, 40, 5, 40, 5);
 		
 		grid_welfare = (GridView) v.findViewById(R.id.grid_welfare);
@@ -241,4 +254,18 @@ public class HomeFragment extends QFragment {
 			new Handler().postDelayed(r, 5000);
 		}
 	};
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.iv_phone:
+			// 跳转到拨号面板
+			Uri uri = Uri.parse("tel:4008558121");
+			Intent intent = new Intent(Intent.ACTION_DIAL, uri);     
+			startActivity(intent);
+			break;
+		default:
+			break;
+		}
+	}
 }

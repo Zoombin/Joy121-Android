@@ -43,7 +43,6 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 	
 	private int commsetid;
 	public static final String EXTRA_COMMSETID = "commsetid";
-	public static final String EXTRA_SHOPPINGNUM = "shoppingnum";
 	public static final String EXTRA_COMMODITYSET = "commoditySet";
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
@@ -51,11 +50,7 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 	private TextView tv_setname;
 	private ViewPager viewpager;
 	private LinearLayout mNumLayout;
-	private ImageView iv_shop;
 	private TextView tv_points;
-	private ImageView iv_shopping_minus;
-	private EditText et_shoppingnum;
-	private ImageView iv_shopping_plus;
 	private Button btn_shopping;
 	private TextView tv_product_title;
 	private TextView tv_product_detail;
@@ -74,7 +69,7 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, 74, 0, 0, 0, 0);
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
 
 		tv_ret = (TextView) findViewById(R.id.tv_ret);
 		tv_ret.setOnClickListener(this);
@@ -86,38 +81,23 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 		
 		tv_setname = (TextView) findViewById(R.id.tv_setname);
 		uiAdapter.setTextSize(tv_setname, 20);
-		uiAdapter.setMargin(tv_setname, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 0, 10, 0, 5);
+		uiAdapter.setPadding(tv_setname, 0, 10, 0, 5);
 		
 		viewpager = (ViewPager) findViewById(R.id.viewpager);
-		uiAdapter.setMargin(viewpager, LayoutParams.MATCH_PARENT, 228, 10, 0, 10,
+		uiAdapter.setMargin(viewpager, LayoutParams.MATCH_PARENT, 224, 0, 0, 0,
 				0);
 
 		mNumLayout = (LinearLayout) findViewById(R.id.ll_pager_num);
-		uiAdapter.setMargin(mNumLayout, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 190, 0, 0);
-		
-		iv_shop = (ImageView) findViewById(R.id.iv_shop);
-		uiAdapter.setMargin(iv_shop, 60, uiAdapter.CalcHeight(60, 79, 70), 20, 0, 20, 0);
+		uiAdapter.setMargin(mNumLayout, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 200, 0, 0);
 		
 		tv_points = (TextView) findViewById(R.id.tv_points);
 		uiAdapter.setTextSize(tv_points, 20);
-		
-		iv_shopping_minus = (ImageView) findViewById(R.id.iv_shopping_minus);
-		iv_shopping_minus.setOnClickListener(this);
-		uiAdapter.setMargin(iv_shopping_minus, 40, 40, 0, 10, 10, 10);
-		
-		et_shoppingnum = (EditText) findViewById(R.id.et_shoppingnum);
-		uiAdapter.setMargin(et_shoppingnum, LayoutParams.WRAP_CONTENT, 50, 0, 10, 0, 10);
-		uiAdapter.setTextSize(et_shoppingnum, 20);
-		
-		iv_shopping_plus = (ImageView) findViewById(R.id.iv_shopping_plus);
-		iv_shopping_plus.setOnClickListener(this);
-		uiAdapter.setMargin(iv_shopping_plus, 40, 40, 10, 10, 10, 10);
+		uiAdapter.setMargin(tv_points, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
 		
 		btn_shopping = (Button) findViewById(R.id.btn_shopping);
 		btn_shopping.setOnClickListener(this);
-		uiAdapter.setMargin(btn_shopping, 160, 70, 20, 0, 20, 0);
+		uiAdapter.setMargin(btn_shopping, 160, 40, 160, 20, 0, 20);
 		uiAdapter.setTextSize(btn_shopping, 20);
-		uiAdapter.setPadding(btn_shopping, 45, 0, 0, 0);
 		
 		tv_product_title = (TextView) findViewById(R.id.tv_product_title);
 		uiAdapter.setTextSize(tv_product_title, 20);
@@ -220,29 +200,10 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
-		String shoppingnum;
 		switch (v.getId()) {
-		case R.id.iv_shopping_minus:
-			shoppingnum = et_shoppingnum.getText().toString();
-			if (!TextUtils.isEmpty(shoppingnum) && !shoppingnum.equals("0")) {
-				et_shoppingnum.setText(Integer.toString(Integer.parseInt(shoppingnum) - 1));
-			}
-			break;
-		case R.id.iv_shopping_plus:
-			shoppingnum = et_shoppingnum.getText().toString();
-			if (!TextUtils.isEmpty(shoppingnum) && !shoppingnum.equals("9999")) {
-				et_shoppingnum.setText(Integer.toString(Integer.parseInt(shoppingnum) + 1));
-			}
-			break;
 		case R.id.btn_shopping:
-			shoppingnum = et_shoppingnum.getText().toString();
-			if (TextUtils.isEmpty(shoppingnum)) {
-				Toast.show(self, "请输入订单数量！");
-				return;
-			}
 			Intent intent = new Intent();
 			intent.setClass(self, OrderConfirmActivity.class);
-			intent.putExtra(EXTRA_SHOPPINGNUM, shoppingnum);
 			intent.putExtra(EXTRA_COMMODITYSET, commoditySet);
 			startActivity(intent);
 			break;

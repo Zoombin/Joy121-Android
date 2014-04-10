@@ -21,9 +21,7 @@ import com.joy.R;
 import com.joy.Activity.OrderDetailActivity;
 import com.joy.Utils.Constants;
 import com.joy.json.model.CommoditySet;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 /**
  * gridview适配器
@@ -61,7 +59,7 @@ public class HomeWelfareGridViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		CommoditySet entity = data.get(position);
+		final CommoditySet entity = data.get(position);
 		ViewHolder holder;
 
 		if (convertView == null) {
@@ -72,11 +70,19 @@ public class HomeWelfareGridViewAdapter extends BaseAdapter {
 
 			holder.layout_welfare_item = (LinearLayout) convertView
 					.findViewById(R.id.layout_welfare_item);
+			holder.layout_welfare_item.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent();
+					intent.putExtra(OrderDetailActivity.EXTRA_COMMSETID, entity.getId());
+					intent.setClass(mContext, OrderDetailActivity.class);
+					mContext.startActivity(intent);
+				}
+			});
 			
 			holder.img_icon = (ImageView) convertView
 					.findViewById(R.id.img_icon);
-			holder.img_icon.setTag(entity.getId());
-			holder.img_icon.setOnClickListener(clicklistener);
 			if (entity.getAppPicture() != null) {
 				ImageLoader.getInstance().displayImage(
 						Constants.IMGSURL + entity.getPicture(),
@@ -113,22 +119,4 @@ public class HomeWelfareGridViewAdapter extends BaseAdapter {
 		TextView tv_typename;
 		TextView tv_appdescription;
 	}
-	
-	
-	OnClickListener clicklistener = new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			switch (v.getId()) {
-			case R.id.img_icon:
-				Intent intent = new Intent();
-				intent.putExtra(OrderDetailActivity.EXTRA_COMMSETID, (Integer) v.getTag());
-				intent.setClass(mContext, OrderDetailActivity.class);
-				mContext.startActivity(intent);
-				break;
-			default:
-				break;
-			}
-		}
-	};
 }

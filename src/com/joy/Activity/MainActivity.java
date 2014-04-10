@@ -3,15 +3,20 @@ package com.joy.Activity;
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.bmp.BmpUtils;
 import gejw.android.quickandroid.utils.ResName2ID;
+import gejw.android.quickandroid.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentTabHost;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -143,4 +148,37 @@ public class MainActivity extends QActivity {
 		super.onPause();
 		MobclickAgent.onPause(this);
 	}
+
+	boolean isExit;
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			exit();
+			return false;
+		} else {
+			return super.onKeyDown(keyCode, event);
+		}
+	}
+
+	public void exit() {
+		if (!isExit) {
+			isExit = true;
+			Toast.show(self, "再按一次退出程序");
+			mHandler.sendEmptyMessageDelayed(0, 2000);
+		} else {
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			startActivity(intent);
+			System.exit(0);
+		}
+	}
+
+	Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			isExit = false;
+		}
+	};
 }

@@ -48,7 +48,7 @@ public class HisPointsActivity extends QActivity implements OnClickListener {
 
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, 74, 0, 0,
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
 				0, 0);
 
 		tv_ret = (TextView) findViewById(R.id.tv_ret);

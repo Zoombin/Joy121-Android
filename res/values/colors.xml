@@ -5,6 +5,8 @@
     
     <color name="red">#FF0000</color>
     
+    <color name="title_bg">#ffa800</color>
+    
     <!-- 用户名密码背景色 -->
     <color name="login_user_pwd">#ff9104</color>
     

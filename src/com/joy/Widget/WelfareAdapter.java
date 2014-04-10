@@ -25,9 +25,7 @@ import com.joy.Activity.OrderConfirmActivity;
 import com.joy.Activity.OrderDetailActivity;
 import com.joy.Utils.Constants;
 import com.joy.json.model.CommoditySet;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class WelfareAdapter extends BaseAdapter {
 
@@ -71,7 +69,7 @@ public class WelfareAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		CommoditySet entity = data.get(position);
+		final CommoditySet entity = data.get(position);
 
 		ViewHolder holder;
 		if (convertView == null) {
@@ -97,7 +95,6 @@ public class WelfareAdapter extends BaseAdapter {
 
 			holder.layout_type = (LinearLayout) convertView
 					.findViewById(R.id.layout_type);
-			holder.layout_type.setOnClickListener(clicklistener);
 			
 			// 图片
 			holder.iv_icon = (ImageView) convertView.findViewById(R.id.iv_icon);
@@ -129,10 +126,7 @@ public class WelfareAdapter extends BaseAdapter {
 
 		if (entity.getSetType() == null) {
 			holder.layout_title.setVisibility(View.VISIBLE);
-			holder.iv_icon.setVisibility(View.GONE);
 			holder.layout_type.setVisibility(View.GONE);
-			holder.tv_content.setVisibility(View.GONE);
-			holder.btn_buy.setVisibility(View.GONE);
 			
 			holder.tv_title.setText(entity.getSetName());
 			SimpleDateFormat sdf= new SimpleDateFormat("yyyy.MM.dd");
@@ -142,11 +136,17 @@ public class WelfareAdapter extends BaseAdapter {
 					+ expireDate);
 		} else {
 			holder.layout_title.setVisibility(View.GONE);
-			holder.iv_icon.setVisibility(View.VISIBLE);
 			holder.layout_type.setVisibility(View.VISIBLE);
-			holder.tv_content.setVisibility(View.VISIBLE);
-			holder.btn_buy.setVisibility(View.VISIBLE);
-			holder.layout_type.setTag(entity.getId());
+			holder.layout_type.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent();
+					intent.putExtra(OrderDetailActivity.EXTRA_COMMSETID, entity.getId());
+					intent.setClass(mContext, OrderDetailActivity.class);
+					mContext.startActivity(intent);
+				}
+			});
 			holder.btn_buy.setTag(entity);
 			
 			// 加载头像
@@ -166,15 +166,9 @@ public class WelfareAdapter extends BaseAdapter {
 		
 		@Override
 		public void onClick(View v) {
-			Intent intent = new Intent();
 			switch (v.getId()) {
-			case R.id.layout_type:
-				intent.putExtra(OrderDetailActivity.EXTRA_COMMSETID, (Integer) v.getTag());
-				intent.setClass(mContext, OrderDetailActivity.class);
-				mContext.startActivity(intent);
-				break;
 			case R.id.btn_buy:
-				
+				Intent intent = new Intent();
 				intent.putExtra(OrderDetailActivity.EXTRA_COMMODITYSET, (CommoditySet) v.getTag());
 				intent.setClass(mContext, OrderConfirmActivity.class);
 				mContext.startActivity(intent);

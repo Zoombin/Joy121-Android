@@ -92,21 +92,8 @@
                     android:text="@string/atuologin"
                     android:textColor="@color/BLACK" />
 
-                <TextView
-                    android:id="@+id/tv_register"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/register"
-                    android:textColor="@color/BLACK" />
             </LinearLayout>
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:src="@drawable/logo" />
 
         <TextView
             android:id="@+id/tv_consult"

@@ -44,6 +44,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class PersonalFragment extends QFragment implements OnClickListener {
 
 	private RelativeLayout layout_title;
+	private ImageView iv_title;
 	private TextView tv_title;
 	private LinearLayout layout_personinfo;
 	private TextView tv_name;
@@ -100,9 +101,12 @@ public class PersonalFragment extends QFragment implements OnClickListener {
 		layout_personal_info = (LinearLayout) v.findViewById(R.id.layout_personal_info);
 		
 		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, 74, 0, 0,
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
 				0, 0);
 
+		iv_title = (ImageView) v.findViewById(R.id.iv_title);
+		uiAdapter.setMargin(iv_title, Constants.TitleIvWidth, Constants.TitleIvWidth, 10, 0, 10, 0);
+		
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 

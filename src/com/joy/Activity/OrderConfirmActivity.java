@@ -37,7 +37,6 @@ import com.umeng.analytics.MobclickAgent;
  */
 public class OrderConfirmActivity extends QActivity implements OnClickListener {
 	
-	private String shoppingnum;
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
 	private TextView tv_title;
@@ -71,7 +70,6 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 		setContentView(R.layout.activity_orderconfirm);
 		
 		Intent intent = getIntent();
-		shoppingnum = intent.getStringExtra(OrderDetailActivity.EXTRA_SHOPPINGNUM);
 		commoditySet = (CommoditySet) intent.getSerializableExtra(OrderDetailActivity.EXTRA_COMMODITYSET);
 		userinfo = JoyApplication.getInstance().getUserinfo();
 		
@@ -81,7 +79,7 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, 74, 0, 0, 0, 0);
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
 
 		tv_ret = (TextView) findViewById(R.id.tv_ret);
 		tv_ret.setOnClickListener(this);

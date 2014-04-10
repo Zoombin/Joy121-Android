@@ -8,7 +8,6 @@
 	<string name="hint_user">请输入用户名</string>
 	<string name="hint_pwd">请输入密码</string>
 	<string name="atuologin">自动登录</string>
-	<string name="register">新用户注册</string>
 	<string name="toast_login_empty">请输入用户名和密码！</string>
 	<string name="toast_login_error">用户名或密码错误！</string>
 	<string name="consult">有疑问请咨询：400-8558-121</string>
@@ -53,7 +52,7 @@
 	<string name="comfirmnewpwd">确认新密码</string>
 
 	<!-- orderdetail -->
-	<string name="addshoppting">加入购物车</string>
+	<string name="addshoppting">订购</string>
 	<string name="producttitle">商品描述</string>
 	
 	<!-- orderconfirm -->
@@ -68,6 +67,5 @@
 	<string name="recPhone_title">联系电话：</string>
 	<string name="request_points_title">合计所需积分：</string>
 	<string name="total_points_title">您的剩余积分：</string>
-	
 	
 </resources>
