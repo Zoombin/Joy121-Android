@@ -7,7 +7,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -25,6 +24,7 @@ import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CommoditySet;
 import com.joy.json.model.OrderSubmitEntity;
+import com.joy.json.model.OrderSubmitEntity.SubmitRet;
 import com.joy.json.model.UserInfoEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.OrderSubmitOp;
@@ -180,7 +180,7 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 		if (userinfo != null) { 
 			tv_receiver.setText(userinfo.getUserName());
 			
-			tv_recAdd.setText(userinfo.getCompAddr());
+			tv_recAdd.setText(userinfo.getCompanyInfo().getCompAddr());
 			
 			tv_recPhone.setText(userinfo.getCellNumber());
 			
@@ -231,12 +231,12 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 					return;
 				}
 				OrderSubmitEntity entity = (OrderSubmitEntity) resList.get(0);
-				String result = entity.getRetobj();
-				if (result == null || result.equals("1")) {
+				SubmitRet result = entity.getRetobj();
+				if (result != null && result.getStatusFlag().equals("1")) {
 					Toast.show(self, "提交订单成功！");
 					finish();
 				} else {
-					Toast.show(self, "提交订单失败！");
+					Toast.show(self, result.getStatusRemark());
 				}
 			}
 

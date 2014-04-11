@@ -20,13 +20,58 @@ public class OrderSubmitEntity extends TResult {
 
 	private String recPhone;
 
-	private String retobj;
+	private SubmitRet retobj;
 
 	private String msg;
 
 	private String pRemark;
 
 	private int flag;
+
+	// {"IsShowToUser":0,"StatusName":null,"StatusRemark":"积分不够，提交失败！","StatusFlag":"-1"}
+	public class SubmitRet extends TResult {
+		private static final long serialVersionUID = 1L;
+
+		private int IsShowToUser;
+
+		private String StatusName;
+
+		private String StatusRemark;
+
+		private String StatusFlag;
+
+		public int getIsShowToUser() {
+			return IsShowToUser;
+		}
+
+		public void setIsShowToUser(int isShowToUser) {
+			IsShowToUser = isShowToUser;
+		}
+
+		public String getStatusName() {
+			return StatusName;
+		}
+
+		public void setStatusName(String statusName) {
+			StatusName = statusName;
+		}
+
+		public String getStatusRemark() {
+			return StatusRemark;
+		}
+
+		public void setStatusRemark(String statusRemark) {
+			StatusRemark = statusRemark;
+		}
+
+		public String getStatusFlag() {
+			return StatusFlag;
+		}
+
+		public void setStatusFlag(String statusFlag) {
+			StatusFlag = statusFlag;
+		}
+	}
 
 	public String getpRemark() {
 		return pRemark;
@@ -76,11 +121,11 @@ public class OrderSubmitEntity extends TResult {
 		this.recPhone = recPhone;
 	}
 
-	public String getRetobj() {
+	public SubmitRet getRetobj() {
 		return retobj;
 	}
 
-	public void setRetobj(String retobj) {
+	public void setRetobj(SubmitRet retobj) {
 		this.retobj = retobj;
 	}
 

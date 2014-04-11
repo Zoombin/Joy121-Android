@@ -48,8 +48,6 @@ public class UserInfoEntity extends TResult {
 
 	private String EndInsured;
 
-	private String CompAddr;
-
 	private String IsManager;
 
 	private String CellNumber;
@@ -294,14 +292,6 @@ public class UserInfoEntity extends TResult {
 
 	public void setEmployeeId(String employeeId) {
 		EmployeeId = employeeId;
-	}
-
-	public String getCompAddr() {
-		return CompAddr;
-	}
-
-	public void setCompAddr(String compAddr) {
-		CompAddr = compAddr;
 	}
 
 }
