@@ -6,6 +6,7 @@ import gejw.android.quickandroid.ui.adapter.UIAdapter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,11 +19,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,9 +31,6 @@ import com.joy.R;
 import com.joy.Activity.OrderConfirmActivity;
 import com.joy.Activity.OrderDetailActivity;
 import com.joy.Utils.Constants;
-import com.joy.Widget.GridViewAdapter;
-import com.joy.Widget.GridViewEntity;
-import com.joy.Widget.GridViewAdapter.ViewHolder;
 import com.joy.json.model.CommoditySet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -45,17 +40,29 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @author daiye
  * 
  */
-public class LifeFragment extends QFragment implements OnClickListener, OnItemClickListener {
+public class LifeFragment extends QFragment implements OnClickListener {
 
 	private RelativeLayout layout_title;
 	private ImageView iv_title;
 	private TextView tv_title;
 	private ImageView iv_phone;
-	private GridView grid_tab;
-	private Resources resources;
+	private LinearLayout layout_menu;
+	private LinearLayout layout_life;
+	private ImageView iv_life;
+	private TextView tv_life;
+	private LinearLayout layout_health;
+	private ImageView iv_health;
+	private TextView tv_health;
+	private LinearLayout layout_safety;
+	private ImageView iv_safety;
+	private TextView tv_safety;
 	private ListView list_life;
 	private ListView list_health;
 	private ListView list_safety;
+	private Resources resources;
+	private final String[] lifelist = {"电影票务", "游泳健身", "休闲旅游", "教育培训"};
+	private final String[] healthlist = {"入职体检", "年度体检", "牙齿健康", "心理咨询"};
+	private final String[] safetylist = {"意外险", "医疗险", "雇主险", "家属险"};
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,12 +70,11 @@ public class LifeFragment extends QFragment implements OnClickListener, OnItemCl
 		View v = inflater.inflate(R.layout.fragment_life, container, false);
 		
 		resources = getResources();
-		
-		init(v);
+		initView(v);
 		return v;
 	}
 	
-	private void init(View v) {
+	private void initView(View v) {
 		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
 				0, 0);
@@ -83,42 +89,60 @@ public class LifeFragment extends QFragment implements OnClickListener, OnItemCl
 		uiAdapter.setMargin(iv_phone, 28, 28, 0, 0, 30, 0);
 		iv_phone.setOnClickListener(this);
 		
-		grid_tab = (GridView) v.findViewById(R.id.grid_tab);
-		ArrayList<GridViewEntity> data = new ArrayList<GridViewEntity>();
-
-		// 生活
-		GridViewEntity onlineinquery = new GridViewEntity();
-		onlineinquery.setIcon(R.drawable.onlineinquery);
-		onlineinquery.setName(resources.getString(R.string.life));
-		data.add(onlineinquery);
-
-		// 健康
-		GridViewEntity holidaywelfare = new GridViewEntity();
-		holidaywelfare.setIcon(R.drawable.holidaywelfare);
-		holidaywelfare.setName(resources
-				.getString(R.string.health));
-		data.add(holidaywelfare);
-
-		// 保险
-		GridViewEntity sale = new GridViewEntity();
-		sale.setIcon(R.drawable.sale);
-		sale.setName(resources.getString(R.string.safety));
-		data.add(sale);
+		layout_menu = (LinearLayout) v.findViewById(R.id.layout_menu);
+		uiAdapter.setMargin(layout_menu, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 0, 0, 0, 10);
 		
-		grid_tab.setNumColumns(3);
-		grid_tab.setAdapter(new LifeGridViewAdapter(mActivity, data));
-		grid_tab.setOnItemClickListener(this);
+		layout_life = (LinearLayout) v.findViewById(R.id.layout_life);
+		layout_life.setOnClickListener(this);
+		
+		iv_life = (ImageView) v.findViewById(R.id.iv_life);
+		uiAdapter.setMargin(iv_life, 72, 72, 0, 20, 0, 6);
+		
+		tv_life = (TextView) v.findViewById(R.id.tv_life);
+		uiAdapter.setTextSize(tv_life, 20);
+		uiAdapter.setMargin(tv_life, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 0, 0, 20);
+		
+		layout_health = (LinearLayout) v.findViewById(R.id.layout_health);
+		layout_health.setOnClickListener(this);
+		
+		iv_health = (ImageView) v.findViewById(R.id.iv_health);
+		uiAdapter.setMargin(iv_health, 72, 72, 0, 20, 0, 6);
+		
+		tv_health = (TextView) v.findViewById(R.id.tv_health);
+		uiAdapter.setTextSize(tv_health, 20);
+		uiAdapter.setMargin(tv_health, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 0, 0, 20);
+		
+		layout_safety = (LinearLayout) v.findViewById(R.id.layout_safety);
+		layout_safety.setOnClickListener(this);
+		
+		iv_safety = (ImageView) v.findViewById(R.id.iv_safety);
+		uiAdapter.setMargin(iv_safety, 72, 72, 0, 20, 0, 6);
+		
+		tv_safety = (TextView) v.findViewById(R.id.tv_safety);
+		uiAdapter.setTextSize(tv_safety, 20);
+		uiAdapter.setMargin(tv_safety, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 0, 0, 20);
 		
 		list_life = (ListView) v.findViewById(R.id.list_life);
-		list_life.setAdapter(new LifeListAdapter(mActivity));
+
+		list_life.setAdapter(new LifeListAdapter(mActivity, setLiftEntityList(lifelist)));
 		
 		list_health = (ListView) v.findViewById(R.id.list_health);
-		list_health.setAdapter(new LifeListAdapter(mActivity));
+		list_health.setAdapter(new LifeListAdapter(mActivity, setLiftEntityList(healthlist)));
 		
 		list_safety = (ListView) v.findViewById(R.id.list_safety);
-		list_safety.setAdapter(new LifeListAdapter(mActivity));
+		list_safety.setAdapter(new LifeListAdapter(mActivity, setLiftEntityList(safetylist)));
 	}
 
+	private List<LiftEntity> setLiftEntityList(String[] list) {
+		List<LiftEntity> data = new ArrayList<LiftEntity>();
+		for (int i=0; i<list.length; i++) {
+			LiftEntity entity = new LiftEntity();
+			entity.setName(list[i]);
+			data.add(entity);
+		}
+		return data;
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -128,100 +152,81 @@ public class LifeFragment extends QFragment implements OnClickListener, OnItemCl
 			Intent intent = new Intent(Intent.ACTION_DIAL, uri);     
 			startActivity(intent);
 			break;
+		case R.id.layout_life:
+		case R.id.layout_health:
+		case R.id.layout_safety:
+			showMenu(v.getId());
+			break;
 		default:
 			break;
 		}
 	}
 
-	/**
-	 * gridview适配器
-	 * 
-	 * @author daiye
-	 * 
-	 */
-	public class LifeGridViewAdapter extends BaseAdapter {
-
-		private Context mContext;
-		private UIAdapter uiAdapter;
-
-		private ArrayList<GridViewEntity> data = new ArrayList<GridViewEntity>();
-
-		public LifeGridViewAdapter(Context context, ArrayList<GridViewEntity> data) {
-			mContext = context;
-			this.data = data;
-			uiAdapter = UIAdapter.getInstance(context);
-		}
-
-		@Override
-		public int getCount() {
-			return data.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return data.get(position);
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			GridViewEntity entity = data.get(position);
-			ViewHolder holder;
-
-			if (convertView == null) {
-				convertView = LayoutInflater.from(mContext).inflate(
-						R.layout.gridview_item, parent, false);
-
-				holder = new ViewHolder();
-
-				holder.img_icon = (ImageView) convertView
-						.findViewById(R.id.img_icon);
-				holder.img_icon.setImageResource(entity.getIcon());
-				uiAdapter.setMargin(holder.img_icon, 90,
-						uiAdapter.CalcHeight(90, 1, 1), 0, 10, 0, 0);
-
-				holder.icon_name = (TextView) convertView
-						.findViewById(R.id.icon_name);
-				holder.icon_name.setText(entity.getName());
-				uiAdapter.setTextSize(holder.icon_name, 18);
-
-				convertView.setTag(holder);
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}
-			return convertView;
-		}
-
-		public class ViewHolder {
-			ImageView img_icon;
-			TextView icon_name;
+	private void showMenu(int layout) {
+		switch (layout) {
+		case R.id.layout_life:
+			iv_life.setImageResource(R.drawable.life_pressed);
+			tv_life.setTextColor(resources.getColor(R.color.title_bg));
+			iv_health.setImageResource(R.drawable.health);
+			tv_health.setTextColor(resources.getColor(R.color.BLACK));
+			iv_safety.setImageResource(R.drawable.safety);
+			tv_safety.setTextColor(resources.getColor(R.color.BLACK));
+			list_life.setVisibility(View.VISIBLE);
+			list_health.setVisibility(View.GONE);
+			list_safety.setVisibility(View.GONE);
+			break;
+		case R.id.layout_health:
+			iv_life.setImageResource(R.drawable.life);
+			tv_life.setTextColor(resources.getColor(R.color.BLACK));
+			iv_health.setImageResource(R.drawable.health_pressed);
+			tv_health.setTextColor(resources.getColor(R.color.title_bg));
+			iv_safety.setImageResource(R.drawable.safety);
+			tv_safety.setTextColor(resources.getColor(R.color.BLACK));
+			list_life.setVisibility(View.GONE);
+			list_health.setVisibility(View.VISIBLE);
+			list_safety.setVisibility(View.GONE);
+			break;
+		case R.id.layout_safety:
+			iv_life.setImageResource(R.drawable.life);
+			tv_life.setTextColor(resources.getColor(R.color.BLACK));
+			iv_health.setImageResource(R.drawable.health);
+			tv_health.setTextColor(resources.getColor(R.color.BLACK));
+			iv_safety.setImageResource(R.drawable.safety_pressed);
+			tv_safety.setTextColor(resources.getColor(R.color.title_bg));
+			list_life.setVisibility(View.GONE);
+			list_health.setVisibility(View.GONE);
+			list_safety.setVisibility(View.VISIBLE);
+			break;
+		default:
+			break;
 		}
 	}
 	
-	public class LifeListAdapter extends BaseAdapter {
+	private class LiftEntity {
+		private String name;
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+	}
+	
+	private class LifeListAdapter extends BaseAdapter {
 
 		/**
 		 * 上下文对象
 		 */
 		private Context mContext = null;
-		private ArrayList<CommoditySet> data = new ArrayList<CommoditySet>();
+		private List<LiftEntity> data = new ArrayList<LiftEntity>();
 		private UIAdapter uiAdapter;
 
-		public LifeListAdapter(Context ctx) {
+		public LifeListAdapter(Context ctx, List<LiftEntity> data) {
 			mContext = ctx;
+			this.data = data;
 			uiAdapter = UIAdapter.getInstance(ctx);
-		}
-
-		public void addItem(CommoditySet entity) {
-			data.add(entity);
-		}
-
-		public void addSeparatorItem(CommoditySet entity) {
-			data.add(entity);
 		}
 
 		@Override
@@ -241,137 +246,35 @@ public class LifeFragment extends QFragment implements OnClickListener, OnItemCl
 
 		@Override
 		public View getView(final int position, View convertView, ViewGroup parent) {
-			final CommoditySet entity = data.get(position);
+			final LiftEntity entity = data.get(position);
 
 			ViewHolder holder;
 			if (convertView == null) {
 				convertView = LayoutInflater.from(mContext).inflate(
-						R.layout.welfare_list_item, parent, false);
+						R.layout.life_list_item, parent, false);
 				holder = new ViewHolder();
 
-				holder.layout_title = (LinearLayout) convertView
-						.findViewById(R.id.layout_title);
-
-				// title
-				holder.tv_title = (TextView) convertView
-						.findViewById(R.id.tv_title);
-				uiAdapter.setTextSize(holder.tv_title, 16);
-				uiAdapter.setMargin(holder.tv_title, LayoutParams.WRAP_CONTENT,
-						LayoutParams.WRAP_CONTENT, 10, 10, 0, 3);
-
-				// time
-				holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
-				uiAdapter.setTextSize(holder.tv_time, 14);
-				uiAdapter.setMargin(holder.tv_time, LayoutParams.WRAP_CONTENT,
-						LayoutParams.WRAP_CONTENT, 10, 11, 0, 3);
-
-				holder.layout_type = (LinearLayout) convertView
-						.findViewById(R.id.layout_type);
-				
-				// 图片
-				holder.iv_icon = (ImageView) convertView.findViewById(R.id.iv_icon);
-				uiAdapter.setMargin(holder.iv_icon, 120,
-						uiAdapter.CalcHeight(120, 1, 1), 20, 5, 20, 5);
-
-				// 福利名
 				holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
 				uiAdapter.setTextSize(holder.tv_name, 18);
 				uiAdapter.setMargin(holder.tv_name, LayoutParams.WRAP_CONTENT,
-						LayoutParams.WRAP_CONTENT, 10, 10, 50, 0);
+						LayoutParams.WRAP_CONTENT, 20, 10, 0, 10);
 
-				// 内容
-				holder.tv_content = (TextView) convertView
-						.findViewById(R.id.tv_content);
-				uiAdapter.setTextSize(holder.tv_content, 16);
-				uiAdapter.setMargin(holder.tv_content, LayoutParams.WRAP_CONTENT,
-						LayoutParams.WRAP_CONTENT, 10, 5, 50, 10);
-
-				holder.btn_buy = (Button) convertView.findViewById(R.id.btn_buy);
-				holder.btn_buy.setOnClickListener(clicklistener);
-				uiAdapter.setTextSize(holder.btn_buy, 16);
-				uiAdapter.setMargin(holder.btn_buy, 120, 35, 0, 5, 50, 10);
-
+				holder.iv_arrow = (ImageView) convertView.findViewById(R.id.iv_arrow);
+				uiAdapter.setMargin(holder.iv_arrow, 10, uiAdapter.CalcHeight(10, 16, 28), 0, 0, 20, 0);
+				
 				convertView.setTag(holder);
 			} else {// 有直接获得ViewHolder
 				holder = (ViewHolder) convertView.getTag();
 			}
 
-			if (entity.getSetType() == null) {
-				holder.layout_title.setVisibility(View.VISIBLE);
-				holder.layout_type.setVisibility(View.GONE);
-				
-				holder.tv_title.setText(entity.getSetName());
-				SimpleDateFormat sdf= new SimpleDateFormat("yyyy.MM.dd");
-				String startDate = sdf.format(new Date(Long.parseLong(entity.getStartDate())));
-				String expireDate = sdf.format(new Date(Long.parseLong(entity.getEXPIREDDATE())));
-				holder.tv_time.setText("选购日期：" + startDate + " - "
-						+ expireDate);
-			} else {
-				holder.layout_title.setVisibility(View.GONE);
-				holder.layout_type.setVisibility(View.VISIBLE);
-				holder.layout_type.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						Intent intent = new Intent();
-						intent.putExtra(OrderDetailActivity.EXTRA_COMMSETID, entity.getId());
-						intent.setClass(mContext, OrderDetailActivity.class);
-						mContext.startActivity(intent);
-					}
-				});
-				holder.btn_buy.setTag(entity);
-				
-				// 加载头像
-				if (entity.getAppPicture() != null) {
-					ImageLoader.getInstance().displayImage(
-							Constants.IMGSURL + entity.getPicture(),
-							holder.iv_icon);
-				}
+			holder.tv_name.setText(entity.getName());
 
-				holder.tv_name.setText(entity.getSetName());
-				holder.tv_content.setText("描    述：" + Html.fromHtml(entity.getDescription()));
-			}
 			return convertView;
 		}
-
-		OnClickListener clicklistener = new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				switch (v.getId()) {
-				case R.id.btn_buy:
-					Intent intent = new Intent();
-					intent.putExtra(OrderDetailActivity.EXTRA_COMMODITYSET, (CommoditySet) v.getTag());
-					intent.setClass(mContext, OrderConfirmActivity.class);
-					mContext.startActivity(intent);
-					break;
-				default:
-					break;
-				}
-			}
-		};
 		
 		public class ViewHolder {
-			LinearLayout layout_title;
-			TextView tv_title;
-			TextView tv_time;
-			LinearLayout layout_type;
-			ImageView iv_icon;
 			TextView tv_name;
-			TextView tv_content;
-			Button btn_buy;
+			ImageView iv_arrow;
 		}
-	}
-	
-	@Override
-	public void onItemClick(AdapterView<?> arg0, View v, int arg2, long arg3) {
-//		switch (v.getId()) {
-//		case R.id.:
-//			
-//			break;
-//
-//		default:
-//			break;
-//		}
 	}
 }

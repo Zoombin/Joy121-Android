@@ -80,6 +80,7 @@ public class HomeWelfareGridViewAdapter extends BaseAdapter {
 					mContext.startActivity(intent);
 				}
 			});
+//			uiAdapter.setMargin(holder.layout_welfare_item, 235, -2, 2, 4, 2, 0);
 			
 			holder.img_icon = (ImageView) convertView
 					.findViewById(R.id.img_icon);
@@ -91,6 +92,11 @@ public class HomeWelfareGridViewAdapter extends BaseAdapter {
 			uiAdapter.setMargin(holder.img_icon, 70,
 					uiAdapter.CalcHeight(70, 1, 1), 5, 5, 5, 5);
 
+			
+			holder.layout_type = (LinearLayout) convertView
+					.findViewById(R.id.layout_type);
+			uiAdapter.setMargin(holder.layout_type, 155, LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
+					
 			holder.tv_typename = (TextView) convertView
 					.findViewById(R.id.tv_typename);
 			holder.tv_typename.setText(entity.getTypeName());
@@ -116,6 +122,7 @@ public class HomeWelfareGridViewAdapter extends BaseAdapter {
 	public class ViewHolder {
 		LinearLayout layout_welfare_item;
 		ImageView img_icon;
+		LinearLayout layout_type;
 		TextView tv_typename;
 		TextView tv_appdescription;
 	}

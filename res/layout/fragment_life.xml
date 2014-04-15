@@ -38,11 +38,87 @@
             android:src="@drawable/phone" />
     </RelativeLayout>
 
-    <GridView
-        android:id="@+id/grid_tab"
+    <LinearLayout
+        android:id="@+id/layout_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/WHITE" />
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/layout_life"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/WHITE"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_margin="1dip" >
+
+            <ImageView
+                android:id="@+id/iv_life"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/life_pressed" />
+
+            <TextView
+                android:id="@+id/tv_life"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/life"
+                android:textColor="@color/title_bg" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_health"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/WHITE"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_margin="1dip" >
+
+            <ImageView
+                android:id="@+id/iv_health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/health" />
+
+            <TextView
+                android:id="@+id/tv_health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/health"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_safety"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/WHITE"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_margin="1dip" >
+
+            <ImageView
+                android:id="@+id/iv_safety"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/safety" />
+
+            <TextView
+                android:id="@+id/tv_safety"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/safety"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+    </LinearLayout>
 
     <ListView
         android:id="@+id/list_life"
@@ -59,7 +135,7 @@
     <ListView
         android:id="@+id/list_safety"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
+        android:layout_height="wrap_content"
         android:visibility="gone" />
 
 </LinearLayout>
