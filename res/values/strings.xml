@@ -68,4 +68,9 @@
 	<string name="request_points_title">合计所需积分：</string>
 	<string name="total_points_title">您的剩余积分：</string>
 	
+	<!-- life -->
+	<string name="life">生活</string>
+	<string name="health">健康</string>
+	<string name="safety">保险</string>
+	
 </resources>
