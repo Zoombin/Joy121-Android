@@ -14,7 +14,7 @@
 
 	<!-- main -->
 	<string name="menu_home">首页</string>
-	<string name="menu_welfare">公司福利</string>
+	<string name="menu_welfare">节日福利</string>
 	<string name="menu_life">生活服务</string>
 	<string name="menu_mall">在线商城</string>
 	<string name="menu_personal">个人空间</string>
@@ -24,7 +24,7 @@
 	<string name="grid_onlineinquery">在线查询</string>
 	<string name="grid_holidaywelfare">节日福利</string>
 	<string name="grid_sale">每周一团</string>
-	<string name="grid_orderquery">订单查询</string>
+	<string name="grid_orderquery">我的订单</string>
 	
 	<!-- personal -->
 	<string name="ret">返回</string>
@@ -46,6 +46,13 @@
 	
 	<!-- welfare -->
 	<string name="buy">直 接 订 购</string>
+	<string name="row_welfare">节日福利</string>
+	<string name="row_shop">特约商户</string>
+	<string name="row_logoshop">LOGO商店</string>
+	<string name="row_week">每周一团</string>
+	<string name="row_notice">公告</string>
+	<string name="row_activity">活动</string>
+	<string name="row_suivey">调查</string>
 	
 	<!-- changepwd -->
 	<string name="currpwd">当前密码</string>

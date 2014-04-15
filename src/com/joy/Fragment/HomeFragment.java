@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -26,6 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Activity.OrderqueryActivity;
+import com.joy.Activity.WelfareActivity;
 import com.joy.Utils.Constants;
 import com.joy.Widget.GridViewAdapter;
 import com.joy.Widget.GridViewEntity;
@@ -46,7 +50,7 @@ import com.joy.json.operation.impl.PicOp;
  * @author daiye
  * 
  */
-public class HomeFragment extends QFragment implements OnClickListener {
+public class HomeFragment extends QFragment implements OnClickListener, OnItemClickListener {
 
 	private RelativeLayout layout_title;
 	private ImageView iv_title;
@@ -127,6 +131,7 @@ public class HomeFragment extends QFragment implements OnClickListener {
 
 		grid_select.setNumColumns(4);
 		grid_select.setAdapter(new GridViewAdapter(mActivity, data));
+		grid_select.setOnItemClickListener(this);
 		
 		tv_mywelfare = (TextView) v.findViewById(R.id.tv_mywelfare);
 		uiAdapter.setMargin(tv_mywelfare, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 10, 0, 10);
@@ -262,6 +267,29 @@ public class HomeFragment extends QFragment implements OnClickListener {
 			// 跳转到拨号面板
 			Uri uri = Uri.parse("tel:4008558121");
 			Intent intent = new Intent(Intent.ACTION_DIAL, uri);     
+			startActivity(intent);
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		Intent intent = new Intent();
+		switch (arg2) {
+		case 0:
+
+			break;
+		case 1:
+			intent.setClass(mActivity, WelfareActivity.class);
+			startActivity(intent);
+			break;
+		case 2:
+			
+			break;
+		case 3:
+			intent.setClass(mActivity, OrderqueryActivity.class);
 			startActivity(intent);
 			break;
 		default:
