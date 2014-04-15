@@ -45,7 +45,6 @@ public class LifeFragment extends QFragment implements OnClickListener {
 	private RelativeLayout layout_title;
 	private ImageView iv_title;
 	private TextView tv_title;
-	private ImageView iv_phone;
 	private LinearLayout layout_menu;
 	private LinearLayout layout_life;
 	private ImageView iv_life;
@@ -84,10 +83,6 @@ public class LifeFragment extends QFragment implements OnClickListener {
 		
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
-
-		iv_phone = (ImageView) v.findViewById(R.id.iv_phone);
-		uiAdapter.setMargin(iv_phone, 28, 28, 0, 0, 30, 0);
-		iv_phone.setOnClickListener(this);
 		
 		layout_menu = (LinearLayout) v.findViewById(R.id.layout_menu);
 		uiAdapter.setMargin(layout_menu, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 0, 0, 0, 10);
@@ -146,12 +141,6 @@ public class LifeFragment extends QFragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.iv_phone:
-			// 跳转到拨号面板
-			Uri uri = Uri.parse("tel:4008558121");
-			Intent intent = new Intent(Intent.ACTION_DIAL, uri);     
-			startActivity(intent);
-			break;
 		case R.id.layout_life:
 		case R.id.layout_health:
 		case R.id.layout_safety:
@@ -255,12 +244,12 @@ public class LifeFragment extends QFragment implements OnClickListener {
 				holder = new ViewHolder();
 
 				holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
-				uiAdapter.setTextSize(holder.tv_name, 18);
+				uiAdapter.setTextSize(holder.tv_name, 20);
 				uiAdapter.setMargin(holder.tv_name, LayoutParams.WRAP_CONTENT,
-						LayoutParams.WRAP_CONTENT, 20, 10, 0, 10);
+						LayoutParams.WRAP_CONTENT, 34, 0, 0, 0);
 
 				holder.iv_arrow = (ImageView) convertView.findViewById(R.id.iv_arrow);
-				uiAdapter.setMargin(holder.iv_arrow, 10, uiAdapter.CalcHeight(10, 16, 28), 0, 0, 20, 0);
+				uiAdapter.setMargin(holder.iv_arrow, 12, uiAdapter.CalcHeight(12, 16, 28), 0, 21, 20, 21);
 				
 				convertView.setTag(holder);
 			} else {// 有直接获得ViewHolder

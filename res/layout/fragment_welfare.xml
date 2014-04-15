@@ -138,7 +138,7 @@
             android:layout_marginRight="5dip"
             android:layout_marginTop="10dip"
             android:layout_weight="1"
-            android:background="#ff4401"
+            android:background="#ff6e6e"
             android:orientation="vertical" >
 
             <TextView

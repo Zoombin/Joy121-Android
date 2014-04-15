@@ -60,7 +60,7 @@ public class LoginActivity extends QActivity {
 		String loginname = SharedPreferencesUtils.getLoginName(self);
 		String loginpwd = SharedPreferencesUtils.getLoginPwd(self);
 		
-		if (!loginname.equals("")) {
+		if (!loginpwd.equals("")) {
 			login(loginname, loginpwd);
 			return;
 		}
@@ -201,9 +201,9 @@ public class LoginActivity extends QActivity {
 					Toast.show(self, "用户名或密码错误！");
 					return;
 				}
+				JoyApplication.getInstance().setUserinfo(userInfoEntity);
+				SharedPreferencesUtils.setLoginName(self, loginname);
 				if (ckb_auto.isChecked()) {
-					JoyApplication.getInstance().setUserinfo(userInfoEntity);
-					SharedPreferencesUtils.setLoginName(self, loginname);
 					SharedPreferencesUtils.setLoginPwd(self, loginpwd);
 				}
 				Intent intent = new Intent(self, MainActivity.class);

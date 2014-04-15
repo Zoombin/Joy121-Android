@@ -39,7 +39,6 @@ public class WelfareActivity extends QActivity implements OnClickListener {
 	private TextView tv_title;
 	private ListView mListView;
 	private WelfareAdapter mAdapter;
-	WelfareActivity self;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +78,7 @@ public class WelfareActivity extends QActivity implements OnClickListener {
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
 			public void onOperationFinished(List<Object> resList) {
-				if (!self.isFinishing()) {
+				if (self.isFinishing()) {
 					return;
 				}
 				if (resList == null) {
