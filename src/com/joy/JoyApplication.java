@@ -4,6 +4,7 @@ import gejw.android.quickandroid.QApplication;
 import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
 
+import com.joy.Utils.MD5;
 import com.joy.json.model.UserInfoEntity;
 import com.lidroid.xutils.HttpUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -49,6 +50,15 @@ public class JoyApplication extends QApplication {
 		PLog.setDebug(true);
 
 		new HttpUtils().configTimeout(5000);
+		
+//		try {
+//			DesUtil.run();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		MD5 md5 = new MD5();
+//		MD5.run();
 	}
 
 	private void createCache() {

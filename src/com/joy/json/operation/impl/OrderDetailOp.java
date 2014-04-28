@@ -6,6 +6,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 
 import com.joy.JoyApplication;
+import com.joy.Utils.MD5;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
@@ -30,7 +31,11 @@ public class OrderDetailOp implements ITaskOperation {
 				new BasicNameValuePair("action", "bf_single"),
 				new BasicNameValuePair("json", String.format(
 						"{\"loginname\":\"%s\",\"commsetid\":\"%s\"}", SharedPreferencesUtils
-						.getLoginName(JoyApplication.getSelf()), commsetid)));
+						.getLoginName(JoyApplication.getSelf()), commsetid)),
+						new BasicNameValuePair("token", new MD5()
+						.getMD5ofStr(SharedPreferencesUtils
+								.getLoginName(JoyApplication.getSelf())
+								+ MD5.key)));
 		return (OrderDetailEntity) httpApi.doHttpRequest(get, new OrderDetailParse());
 	}
 }

@@ -6,6 +6,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 
 import com.joy.JoyApplication;
+import com.joy.Utils.MD5;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
@@ -29,7 +30,11 @@ public class Point_hisOp implements ITaskOperation {
 				new BasicNameValuePair("action", "point_his"),
 				new BasicNameValuePair("json", String.format(
 						"{\"loginname\":\"%s\"}", SharedPreferencesUtils
-								.getLoginName(JoyApplication.getSelf()))));
+								.getLoginName(JoyApplication.getSelf()))),
+				new BasicNameValuePair("token", new MD5()
+						.getMD5ofStr(SharedPreferencesUtils
+								.getLoginName(JoyApplication.getSelf())
+								+ MD5.key)));
 		return (PointEntity) httpApi.doHttpRequest(get, new PointParse());
 	}
 }

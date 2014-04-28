@@ -6,6 +6,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 
 import com.joy.JoyApplication;
+import com.joy.Utils.MD5;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
@@ -33,14 +34,18 @@ public class OrderSubmitOp implements ITaskOperation {
 								"json",
 								String.format(
 										"{\"loginname\":\"%s\", \"pId\":\"%s\",\"pType\":\"%s\",\"receiver\":\"%s\",\"recAdd\":\"%s\",\"recPhone\":\"%s\",\"pRemark\":\"%s\"}",
-										SharedPreferencesUtils.getLoginName(
-												JoyApplication.getSelf()),
-												entity.getpId(),
-												entity.getpType(),
-												entity.getReceiver(),
-												entity.getRecAdd(),
-												entity.getRecPhone(),
-												entity.getpRemark())));
+										SharedPreferencesUtils
+												.getLoginName(JoyApplication
+														.getSelf()), entity
+												.getpId(), entity.getpType(),
+										entity.getReceiver(), entity
+												.getRecAdd(), entity
+												.getRecPhone(), entity
+												.getpRemark())),
+						new BasicNameValuePair("token", new MD5()
+								.getMD5ofStr(SharedPreferencesUtils
+										.getLoginName(JoyApplication.getSelf())
+										+ MD5.key)));
 		return (OrderSubmitEntity) httpApi.doHttpRequest(get,
 				new OrderSubmitParse());
 	}
