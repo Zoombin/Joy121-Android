@@ -13,6 +13,7 @@ public class SharedPreferencesUtils {
 	private static final String PREFERENCES_USERINFO = "USER_INFO";
 	private static final String KEY_LOGINNAME = "LOGIN_NAME";
 	private static final String KEY_LOGINPWD = "LOGIN_PWD";
+	private static final String KEY_COMPANY = "COMPANY";
 	
 	public static void setLoginName(Context context, String loginname) {
 		SharedPreferences userInfo = context.getSharedPreferences(PREFERENCES_USERINFO,
@@ -36,5 +37,17 @@ public class SharedPreferencesUtils {
 		SharedPreferences userInfo = context.getSharedPreferences(PREFERENCES_USERINFO,
 				0);
 		return userInfo.getString(KEY_LOGINPWD, "");
+	}
+	
+	public static void setCompany(Context context, String Company) {
+		SharedPreferences userInfo = context.getSharedPreferences(PREFERENCES_USERINFO,
+				0);
+		userInfo.edit().putString(KEY_COMPANY, Company).commit();
+	}
+
+	public static String getCompany(Context context) {
+		SharedPreferences userInfo = context.getSharedPreferences(PREFERENCES_USERINFO,
+				0);
+		return userInfo.getString(KEY_COMPANY, "");
 	}
 }

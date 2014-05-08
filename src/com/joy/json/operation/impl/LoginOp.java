@@ -5,7 +5,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 
-import com.joy.Utils.DesUtil;
 import com.joy.Utils.MD5;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;

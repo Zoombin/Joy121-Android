@@ -35,7 +35,8 @@ public class PostOp implements ITaskOperation {
 				new BasicNameValuePair("action", "comp_post"),
 				new BasicNameValuePair("json", String.format(
 						"{\"loginname\":\"%s\",\"company\":\"%s\"}", SharedPreferencesUtils
-								.getLoginName(JoyApplication.getSelf()), "")),
+								.getLoginName(JoyApplication.getSelf()), SharedPreferencesUtils
+								.getCompany(JoyApplication.getSelf()))),
 								new BasicNameValuePair("token", new MD5()
 								.getMD5ofStr(SharedPreferencesUtils
 										.getLoginName(JoyApplication.getSelf())

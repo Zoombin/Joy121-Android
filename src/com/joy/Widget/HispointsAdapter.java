@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.joy.R;
-import com.joy.R.color;
 import com.joy.json.model.UserPointsHisEntity;
 
 public class HispointsAdapter extends BaseAdapter {

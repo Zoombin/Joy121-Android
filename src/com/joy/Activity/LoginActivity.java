@@ -155,6 +155,7 @@ public class LoginActivity extends QActivity {
 				JoyApplication.getInstance().setUserinfo(userInfoEntity);
 				SharedPreferencesUtils.setLoginName(self, loginname);
 				SharedPreferencesUtils.setLoginPwd(self, loginpwd);
+				SharedPreferencesUtils.setCompany(self, userInfoEntity.getCompany());
 				Intent intent = new Intent(self, MainActivity.class);
 				startActivity(intent);
 				finish();

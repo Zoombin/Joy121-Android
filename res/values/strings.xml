@@ -80,4 +80,7 @@
 	<string name="health">健康</string>
 	<string name="safety">保险</string>
 	
+	<!-- post -->
+	<string name="post">公司公告</string>
+	
 </resources>
