@@ -15,32 +15,32 @@ import android.widget.TextView;
 
 import com.joy.R;
 import com.joy.Utils.Constants;
-import com.joy.Widget.PostAdapter;
+import com.joy.Widget.ActivityAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
-import com.joy.json.model.PostDetailEntity;
-import com.joy.json.model.PostEntity;
+import com.joy.json.model.ActivityDetailEntity;
+import com.joy.json.model.ActivityEntity;
 import com.joy.json.operation.OperationBuilder;
-import com.joy.json.operation.impl.PostOp;
+import com.joy.json.operation.impl.ActivityOp;
 import com.umeng.analytics.MobclickAgent;
 
 /**
- * 公告列表
+ * 活动列表
  * @author daiye
  *
  */
-public class PostActivity extends QActivity implements OnClickListener {
+public class ActivityActivity extends QActivity implements OnClickListener {
 	
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
 	private TextView tv_title;
-	private ListView list_post;
-	private PostAdapter adapter;
+	private ListView list_activity;
+	private ActivityAdapter adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_post);
+		setContentView(R.layout.activity_activity);
 		
 		initView();
 		initData();
@@ -60,15 +60,15 @@ public class PostActivity extends QActivity implements OnClickListener {
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 
-		list_post = (ListView) findViewById(R.id.list_post);
-		uiAdapter.setMargin(list_post, LayoutParams.MATCH_PARENT,
+		list_activity = (ListView) findViewById(R.id.list_activity);
+		uiAdapter.setMargin(list_activity, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
-		adapter = new PostAdapter(self);
-		list_post.setAdapter(adapter);
+		adapter = new ActivityAdapter(self);
+		list_activity.setAdapter(adapter);
 	}
 
 	private void initData() {
-		OperationBuilder builder = new OperationBuilder().append(new PostOp(),
+		OperationBuilder builder = new OperationBuilder().append(new ActivityOp(),
 				null);
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
@@ -80,14 +80,14 @@ public class PostActivity extends QActivity implements OnClickListener {
 					Toast.show(self, "连接超时");
 					return;
 				}
-				PostEntity entity = (PostEntity) resList.get(0);
-				List<PostDetailEntity> postlist = entity.getRetobj();
-				if (postlist == null) {
-					Toast.show(self, "没有公告信息！");
+				ActivityEntity entity = (ActivityEntity) resList.get(0);
+				List<ActivityDetailEntity> activitylist = entity.getRetobj();
+				if (activitylist == null) {
+					Toast.show(self, "没有活动信息！");
 					finish();
 					return;
 				}
-				for (PostDetailEntity entity1 : postlist) {
+				for (ActivityDetailEntity entity1 : activitylist) {
 					adapter.addItem(entity1);
 				}
 				adapter.notifyDataSetChanged();

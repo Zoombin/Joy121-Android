@@ -73,22 +73,22 @@ public class PostAdapter extends BaseAdapter {
 			holder.iv_post = (ImageView) convertView
 					.findViewById(R.id.iv_post);
 			uiAdapter.setMargin(holder.iv_post, 60,
-					uiAdapter.CalcHeight(60, 133, 94), 10, 5, 0, 5);
+					uiAdapter.CalcHeight(60, 133, 94), 0, 0, 0, 0);
 
 			holder.tv_posttitle = (TextView) convertView.findViewById(R.id.tv_posttitle);
-			uiAdapter.setTextSize(holder.tv_posttitle, 16);
+			uiAdapter.setTextSize(holder.tv_posttitle, 20);
 			uiAdapter.setMargin(holder.tv_posttitle, LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT, 10, 5, 0, 5);
+					LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
 
 			holder.tv_posttime = (TextView) convertView
 					.findViewById(R.id.tv_posttime);
-			uiAdapter.setTextSize(holder.tv_posttime, 16);
+			uiAdapter.setTextSize(holder.tv_posttime, 20);
 			uiAdapter.setMargin(holder.tv_posttime, LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT, 0, 5, 10, 5);
+					LayoutParams.WRAP_CONTENT, 0, 0, 10, 0);
 
 			holder.tv_postcontent = (TextView) convertView
 					.findViewById(R.id.tv_postcontent);
-			uiAdapter.setTextSize(holder.tv_postcontent, 16);
+			uiAdapter.setTextSize(holder.tv_postcontent, 20);
 			uiAdapter.setPadding(holder.tv_postcontent, 20, 10, 10, 10);
 			
 			convertView.setTag(holder);

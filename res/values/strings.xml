@@ -83,4 +83,7 @@
 	<!-- post -->
 	<string name="post">公司公告</string>
 	
+	<!-- activity -->
+	<string name="activity">公司活动</string>
+	<string name="btn_actjoin">报名</string>
 </resources>

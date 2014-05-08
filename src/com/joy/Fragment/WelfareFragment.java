@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Activity.ActivityActivity;
 import com.joy.Activity.PostActivity;
 import com.joy.Activity.WelfareActivity;
 import com.joy.Utils.Constants;
@@ -164,6 +165,10 @@ public class WelfareFragment extends QFragment implements OnClickListener {
 			break;
 		case R.id.layout_notice:
 			intent.setClass(mActivity, PostActivity.class);
+			startActivity(intent);
+			break;
+		case R.id.layout_activity:
+			intent.setClass(mActivity, ActivityActivity.class);
 			startActivity(intent);
 			break;
 		default:

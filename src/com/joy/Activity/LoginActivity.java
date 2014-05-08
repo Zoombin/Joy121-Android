@@ -207,6 +207,7 @@ public class LoginActivity extends QActivity {
 				if (ckb_auto.isChecked()) {
 					SharedPreferencesUtils.setLoginPwd(self, loginpwd);
 				}
+				SharedPreferencesUtils.setCompany(self, userInfoEntity.getCompany());
 				Intent intent = new Intent(self, MainActivity.class);
 				startActivity(intent);
 				finish();
