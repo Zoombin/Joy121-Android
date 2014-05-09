@@ -44,7 +44,7 @@ public class JoyApplication extends QApplication {
 	public void onCreate() {
 		super.onCreate();
 		self = this;
-
+		
 		createCache();
 		UIAdapter.setSize(480, 800);
 		PLog.setDebug(true);

@@ -86,4 +86,9 @@
 	<!-- activity -->
 	<string name="activity">公司活动</string>
 	<string name="btn_actjoin">报名</string>
+	
+	<!-- survey -->
+	<string name="survey">公司调查</string>
+	<string name="vote">投&#160;&#160;票</string>
+	
 </resources>

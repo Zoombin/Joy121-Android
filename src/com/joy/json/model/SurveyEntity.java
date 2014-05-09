@@ -11,17 +11,17 @@ public class SurveyEntity extends TResult {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<String> retobj;
+	private List<SurveyDetailEntity> retobj;
 	
 	private String msg;
 	
 	private int flag;
 
-	public List<String> getRetobj() {
+	public List<SurveyDetailEntity> getRetobj() {
 		return retobj;
 	}
 
-	public void setRetobj(List<String> retobj) {
+	public void setRetobj(List<SurveyDetailEntity> retobj) {
 		this.retobj = retobj;
 	}
 
