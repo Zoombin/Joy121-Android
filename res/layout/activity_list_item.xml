@@ -32,6 +32,7 @@
 
         <ImageView
             android:id="@+id/iv_actpicture"
+            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="fitXY" />
@@ -52,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/menu_text_press"
+                android:layout_gravity="right"
                 android:text="@string/btn_actjoin"
                 android:textColor="@color/WHITE" />
         </LinearLayout>

@@ -11,6 +11,7 @@ import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
+import com.joy.json.model.ActivityDetailEntity;
 import com.joy.json.model.ActjoinEntity;
 import com.joy.json.operation.ITaskOperation;
 import com.joy.json.parse.ActjoinParse;
@@ -24,6 +25,7 @@ public class ActjoinOp implements ITaskOperation {
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
+		ActivityDetailEntity entity = (ActivityDetailEntity) in;
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(
 				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
@@ -35,7 +37,7 @@ public class ActjoinOp implements ITaskOperation {
 				new BasicNameValuePair("action", "comp_act_join"),
 				new BasicNameValuePair("json", String.format(
 						"{\"loginname\":\"%s\",\"actid\":\"%s\",\"actfee\":\"%s\"}", SharedPreferencesUtils
-								.getLoginName(JoyApplication.getSelf()), "", "")),
+								.getLoginName(JoyApplication.getSelf()), entity.getActId(), entity.getActFee())),
 								new BasicNameValuePair("token", new MD5()
 								.getMD5ofStr(SharedPreferencesUtils
 										.getLoginName(JoyApplication.getSelf())

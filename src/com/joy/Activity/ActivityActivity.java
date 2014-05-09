@@ -63,7 +63,7 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 		list_activity = (ListView) findViewById(R.id.list_activity);
 		uiAdapter.setMargin(list_activity, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
-		adapter = new ActivityAdapter(self);
+		adapter = new ActivityAdapter(self, self);
 		list_activity.setAdapter(adapter);
 	}
 

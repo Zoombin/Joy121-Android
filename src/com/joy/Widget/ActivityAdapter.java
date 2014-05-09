@@ -1,11 +1,15 @@
 package com.joy.Widget;
 
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
+import gejw.android.quickandroid.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,8 +21,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joy.R;
-import com.joy.Utils.Constants;
+import com.joy.json.JsonCommon;
+import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.ActivityDetailEntity;
+import com.joy.json.model.ActjoinEntity;
+import com.joy.json.operation.OperationBuilder;
+import com.joy.json.operation.impl.ActjoinOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ActivityAdapter extends BaseAdapter {
@@ -27,13 +35,15 @@ public class ActivityAdapter extends BaseAdapter {
 	 * 上下文对象
 	 */
 	private Context mContext = null;
+	private Activity mActivity = null;
 	private ArrayList<ActivityDetailEntity> data = new ArrayList<ActivityDetailEntity>();
 	private UIAdapter uiAdapter;
 	
 	/**
 	 * @param mainActivity
 	 */
-	public ActivityAdapter(Context ctx) {
+	public ActivityAdapter(Activity activity, Context ctx) {
+		mActivity = activity;
 		mContext = ctx;
 		uiAdapter = UIAdapter.getInstance(ctx);
 	}
@@ -84,18 +94,18 @@ public class ActivityAdapter extends BaseAdapter {
 			holder.iv_actpicture = (ImageView) convertView
 					.findViewById(R.id.iv_actpicture);
 			uiAdapter.setMargin(holder.iv_actpicture, 200,
-					150, 0, 0, 0, 0);
+					125, 5, 5, 5, 5);
 			
 			holder.tv_detail = (TextView) convertView
 					.findViewById(R.id.tv_detail);
 			uiAdapter.setTextSize(holder.tv_detail, 20);
 			uiAdapter.setMargin(holder.tv_detail, LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT, 0, 0, 10, 0);
+					LayoutParams.WRAP_CONTENT, 0, 5, 10, 5);
 
 			holder.btn_actjoin = (Button) convertView
 					.findViewById(R.id.btn_actjoin);
 			uiAdapter.setTextSize(holder.btn_actjoin, 20);
-			uiAdapter.setMargin(holder.btn_actjoin, 60, 30, 0, 0, 0, 0);
+			uiAdapter.setMargin(holder.btn_actjoin, 120, 35, 0, 0, 10, 5);
 			holder.btn_actjoin.setOnClickListener(clicklistener);
 			
 			convertView.setTag(holder);
@@ -111,7 +121,14 @@ public class ActivityAdapter extends BaseAdapter {
 					holder.iv_actpicture);
 		}
 		
-		holder.tv_detail.setText(Html.fromHtml(entity.getContent()));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String content = "活动开始时间：" + sdf.format(new Date(Long.parseLong(entity.getStartTime().substring(6, 19)))) + "\n"
+				+ "活动地点：" + entity.getLocationAddr() + "\n"
+				+ "报名截止日期：" + sdf.format(new Date(Long.parseLong(entity.getDeadLine().substring(6, 19)))) + "\n"
+				+ "已报名人数/报名人数限制：" + entity.getCurrentCount() + "/" + entity.getLimitCount();
+		holder.tv_detail.setText(content);
+		
+		holder.btn_actjoin.setTag(entity);
 		
 		return convertView;
 	}
@@ -119,8 +136,42 @@ public class ActivityAdapter extends BaseAdapter {
 	OnClickListener clicklistener = new OnClickListener() {
 		
 		@Override
-		public void onClick(View v) {
-			
+		public void onClick(final View v) {
+			ActivityDetailEntity entity = (ActivityDetailEntity) v.getTag();
+			OperationBuilder builder = new OperationBuilder().append(new ActjoinOp(),
+					entity);
+			OnOperationListener listener = new OnOperationListener() {
+				@Override
+				public void onOperationFinished(List<Object> resList) {
+					if (mActivity.isFinishing()) {
+						return;
+					}
+					if (resList == null) {
+						Toast.show(mContext, "连接超时");
+						return;
+					}
+					ActjoinEntity entity = (ActjoinEntity) resList.get(0);
+					int retobj = entity.getRetobj();
+					if (retobj == 0) {
+						Toast.show(mContext, "报名失败！");
+						return;
+					} else {
+						Toast.show(mContext, "报名成功！");
+						v.setClickable(false);
+						v.setBackgroundColor(mActivity.getResources().getColor(R.color.welfare_item_tab_bg));
+						notifyDataSetChanged();
+					}
+				}
+
+				@Override
+				public void onOperationError(Exception e) {
+					e.printStackTrace();
+				}
+			};
+
+			JsonCommon task = new JsonCommon(mContext, builder, listener,
+					JsonCommon.PROGRESSCOMMIT);
+			task.execute();
 		}
 	};
 	
