@@ -32,7 +32,9 @@ public class SurveyDetailEntity extends TResult {
 	private int ResultShow;
 	
 	private String Title;
-
+	
+	private int[] answer;
+	
 	public String getDescription() {
 		return Description;
 	}
@@ -103,5 +105,13 @@ public class SurveyDetailEntity extends TResult {
 
 	public void setTitle(String title) {
 		Title = title;
+	}
+
+	public int[] getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(int[] answer) {
+		this.answer = answer;
 	}
 }

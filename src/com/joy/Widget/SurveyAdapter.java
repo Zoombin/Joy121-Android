@@ -18,6 +18,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,11 +27,10 @@ import android.widget.TextView;
 import com.joy.R;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
-import com.joy.json.model.ActivityDetailEntity;
 import com.joy.json.model.ActjoinEntity;
 import com.joy.json.model.SurveyDetailEntity;
 import com.joy.json.operation.OperationBuilder;
-import com.joy.json.operation.impl.ActjoinOp;
+import com.joy.json.operation.impl.SurveyAOp;
 
 public class SurveyAdapter extends BaseAdapter {
 
@@ -107,13 +108,12 @@ public class SurveyAdapter extends BaseAdapter {
 			uiAdapter.setMargin(holder.layout_multichoice,
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50,
 					10, 0, 10);
-			
+
 			holder.btn_survey = (Button) convertView
 					.findViewById(R.id.btn_survey);
 			uiAdapter.setTextSize(holder.btn_survey, 20);
 			uiAdapter.setMargin(holder.btn_survey, 120, 35, 0, 0, 10, 5);
-			holder.btn_survey.setOnClickListener(clicklistener);
-
+			
 			convertView.setTag(holder);
 		} else {// 有直接获得ViewHolder
 			holder = (ViewHolder) convertView.getTag();
@@ -127,26 +127,44 @@ public class SurveyAdapter extends BaseAdapter {
 						.substring(6, 19)))));
 
 		String[] questionlist = entity.getQuestions().split("\\^");
-		if (holder.layout_multichoice.getChildCount() == 0) {
-			for (String question : questionlist) {
-				CheckBox checkbox = new CheckBox(mContext);
-				checkbox.setText(question);
-				holder.layout_multichoice.addView(checkbox);
+		// 清空checkbox
+		holder.layout_multichoice.removeAllViews();
+		int[] answer = entity.getAnswer();
+		if (answer == null) {
+			answer = new int[questionlist.length];
+			for (int i=0; i<answer.length; i++) {
+				answer[i] = 0;
 			}
+			entity.setAnswer(answer);
+		}
+		for (int j=0; j<questionlist.length; j++) {
+			String question = questionlist[j];
+			CheckBox checkbox = new CheckBox(mContext);
+			checkbox.setText(question);
+			checkbox.setChecked(answer[j] == 0 ? false : true);
+			checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//					entity.getAnswer()[k] = (isChecked ? 1 : 0);
+				}
+			});
+			holder.layout_multichoice.addView(checkbox);
 		}
 
 		holder.btn_survey.setTag(entity);
-
+		holder.btn_survey.setOnClickListener(clicklistener);
+		
 		return convertView;
 	}
-
+	
 	OnClickListener clicklistener = new OnClickListener() {
 
 		@Override
 		public void onClick(final View v) {
-			ActivityDetailEntity entity = (ActivityDetailEntity) v.getTag();
+			SurveyDetailEntity entity = (SurveyDetailEntity) v.getTag();
 			OperationBuilder builder = new OperationBuilder().append(
-					new ActjoinOp(), entity);
+					new SurveyAOp(), entity);
 			OnOperationListener listener = new OnOperationListener() {
 				@Override
 				public void onOperationFinished(List<Object> resList) {
@@ -160,10 +178,10 @@ public class SurveyAdapter extends BaseAdapter {
 					ActjoinEntity entity = (ActjoinEntity) resList.get(0);
 					int retobj = entity.getRetobj();
 					if (retobj == 0) {
-						Toast.show(mContext, "报名失败！");
+						Toast.show(mContext, "投票失败！");
 						return;
 					} else {
-						Toast.show(mContext, "报名成功！");
+						Toast.show(mContext, "投票成功！");
 						v.setClickable(false);
 						v.setBackgroundColor(mActivity.getResources().getColor(
 								R.color.welfare_item_tab_bg));

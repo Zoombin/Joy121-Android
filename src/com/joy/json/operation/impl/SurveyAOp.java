@@ -12,6 +12,7 @@ import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
 import com.joy.json.model.SurveyAEntity;
+import com.joy.json.model.SurveyDetailEntity;
 import com.joy.json.operation.ITaskOperation;
 import com.joy.json.parse.SurveyAParse;
 
@@ -24,6 +25,14 @@ public class SurveyAOp implements ITaskOperation {
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
+		SurveyDetailEntity entity = (SurveyDetailEntity) in;
+		String answer = "";
+		int[] answerlist = entity.getAnswer();
+		for (int a : answerlist) {
+			answer += a + "^";
+		}
+		answer = answer.substring(0, answer.length() - 1);
+		
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(
 				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
@@ -35,7 +44,7 @@ public class SurveyAOp implements ITaskOperation {
 				new BasicNameValuePair("action", "comp_survey_a"),
 				new BasicNameValuePair("json", String.format(
 						"{\"loginname\":\"%s\",\"surveyid\":\"%s\",\"answers\":\"%s\"}", SharedPreferencesUtils
-								.getLoginName(JoyApplication.getSelf()), "", "")),
+								.getLoginName(JoyApplication.getSelf()), entity.getSurveyId(), answer)),
 								new BasicNameValuePair("token", new MD5()
 								.getMD5ofStr(SharedPreferencesUtils
 										.getLoginName(JoyApplication.getSelf())
