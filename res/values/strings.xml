@@ -85,7 +85,10 @@
 	
 	<!-- activity -->
 	<string name="activity">公司活动</string>
+	<string name="activity_sub">公司详情</string>
 	<string name="btn_actjoin">报名</string>
+	<string name="locationaddr">活动地点</string>
+	<string name="activity_content">活动内容</string>
 	
 	<!-- survey -->
 	<string name="survey">公司调查</string>
