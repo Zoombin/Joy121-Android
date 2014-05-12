@@ -50,14 +50,14 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 	private TextView tv_contenttitle;
 	private TextView tv_content;
 	private Resources resources;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_activitysub);
 
 		resources = getResources();
-		
+
 		initView();
 		initData();
 	}
@@ -78,37 +78,43 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 
 		tv_actname = (TextView) findViewById(R.id.tv_actname);
 		uiAdapter.setTextSize(tv_actname, 24);
-		uiAdapter.setMargin(tv_actname, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 10, 0, 10);
-		
+		uiAdapter.setMargin(tv_actname, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 0, 10, 0, 10);
+
 		iv_actpicture = (ImageView) findViewById(R.id.iv_actpicture);
-		uiAdapter.setMargin(iv_actpicture, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 10, 0, 10, 10);
-		
+		uiAdapter.setMargin(iv_actpicture, LayoutParams.MATCH_PARENT,
+				LayoutParams.WRAP_CONTENT, 10, 0, 10, 10);
+
 		tv_count = (TextView) findViewById(R.id.tv_count);
-		uiAdapter.setMargin(tv_count, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 15, 5, 0, 5);
+		uiAdapter.setMargin(tv_count, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 15, 5, 0, 5);
 		uiAdapter.setTextSize(tv_count, 20);
-		
+
 		tv_deadline = (TextView) findViewById(R.id.tv_deadline);
-		uiAdapter.setMargin(tv_deadline, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 15, 5, 0, 5);
+		uiAdapter.setMargin(tv_deadline, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 15, 5, 0, 5);
 		uiAdapter.setTextSize(tv_deadline, 20);
-		
+
 		btn_actjoin = (Button) findViewById(R.id.btn_actjoin);
 		uiAdapter.setMargin(btn_actjoin, 120, 50, 0, 10, 30, 10);
 		uiAdapter.setTextSize(btn_actjoin, 20);
-		
+
 		tv_actlocationaddrtitle = (TextView) findViewById(R.id.tv_actlocationaddrtitle);
 		uiAdapter.setPadding(tv_actlocationaddrtitle, 10, 5, 0, 5);
 		uiAdapter.setTextSize(tv_actlocationaddrtitle, 20);
-		
+
 		tv_actlocationaddr = (TextView) findViewById(R.id.tv_actlocationaddr);
-		uiAdapter.setMargin(tv_actlocationaddr, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 30, 5, 20, 5);
+		uiAdapter.setMargin(tv_actlocationaddr, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 30, 5, 20, 5);
 		uiAdapter.setTextSize(tv_actlocationaddr, 20);
-		
+
 		tv_contenttitle = (TextView) findViewById(R.id.tv_contenttitle);
 		uiAdapter.setPadding(tv_contenttitle, 10, 5, 0, 5);
 		uiAdapter.setTextSize(tv_contenttitle, 20);
-		
+
 		tv_content = (TextView) findViewById(R.id.tv_content);
-		uiAdapter.setMargin(tv_content, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 30, 5, 20, 5);
+		uiAdapter.setMargin(tv_content, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 30, 5, 20, 5);
 		uiAdapter.setTextSize(tv_content, 20);
 	}
 
@@ -118,21 +124,28 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 
 		tv_actname.setText(entity.getActName());
 
-		btn_actjoin.setTag(entity);
-		btn_actjoin.setOnClickListener(clicklistener);
-		
+		if (entity.getLoginName() == null) {
+			btn_actjoin.setTag(entity);
+			btn_actjoin.setOnClickListener(clicklistener);
+		} else {
+			btn_actjoin.setClickable(false);
+			btn_actjoin.setBackgroundColor(self.getResources().getColor(
+					R.color.welfare_item_tab_bg));
+		}
+
 		ImageLoader.getInstance().displayImage(
 				"http://www.joy121.com/sys/Files/activity/"
 						+ entity.getActPicturePath(), iv_actpicture);
 
-		tv_count.setText("报名人数" + entity.getCurrentCount() + "/" + entity.getLimitCount());
-		
+		tv_count.setText("报名人数" + entity.getCurrentCount() + "/"
+				+ entity.getLimitCount());
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		tv_deadline.setText(sdf.format(new Date(Long.parseLong(entity.getDeadLine()
-						.substring(6, 19)))));
-		
+		tv_deadline.setText(sdf.format(new Date(Long.parseLong(entity
+				.getDeadLine().substring(6, 19)))));
+
 		tv_actlocationaddr.setText(entity.getLocationAddr());
-		
+
 		tv_content.setText(Html.fromHtml(entity.getContent()));
 	}
 
@@ -177,7 +190,7 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 			task.execute();
 		}
 	};
-	
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

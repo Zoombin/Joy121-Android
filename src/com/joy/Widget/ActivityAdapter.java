@@ -22,9 +22,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Activity.ActivitySubActivity;
 import com.joy.Activity.OrderDetailActivity;
+import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.ActivityDetailEntity;
@@ -152,8 +154,15 @@ public class ActivityAdapter extends BaseAdapter {
 				mActivity.startActivity(intent);
 			}
 		});
-		holder.btn_actjoin.setTag(entity);
-		holder.btn_actjoin.setOnClickListener(clicklistener);
+
+		if (entity.getLoginName() == null) {
+			holder.btn_actjoin.setTag(entity);
+			holder.btn_actjoin.setOnClickListener(clicklistener);
+		} else {
+			holder.btn_actjoin.setClickable(false);
+			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
+					.getColor(R.color.welfare_item_tab_bg));
+		}
 
 		return convertView;
 	}
@@ -162,7 +171,8 @@ public class ActivityAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(final View v) {
-			final ActivityDetailEntity activitydetailentity = (ActivityDetailEntity) v.getTag();
+			final ActivityDetailEntity activitydetailentity = (ActivityDetailEntity) v
+					.getTag();
 			OperationBuilder builder = new OperationBuilder().append(
 					new ActjoinOp(), activitydetailentity);
 			OnOperationListener listener = new OnOperationListener() {
@@ -188,7 +198,10 @@ public class ActivityAdapter extends BaseAdapter {
 						int index = data.indexOf(activitydetailentity);
 						// 改变报名状态
 						if (index != -1) {
-//							((ActivityDetailEntity) data.get(index)).setActId(20);
+							((ActivityDetailEntity) data.get(index))
+									.setLoginName(SharedPreferencesUtils
+											.getLoginName(JoyApplication
+													.getSelf()));
 						}
 						notifyDataSetChanged();
 					}

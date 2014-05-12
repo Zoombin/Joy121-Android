@@ -24,10 +24,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.joy.JoyApplication;
 import com.joy.R;
+import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
-import com.joy.json.model.ActjoinEntity;
+import com.joy.json.model.SurveyAEntity;
 import com.joy.json.model.SurveyDetailEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.SurveyAOp;
@@ -76,7 +78,7 @@ public class SurveyAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		SurveyDetailEntity entity = data.get(position);
+		final SurveyDetailEntity entity = data.get(position);
 
 		ViewHolder holder;
 		if (convertView == null) {
@@ -100,8 +102,8 @@ public class SurveyAdapter extends BaseAdapter {
 					.findViewById(R.id.tv_expiretime);
 			uiAdapter.setTextSize(holder.tv_expiretime, 20);
 			uiAdapter.setMargin(holder.tv_expiretime,
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 5,
-					0, 5);
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20,
+					5, 0, 5);
 
 			holder.layout_multichoice = (LinearLayout) convertView
 					.findViewById(R.id.layout_multichoice);
@@ -113,7 +115,7 @@ public class SurveyAdapter extends BaseAdapter {
 					.findViewById(R.id.btn_survey);
 			uiAdapter.setTextSize(holder.btn_survey, 20);
 			uiAdapter.setMargin(holder.btn_survey, 120, 35, 0, 0, 10, 5);
-			
+
 			convertView.setTag(holder);
 		} else {// 有直接获得ViewHolder
 			holder = (ViewHolder) convertView.getTag();
@@ -132,39 +134,68 @@ public class SurveyAdapter extends BaseAdapter {
 		int[] answer = entity.getAnswer();
 		if (answer == null) {
 			answer = new int[questionlist.length];
-			for (int i=0; i<answer.length; i++) {
+			for (int i = 0; i < answer.length; i++) {
 				answer[i] = 0;
 			}
 			entity.setAnswer(answer);
 		}
-		for (int j=0; j<questionlist.length; j++) {
+		for (int j = 0; j < questionlist.length; j++) {
+			final int k = j;
 			String question = questionlist[j];
 			CheckBox checkbox = new CheckBox(mContext);
 			checkbox.setText(question);
 			checkbox.setChecked(answer[j] == 0 ? false : true);
-			checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-				
-				@Override
-				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//					entity.getAnswer()[k] = (isChecked ? 1 : 0);
-				}
-			});
+			if (entity.getLoginName() == null) {
+				checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						int[] answer = entity.getAnswer();
+						answer[k] = (isChecked ? 1 : 0);
+						entity.setAnswer(answer);
+					}
+				});
+			} else {
+				checkbox.setClickable(false);
+				checkbox.setOnCheckedChangeListener(null);
+			}
+
 			holder.layout_multichoice.addView(checkbox);
 		}
 
-		holder.btn_survey.setTag(entity);
-		holder.btn_survey.setOnClickListener(clicklistener);
-		
+		if (entity.getLoginName() == null) {
+			holder.btn_survey.setTag(entity);
+			holder.btn_survey.setOnClickListener(clicklistener);
+		} else {
+			holder.btn_survey.setClickable(false);
+			holder.btn_survey.setBackgroundColor(mActivity.getResources()
+					.getColor(R.color.welfare_item_tab_bg));
+		}
+
 		return convertView;
 	}
-	
+
 	OnClickListener clicklistener = new OnClickListener() {
 
 		@Override
 		public void onClick(final View v) {
-			SurveyDetailEntity entity = (SurveyDetailEntity) v.getTag();
+			final SurveyDetailEntity surveydetailentity = (SurveyDetailEntity) v
+					.getTag();
+			int[] answer = surveydetailentity.getAnswer();
+			int count = 0;
+			for (int i = 0; i < answer.length; i++) {
+				if (answer[i] == 1) {
+					count++;
+				}
+			}
+			if (count == 0) {
+				Toast.show(mContext, "请选择选项！");
+				return;
+			}
+
 			OperationBuilder builder = new OperationBuilder().append(
-					new SurveyAOp(), entity);
+					new SurveyAOp(), surveydetailentity);
 			OnOperationListener listener = new OnOperationListener() {
 				@Override
 				public void onOperationFinished(List<Object> resList) {
@@ -175,8 +206,9 @@ public class SurveyAdapter extends BaseAdapter {
 						Toast.show(mContext, "连接超时");
 						return;
 					}
-					ActjoinEntity entity = (ActjoinEntity) resList.get(0);
-					int retobj = entity.getRetobj();
+					SurveyAEntity surveyaentity = (SurveyAEntity) resList
+							.get(0);
+					int retobj = surveyaentity.getRetobj();
 					if (retobj == 0) {
 						Toast.show(mContext, "投票失败！");
 						return;
@@ -185,6 +217,13 @@ public class SurveyAdapter extends BaseAdapter {
 						v.setClickable(false);
 						v.setBackgroundColor(mActivity.getResources().getColor(
 								R.color.welfare_item_tab_bg));
+						int index = data.indexOf(surveyaentity);
+						if (index != -1) {
+							((SurveyDetailEntity) data.get(index))
+									.setLoginName(SharedPreferencesUtils
+											.getLoginName(JoyApplication
+													.getSelf()));
+						}
 						notifyDataSetChanged();
 					}
 				}
