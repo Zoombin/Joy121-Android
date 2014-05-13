@@ -159,9 +159,10 @@ public class ActivityAdapter extends BaseAdapter {
 			holder.btn_actjoin.setTag(entity);
 			holder.btn_actjoin.setOnClickListener(clicklistener);
 		} else {
+			holder.btn_actjoin.setText("已报名");
 			holder.btn_actjoin.setClickable(false);
 			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
-					.getColor(R.color.welfare_item_tab_bg));
+					.getColor(R.color.btn_disable));
 		}
 
 		return convertView;
@@ -170,9 +171,10 @@ public class ActivityAdapter extends BaseAdapter {
 	OnClickListener clicklistener = new OnClickListener() {
 
 		@Override
-		public void onClick(final View v) {
+		public void onClick(View v) {
 			final ActivityDetailEntity activitydetailentity = (ActivityDetailEntity) v
 					.getTag();
+			final Button btn = (Button) v;
 			OperationBuilder builder = new OperationBuilder().append(
 					new ActjoinOp(), activitydetailentity);
 			OnOperationListener listener = new OnOperationListener() {
@@ -192,9 +194,10 @@ public class ActivityAdapter extends BaseAdapter {
 						return;
 					} else {
 						Toast.show(mContext, "报名成功！");
-						v.setClickable(false);
-						v.setBackgroundColor(mActivity.getResources().getColor(
-								R.color.welfare_item_tab_bg));
+						btn.setText("已报名");
+						btn.setClickable(false);
+						btn.setBackgroundColor(mActivity.getResources().getColor(
+								R.color.btn_disable));
 						int index = data.indexOf(activitydetailentity);
 						// 改变报名状态
 						if (index != -1) {

@@ -27,8 +27,8 @@ public class SurveyAOp implements ITaskOperation {
 	public Object exec(Object in, Object res) throws Exception {
 		SurveyDetailEntity entity = (SurveyDetailEntity) in;
 		String answer = "";
-		int[] answerlist = entity.getAnswer();
-		for (int a : answerlist) {
+		String[] answerlist = entity.getAnswer();
+		for (String a : answerlist) {
 			answer += a + "^";
 		}
 		answer = answer.substring(0, answer.length() - 1);

@@ -128,9 +128,10 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 			btn_actjoin.setTag(entity);
 			btn_actjoin.setOnClickListener(clicklistener);
 		} else {
+			btn_actjoin.setText("已报名");
 			btn_actjoin.setClickable(false);
 			btn_actjoin.setBackgroundColor(self.getResources().getColor(
-					R.color.welfare_item_tab_bg));
+					R.color.btn_disable));
 		}
 
 		ImageLoader.getInstance().displayImage(
@@ -173,9 +174,10 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 						return;
 					} else {
 						Toast.show(self, "报名成功！");
+						btn_actjoin.setText("已报名");
 						v.setClickable(false);
 						v.setBackgroundColor(self.getResources().getColor(
-								R.color.welfare_item_tab_bg));
+								R.color.btn_disable));
 					}
 				}
 

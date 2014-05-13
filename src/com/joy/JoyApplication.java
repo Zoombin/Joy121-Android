@@ -3,6 +3,7 @@ package com.joy;
 import gejw.android.quickandroid.QApplication;
 import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
+import cn.jpush.android.api.JPushInterface;
 
 import com.joy.Utils.MD5;
 import com.joy.json.model.UserInfoEntity;
@@ -44,6 +45,9 @@ public class JoyApplication extends QApplication {
 	public void onCreate() {
 		super.onCreate();
 		self = this;
+		
+		JPushInterface.setDebugMode(false);
+		JPushInterface.init(this);
 		
 		createCache();
 		UIAdapter.setSize(480, 800);

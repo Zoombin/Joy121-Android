@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
+import cn.jpush.android.api.JPushInterface;
 
 import com.joy.R;
 
@@ -27,6 +28,20 @@ public class SplashActivity extends QActivity {
 		
 		// 创建快捷方式
 		createShortcut();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		JPushInterface.onResume(self);
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
+		JPushInterface.onPause(self);
 	}
 	
 	/** 

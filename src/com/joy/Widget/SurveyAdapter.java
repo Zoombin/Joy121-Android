@@ -10,6 +10,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +32,8 @@ import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.SurveyAEntity;
 import com.joy.json.model.SurveyDetailEntity;
+import com.joy.json.model.SurveyDetailEntity.SurveyAns;
+import com.joy.json.model.SurveyDetailEntity.SurveyRate;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.SurveyAOp;
 
@@ -131,28 +134,56 @@ public class SurveyAdapter extends BaseAdapter {
 		String[] questionlist = entity.getQuestions().split("\\^");
 		// 清空checkbox
 		holder.layout_multichoice.removeAllViews();
-		int[] answer = entity.getAnswer();
-		if (answer == null) {
-			answer = new int[questionlist.length];
-			for (int i = 0; i < answer.length; i++) {
-				answer[i] = 0;
+		SurveyAns surveyAns = entity.getSurveyAnswer();
+		String[] answer = null;
+		if (surveyAns == null) {
+			if (entity.getAnswer() == null) {
+				answer = new String[questionlist.length];
+				for (int i = 0; i < answer.length; i++) {
+					answer[i] = "0";
+				}
+				entity.setAnswer(answer);
+			} else {
+				answer = entity.getAnswer();
 			}
-			entity.setAnswer(answer);
+		} else {
+			answer = surveyAns.getAnswers().split("\\^");
 		}
+
+		List<SurveyRate> surveyratelist = entity.getSurveyRates();
 		for (int j = 0; j < questionlist.length; j++) {
 			final int k = j;
+			int l = -1;
 			String question = questionlist[j];
 			CheckBox checkbox = new CheckBox(mContext);
-			checkbox.setText(question);
-			checkbox.setChecked(answer[j] == 0 ? false : true);
-			if (entity.getLoginName() == null) {
+			if (surveyratelist == null || entity.getSurveyAnswer() == null) {
+				checkbox.setText(question);
+			} else {
+				for (SurveyRate surveyrate : surveyratelist) {
+					int index = surveyrate.getQuestionIndex();
+					if (index == j) {
+						l = j;
+						break;
+					}
+				}
+				if (l == -1) {
+					checkbox.setText(question);
+				} else {
+					checkbox.setText(Html.fromHtml(question
+							+ "<font color=\"#ff781f\">("
+							+ surveyratelist.get(l).getRate() + "票)</font>"));
+				}
+			}
+
+			checkbox.setChecked(answer[j].equals("0") ? false : true);
+			if (entity.getSurveyAnswer() == null) {
 				checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 					@Override
 					public void onCheckedChanged(CompoundButton buttonView,
 							boolean isChecked) {
-						int[] answer = entity.getAnswer();
-						answer[k] = (isChecked ? 1 : 0);
+						String[] answer = entity.getAnswer();
+						answer[k] = (isChecked ? "1" : "0");
 						entity.setAnswer(answer);
 					}
 				});
@@ -164,13 +195,14 @@ public class SurveyAdapter extends BaseAdapter {
 			holder.layout_multichoice.addView(checkbox);
 		}
 
-		if (entity.getLoginName() == null) {
+		if (entity.getSurveyAnswer() == null) {
 			holder.btn_survey.setTag(entity);
 			holder.btn_survey.setOnClickListener(clicklistener);
 		} else {
+			holder.btn_survey.setText("已投票");
 			holder.btn_survey.setClickable(false);
 			holder.btn_survey.setBackgroundColor(mActivity.getResources()
-					.getColor(R.color.welfare_item_tab_bg));
+					.getColor(R.color.btn_disable));
 		}
 
 		return convertView;
@@ -179,13 +211,14 @@ public class SurveyAdapter extends BaseAdapter {
 	OnClickListener clicklistener = new OnClickListener() {
 
 		@Override
-		public void onClick(final View v) {
+		public void onClick(View v) {
 			final SurveyDetailEntity surveydetailentity = (SurveyDetailEntity) v
 					.getTag();
-			int[] answer = surveydetailentity.getAnswer();
+			final Button btn = (Button) v;
+			final String[] answer = surveydetailentity.getAnswer();
 			int count = 0;
 			for (int i = 0; i < answer.length; i++) {
-				if (answer[i] == 1) {
+				if (answer[i].equals("1")) {
 					count++;
 				}
 			}
@@ -194,6 +227,13 @@ public class SurveyAdapter extends BaseAdapter {
 				return;
 			}
 
+			String answers = "";
+			for (String a : answer) {
+				answers += a + "^";
+			}
+			answers = answers.substring(0, answers.length() - 1);
+			final String finalanswer = answers;
+			
 			OperationBuilder builder = new OperationBuilder().append(
 					new SurveyAOp(), surveydetailentity);
 			OnOperationListener listener = new OnOperationListener() {
@@ -208,21 +248,31 @@ public class SurveyAdapter extends BaseAdapter {
 					}
 					SurveyAEntity surveyaentity = (SurveyAEntity) resList
 							.get(0);
-					int retobj = surveyaentity.getRetobj();
-					if (retobj == 0) {
+					List<SurveyDetailEntity.SurveyRate> retobj = surveyaentity
+							.getRetobj();
+					int flag = surveyaentity.getFlag();
+					if (flag != 1 && (retobj == null || retobj.size() == 0)) {
 						Toast.show(mContext, "投票失败！");
 						return;
 					} else {
 						Toast.show(mContext, "投票成功！");
-						v.setClickable(false);
-						v.setBackgroundColor(mActivity.getResources().getColor(
-								R.color.welfare_item_tab_bg));
+						btn.setText("已投票");
+						btn.setClickable(false);
+						btn.setBackgroundColor(mActivity.getResources()
+								.getColor(R.color.btn_disable));
 						int index = data.indexOf(surveyaentity);
 						if (index != -1) {
 							((SurveyDetailEntity) data.get(index))
 									.setLoginName(SharedPreferencesUtils
 											.getLoginName(JoyApplication
 													.getSelf()));
+							SurveyAns sruveyans = new SurveyAns();
+							sruveyans.setAnswers(finalanswer);
+							((SurveyDetailEntity) data.get(index))
+									.setSurveyAnswer(sruveyans);
+
+							((SurveyDetailEntity) data.get(index))
+									.setSurveyRates(retobj);
 						}
 						notifyDataSetChanged();
 					}

@@ -1,5 +1,7 @@
 package com.joy.json.model;
 
+import java.util.List;
+
 /**
  * 调查详情
  * @author daiye
@@ -9,12 +11,11 @@ public class SurveyDetailEntity extends TResult {
 
 	private static final long serialVersionUID = 1L;
 	
-//	{"retobj":[{"Description":"为了根据员工实际需求和公司财务的双赢，做此次调查。",
-//		"ScopeLevel":"DELPHI_SZ","LoginName":"steven",
-//		"Questions":"2000以下^2000-3000^3000-5000^5000-10000^10000-20000^20000-30000^30000-50000^50000以上",
-//		"ExpireTime":"\/Date(1399690800000+0800)\/","SurveyId":10,"OptionType":0,"ResultShow":1,"Title":"公司员工四金缴纳"}
-//	,{"Description":"根据公司家庭日安排，为了活动参与的广泛性，特发起这次活动投票征询。","ScopeLevel":"DELPHI_SZ","LoginName":"steven","Questions":"公司组织看电影。^公司组织吃饭。^公司组织游戏比赛。^公司组织旅游。^公司组织球类比赛。^公司组织趣味游戏。","ExpireTime":"\/Date(1399716000000+0800)\/","SurveyId":8,"OptionType":1,"ResultShow":0,"Title":"家庭日活动投票"},{"Description":"春节来临之际，公司为了表达对员工辛勤劳动的回报，准备发一批过节礼品，征询大家的需求，特举行这次投票。","ScopeLevel":"DELPHI_SZ","LoginName":"steven","Questions":"格兰仕微波炉^爱仕达电饭煲^步步高跑步机^爱玛电动车^海信电视机^联想电脑^苹果平板电脑^家用橱柜","ExpireTime":"\/Date(1399716000000+0800)\/","SurveyId":9,"OptionType":1,"ResultShow":1,"Title":"春节来临，礼品不断"},{"Description":"为了方便员工，满足每个人不同的需要，通过这次调查选择元旦礼品。","ScopeLevel":"DELPHI_SZ","LoginName":null,"Questions":"弹性自选^超市卡^发现金^买各种礼券^买电影票，健身卡^随便什么都行","ExpireTime":"\/Date(1400918400000+0800)\/","SurveyId":11,"OptionType":1,"ResultShow":1,"Title":"元旦节日福利调查"}],"msg":null,"flag":1}
-
+//	{"retobj":[{"Description":"根据公司家庭日安排，为了活动参与的广泛性，特发起这次活动投票征询。","ScopeLevel":"DELPHI_SZ",
+//		"LoginName":"eason","Questions":"公司组织看电影。^公司组织吃饭。^公司组织游戏比赛。^公司组织旅游。^公司组织球类比赛。^公司组织趣味游戏。",
+//		"ExpireTime":"\/Date(1402394400000+0800)\/","SurveyAnswer":{"Answers":"0^0^1^1^0^0","SurveyId":8,"LoginName":"eason"},
+//		"SurveyId":8,"SurveyRates":[{"SurveyId":8,"Rate":2,"QuestionIndex":3,"Question":null},
+//		                            {"SurveyId":8,"Rate":3,"QuestionIndex":0,"Question":null},{"SurveyId":8,"Rate":3,"QuestionIndex":2,"Question":null},{"SurveyId":8,"Rate":2,"QuestionIndex":5,"Question":null},{"SurveyId":8,"Rate":2,"QuestionIndex":4,"Question":null},{"SurveyId":8,"Rate":3,"QuestionIndex":1,"Question":null}],"OptionType":1,"ResultShow":1,"Title":"家庭日活动投票"}],"msg":null,"flag":1}
 	private String Description;
 	
 	private String ScopeLevel;
@@ -33,7 +34,85 @@ public class SurveyDetailEntity extends TResult {
 	
 	private String Title;
 	
-	private int[] answer;
+	private SurveyAns SurveyAnswer;
+	
+	private String[] answer;
+	
+	private List<SurveyRate> SurveyRates;
+	
+	public class SurveyRate {
+		private int SurveyId;
+		
+		private int Rate;
+		
+		private int QuestionIndex;
+		
+		private String Question;
+
+		public int getSurveyId() {
+			return SurveyId;
+		}
+
+		public void setSurveyId(int surveyId) {
+			SurveyId = surveyId;
+		}
+
+		public int getRate() {
+			return Rate;
+		}
+
+		public void setRate(int rate) {
+			Rate = rate;
+		}
+
+		public int getQuestionIndex() {
+			return QuestionIndex;
+		}
+
+		public void setQuestionIndex(int questionIndex) {
+			QuestionIndex = questionIndex;
+		}
+
+		public String getQuestion() {
+			return Question;
+		}
+
+		public void setQuestion(String question) {
+			Question = question;
+		}
+	}
+	
+	static public class SurveyAns {
+		private String Answers;
+		
+		private int SurveyId;
+		
+		private String LoginName;
+
+		public String getAnswers() {
+			return Answers;
+		}
+
+		public void setAnswers(String answers) {
+			Answers = answers;
+		}
+
+		public int getSurveyId() {
+			return SurveyId;
+		}
+
+		public void setSurveyId(int surveyId) {
+			SurveyId = surveyId;
+		}
+
+		public String getLoginName() {
+			return LoginName;
+		}
+
+		public void setLoginName(String loginName) {
+			LoginName = loginName;
+		}
+	}
 	
 	public String getDescription() {
 		return Description;
@@ -107,11 +186,27 @@ public class SurveyDetailEntity extends TResult {
 		Title = title;
 	}
 
-	public int[] getAnswer() {
+	public SurveyAns getSurveyAnswer() {
+		return SurveyAnswer;
+	}
+
+	public void setSurveyAnswer(SurveyAns surveyAnswer) {
+		SurveyAnswer = surveyAnswer;
+	}
+
+	public String[] getAnswer() {
 		return answer;
 	}
 
-	public void setAnswer(int[] answer) {
+	public void setAnswer(String[] answer) {
 		this.answer = answer;
+	}
+
+	public List<SurveyRate> getSurveyRates() {
+		return SurveyRates;
+	}
+
+	public void setSurveyRates(List<SurveyRate> surveyRates) {
+		SurveyRates = surveyRates;
 	}
 }

@@ -19,4 +19,6 @@
 	<!-- 积分历史偶数list背景 -->
 	<color name="points_list_two">#eeeeee</color>
 	
+	<color name="btn_disable">#D4D4D4</color>
+	
 </resources>
