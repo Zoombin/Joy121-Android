@@ -34,7 +34,7 @@ public class SurveyOp implements ITaskOperation {
 				IP,
 				new BasicNameValuePair("action", "comp_survey"),
 				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\",\"company\":\"%s\"}", SharedPreferencesUtils
+						"{\"loginname\":\"%s\",\"company\":\"%s\",\"isexpired\":1}", SharedPreferencesUtils
 								.getLoginName(JoyApplication.getSelf()), SharedPreferencesUtils
 								.getCompany(JoyApplication.getSelf()))),
 								new BasicNameValuePair("token", new MD5()

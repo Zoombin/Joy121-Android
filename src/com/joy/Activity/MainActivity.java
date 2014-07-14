@@ -53,15 +53,15 @@ public class MainActivity extends QActivity {
 	// 定义一个布局
 	private LayoutInflater layoutInflater;
 	// 定义数组来存放Fragment界面
-	private Class<?> fragmentArray[] = { HomeFragment.class,
-			WelfareFragment.class, LifeFragment.class, MallFragment.class,
+	private Class<?> fragmentArray[] = {
+			WelfareFragment.class, LifeFragment.class, MallFragment.class,MallFragment.class,
 			PersonalFragment.class };
 	// 定义数组来存放按钮图片
-	private String mImageViewArray[] = { "menu_home", "menu_welfare",
-			"menu_life", "menu_mall", "menu_personal" };
+	private String mImageViewArray[] = {"menu_welfare",
+			"menu_life", "menu_mall","menu_mall", "menu_personal" };
 	// Tab选项卡的文字
-	private int mTextviewArray[] = { R.string.menu_home, R.string.menu_welfare,
-			R.string.menu_life, R.string.menu_mall, R.string.menu_personal };
+	private int mTextviewArray[] = {R.string.menu_welfare,
+			R.string.menu_life, R.string.menu_mall,R.string.menu_buycar, R.string.menu_personal };
 	private HashMap<String, View> tabViewItem = new HashMap<String, View>();
 
 	private void initTab() {

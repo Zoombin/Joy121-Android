@@ -17,6 +17,7 @@
 	<string name="menu_welfare">公司门户</string>
 	<string name="menu_life">生活服务</string>
 	<string name="menu_mall">在线商城</string>
+	<string name="menu_buycar">购物车</string>
 	<string name="menu_personal">个人空间</string>
 	<string name="mywelfare">我的福利</string>
 	
@@ -46,13 +47,16 @@
 	
 	<!-- welfare -->
 	<string name="buy">直 接 订 购</string>
-	<string name="row_welfare">节日福利</string>
+	<string name="row_welfare">公司福利</string>
 	<string name="row_shop">特约商户</string>
 	<string name="row_logoshop">LOGO商店</string>
 	<string name="row_week">每周一团</string>
 	<string name="row_notice">公告</string>
 	<string name="row_activity">活动</string>
 	<string name="row_suivey">调查</string>
+	<string name="row_contact">通讯录</string>
+	<string name="row_groupbuy">限时团购</string>
+	<string name="row_train">培训</string>
 	
 	<!-- changepwd -->
 	<string name="currpwd">当前密码</string>

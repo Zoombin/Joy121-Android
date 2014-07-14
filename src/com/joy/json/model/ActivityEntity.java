@@ -16,6 +16,10 @@ public class ActivityEntity extends TResult {
 	private String msg;
 	
 	private int flag;
+	
+	public String isexpired;
+	
+	public String acttype;
 
 	public List<ActivityDetailEntity> getRetobj() {
 		return retobj;
@@ -39,5 +43,21 @@ public class ActivityEntity extends TResult {
 
 	public void setFlag(int flag) {
 		this.flag = flag;
+	}
+	
+	public String getIsExpired() {
+		return isexpired;
+	}
+	
+	public void setIsExpired(String expired) {
+		this.isexpired = expired;
+	}
+	
+	public String getActType() {
+		return acttype;
+	}
+	
+	public void setActType(String actType) {
+		this.acttype = actType;
 	}
 }

@@ -5,6 +5,7 @@ import gejw.android.quickandroid.widget.Toast;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +37,7 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 	private TextView tv_title;
 	private ListView list_activity;
 	private ActivityAdapter adapter;
+	public String acttype;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +70,14 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 	}
 
 	private void initData() {
+		ActivityEntity act = new ActivityEntity();
+		
+		Intent intent = getIntent();
+		String acttype = intent.getStringExtra("acttype");
+		act.isexpired = "1";
+		act.acttype = acttype;
 		OperationBuilder builder = new OperationBuilder().append(new ActivityOp(),
-				null);
+				act);
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
 			public void onOperationFinished(List<Object> resList) {
