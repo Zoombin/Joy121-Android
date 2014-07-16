@@ -24,6 +24,7 @@ public class SurveyOp implements ITaskOperation {
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
+		SurveyEntity sur = (SurveyEntity)in;
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(
 				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
@@ -34,9 +35,9 @@ public class SurveyOp implements ITaskOperation {
 				IP,
 				new BasicNameValuePair("action", "comp_survey"),
 				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\",\"company\":\"%s\",\"isexpired\":1}", SharedPreferencesUtils
+						"{\"loginname\":\"%s\",\"company\":\"%s\",\"isexpired\": \"%s\"}", SharedPreferencesUtils
 								.getLoginName(JoyApplication.getSelf()), SharedPreferencesUtils
-								.getCompany(JoyApplication.getSelf()))),
+								.getCompany(JoyApplication.getSelf()), sur.isexpired)),
 								new BasicNameValuePair("token", new MD5()
 								.getMD5ofStr(SharedPreferencesUtils
 										.getLoginName(JoyApplication.getSelf())

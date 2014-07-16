@@ -16,6 +16,8 @@ public class PostEntity extends TResult {
 	private String msg;
 	
 	private int flag;
+	
+	public String isexpired;
 
 	public List<PostDetailEntity> getRetobj() {
 		return retobj;
@@ -27,6 +29,14 @@ public class PostEntity extends TResult {
 
 	public String getMsg() {
 		return msg;
+	}
+
+	public void setIsExpired(String expired) {
+		this.isexpired = expired;
+	}
+	
+	public String getIsExpired() {
+		return isexpired;
 	}
 
 	public void setMsg(String msg) {

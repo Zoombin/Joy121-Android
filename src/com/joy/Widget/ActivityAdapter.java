@@ -61,6 +61,10 @@ public class ActivityAdapter extends BaseAdapter {
 	public void addSeparatorItem(ActivityDetailEntity entity) {
 		data.add(entity);
 	}
+	
+	public void removeAll() {
+		data.clear();
+	}
 
 	@Override
 	public int getCount() {

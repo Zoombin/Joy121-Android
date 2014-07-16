@@ -26,10 +26,10 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
 import com.joy.R;
-import com.joy.Fragment.HomeFragment;
 import com.joy.Fragment.LifeFragment;
 import com.joy.Fragment.MallFragment;
 import com.joy.Fragment.PersonalFragment;
+import com.joy.Fragment.ShoppingCarFragment;
 import com.joy.Fragment.WelfareFragment;
 import com.umeng.analytics.MobclickAgent;
 
@@ -54,7 +54,7 @@ public class MainActivity extends QActivity {
 	private LayoutInflater layoutInflater;
 	// 定义数组来存放Fragment界面
 	private Class<?> fragmentArray[] = {
-			WelfareFragment.class, LifeFragment.class, MallFragment.class,MallFragment.class,
+			WelfareFragment.class, LifeFragment.class, MallFragment.class,ShoppingCarFragment.class,
 			PersonalFragment.class };
 	// 定义数组来存放按钮图片
 	private String mImageViewArray[] = {"menu_welfare",

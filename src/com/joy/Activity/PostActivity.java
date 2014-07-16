@@ -5,10 +5,12 @@ import gejw.android.quickandroid.widget.Toast;
 
 import java.util.List;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,13 +39,20 @@ public class PostActivity extends QActivity implements OnClickListener {
 	private ListView list_post;
 	private PostAdapter adapter;
 	
+	private LinearLayout layout_menu;
+	private LinearLayout layout_useful;
+	private TextView tv_useful;
+	private LinearLayout layout_expired;
+	private TextView tv_expired;
+	private Resources resources;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post);
-		
+		resources = this.getResources();
 		initView();
-		initData();
+		initData("1");
 	}
 
 	private void initView() {
@@ -59,7 +68,18 @@ public class PostActivity extends QActivity implements OnClickListener {
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
-
+		
+		layout_menu = (LinearLayout) findViewById(R.id.layout_menu);
+		
+		layout_useful = (LinearLayout) findViewById(R.id.layout_useful);
+		layout_useful.setOnClickListener(this);
+		
+		tv_useful = (TextView) findViewById(R.id.tv_useful);
+		
+		layout_expired = (LinearLayout) findViewById(R.id.layout_expired);
+		layout_expired.setOnClickListener(this);
+		
+		tv_expired = (TextView) findViewById(R.id.tv_expired);
 		list_post = (ListView) findViewById(R.id.list_post);
 		uiAdapter.setMargin(list_post, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
@@ -67,9 +87,11 @@ public class PostActivity extends QActivity implements OnClickListener {
 		list_post.setAdapter(adapter);
 	}
 
-	private void initData() {
+	private void initData(String isexpired) {
+		PostEntity post = new PostEntity();
+		post.isexpired = isexpired;
 		OperationBuilder builder = new OperationBuilder().append(new PostOp(),
-				null);
+				post);
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
 			public void onOperationFinished(List<Object> resList) {
@@ -104,13 +126,35 @@ public class PostActivity extends QActivity implements OnClickListener {
 		task.execute();
 	}
 
+	private void showMenu(int layout) {
+		switch (layout) {
+		case R.id.layout_useful:
+			tv_useful.setTextColor(resources.getColor(R.color.title_bg));
+			tv_expired.setTextColor(resources.getColor(R.color.BLACK));
+			adapter.removeAll();
+			initData("1");
+			break;
+		case R.id.layout_expired:
+			tv_expired.setTextColor(resources.getColor(R.color.title_bg));
+			tv_useful.setTextColor(resources.getColor(R.color.BLACK));
+			adapter.removeAll();
+			initData("2");
+			break;
+		default:
+			break;
+		}
+	}	
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.layout_useful:
+		case R.id.layout_expired:
+			showMenu(v.getId());
+			break;
 		case R.id.tv_ret:
 			finish();
 			break;
-
 		default:
 			break;
 		}

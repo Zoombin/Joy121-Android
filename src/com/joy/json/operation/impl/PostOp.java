@@ -24,6 +24,7 @@ public class PostOp implements ITaskOperation {
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
+		PostEntity post = (PostEntity)in;
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(
 				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
@@ -34,9 +35,9 @@ public class PostOp implements ITaskOperation {
 				IP,
 				new BasicNameValuePair("action", "comp_post"),
 				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\",\"company\":\"%s\",\"isexpired\":1}", SharedPreferencesUtils
+						"{\"loginname\":\"%s\",\"company\":\"%s\",\"isexpired\":\"%s\"}", SharedPreferencesUtils
 								.getLoginName(JoyApplication.getSelf()), SharedPreferencesUtils
-								.getCompany(JoyApplication.getSelf()))),
+								.getCompany(JoyApplication.getSelf()), post.isexpired)),
 								new BasicNameValuePair("token", new MD5()
 								.getMD5ofStr(SharedPreferencesUtils
 										.getLoginName(JoyApplication.getSelf())

@@ -6,10 +6,14 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.List;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,15 +41,23 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 	private TextView tv_title;
 	private ListView list_activity;
 	private ActivityAdapter adapter;
+	
+	private LinearLayout layout_menu;
+	private LinearLayout layout_useful;
+	private TextView tv_useful;
+	private LinearLayout layout_expired;
+	private TextView tv_expired;
+	private Resources resources;
+	
 	public String acttype;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_activity);
-		
+		resources = getResources();
 		initView();
-		initData();
+		initData("1");
 	}
 
 	private void initView() {
@@ -67,14 +79,26 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
 		adapter = new ActivityAdapter(self, self);
 		list_activity.setAdapter(adapter);
+		
+		layout_menu = (LinearLayout) findViewById(R.id.layout_menu);
+		
+		layout_useful = (LinearLayout) findViewById(R.id.layout_useful);
+		layout_useful.setOnClickListener(this);
+		
+		tv_useful = (TextView) findViewById(R.id.tv_useful);
+		
+		layout_expired = (LinearLayout) findViewById(R.id.layout_expired);
+		layout_expired.setOnClickListener(this);
+		
+		tv_expired = (TextView) findViewById(R.id.tv_expired);
 	}
 
-	private void initData() {
+	private void initData(String isexpired) {
 		ActivityEntity act = new ActivityEntity();
 		
 		Intent intent = getIntent();
 		String acttype = intent.getStringExtra("acttype");
-		act.isexpired = "1";
+		act.isexpired = isexpired;
 		act.acttype = acttype;
 		OperationBuilder builder = new OperationBuilder().append(new ActivityOp(),
 				act);
@@ -111,14 +135,37 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 				JsonCommon.PROGRESSQUERY);
 		task.execute();
 	}
+	
+	
+	private void showMenu(int layout) {
+		switch (layout) {
+		case R.id.layout_useful:
+			tv_useful.setTextColor(resources.getColor(R.color.title_bg));
+			tv_expired.setTextColor(resources.getColor(R.color.BLACK));
+			adapter.removeAll();
+			initData("1");
+			break;
+		case R.id.layout_expired:
+			tv_expired.setTextColor(resources.getColor(R.color.title_bg));
+			tv_useful.setTextColor(resources.getColor(R.color.BLACK));
+			adapter.removeAll();
+			initData("2");
+			break;
+		default:
+			break;
+		}
+	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.layout_useful:
+		case R.id.layout_expired:
+			showMenu(v.getId());
+			break;
 		case R.id.tv_ret:
 			finish();
 			break;
-
 		default:
 			break;
 		}

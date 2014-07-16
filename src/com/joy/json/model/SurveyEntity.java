@@ -16,7 +16,9 @@ public class SurveyEntity extends TResult {
 	private String msg;
 	
 	private int flag;
-
+	
+	public String isexpired;
+	
 	public List<SurveyDetailEntity> getRetobj() {
 		return retobj;
 	}
@@ -39,5 +41,13 @@ public class SurveyEntity extends TResult {
 
 	public void setFlag(int flag) {
 		this.flag = flag;
+	}
+	
+	public String getIsExpired() {
+		return isexpired;
+	}
+	
+	public void setIsExpired(String expired) {
+		this.isexpired = expired;
 	}
 }

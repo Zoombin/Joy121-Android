@@ -84,6 +84,10 @@
 	<string name="health">健康</string>
 	<string name="safety">保险</string>
 	
+	<!-- segemtal -->
+	<string name="isexpired">已过期</string>
+	<string name="useful">最近发布</string>
+	
 	<!-- post -->
 	<string name="post">公司公告</string>
 	

@@ -78,6 +78,11 @@ public class SurveyAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
+	
+	public void removeAll()
+	{
+		data.clear();
+	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
