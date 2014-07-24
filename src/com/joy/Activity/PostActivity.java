@@ -84,7 +84,7 @@ public class PostActivity extends QActivity implements OnClickListener {
 		uiAdapter.setMargin(list_post, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
 		adapter = new PostAdapter(self);
-		list_post.setAdapter(adapter);
+		list_post.setAdapter(adapter);	
 	}
 
 	private void initData(String isexpired) {

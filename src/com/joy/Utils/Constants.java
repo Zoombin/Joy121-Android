@@ -22,5 +22,5 @@ public class Constants {
 	public static final String IMGSURL = "http://cloud.joy121.com/Files/img/s_";
 	
 	// 图片logo
-	public static final String IMGLOGO = "http://cloud.joy121.com/Files/logo/";
+	public static final String IMGLOGO = "http://cloud.joy121.com/files/logo/";
 }

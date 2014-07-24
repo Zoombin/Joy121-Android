@@ -3,12 +3,15 @@ package com.joy.Activity;
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -18,6 +21,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 import com.joy.JoyApplication;
 import com.joy.R;
@@ -152,6 +158,7 @@ public class LoginActivity extends QActivity {
 					et_pwd.setText(loginpwd);
 					return;
 				}
+				
 				JoyApplication.getInstance().setUserinfo(userInfoEntity);
 				SharedPreferencesUtils.setLoginName(self, loginname);
 				SharedPreferencesUtils.setLoginPwd(self, loginpwd);
@@ -202,6 +209,16 @@ public class LoginActivity extends QActivity {
 					Toast.show(self, "用户名或密码错误！");
 					return;
 				}
+				String s = userInfoEntity.getAppAccessCodes();
+				
+				String[] ss = s.split(",");
+				Set<String> set = new HashSet<String>();
+				
+				for (int i = 0; i < ss.length; i++) {
+					set.add(ss[i]);
+				}
+				setAliasAndTags(null, set);
+				
 				JoyApplication.getInstance().setUserinfo(userInfoEntity);
 				SharedPreferencesUtils.setLoginName(self, loginname);
 				if (ckb_auto.isChecked()) {
@@ -223,6 +240,19 @@ public class LoginActivity extends QActivity {
 				JsonCommon.PROGRESSLOGIN);
 		task.execute();
 	}
+	
+	private void setAliasAndTags(final String alias, final Set<String> tags) {
+		
+			JPushInterface.setAliasAndTags(this, alias, tags, new TagAliasCallback() {
+
+				@Override
+				public void gotResult(int arg0, String arg1, Set<String> arg2) {
+					// TODO Auto-generated method stub
+					
+				}
+			
+			});
+		}
 	
 	public void onResume() {
 		super.onResume();

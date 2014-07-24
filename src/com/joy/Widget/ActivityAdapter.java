@@ -130,7 +130,7 @@ public class ActivityAdapter extends BaseAdapter {
 
 		if (entity.getActPicturePath() != null) {
 			ImageLoader.getInstance().displayImage(
-					"http://www.joy121.com/sys/Files/activity/"
+					"http://cloud.joy121.com/files/activity/"
 							+ entity.getActPicturePath(), holder.iv_actpicture);
 		}
 

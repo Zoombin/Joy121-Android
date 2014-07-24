@@ -85,6 +85,8 @@ public class UserInfoEntity extends TResult {
 	private String ClaimPrint;
 
 	private String EmployeeId;
+	
+	private String AppAccessCodes;
 
 	public String getLoginName() {
 		return LoginName;
@@ -293,5 +295,14 @@ public class UserInfoEntity extends TResult {
 	public void setEmployeeId(String employeeId) {
 		EmployeeId = employeeId;
 	}
+	
+	public String getAppAccessCodes() {
+		return AppAccessCodes;
+	}
+
+	public void setAppAccessCodes(String appAccessCodes) {
+		EmployeeId = appAccessCodes;
+	}
+	
 
 }

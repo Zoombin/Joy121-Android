@@ -4,6 +4,7 @@ import gejw.android.quickandroid.QFragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.joy.R;
 import com.joy.Activity.ActivityActivity;
 import com.joy.Activity.PostActivity;
+import com.joy.Activity.StoreActivity;
 import com.joy.Activity.SurveyActivity;
 import com.joy.Activity.WelfareActivity;
 import com.joy.Utils.Constants;
@@ -210,6 +212,10 @@ public class WelfareFragment extends QFragment implements OnClickListener {
 		case R.id.layout_train:
 			intent.setClass(mActivity, ActivityActivity.class);
 			intent.putExtra("acttype", "2");
+			startActivity(intent);
+			break;
+		case R.id.layout_logostore:
+			intent.setClass(mActivity, StoreActivity.class);
 			startActivity(intent);
 			break;
 		default:

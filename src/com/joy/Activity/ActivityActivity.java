@@ -29,11 +29,6 @@ import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.ActivityOp;
 import com.umeng.analytics.MobclickAgent;
 
-/**
- * 活动列表
- * @author daiye
- *
- */
 public class ActivityActivity extends QActivity implements OnClickListener {
 	
 	private RelativeLayout layout_title;
