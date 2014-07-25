@@ -7,7 +7,7 @@ import cn.jpush.android.api.JPushInterface;
 
 import com.joy.Utils.MD5;
 import com.joy.json.model.UserInfoEntity;
-import com.lidroid.xutils.HttpUtils;
+//import com.lidroid.xutils.HttpUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -53,7 +53,7 @@ public class JoyApplication extends QApplication {
 		UIAdapter.setSize(480, 800);
 		PLog.setDebug(true);
 
-		new HttpUtils().configTimeout(5000);
+		//new HttpUtils().configTimeout(5000);
 		
 //		try {
 //			DesUtil.run();
