@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="panda">
+
+        <!-- 字体大小 -->
+        <attr name="ptextSize" format="integer" />
+
+        <!-- 内间距 -->
+        <attr name="ppaddingLeft" format="integer" />
+        <attr name="ppaddingRight" format="integer" />
+        <attr name="ppaddingTop" format="integer" />
+        <attr name="ppaddingBottom" format="integer" />
+        <!-- 外间距 -->
+        <attr name="pmarginLeft" format="integer" />
+        <attr name="pmarginRight" format="integer" />
+        <attr name="pmarginTop" format="integer" />
+        <attr name="pmarginBottom" format="integer" />
+
+        <!-- 大小 -->
+        <attr name="pwidth" format="integer" />
+        <attr name="pheight" format="integer" />
+        <!-- 比重 -->
+        <attr name="pweight" format="integer" />
+        <!-- 是否横向基准 -->
+        <attr name="pbasedir" format="enum">
+            <enum name="horizontal" value="-1"/>
+            <enum name="vertical" value="-2"/>
+        </attr>
+        <!-- 背景 -->
+        <attr name="pbackground" format="reference" />
+    </declare-styleable>
+
+</resources>
