@@ -223,6 +223,10 @@
             android:name="com.joy.Activity.StoreActivity"
             android:label="@string/title_activity_store" >
         </activity>
+         <activity
+            android:name="com.joy.Activity.CategorieStoreActivity"
+            android:label="@string/title_activity_store" >
+        </activity>
     </application>
 
 </manifest>

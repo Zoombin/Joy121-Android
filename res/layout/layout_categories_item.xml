@@ -8,15 +8,19 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:background="#f6f5ec"
+        android:orientation="horizontal"
+        android:padding="4dip" >
 
-        <me.dushuhu.android.UI.Widget.RectangleTextView
+        <com.joy.Widget.RectangleTextView
             android:id="@+id/txt_categoriesName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
-            android:background="@color/BLACK"
-            android:textColor="@color/WHITE" />
+            android:background="#f6f5ec"
+            android:textColor="@color/BLACK"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0dp"
@@ -28,16 +32,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
-            android:text="123123"
-            android:textColor="@color/BLACK" />
+            android:text=""
+            android:textColor="@color/BLACK"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <gejw.android.quickandroid.widget.HorizontalListView
         xmlns:widget="http://schemas.android.com/apk/res-auto"
         android:id="@+id/horizontalListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dip"
         android:scrollbars="none" >
     </gejw.android.quickandroid.widget.HorizontalListView>
+
+    <!-- div -->
+    <!-- <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#000000" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dip"
+        android:background="#00000000" /> -->
 
 </LinearLayout>

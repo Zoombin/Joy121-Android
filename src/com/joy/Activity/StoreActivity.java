@@ -1,45 +1,48 @@
 package com.joy.Activity;
 
-//import me.dushuhu.android.Config.NetConfig;
-import java.util.ArrayList;
-import java.util.List;
-
-
-import com.joy.Utils.Constants;
-import com.joy.json.JsonCommon;
-import com.joy.json.JsonCommon.OnOperationListener;
-import com.joy.json.model.CategoryEntity;
-//import me.dushuhu.android.Entity.CategoriesGoodsEntity.CategoriesData;
-import com.joy.json.model.CategoriesGoodsEntity.CategoriesGood;
-import com.joy.json.operation.OperationBuilder;
-import com.joy.json.operation.impl.CategoryListOp;
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.ui.adapter.UIManager;
 import gejw.android.quickandroid.widget.HorizontalListView;
 import gejw.android.quickandroid.widget.Toast;
 import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshBase;
-import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshListView;
 import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshBase.Mode;
 import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshBase.OnRefreshListener;
+import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshListView;
 
-import com.joy.R;
+import java.util.ArrayList;
+import java.util.List;
 
-import android.os.Bundle;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Paint;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.joy.R;
+import com.joy.Utils.Constants;
+import com.joy.Widget.RectangleTextView;
+import com.joy.json.JsonCommon;
+import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.CategoriesGoodsDEntity;
+import com.joy.json.model.CategoryEntity;
+import com.joy.json.model.CategoriesGoods;
+import com.joy.json.operation.OperationBuilder;
+import com.joy.json.operation.impl.CategoryGoodsListOp;
+import com.joy.json.operation.impl.CategoryListOp;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class StoreActivity extends QActivity implements OnClickListener{
 	
@@ -56,7 +59,7 @@ public class StoreActivity extends QActivity implements OnClickListener{
 	LinearLayout layout_viewPager;
 
 	// 列表
-	private PullToRefreshListView listView;
+	private PullToRefreshListView pullListView;
 	private CategoriseAdapter categoriseAdapter;
 	
 	
@@ -79,11 +82,11 @@ public class StoreActivity extends QActivity implements OnClickListener{
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 
-		listView = (PullToRefreshListView) findViewById(R.id.listview);
-		listView.setMode(Mode.PULL_FROM_START);
-		listView.mRefreshableView.addHeaderView(layout_viewPager);
-		listView.setAdapter(categoriseAdapter = new CategoriseAdapter());
-		listView.setOnRefreshListener(new OnRefreshListener<ListView>() {
+		pullListView = (PullToRefreshListView) findViewById(R.id.listview);
+		pullListView.setMode(Mode.PULL_FROM_START);
+		//pullListView.mRefreshableView.addHeaderView(layout_viewPager);
+		pullListView.setAdapter(categoriseAdapter = new CategoriseAdapter());
+		pullListView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
 			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
@@ -91,12 +94,9 @@ public class StoreActivity extends QActivity implements OnClickListener{
 			}
 		});
 
-		if (datas == null || datas.length == 0)
 			getCategories();
 	}
 
-
-	private CategoryEntity[] datas = new CategoryEntity[0];
 
 	private void getCategories() {
 		CategoryEntity sur = new CategoryEntity();
@@ -106,6 +106,7 @@ public class StoreActivity extends QActivity implements OnClickListener{
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
 			public void onOperationFinished(List<Object> resList) {
+				pullListView.onRefreshComplete();
 				if (self.isFinishing()) {
 					return;
 				}
@@ -115,17 +116,23 @@ public class StoreActivity extends QActivity implements OnClickListener{
 				}
 				CategoryEntity entity = (CategoryEntity) resList.get(0);
 				List<CategoryEntity> surveylist = entity.getRetobj();
-				
 				if (surveylist == null) {
 					Toast.show(self, "没有分类信息！");
 					finish();
 					return;
 				}
 				
-			}
+				PLog.e("返回结果--->%s", surveylist.size());
+				for(CategoryEntity data:surveylist){
+					PLog.e("id %s", data.getId());
+					PLog.e("name %s", data.getCategoryName());
+				}
 
+				categoriseAdapter.addData(surveylist);
+			}
 			@Override
 			public void onOperationError(Exception e) {
+				pullListView.onRefreshComplete();
 				e.printStackTrace();
 			}
 		};
@@ -136,15 +143,20 @@ public class StoreActivity extends QActivity implements OnClickListener{
 	}
 
 	class CategoriseAdapter extends BaseAdapter {
+		private List<CategoryEntity> datas;
+		public void addData(List<CategoryEntity> datas){
+			this.datas = datas;
+			this.notifyDataSetChanged();
+		}
 
 		@Override
 		public int getCount() {
-			return datas.length;
+			return datas == null ? 0 : datas.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
-			return datas[position];
+			return datas == null ? null : datas.get(position);
 		}
 
 		@Override
@@ -159,10 +171,8 @@ public class StoreActivity extends QActivity implements OnClickListener{
 				holder = new ViewHolder();
 				convertView = LayoutInflater.from(mActivity).inflate(
 						R.layout.layout_categories_item, null);
-				mUiManager.matchingUIAllFromJson(convertView);
 
-//				holder.txt_categoriesName = (RectangleTextView) convertView
-//						.findViewById(R.id.txt_categoriesName);
+				holder.txt_categoriesName = (RectangleTextView) convertView.findViewById(R.id.txt_categoriesName);
 				holder.txt_showall = (TextView) convertView
 						.findViewById(R.id.txt_showall);
 				holder.horizontalListView = (HorizontalListView) convertView
@@ -171,67 +181,108 @@ public class StoreActivity extends QActivity implements OnClickListener{
 			} else
 				holder = (ViewHolder) convertView.getTag();
 
-			CategoryEntity data = datas[position];
-			holder.txt_categoriesName.setText(data.getCategoryName());
-			holder.txt_categoriesName.setTag(data);
-			holder.txt_categoriesName
-					.setOnClickListener(StoreActivity.this);
+			CategoryEntity data = (CategoryEntity) getItem(position);
+			if(data != null){
+				holder.txt_categoriesName.setText(data.getCategoryName());
+				holder.txt_categoriesName.setTag(data);
+				holder.txt_categoriesName
+						.setOnClickListener(StoreActivity.this);
 
-			holder.txt_showall.setTag(data);
-//			holder.txt_showall.setOnClickListener(CategoriesFragment.this);
-//			final CategoriesGood[] goods = data.getCategory_goods();
-//			holder.horizontalListView
-//					.setAdapter(new HorizontalCategoriseAdapter(goods));
-//			holder.horizontalListView
-//					.setOnItemClickListener(new OnItemClickListener() {
-//
-//						@Override
-//						public void onItemClick(AdapterView<?> arg0, View view,
-//								int position, long arg3) {
-//							Bundle bundle = new Bundle();
-//							bundle.putString("goodsid",
-//									goods[position].getGoods_id());
-//
-//							GoodsDetails goodsDetails = new GoodsDetails();
-//							goodsDetails.setArguments(bundle);
-//							MainActivity.mActivity.replaceChildFragment("goods"
-//									+ goods[position].getGoods_id(),
-//									goodsDetails, true);
-//						}
-//					});
-
+				holder.txt_showall.setText("显示全部 >");
+				holder.txt_showall.setTag(data);
+				
+				String id = data.getId();
+				HorizontalCategoriseAdapter hAdapter = new HorizontalCategoriseAdapter();
+				holder.horizontalListView.setAdapter(hAdapter);
+				holder.horizontalListView.setOnItemClickListener(new OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+						// TODO Auto-generated method stub
+						CategoriesGoods goods = (CategoriesGoods) parent.getAdapter().getItem(position);
+						Intent intent = new Intent();
+						intent.setClass(mActivity, CategorieStoreActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putSerializable("detail", goods);
+						intent.putExtras(bundle);
+						startActivity(intent);
+					}
+				});
+				getCategorieGoods(id,hAdapter);
+			}
 			return convertView;
 		}
 
 		class ViewHolder {
-			TextView txt_categoriesName;
+			RectangleTextView txt_categoriesName;
 			TextView txt_showall;
 			HorizontalListView horizontalListView;
 		}
 
 	}
+	
+	private void getCategorieGoods(String id,final HorizontalCategoriseAdapter hAdapter ) {
+		PLog.e("id--->%s", id);
+		CategoriesGoodsDEntity goods = new CategoriesGoodsDEntity();
+
+		OperationBuilder builder = new OperationBuilder().append(new CategoryGoodsListOp(id),
+				goods);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (self.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					//Toast.show(self, "连接超时");
+					return;
+				}
+				CategoriesGoodsDEntity entity = (CategoriesGoodsDEntity) resList.get(0);
+				if (entity == null || (entity != null&&entity.getGoods() == null)|| (entity != null&&entity.getGoods().size()==0)) {
+					//Toast.show(self, "没有商品信息！");
+					return;
+				}
+				PLog.e("dfsfd fd -->%s", entity.getGoods().size());
+				
+				//HorizontalCategoriseAdapter hAdapter = new HorizontalCategoriseAdapter();
+				//hListView.setAdapter(hAdapter);
+				hAdapter.setData(entity.getGoods());
+			}
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+
+		JsonCommon task = new JsonCommon(self, builder, listener,
+				false);
+		task.execute();
+	}
 
 	class HorizontalCategoriseAdapter extends BaseAdapter {
-
-		CategoriesGood[] categoriesGoods;
-
-		public HorizontalCategoriseAdapter(CategoriesGood[] categoriesGoods) {
-			this.categoriesGoods = categoriesGoods;
+		List<CategoriesGoods> datas;
+		/*public HorizontalCategoriseAdapter(List<Goods> datas) {
+			// TODO Auto-generated constructor stub
+			this.datas  = datas;
+		}*/
+		
+		public void setData(List<CategoriesGoods> datas){
+			this.datas = datas;
+			this.notifyDataSetChanged();
 		}
 
 		@Override
 		public int getCount() {
-			return categoriesGoods.length;
+			return datas == null ? 0 : datas.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
-			return categoriesGoods[position];
+			return datas == null ? null : datas.get(position);
 		}
 
 		@Override
 		public long getItemId(int position) {
-			return position;
+			return datas == null ? 0 : position;
 		}
 
 		@Override
@@ -240,42 +291,35 @@ public class StoreActivity extends QActivity implements OnClickListener{
 			if (convertView == null) {
 				holder = new ViewHolder();
 				convertView = LayoutInflater.from(mActivity).inflate(
-						R.layout.layout_categories_goods_item, null);
+						R.layout.logo_categories_goods_item, null);
 				convertView.setTag(holder);
 				mUiManager.matchingUIAllFromJson(convertView);
 
 				holder.img_icon = (ImageView) convertView
 						.findViewById(R.id.img_icon);
-				holder.txt_price_now = (TextView) convertView
-						.findViewById(R.id.txt_price_now);
-				holder.txt_price_old = (TextView) convertView
-						.findViewById(R.id.txt_price_old);
-				holder.txt_price_old.getPaint().setFlags(
-						Paint.STRIKE_THRU_TEXT_FLAG);
+				holder.txt_price = (TextView) convertView
+						.findViewById(R.id.txt_goods_price);
 				holder.txt_goodsname = (TextView) convertView
-						.findViewById(R.id.txt_goodsname);
-			} else
+						.findViewById(R.id.txt_goods_name);
+				//convertView.setTag(holder);
+			} else{
 				holder = (ViewHolder) convertView.getTag();
-
-			CategoriesGood good = categoriesGoods[position];
-//			String icon_url = NetConfig.URL() + good.getGoods_img();
-//			ImageLoader.getInstance().displayImage(icon_url, holder.img_icon);
-
+			}
 			
-				// 普通商品
-				holder.txt_price_now.setVisibility(View.VISIBLE);
-				holder.txt_price_old.setVisibility(View.VISIBLE);
-				holder.txt_price_now.setText(good.getShop_price());
-				holder.txt_price_old.setText(good.getMarket_price());
-
-			holder.txt_goodsname.setText(good.getGoods_name());
+			CategoriesGoods data = (CategoriesGoods) getItem(position);
+			if(data != null){
+				PLog.e("dfsfd fd -->%s", data.getComName());
+				holder.txt_price.setText(data.getMarketPrice()+"");
+				holder.txt_goodsname.setText(data.getComName());
+				//holder.img_icon.setImageResource(R.drawable.app_icon);
+				ImageLoader.getInstance().displayImage(Constants.IMGSURL+data.getPicture(), holder.img_icon);
+			}
 			return convertView;
 		}
 
 		class ViewHolder {
 			ImageView img_icon;
-			TextView txt_price_now;
-			TextView txt_price_old;
+			TextView txt_price;
 			TextView txt_goodsname;
 		}
 	}

@@ -15,10 +15,10 @@ public class Constants {
 	// title栏图片长宽
 	public static final int TitleIvWidth = 30;
 	
-	// 图片路径（小图）
+	// 图片路径（大图）
 	public static final String IMGURL = "http://cloud.joy121.com/Files/img/";
 	
-	// 图片路径（大图）
+	// 图片路径（小图）
 	public static final String IMGSURL = "http://cloud.joy121.com/Files/img/s_";
 	
 	// 图片logo

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title_bg" >
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="商品详情"
+            android:textColor="@color/WHITE" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pic_viewpager"
+        android:layout_width="fill_parent"
+        android:layout_height="160dip" />
+
+    <!-- 颜色选择 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dip"
+            android:text="颜色"
+            android:textColor="@color/BLACK"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#c4c4c4" />
+
+        <LinearLayout
+            android:id="@+id/color_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="10dip"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#c4c4c4" />
+    </LinearLayout>
+
+    <!-- 尺寸选择 -->
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dip"
+            android:text="尺码"
+            android:textColor="@color/BLACK"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#c4c4c4" />
+
+        <LinearLayout
+            android:id="@+id/size_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="10dip"
+            android:orientation="horizontal" >
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#c4c4c4" />
+    </LinearLayout>
+
+    <!-- 加入购物车 -->
+
+    <LinearLayout
+        android:id="@+id/store_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#c4c4c4" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dip"
+            android:layout_marginTop="6dip" >
+
+            <TextView
+                android:id="@+id/txt_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="库存："
+                android:textColor="@color/BLACK"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/store_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/txt_store"
+                android:text="10"
+                android:textColor="@color/BLACK"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/add_to_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dip"
+                android:background="#ffd74c"
+                android:padding="6dip"
+                android:text="加入购物车"
+                android:textColor="@color/WHITE"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="#c4c4c4" />
+    </LinearLayout>
+
+</LinearLayout>

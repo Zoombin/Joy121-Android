@@ -9,7 +9,7 @@ public class CategoryEntity extends TResult{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String CategoryName;
-	private String ID;
+	private String Id;
 	private List<CategoryEntity> retobj;
 	
 	public String getCategoryName() {
@@ -24,11 +24,11 @@ public class CategoryEntity extends TResult{
 	public void setCategoryName(String categoryName) {
 		CategoryName = categoryName;
 	}
-	public String getID() {
-		return ID;
+	public String getId() {
+		return Id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		Id = id;
 	}
 	
 	

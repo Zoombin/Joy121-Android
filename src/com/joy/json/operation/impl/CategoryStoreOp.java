@@ -11,15 +11,21 @@ import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
-import com.joy.json.model.CategoryEntity;
+import com.joy.json.model.CategoriesStoreEntity;
 import com.joy.json.operation.ITaskOperation;
-import com.joy.json.parse.CategoryParse;
+import com.joy.json.parse.CategoryGoodsParse;
+import com.joy.json.parse.CategoryStoreParse;
 
-public class CategoryListOp implements ITaskOperation {
+public class CategoryStoreOp implements ITaskOperation {
+	int commodityid;
+	public CategoryStoreOp(int commodityid) {
+		// TODO Auto-generated constructor stub
+		this.commodityid = commodityid;
+	}
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
-		CategoryEntity entity = (CategoryEntity) in;
+		//CategoriesGoodsEntity entity = (CategoriesGoodsEntity) in;
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(
 				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
@@ -28,15 +34,14 @@ public class CategoryListOp implements ITaskOperation {
 		HttpApi httpApi = new HttpApiWithBasicAuth(httpClient, "testRest");
 		HttpGet get = httpApi.createHttpGet(
 				IP,
-				new BasicNameValuePair("action", "comm_category"),
+				new BasicNameValuePair("action", "commpropertystock"),
 				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\",\"company\":\"%s\"}", SharedPreferencesUtils
-								.getLoginName(JoyApplication.getSelf()),SharedPreferencesUtils
-								.getCompany(JoyApplication.getSelf()))),
+						"{\"loginname\":\"%s\",\"commodityid\":\"%s\"}", SharedPreferencesUtils
+								.getLoginName(JoyApplication.getSelf()),commodityid)),
 								new BasicNameValuePair("token", new MD5()
 								.getMD5ofStr(SharedPreferencesUtils
 										.getLoginName(JoyApplication.getSelf())
 										+ MD5.key)));
-		return (CategoryEntity) httpApi.doHttpRequest(get, new CategoryParse());
+		return (CategoriesStoreEntity) httpApi.doHttpRequest(get, new CategoryStoreParse());
 	}
 }
