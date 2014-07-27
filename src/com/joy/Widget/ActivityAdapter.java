@@ -11,6 +11,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -61,7 +62,7 @@ public class ActivityAdapter extends BaseAdapter {
 	public void addSeparatorItem(ActivityDetailEntity entity) {
 		data.add(entity);
 	}
-	
+
 	public void removeAll() {
 		data.clear();
 	}
@@ -93,6 +94,16 @@ public class ActivityAdapter extends BaseAdapter {
 
 			holder.iv_activity = (ImageView) convertView
 					.findViewById(R.id.iv_activity);
+
+			Log.d("result", entity.getIsexprired());
+			Log.d("isJoin", entity.getIsJoin());
+
+			if (entity.getIsexprired().equals("2")) {
+				holder.iv_activity
+						.setImageResource(R.drawable.activity_expired);
+			} else {
+				holder.iv_activity.setImageResource(R.drawable.activity);
+			}
 			uiAdapter.setMargin(holder.iv_activity, 60,
 					uiAdapter.CalcHeight(60, 133, 94), 0, 0, 0, 0);
 
@@ -159,14 +170,28 @@ public class ActivityAdapter extends BaseAdapter {
 			}
 		});
 
+		if (entity.getIsexprired().equals("2")) {
+			holder.btn_actjoin.setClickable(false);
+			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
+					.getColor(R.color.btn_disable));
+		} 
+		
 		if (entity.getLoginName() == null) {
 			holder.btn_actjoin.setTag(entity);
 			holder.btn_actjoin.setOnClickListener(clicklistener);
 		} else {
-			holder.btn_actjoin.setText("已报名");
-			holder.btn_actjoin.setClickable(false);
-			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
-					.getColor(R.color.btn_disable));
+			if (entity.getIsexprired().equals("2")) {
+				if (entity.getIsJoin().equals("0")) {
+					holder.btn_actjoin.setText("未参与");
+				} else {
+					holder.btn_actjoin.setText("已参与");
+				}
+			} else {
+				holder.btn_actjoin.setText("已报名");
+				holder.btn_actjoin.setClickable(false);
+				holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
+						.getColor(R.color.btn_disable));
+			}
 		}
 
 		return convertView;
@@ -200,8 +225,8 @@ public class ActivityAdapter extends BaseAdapter {
 						Toast.show(mContext, "报名成功！");
 						btn.setText("已报名");
 						btn.setClickable(false);
-						btn.setBackgroundColor(mActivity.getResources().getColor(
-								R.color.btn_disable));
+						btn.setBackgroundColor(mActivity.getResources()
+								.getColor(R.color.btn_disable));
 						int index = data.indexOf(activitydetailentity);
 						// 改变报名状态
 						if (index != -1) {

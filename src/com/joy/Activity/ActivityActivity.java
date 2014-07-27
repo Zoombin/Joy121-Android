@@ -88,7 +88,7 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 		tv_expired = (TextView) findViewById(R.id.tv_expired);
 	}
 
-	private void initData(String isexpired) {
+	private void initData(final String isexpired) {
 		ActivityEntity act = new ActivityEntity();
 		
 		Intent intent = getIntent();
@@ -115,6 +115,7 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 					return;
 				}
 				for (ActivityDetailEntity entity1 : activitylist) {
+					entity1.setIsexprired(isexpired);
 					adapter.addItem(entity1);
 				}
 				adapter.notifyDataSetChanged();
@@ -138,12 +139,14 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 			tv_useful.setTextColor(resources.getColor(R.color.title_bg));
 			tv_expired.setTextColor(resources.getColor(R.color.BLACK));
 			adapter.removeAll();
+			adapter.notifyDataSetChanged();
 			initData("1");
 			break;
 		case R.id.layout_expired:
 			tv_expired.setTextColor(resources.getColor(R.color.title_bg));
 			tv_useful.setTextColor(resources.getColor(R.color.BLACK));
 			adapter.removeAll();
+			adapter.notifyDataSetChanged();
 			initData("2");
 			break;
 		default:

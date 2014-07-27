@@ -40,12 +40,32 @@ public class ActivityDetailEntity extends TResult {
 	private String EndTime;
 	
 	private String StartTime;
-	
+
 	private int ActId;
 	
 	private String Content;
 	
 	private int ActTypeId;
+	
+	private String isexprired;
+	
+	private String IsJoin;
+	
+	public String getIsJoin() {
+		return IsJoin;
+	}
+
+	public void setIsJoin(String isJoin) {
+		this.IsJoin = isJoin;
+	}
+
+	public String getIsexprired() {
+		return isexprired;
+	}
+
+	public void setIsexprired(String isexprired) {
+		this.isexprired = isexprired;
+	}
 
 	public String getLocationAddr() {
 		return LocationAddr;

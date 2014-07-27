@@ -147,6 +147,7 @@ public class WelfareAdapter extends BaseAdapter {
 					mContext.startActivity(intent);
 				}
 			});
+			holder.btn_buy.setText("加入购物车");
 			holder.btn_buy.setTag(entity);
 			
 			// 加载头像
