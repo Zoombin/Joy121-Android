@@ -89,6 +89,7 @@ public class MainActivity extends QActivity {
 		carGoods.setColor(goods.getColor());
 		carGoods.setSize_cloth(goods.getSize_cloth());
 		carGoods.setGoodsType(goods.getGoodsType());
+		carGoods.setIsLogoStore(goods.getIsLogoStore());
 		
 		/*for (ShoppingCarGoods sgoods : MainActivity.goods_list) {
 			if (carGoods.getGoods_id().equals(sgoods.getGoods_id())) {

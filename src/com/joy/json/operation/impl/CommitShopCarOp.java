@@ -57,14 +57,22 @@ public class CommitShopCarOp implements ITaskOperation {
 		if (carGoods != null && carGoods.size() > 0) {
 			for (int i = 0; i < carGoods.size(); i++) {
 				ShoppingCarGoods gd = carGoods.get(i);
-				String temp = "[" + gd.getGoods_id() + "]" + "[color:" + gd.getColor() + ";" + "size_cloth:"
-						+ gd.getSize_cloth() + "]" + "[" + gd.getGoodsType() + "]" + "[" + gd.getCount() + "]";
-				sBuffer.append(temp);
-				if (i != carGoods.size()-1) {
+				String temp = "";
+				if (gd.getIsLogoStore()) {
+					temp = "[" + gd.getGoods_id() + "]" + "[color:" + gd.getColor() + ";" + "size_cloth:"
+							+ gd.getSize_cloth() + "]" + "[" + gd.getGoodsType() + "]" + "[" + gd.getCount() + "]";
+					sBuffer.append(temp);
+				} else {
+					temp = "[" + gd.getGoods_id() + "]" + "[]" + "[" + gd.getGoodsParams() + "]" + "[" + gd.getCount() + "]";
+					sBuffer.append(temp);
+				}
+				
+				if (i != carGoods.size() - 1) {
 					sBuffer.append("|");
 				}
 			}
 		}
+		Log.d("Result", sBuffer.toString());
 		Log.i("LSD", sBuffer.toString());
 		return sBuffer.toString();
 

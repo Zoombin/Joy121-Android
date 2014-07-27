@@ -11,6 +11,24 @@ public class GoodsDetail {
 	private String color;
 	private String size_cloth;
 	private String goodsType;
+	
+	private Boolean isLogoStore;
+
+	public Boolean getIsLogoStore() {
+		return isLogoStore;
+	}
+	
+	public String getShoppingCarParam () {
+		if (this.getIsLogoStore()) {
+			return "1";
+		} else {
+			return "2";
+		}
+	}
+
+	public void setIsLogoStore(Boolean isLogoStore) {
+		this.isLogoStore = isLogoStore;
+	}
 
 	public String getGoods_id() {
 		return goods_id;

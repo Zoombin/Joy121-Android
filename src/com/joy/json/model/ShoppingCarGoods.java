@@ -17,6 +17,23 @@ public class ShoppingCarGoods implements Serializable {
 	private String color;
 	private String size_cloth;
 	private String goodsType;
+	private Boolean isLogoStore;
+
+	public String getGoodsParams() {
+		if (this.getIsLogoStore()) {
+			return "1";
+		} else {
+			return "2";
+		}
+	}
+
+	public Boolean getIsLogoStore() {
+		return isLogoStore;
+	}
+
+	public void setIsLogoStore(Boolean isLogoStore) {
+		this.isLogoStore = isLogoStore;
+	}
 
 	public String getGoods_id() {
 		return goods_id;
@@ -97,5 +114,5 @@ public class ShoppingCarGoods implements Serializable {
 	public void setGoodsType(String goodsType) {
 		this.goodsType = goodsType;
 	}
-	
+
 }
