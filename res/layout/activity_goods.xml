@@ -11,6 +11,15 @@
         android:background="@color/title_bg" >
 
         <TextView
+            android:id="@+id/tv_ret"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/ret"
+            android:textColor="@color/WHITE" />
+
+        <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,8 +58,8 @@
             android:id="@+id/color_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:minHeight="10dip"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:padding="4dip" >
         </LinearLayout>
 
         <View
@@ -84,8 +93,8 @@
             android:id="@+id/size_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:minHeight="10dip"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:padding="4dip" >
         </LinearLayout>
 
         <View
@@ -129,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/txt_store"
-                android:text="10"
+                android:text="0"
                 android:textColor="@color/BLACK"
                 android:textSize="15sp" />
 
@@ -140,7 +149,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dip"
-                android:background="#ffd74c"
+                android:background="@drawable/txt_addstore_selector"
                 android:padding="6dip"
                 android:text="加入购物车"
                 android:textColor="@color/WHITE"

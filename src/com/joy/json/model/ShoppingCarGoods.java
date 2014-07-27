@@ -14,6 +14,8 @@ public class ShoppingCarGoods implements Serializable {
 	private String market_price;
 	private String cost_integral;
 	private int count;
+	private String color;
+	private String size_cloth;
 
 	public String getGoods_id() {
 		return goods_id;
@@ -70,4 +72,21 @@ public class ShoppingCarGoods implements Serializable {
 	public void setCost_integral(String cost_integral) {
 		this.cost_integral = cost_integral;
 	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getSize_cloth() {
+		return size_cloth;
+	}
+
+	public void setSize_cloth(String size_cloth) {
+		this.size_cloth = size_cloth;
+	}
+	
 }

@@ -5,8 +5,10 @@ import gejw.android.quickandroid.bmp.BmpUtils;
 import gejw.android.quickandroid.utils.ResName2ID;
 import gejw.android.quickandroid.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import android.content.BroadcastReceiver;
@@ -33,8 +35,8 @@ import com.joy.Fragment.MallFragment;
 import com.joy.Fragment.PersonalFragment;
 import com.joy.Fragment.ShoppingCarFragment;
 import com.joy.Fragment.WelfareFragment;
-import com.joy.json.model.GoodsDetailEntity.GoodsDetail;
-import com.joy.json.model.PopularGoodsEntity.PopularGoods;
+import com.joy.json.model.GoodsDetail;
+import com.joy.json.model.PopularGoods;
 import com.joy.json.model.ShoppingCarGoods;
 import com.umeng.analytics.MobclickAgent;
 
@@ -42,6 +44,7 @@ public class MainActivity extends QActivity {
 
 	public static MainActivity mActivity = null;
 	private Resources resources;
+	public static List<ShoppingCarGoods> goods_list = new ArrayList<ShoppingCarGoods>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +76,8 @@ public class MainActivity extends QActivity {
 	}
 
 	public static void Add2ShopCar(Context context, GoodsDetail goods, int count) {
-		Intent intent = new Intent(ShoppingCarAction);
-		intent.putExtra("action", "add");
+		//Intent intent = new Intent(ShoppingCarAction);
+		//intent.putExtra("action", "add");
 		ShoppingCarGoods carGoods = new ShoppingCarGoods();
 		carGoods.setCount(count);
 		carGoods.setGoods_id(goods.getGoods_id());
@@ -83,8 +86,20 @@ public class MainActivity extends QActivity {
 		carGoods.setShop_price(goods.getShop_price());
 		carGoods.setMarket_price(goods.getMarket_price());
 		carGoods.setCost_integral(goods.getCost_integral());
-		intent.putExtra("goods", carGoods);
-		context.sendBroadcast(intent);
+		carGoods.setColor(goods.getColor());
+		carGoods.setSize_cloth(goods.getSize_cloth());
+		
+		/*for (ShoppingCarGoods sgoods : MainActivity.goods_list) {
+			if (carGoods.getGoods_id().equals(sgoods.getGoods_id())) {
+				sgoods.setCount(sgoods.getCount()
+						+ carGoods.getCount());
+				//return;
+			}
+		}*/
+		MainActivity.goods_list.add(carGoods);
+		ShoppingCarFragment.updateShoppingcar();
+		//intent.putExtra("goods", carGoods);
+		//context.sendBroadcast(intent);
 	}
 	
 	public static void CleanShopCar(Context context) {
@@ -107,24 +122,19 @@ public class MainActivity extends QActivity {
 					// 添加到购物车
 					ShoppingCarGoods carGoods = (ShoppingCarGoods) intent
 							.getSerializableExtra("goods");
-//					for (ShoppingCarGoods goods : MainActivity.goods_list) {
-//						if (carGoods.getGoods_id().equals(goods.getGoods_id())) {
-//							goods.setCount(goods.getCount()
-//									+ carGoods.getCount());
-//							ShoppingCarUtils.SaveShoppingCar(goods_list);
-//							return;
-//						}
-//					}
-//					MainActivity.goods_list.add(carGoods);
-//					MainActivity.setNotice(goods_list.size());
-//					ShoppingCarFragment.updateShoppingcar();
-//					ShoppingCarUtils.SaveShoppingCar(goods_list);
+					for (ShoppingCarGoods goods : MainActivity.goods_list) {
+						if (carGoods.getGoods_id().equals(goods.getGoods_id())) {
+							goods.setCount(goods.getCount()
+									+ carGoods.getCount());
+							return;
+						}
+					}
+					MainActivity.goods_list.add(carGoods);
+					ShoppingCarFragment.updateShoppingcar();
 				}
 				else if(action.equals("clean")){
-//					goods_list.clear();
-//					MainActivity.setNotice(goods_list.size());
-//					ShoppingCarFragment.updateShoppingcar();
-//					ShoppingCarUtils.SaveShoppingCar(goods_list);
+					goods_list.clear();
+					ShoppingCarFragment.updateShoppingcar();
 				}
 			}
 		}

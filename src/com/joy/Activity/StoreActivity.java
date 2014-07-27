@@ -13,11 +13,13 @@ import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,7 +47,7 @@ import com.joy.json.operation.impl.CategoryListOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class StoreActivity extends QActivity implements OnClickListener{
-	
+	private Handler mHandler;
 	private RelativeLayout layout_title;
 	private TextView tv_title;
 	private Resources resources;
@@ -67,6 +69,7 @@ public class StoreActivity extends QActivity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_store);
+		mHandler = new Handler();
 		resources = this.getResources();
 		mActivity = this;
 		mUiManager = new UIManager(self);;
@@ -253,9 +256,24 @@ public class StoreActivity extends QActivity implements OnClickListener{
 			}
 		};
 
-		JsonCommon task = new JsonCommon(self, builder, listener,
-				false);
+		final JsonCommon task = new JsonCommon(self, builder, listener,false);
 		task.execute();
+		
+		/*int time = 60;
+		int sir = 0;
+		try {
+			sir = Integer.parseInt(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		}, time + sir*2);*/
 	}
 
 	class HorizontalCategoriseAdapter extends BaseAdapter {
