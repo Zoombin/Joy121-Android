@@ -153,7 +153,7 @@ public class MainActivity extends QActivity {
 			PersonalFragment.class };
 	// 定义数组来存放按钮图片
 	private String mImageViewArray[] = {"menu_welfare",
-			"menu_life", "menu_mall","menu_store", "menu_personal" };
+			"menu_life", "menu_store","menu_mall", "menu_personal" };
 	// Tab选项卡的文字
 	private int mTextviewArray[] = {R.string.menu_welfare,
 			R.string.menu_life, R.string.menu_mall,R.string.menu_buycar, R.string.menu_personal };

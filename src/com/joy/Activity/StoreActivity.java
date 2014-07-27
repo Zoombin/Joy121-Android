@@ -204,6 +204,7 @@ public class StoreActivity extends QActivity implements OnClickListener{
 
 				holder.txt_showall.setText("显示全部 >");
 				holder.txt_showall.setTag(data);
+				holder.txt_showall.setVisibility(4);
 				
 				String id = data.getId();
 				HorizontalCategoriseAdapter hAdapter = new HorizontalCategoriseAdapter();
