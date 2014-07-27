@@ -49,7 +49,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class StoreActivity extends QActivity implements OnClickListener{
 	private Handler mHandler;
 	private RelativeLayout layout_title;
-	private TextView tv_title;
+	private TextView tv_title,tv_ret;
 	private Resources resources;
 	private Activity mActivity;
 	protected UIManager mUiManager;
@@ -84,7 +84,18 @@ public class StoreActivity extends QActivity implements OnClickListener{
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
-
+		
+		tv_ret = (TextView) findViewById(R.id.tv_ret);
+		tv_ret.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
+		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
+		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
 		pullListView = (PullToRefreshListView) findViewById(R.id.listview);
 		pullListView.setMode(Mode.PULL_FROM_START);
 		//pullListView.mRefreshableView.addHeaderView(layout_viewPager);

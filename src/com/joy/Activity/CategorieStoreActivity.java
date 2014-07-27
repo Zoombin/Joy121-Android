@@ -106,6 +106,7 @@ public class CategorieStoreActivity extends QActivity {
 				int num = Integer.parseInt(numStr);
 				if(num == 0){
 					Toast.show(self, "库存不足");
+					return;
 				}
 				
 				GoodsDetail detail = new GoodsDetail();

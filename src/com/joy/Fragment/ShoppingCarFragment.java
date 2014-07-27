@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,18 +142,44 @@ public class ShoppingCarFragment extends QFragment {
 				tag = (Tag) convertView.getTag();
 			}
 
-			ShoppingCarGoods data = (ShoppingCarGoods) getItem(position);
+			final ShoppingCarGoods data = (ShoppingCarGoods) getItem(position);
 			if (data != null) {
 				ImageLoader.getInstance().displayImage(Constants.IMGSURL + data.getGoods_img(), tag.goodsImg);
 				tag.goodsName.setText(data.getGoods_name());
 				tag.goodsNum.setText(data.getCount() + "");
-				tag.goodsProperty.setText(data.getCount() + "   " + data.getSize_cloth());
+				
+				String color = "";
+				if(!TextUtils.isEmpty(data.getColor())){
+					color = data.getColor();
+				}
+				String size = "";
+				if(!TextUtils.isEmpty(data.getSize_cloth())){
+					size = data.getSize_cloth();
+				}
+				tag.goodsProperty.setText( color+ "   " + size);
 
 				tag.minus.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//getItem(position);
+						int num = data.getCount();
+						num --;
+						if(num == 0){
+							datas.remove(position);
+						}else{
+							data.setCount(num);
+						}
+						notifyDataSetChanged();
+					}
+				});
+				tag.plus.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						int num = data.getCount();
+						num ++;
+						data.setCount(num);
+						notifyDataSetChanged();
 					}
 				});
 			}
