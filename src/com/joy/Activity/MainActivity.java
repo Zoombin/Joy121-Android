@@ -88,6 +88,7 @@ public class MainActivity extends QActivity {
 		carGoods.setCost_integral(goods.getCost_integral());
 		carGoods.setColor(goods.getColor());
 		carGoods.setSize_cloth(goods.getSize_cloth());
+		carGoods.setGoodsType(goods.getGoodsType());
 		
 		/*for (ShoppingCarGoods sgoods : MainActivity.goods_list) {
 			if (carGoods.getGoods_id().equals(sgoods.getGoods_id())) {

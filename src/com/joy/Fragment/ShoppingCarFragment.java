@@ -1,8 +1,8 @@
 package com.joy.Fragment;
 
 import gejw.android.quickandroid.QFragment;
+import gejw.android.quickandroid.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -24,7 +24,13 @@ import android.widget.TextView;
 import com.joy.R;
 import com.joy.Activity.MainActivity;
 import com.joy.Utils.Constants;
+import com.joy.json.JsonCommon;
+import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.CommitResultEntity;
+import com.joy.json.model.CommitResultEntity.CommitResult;
 import com.joy.json.model.ShoppingCarGoods;
+import com.joy.json.operation.OperationBuilder;
+import com.joy.json.operation.impl.CommitShopCarOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ShoppingCarFragment extends QFragment {
@@ -72,12 +78,62 @@ public class ShoppingCarFragment extends QFragment {
 
 		carList = (ListView) v.findViewById(R.id.car_list);
 		commitBt = (Button) v.findViewById(R.id.commit_bt);
+		commitBt.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				List<ShoppingCarGoods> datas = adapter.getData();
+				if(datas != null && datas.size()>0){
+					commitShoppingCar(datas);
+				}else{
+					Toast.show(mActivity, "购物车空空的哦!");
+				}
+			}
+		});
 	}
 
 	private void initData() {
 		// TODO Auto-generated method stub
 		carList.setAdapter(adapter);
 		adapter.setData(MainActivity.goods_list);
+	}
+
+	private void commitShoppingCar(List<ShoppingCarGoods> carGoods) {
+		CommitResultEntity reEntity = new CommitResultEntity();
+		OperationBuilder builder = new OperationBuilder().append(new CommitShopCarOp(carGoods), reEntity);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (mActivity.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					Toast.show(mActivity, "连接超时");
+					return;
+				}
+				CommitResultEntity entity = (CommitResultEntity) resList.get(0);
+				CommitResult result = entity.getRetobj();
+				if (result == null) {
+					Toast.show(mActivity, "提交失败!");
+					return;
+				}
+				String ret = result.getStatusFlag();
+				if("1".equals(ret)){
+					Toast.show(mActivity, "提交成功");
+					adapter.cleanData();
+				}else{
+					Toast.show(mActivity, "提交失败!");
+				}
+			}
+
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+
+		JsonCommon task = new JsonCommon(mActivity, builder, listener, JsonCommon.PROGRESSQUERY);
+		task.execute();
 	}
 
 	public static void updateShoppingcar() {
@@ -95,15 +151,25 @@ public class ShoppingCarFragment extends QFragment {
 	public class CarAdapter extends BaseAdapter {
 		Context context;
 		List<ShoppingCarGoods> datas;
+
 		public CarAdapter(Context context) {
 			// TODO Auto-generated constructor stub
 			this.context = context;
+		}
+		
+		public void cleanData(){
+			datas.clear();
+			this.notifyDataSetChanged();
 		}
 
 		public void setData(List<ShoppingCarGoods> datas) {
 			this.datas = datas;
 			Log.e("LSD", datas.size() + "");
 			this.notifyDataSetChanged();
+		}
+
+		public List<ShoppingCarGoods> getData() {
+			return datas == null ? null : datas;
 		}
 
 		@Override
@@ -147,26 +213,26 @@ public class ShoppingCarFragment extends QFragment {
 				ImageLoader.getInstance().displayImage(Constants.IMGSURL + data.getGoods_img(), tag.goodsImg);
 				tag.goodsName.setText(data.getGoods_name());
 				tag.goodsNum.setText(data.getCount() + "");
-				
+
 				String color = "";
-				if(!TextUtils.isEmpty(data.getColor())){
+				if (!TextUtils.isEmpty(data.getColor())) {
 					color = data.getColor();
 				}
 				String size = "";
-				if(!TextUtils.isEmpty(data.getSize_cloth())){
+				if (!TextUtils.isEmpty(data.getSize_cloth())) {
 					size = data.getSize_cloth();
 				}
-				tag.goodsProperty.setText( color+ "   " + size);
+				tag.goodsProperty.setText(color + "   " + size);
 
 				tag.minus.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						int num = data.getCount();
-						num --;
-						if(num == 0){
+						num--;
+						if (num == 0) {
 							datas.remove(position);
-						}else{
+						} else {
 							data.setCount(num);
 						}
 						notifyDataSetChanged();
@@ -177,7 +243,7 @@ public class ShoppingCarFragment extends QFragment {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						int num = data.getCount();
-						num ++;
+						num++;
 						data.setCount(num);
 						notifyDataSetChanged();
 					}
