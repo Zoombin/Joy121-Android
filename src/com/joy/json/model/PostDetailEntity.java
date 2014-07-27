@@ -25,6 +25,24 @@ public class PostDetailEntity extends TResult {
 	private String ExpireTime;
 	
 	private String Title;
+	
+	private String isexpired;
+	
+	public String getIsexpired() {
+		return isexpired;
+	}
+
+	public void setIsexpired(String isexpired) {
+		this.isexpired = isexpired;
+	}
+
+	public Boolean getIsOutOfDate() {
+		if (this.getIsexpired().equals("2")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public String getPostTime() {
 		return PostTime;

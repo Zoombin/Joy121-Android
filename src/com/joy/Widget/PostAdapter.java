@@ -78,6 +78,12 @@ public class PostAdapter extends BaseAdapter {
 					.findViewById(R.id.iv_post);
 			uiAdapter.setMargin(holder.iv_post, 60,
 					uiAdapter.CalcHeight(60, 133, 94), 0, 0, 0, 0);
+			
+			if (entity.getIsOutOfDate()) {
+				holder.iv_post.setImageResource(R.drawable.post_expired);
+			} else {
+				holder.iv_post.setImageResource(R.drawable.post);
+			}
 
 			holder.tv_posttitle = (TextView) convertView.findViewById(R.id.tv_posttitle);
 			uiAdapter.setTextSize(holder.tv_posttitle, 20);

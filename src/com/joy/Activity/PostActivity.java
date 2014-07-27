@@ -87,7 +87,7 @@ public class PostActivity extends QActivity implements OnClickListener {
 		list_post.setAdapter(adapter);	
 	}
 
-	private void initData(String isexpired) {
+	private void initData(final String isexpired){
 		PostEntity post = new PostEntity();
 		post.isexpired = isexpired;
 		OperationBuilder builder = new OperationBuilder().append(new PostOp(),
@@ -110,6 +110,7 @@ public class PostActivity extends QActivity implements OnClickListener {
 					return;
 				}
 				for (PostDetailEntity entity1 : postlist) {
+					entity1.setIsexpired(isexpired);
 					adapter.addItem(entity1);
 				}
 				adapter.notifyDataSetChanged();
@@ -132,12 +133,14 @@ public class PostActivity extends QActivity implements OnClickListener {
 			tv_useful.setTextColor(resources.getColor(R.color.title_bg));
 			tv_expired.setTextColor(resources.getColor(R.color.BLACK));
 			adapter.removeAll();
+			adapter.notifyDataSetChanged();
 			initData("1");
 			break;
 		case R.id.layout_expired:
 			tv_expired.setTextColor(resources.getColor(R.color.title_bg));
 			tv_useful.setTextColor(resources.getColor(R.color.BLACK));
 			adapter.removeAll();
+			adapter.notifyDataSetChanged();
 			initData("2");
 			break;
 		default:
