@@ -17,8 +17,9 @@ import android.widget.TextView;
 
 import com.joy.R;
 import com.joy.Activity.ActivityActivity;
+import com.joy.Activity.LogoStoreActivity;
 import com.joy.Activity.PostActivity;
-import com.joy.Activity.StoreActivity;
+import com.joy.Activity.StoreDetailActivity;
 import com.joy.Activity.SurveyActivity;
 import com.joy.Activity.WelfareActivity;
 import com.joy.Utils.Constants;
@@ -215,7 +216,7 @@ public class WelfareFragment extends QFragment implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.layout_logostore:
-			intent.setClass(mActivity, StoreActivity.class);
+			intent.setClass(mActivity, LogoStoreActivity.class);
 			startActivity(intent);
 			break;
 		default:

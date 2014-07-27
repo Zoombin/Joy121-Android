@@ -31,29 +31,18 @@
             android:id="@+id/txt_showall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="right|center_vertical" 
             android:text=""
             android:textColor="@color/BLACK"
             android:textSize="12sp" />
     </LinearLayout>
 
-    <gejw.android.quickandroid.widget.HorizontalListView
+     <gejw.android.quickandroid.widget.HorizontalListView
         xmlns:widget="http://schemas.android.com/apk/res-auto"
         android:id="@+id/horizontalListView"
         android:layout_width="match_parent"
         android:layout_height="150dip"
         android:scrollbars="none" >
     </gejw.android.quickandroid.widget.HorizontalListView>
-
-    <!-- div -->
-    <!-- <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#000000" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="6dip"
-        android:background="#00000000" /> -->
 
 </LinearLayout>

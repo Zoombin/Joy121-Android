@@ -220,11 +220,11 @@
             android:value="8a0c96c6410132ddc25bd66c" />
         <!-- </>值来自开发者平台取得的AppKey -->
         <activity
-            android:name="com.joy.Activity.StoreActivity"
+            android:name="com.joy.Activity.StoreDetailActivity" 
             android:label="@string/title_activity_store" >
         </activity>
          <activity
-            android:name="com.joy.Activity.CategorieStoreActivity"
+            android:name="com.joy.Activity.LogoStoreActivity"
             android:label="@string/title_activity_store" >
         </activity>
     </application>

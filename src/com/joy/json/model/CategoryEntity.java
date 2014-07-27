@@ -2,6 +2,8 @@ package com.joy.json.model;
 
 import java.util.List;
 
+import com.joy.json.model.CategoriesGoodsDEntity.CategoriesGoods;
+
 public class CategoryEntity extends TResult{
 	
 	/**
@@ -11,6 +13,7 @@ public class CategoryEntity extends TResult{
 	private String CategoryName;
 	private String Id;
 	private List<CategoryEntity> retobj;
+	private List<CategoriesGoods> goodsList;//类别下的商品列表
 	
 	public String getCategoryName() {
 		return CategoryName;
@@ -30,6 +33,10 @@ public class CategoryEntity extends TResult{
 	public void setId(String id) {
 		Id = id;
 	}
-	
-	
+	public List<CategoriesGoods> getGoodsList() {
+		return goodsList;
+	}
+	public void setGoodsList(List<CategoriesGoods> goodsList) {
+		this.goodsList = goodsList;
+	}
 }

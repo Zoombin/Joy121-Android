@@ -12,20 +12,14 @@ import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
 import com.joy.json.model.CategoriesGoodsDEntity;
-import com.joy.json.model.CategoriesStoreEntity;
 import com.joy.json.operation.ITaskOperation;
 import com.joy.json.parse.CategoryGoodsParse;
 
 public class CategoryGoodsListOp implements ITaskOperation {
-	String categoryid;
-	public CategoryGoodsListOp(String categoryid) {
-		// TODO Auto-generated constructor stub
-		this.categoryid = categoryid;
-	}
-
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
-		//CategoriesGoodsEntity entity = (CategoriesGoodsEntity) in;
+		String categoryid = (String) in;
+		
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(
 				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
@@ -43,6 +37,9 @@ public class CategoryGoodsListOp implements ITaskOperation {
 								.getMD5ofStr(SharedPreferencesUtils
 										.getLoginName(JoyApplication.getSelf())
 										+ MD5.key)));
-		return (CategoriesGoodsDEntity) httpApi.doHttpRequest(get, new CategoryGoodsParse());
+		
+		CategoriesGoodsDEntity gDEntity = (CategoriesGoodsDEntity) httpApi.doHttpRequest(get, new CategoryGoodsParse());
+		gDEntity.setCategoryId(categoryid);
+		return (gDEntity) ;
 	}
 }

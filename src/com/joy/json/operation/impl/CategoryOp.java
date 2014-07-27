@@ -15,7 +15,7 @@ import com.joy.json.model.CategoryEntity;
 import com.joy.json.operation.ITaskOperation;
 import com.joy.json.parse.CategoryParse;
 
-public class CategoryListOp implements ITaskOperation {
+public class CategoryOp implements ITaskOperation {
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {

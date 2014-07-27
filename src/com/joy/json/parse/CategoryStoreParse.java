@@ -8,18 +8,18 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 import com.joy.json.model.ActivityEntity;
-import com.joy.json.model.CategoriesStoreEntity;
+import com.joy.json.model.StoreDetailEntity;
 import com.joy.json.model.TResult;
 
 public class CategoryStoreParse extends AbstractParser<TResult> {
 	
 	@Override
-	public CategoriesStoreEntity parse(JSONObject json) throws JSONException {
-		CategoriesStoreEntity entity = new CategoriesStoreEntity();
+	public StoreDetailEntity parse(JSONObject json) throws JSONException {
+		StoreDetailEntity entity = new StoreDetailEntity();
 		//PLog.e("back Result-->%s", json.toString());
 		if(json!=null){
 			entity = new Gson().fromJson(
-					 json.toString(), CategoriesStoreEntity.class);
+					 json.toString(), StoreDetailEntity.class);
 		}
 		return entity;
 	}

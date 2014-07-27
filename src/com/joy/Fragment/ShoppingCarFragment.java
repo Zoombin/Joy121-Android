@@ -43,7 +43,7 @@ public class ShoppingCarFragment extends QFragment {
 	private CarAdapter adapter;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) { 
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		Log.e("LSD", "onCreate");
