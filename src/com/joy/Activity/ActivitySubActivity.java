@@ -123,16 +123,19 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 				.getSerializableExtra(ActivityDetails);
 
 		tv_actname.setText(entity.getActName());
-
-		if (entity.getLoginName() == null) {
+		
+		btn_actjoin.setText(entity.getStatus(entity.getLoginName()));
+		if (entity.getIsEnabled(entity.getLoginName())) {
 			btn_actjoin.setTag(entity);
 			btn_actjoin.setOnClickListener(clicklistener);
 		} else {
-			btn_actjoin.setText("已报名");
 			btn_actjoin.setClickable(false);
-			btn_actjoin.setBackgroundColor(self.getResources().getColor(
-					R.color.btn_disable));
+			btn_actjoin.setBackgroundColor(self.getResources()
+					.getColor(R.color.btn_disable));
 		}
+
+
+		
 
 		ImageLoader.getInstance().displayImage(
 				"http://www.joy121.com/sys/Files/activity/"

@@ -51,16 +51,50 @@ public class ActivityDetailEntity extends TResult {
 	
 	private String IsJoin;
 	
-	public String getIsJoin() {
-		return IsJoin;
+	public Boolean getIsEnabled(String loginname) {
+		if (this.getIsexprired()) {
+			return false;
+		} else {
+			if (loginname == null) {
+				return true;
+			}
+			if (this.getLoginName().equals(loginname)) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+	}
+	
+	public String getStatus(String loginname) {
+		if (this.getIsexprired()) {
+			if (this.getIsJoin()) {
+				return "已参与";
+			} else {
+				return "未参与";
+			}
+		} else {
+			if (loginname == null) {
+				return "未报名";
+			}
+			if (this.getLoginName().equals(loginname)) {
+				return "已报名";
+			} else {
+				return "未报名";
+			}
+		}
+	}
+	
+	public Boolean getIsJoin() {
+		return IsJoin.equals("1");
 	}
 
 	public void setIsJoin(String isJoin) {
 		this.IsJoin = isJoin;
 	}
 
-	public String getIsexprired() {
-		return isexprired;
+	public Boolean getIsexprired() {
+		return isexprired.equals("2");
 	}
 
 	public void setIsexprired(String isexprired) {

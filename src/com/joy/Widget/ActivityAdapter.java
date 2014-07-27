@@ -94,16 +94,7 @@ public class ActivityAdapter extends BaseAdapter {
 
 			holder.iv_activity = (ImageView) convertView
 					.findViewById(R.id.iv_activity);
-
-			Log.d("result", entity.getIsexprired());
-			Log.d("isJoin", entity.getIsJoin());
-
-			if (entity.getIsexprired().equals("2")) {
-				holder.iv_activity
-						.setImageResource(R.drawable.activity_expired);
-			} else {
-				holder.iv_activity.setImageResource(R.drawable.activity);
-			}
+			
 			uiAdapter.setMargin(holder.iv_activity, 60,
 					uiAdapter.CalcHeight(60, 133, 94), 0, 0, 0, 0);
 
@@ -176,22 +167,21 @@ public class ActivityAdapter extends BaseAdapter {
 					.getColor(R.color.btn_disable));
 		} 
 		
-		if (entity.getLoginName() == null) {
+		
+		holder.btn_actjoin.setText(entity.getStatus(entity.getLoginName()));
+		if (entity.getIsEnabled(entity.getLoginName())) {
 			holder.btn_actjoin.setTag(entity);
 			holder.btn_actjoin.setOnClickListener(clicklistener);
 		} else {
-			if (entity.getIsexprired().equals("2")) {
-				if (entity.getIsJoin().equals("0")) {
-					holder.btn_actjoin.setText("未参与");
-				} else {
-					holder.btn_actjoin.setText("已参与");
-				}
-			} else {
-				holder.btn_actjoin.setText("已报名");
-				holder.btn_actjoin.setClickable(false);
-				holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
-						.getColor(R.color.btn_disable));
-			}
+			holder.btn_actjoin.setClickable(false);
+			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
+					.getColor(R.color.btn_disable));
+		}
+		if (entity.getIsexprired()) {
+			holder.iv_activity
+					.setImageResource(R.drawable.activity_expired);
+		} else {
+			holder.iv_activity.setImageResource(R.drawable.activity);
 		}
 
 		return convertView;
