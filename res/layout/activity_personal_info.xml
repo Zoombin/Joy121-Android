@@ -28,9 +28,62 @@
             android:layout_centerVertical="true"
             android:text="@string/personalinfo"
             android:textColor="@color/WHITE" />
-
     </RelativeLayout>
 
+     <LinearLayout
+        android:id="@+id/layout_personinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/img_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:scaleType="fitXY"
+            android:src="@drawable/user" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:id="@+id/tv_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/BLACK" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_points_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/points_title"
+                    android:textColor="@color/BLACK" />
+
+                <TextView
+                    android:id="@+id/tv_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    
     <LinearLayout
         android:id="@+id/layout_personal_info"
         android:layout_width="match_parent"
@@ -40,8 +93,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/WHITE"
+            android:layout_height="50dp"
+            android:background="@drawable/tabbar"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -61,8 +114,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/WHITE"
+            android:layout_height="50dp"
+            android:background="@drawable/tabbar"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -82,8 +135,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/WHITE"
+            android:layout_height="50dp"
+            android:background="@drawable/tabbar"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -103,8 +156,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/WHITE"
+            android:layout_height="50dp"
+            android:background="@drawable/tabbar"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -124,8 +177,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/WHITE"
+            android:layout_height="50dp"
+            android:background="@drawable/tabbar"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -145,8 +198,71 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/WHITE"
+            android:layout_height="50dp"
+            android:background="@drawable/tabbar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_companyname_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/companyname"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:id="@+id/tv_companyname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_text_press" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/tabbar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_companyaddress_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/companyaddress"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:id="@+id/tv_companyaddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_text_press" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/tabbar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_companyphone_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/compangphone"
+                android:textColor="@color/BLACK" />
+
+            <TextView
+                android:id="@+id/tv_companyphone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/menu_text_press" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/tabbar"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -166,8 +282,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/WHITE"
+            android:layout_height="50dp"
+            android:background="@drawable/tabbar"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -187,8 +303,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/WHITE"
+            android:layout_height="50dp"
+            android:background="@drawable/tabbar"
             android:gravity="center_vertical"
             android:orientation="horizontal" >
 
@@ -206,4 +322,5 @@
                 android:textColor="@color/menu_text_press" />
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>
