@@ -40,37 +40,43 @@
         <LinearLayout
             android:id="@+id/layout_useful"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:layout_margin="1dip"
             android:layout_weight="1"
             android:background="@color/WHITE"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_margin="1dip" >
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/tv_useful"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical|center"
+                android:gravity="center_vertical|center"
                 android:text="@string/useful"
-                android:textColor="@color/title_bg" />
+                android:textColor="@color/title_bg"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_expired"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:layout_margin="1dip"
             android:layout_weight="1"
             android:background="@color/WHITE"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_margin="1dip" >
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/tv_expired"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical|center"
+                android:gravity="center_vertical|center"
                 android:text="@string/isexpired"
-                android:textColor="@color/BLACK" />
+                android:textColor="@color/BLACK"
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
     
