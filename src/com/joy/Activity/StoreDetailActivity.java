@@ -118,7 +118,7 @@ public class StoreDetailActivity extends QActivity {
 				detail.setGoods_name(goods.getComName());
 				detail.setColor(colorSelect);
 				detail.setSize_cloth(sizeSelect);
-				detail.setGoodsType("2");
+				detail.setIsLogoStore(true);
 				MainActivity.Add2ShopCar(self, detail, 1);
 				Toast.show(self, "商品已加入购物车");
 				StoreDetailActivity.this.finish();

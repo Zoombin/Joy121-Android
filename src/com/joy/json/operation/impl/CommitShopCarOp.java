@@ -15,25 +15,15 @@ import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
-import com.joy.json.model.CategoriesStoreEntity;
 import com.joy.json.model.CommitResultEntity;
 import com.joy.json.model.ShoppingCarGoods;
 import com.joy.json.operation.ITaskOperation;
-import com.joy.json.parse.CategoryGoodsParse;
-import com.joy.json.parse.CategoryStoreParse;
 import com.joy.json.parse.CommitCarShppParse;
 
 public class CommitShopCarOp implements ITaskOperation {
-	List<ShoppingCarGoods> carGoods;
-
-	public CommitShopCarOp(List<ShoppingCarGoods> carGoods) {
-		// TODO Auto-generated constructor stub
-		this.carGoods = carGoods;
-	}
-
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
-		// CategoriesGoodsEntity entity = (CategoriesGoodsEntity) in;
+		List<ShoppingCarGoods> carGoods = (List<ShoppingCarGoods>) in;
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
 		httpClient.getParams().setParameter(HttpConnectionParams.SO_TIMEOUT, TIMEOUT);
@@ -46,13 +36,13 @@ public class CommitShopCarOp implements ITaskOperation {
 								"json",
 								String.format(
 										"{\"loginname\":\"%s\",\"cartlist\":\"%s\",\"receiver\":\"%s\",\"recadd\":\"%s\",\"recphone\":\"%s\"}",
-										SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()), getJsonStr(),"","","")),
+										SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()), getJsonStr(carGoods),"","","")),
 						new BasicNameValuePair("token", new MD5().getMD5ofStr(SharedPreferencesUtils
 								.getLoginName(JoyApplication.getSelf()) + MD5.key)));
 		return (CommitResultEntity) httpApi.doHttpRequest(get, new CommitCarShppParse());
 	}
 
-	private String getJsonStr() {
+	private String getJsonStr(List<ShoppingCarGoods> carGoods) {
 		StringBuffer sBuffer = new StringBuffer("");
 		if (carGoods != null && carGoods.size() > 0) {
 			for (int i = 0; i < carGoods.size(); i++) {
@@ -60,7 +50,7 @@ public class CommitShopCarOp implements ITaskOperation {
 				String temp = "";
 				if (gd.getIsLogoStore()) {
 					temp = "[" + gd.getGoods_id() + "]" + "[color:" + gd.getColor() + ";" + "size_cloth:"
-							+ gd.getSize_cloth() + "]" + "[" + gd.getGoodsType() + "]" + "[" + gd.getCount() + "]";
+							+ gd.getSize_cloth() + "]" + "[" + gd.getGoodsParams() + "]" + "[" + gd.getCount() + "]";
 					sBuffer.append(temp);
 				} else {
 					temp = "[" + gd.getGoods_id() + "]" + "[]" + "[" + gd.getGoodsParams() + "]" + "[" + gd.getCount() + "]";
@@ -73,7 +63,6 @@ public class CommitShopCarOp implements ITaskOperation {
 			}
 		}
 		Log.d("Result", sBuffer.toString());
-		Log.i("LSD", sBuffer.toString());
 		return sBuffer.toString();
 
 		/*

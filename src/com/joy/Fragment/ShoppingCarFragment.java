@@ -46,7 +46,6 @@ public class ShoppingCarFragment extends QFragment {
 	public void onCreate(Bundle savedInstanceState) { 
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		Log.e("LSD", "onCreate");
 		adapter = new CarAdapter(mActivity);
 		shoppingCarFragment = this;
 	}
@@ -54,7 +53,6 @@ public class ShoppingCarFragment extends QFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_shoppingcar, container, false);
-		Log.e("LSD", "onCreateView");
 		initView(v);
 		initData();
 		return v;
@@ -99,8 +97,7 @@ public class ShoppingCarFragment extends QFragment {
 	}
 
 	private void commitShoppingCar(List<ShoppingCarGoods> carGoods) {
-		CommitResultEntity reEntity = new CommitResultEntity();
-		OperationBuilder builder = new OperationBuilder().append(new CommitShopCarOp(carGoods), reEntity);
+		OperationBuilder builder = new OperationBuilder().append(new CommitShopCarOp(), carGoods);
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
 			public void onOperationFinished(List<Object> resList) {
@@ -164,7 +161,6 @@ public class ShoppingCarFragment extends QFragment {
 
 		public void setData(List<ShoppingCarGoods> datas) {
 			this.datas = datas;
-			Log.e("LSD", datas.size() + "");
 			this.notifyDataSetChanged();
 		}
 

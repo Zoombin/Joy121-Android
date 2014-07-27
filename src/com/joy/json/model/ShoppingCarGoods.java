@@ -16,7 +16,6 @@ public class ShoppingCarGoods implements Serializable {
 	private int count;
 	private String color;
 	private String size_cloth;
-	private String goodsType;
 	private Boolean isLogoStore;
 
 	public String getGoodsParams() {
@@ -105,14 +104,6 @@ public class ShoppingCarGoods implements Serializable {
 
 	public void setSize_cloth(String size_cloth) {
 		this.size_cloth = size_cloth;
-	}
-
-	public String getGoodsType() {
-		return goodsType;
-	}
-
-	public void setGoodsType(String goodsType) {
-		this.goodsType = goodsType;
 	}
 
 }
