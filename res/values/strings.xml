@@ -38,11 +38,11 @@
     <string name="points_title">积分：</string>
     <string name="loginname_title">登陆名：</string>
     <string name="idno_title">身份证：</string>
-    <string name="gender_title">性        别：</string>
+    <string name="gender_title">性别：</string>
     <string name="birthday_title">出生年月：</string>
-    <string name="mail_title">邮        箱：</string>
+    <string name="mail_title">邮箱：</string>
     <string name="username_title">用户名：</string>
-    <string name="cellnumber_title">手        机：</string>
+    <string name="cellnumber_title">手机：</string>
     <string name="createtime_title">注册日期：</string>
     <string name="personalinfo">个人档案</string>
     <string name="companyname">公司名称：</string>

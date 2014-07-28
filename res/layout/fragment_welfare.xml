@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/row_welfare" />
+                android:src="@drawable/com_benefits" />
         </LinearLayout>
 
         <LinearLayout
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/row_shop" />
+                android:src="@drawable/com_logostore" />
         </LinearLayout>
 
         <LinearLayout
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/row_activity" />
+                android:src="@drawable/com_event" />
         </LinearLayout>
     </LinearLayout>
     
@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/row_welfare" />
+                android:src="@drawable/com_training" />
         </LinearLayout>
 
         <LinearLayout
@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/row_notice" />
+                android:src="@drawable/com_notice" />
         </LinearLayout>
 
         <LinearLayout
@@ -211,7 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/row_suivey" />
+                android:src="@drawable/com_survey" />
         </LinearLayout>
     </LinearLayout>
     
@@ -248,7 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/row_welfare" />
+                android:src="@drawable/com_contacts" />
         </LinearLayout>
 
         <LinearLayout
@@ -276,7 +276,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/row_week" />
+                android:src="@drawable/com_groupon" />
         </LinearLayout>
 
         <LinearLayout
@@ -304,7 +304,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="@drawable/row_logoshop" />
+                android:src="@drawable/com_businessman" />
         </LinearLayout>
     </LinearLayout>
 
