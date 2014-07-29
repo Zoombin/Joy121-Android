@@ -43,7 +43,7 @@ public class ActivityAdapter extends BaseAdapter {
 	 */
 	private Context mContext = null;
 	private Activity mActivity = null;
-	private ArrayList<ActivityDetailEntity> data = new ArrayList<ActivityDetailEntity>();
+	private List<ActivityDetailEntity> data = new ArrayList<ActivityDetailEntity>();
 	private UIAdapter uiAdapter;
 
 	/**
@@ -55,6 +55,10 @@ public class ActivityAdapter extends BaseAdapter {
 		uiAdapter = UIAdapter.getInstance(ctx);
 	}
 
+	public void setData(List<ActivityDetailEntity> data){
+		this.data = data;
+		this.notifyDataSetChanged();
+	}
 	public void addItem(ActivityDetailEntity entity) {
 		data.add(entity);
 	}
@@ -88,7 +92,7 @@ public class ActivityAdapter extends BaseAdapter {
 
 		ViewHolder holder;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(mContext).inflate(
+			convertView = LayoutInflater.from(mActivity).inflate(
 					R.layout.activity_list_item, parent, false);
 			holder = new ViewHolder();
 

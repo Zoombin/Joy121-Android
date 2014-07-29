@@ -19,16 +19,18 @@ import com.joy.Activity.MainActivity;
 import com.joy.Activity.PostActivity;
 import com.joy.Activity.SurveyActivity;
 import com.joy.Activity.WelfareActivity;
-import com.joy.Fragment.welfare.LogoStoreFragment;
+import com.joy.Fragment.portals.activity.ActivityFragment;
+import com.joy.Fragment.portals.logostore.LogoStoreFragment;
+import com.joy.Fragment.portals.welfare.WelfareFragment;
 import com.joy.Utils.Constants;
 
 /**
- * 公司福利
+ * 公司门户
  * 
  * @author daiye
  * 
  */
-public class WelfareFragment extends BaseFragment implements OnClickListener {
+public class PortalsFragment extends BaseFragment implements OnClickListener {
 
 	private final int IMAGEVIEWWH = 80;
 	private final int TEXTSIZE = 20;
@@ -193,8 +195,11 @@ public class WelfareFragment extends BaseFragment implements OnClickListener {
 		Intent intent = new Intent();
 		switch (v.getId()) {
 		case R.id.layout_welfare:
-			intent.setClass(mActivity, WelfareActivity.class);
-			startActivity(intent);
+			//intent.setClass(mActivity, WelfareActivity.class);
+			//startActivity(intent);
+			
+			MainActivity.mActivity.replaceChildFragment(
+					"WelfareFragment", new WelfareFragment(), true);
 			break;
 		case R.id.layout_notice:
 			intent.setClass(mActivity, PostActivity.class);
@@ -204,6 +209,15 @@ public class WelfareFragment extends BaseFragment implements OnClickListener {
 			intent.setClass(mActivity, ActivityActivity.class);
 			intent.putExtra("acttype", "1");
 			startActivity(intent);
+			
+			
+			/*ActivityFragment aFragment = new ActivityFragment();
+			Bundle bundle = new Bundle();  
+            bundle.putString("acttype", "1");
+            aFragment.setArguments(bundle); 
+            
+        	MainActivity.mActivity.replaceChildFragment(
+					"ActivityFragment", new ActivityFragment(), true);*/
 			break;
 		case R.id.layout_suivey:
 			intent.setClass(mActivity, SurveyActivity.class);
@@ -220,7 +234,6 @@ public class WelfareFragment extends BaseFragment implements OnClickListener {
 			///new WelfFragmentOp().replace(new LogoStoreFragment(), true);
 			MainActivity.mActivity.replaceChildFragment(
 					"LogoStoreFragment", new LogoStoreFragment(), true);
-			//replaceChildFragment(new LogoStoreFragment(), true);
 			break;
 		default:
 			break;

@@ -199,7 +199,7 @@
 
         <!-- User defined.    用户自定义的广播接收器 -->
         <receiver
-            android:name="com.joy.jpushreceiver"
+            android:name="com.joy.receiver.PushReceiver"
             android:enabled="true" >
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->

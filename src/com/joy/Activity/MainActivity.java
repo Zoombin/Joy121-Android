@@ -38,8 +38,8 @@ import com.joy.Fragment.LifeFragment;
 import com.joy.Fragment.MallFragment;
 import com.joy.Fragment.PersonalFragment;
 import com.joy.Fragment.ShoppingCarFragment;
-import com.joy.Fragment.WelfareFragment;
-import com.joy.Fragment.TopFragment.TopWelfareFragment;
+import com.joy.Fragment.PortalsFragment;
+import com.joy.Fragment.TopFragment.TopPortalsFragment;
 import com.joy.json.model.GoodsDetail;
 import com.joy.json.model.PopularGoods;
 import com.joy.json.model.ShoppingCarGoods;
@@ -154,7 +154,7 @@ public class MainActivity extends QActivity {
 	private LayoutInflater layoutInflater;
 	// 定义数组来存放Fragment界面
 	private Class<?> fragmentArray[] = {
-			TopWelfareFragment.class, MallFragment.class,ShoppingCarFragment.class,
+			TopPortalsFragment.class, MallFragment.class,ShoppingCarFragment.class,
 			PersonalFragment.class };
 	// 定义数组来存放按钮图片
 	private String mImageViewArray[] = {"menu_welfare",

@@ -1,4 +1,4 @@
-package com.joy.Fragment.welfare;
+package com.joy.Fragment.portals.logostore;
 
 import gejw.android.quickandroid.widget.Toast;
 
@@ -40,7 +40,12 @@ import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.CategoryStoreOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class StoreDetailFragment extends BaseFragment {
+/****
+ * 商店详情
+ * @author lsd
+ *
+ */
+public class LogoStoreDetailFragment extends BaseFragment {
 
 	private RelativeLayout layout_title;
 	private TextView addToStore, storeNum;
@@ -127,6 +132,7 @@ public class StoreDetailFragment extends BaseFragment {
 				getCategorieStore(goods.getId());
 			}else{
 				setColorAndSzieToView();
+				calculateStore();
 			}
 		}
 	}

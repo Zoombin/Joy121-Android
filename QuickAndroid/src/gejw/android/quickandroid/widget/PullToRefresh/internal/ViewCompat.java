@@ -25,7 +25,7 @@ import android.view.View;
 public class ViewCompat {
 
 	public static void postOnAnimation(View view, Runnable runnable) {
-		if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
+		if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH) {
 			SDK16.postOnAnimation(view, runnable);
 		} else {
 			view.postDelayed(runnable, 16);
@@ -33,7 +33,7 @@ public class ViewCompat {
 	}
 
 	public static void setBackground(View view, Drawable background) {
-		if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
+		if (VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH) {
 			SDK16.setBackground(view, background);
 		} else {
 			view.setBackgroundDrawable(background);
@@ -58,11 +58,11 @@ public class ViewCompat {
 	static class SDK16 {
 
 		public static void postOnAnimation(View view, Runnable runnable) {
-			view.postOnAnimation(runnable);
+			//view.postOnAnimation(runnable);
 		}
 
 		public static void setBackground(View view, Drawable background) {
-			view.setBackground(background);
+			//view.setBackground(background);
 		}
 
 	}

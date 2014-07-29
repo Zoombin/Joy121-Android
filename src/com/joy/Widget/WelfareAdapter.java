@@ -6,6 +6,7 @@ import gejw.android.quickandroid.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +37,7 @@ public class WelfareAdapter extends BaseAdapter {
 	 * 上下文对象
 	 */
 	private Context mContext = null;
-	private ArrayList<CommoditySet> data = new ArrayList<CommoditySet>();
+	private List<CommoditySet> data = new ArrayList<CommoditySet>();
 	private UIAdapter uiAdapter;
 
 	/**
@@ -49,6 +50,11 @@ public class WelfareAdapter extends BaseAdapter {
 
 	public void addItem(CommoditySet entity) {
 		data.add(entity);
+	}
+	
+	public void setData(List<CommoditySet> data){
+		this.data = data;
+		this.notifyDataSetChanged();
 	}
 
 	public void addSeparatorItem(CommoditySet entity) {

@@ -1,4 +1,4 @@
-package com.joy.Fragment.welfare;
+package com.joy.Fragment.portals.logostore;
 
 import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.ui.adapter.UIManager;
@@ -35,7 +35,7 @@ import com.joy.R;
 import com.joy.Activity.MainActivity;
 import com.joy.Activity.StoreDetailActivity;
 import com.joy.Fragment.BaseFragment;
-import com.joy.Fragment.TopFragment.TopWelfareFragment;
+import com.joy.Fragment.TopFragment.TopPortalsFragment;
 import com.joy.Utils.Constants;
 import com.joy.Widget.RectangleTextView;
 import com.joy.json.JsonCommon;
@@ -48,6 +48,11 @@ import com.joy.json.operation.impl.CategoryGoodsListOp;
 import com.joy.json.operation.impl.CategoryOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+/***
+ * Logo商店
+ * @author lsd
+ *
+ */
 public class LogoStoreFragment extends BaseFragment {
 	private RelativeLayout layout_title;
 	private TextView tv_title, tv_ret;
@@ -264,7 +269,7 @@ public class LogoStoreFragment extends BaseFragment {
 							startActivity(intent);*/
 							
 							CategoriesGoods goods = (CategoriesGoods) parent.getAdapter().getItem(position);
-							StoreDetailFragment detailFragment = new StoreDetailFragment();
+							LogoStoreDetailFragment detailFragment = new LogoStoreDetailFragment();
 							Bundle bundle = new Bundle();  
 			                bundle.putSerializable("detail", goods);
 			                detailFragment.setArguments(bundle); 
