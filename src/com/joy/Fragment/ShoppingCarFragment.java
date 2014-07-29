@@ -118,6 +118,7 @@ public class ShoppingCarFragment extends QFragment {
 				if("1".equals(ret)){
 					Toast.show(mActivity, "提交成功");
 					adapter.cleanData();
+					MainActivity.setNotice(0);
 				}else{
 					Toast.show(mActivity, "提交失败!");
 				}

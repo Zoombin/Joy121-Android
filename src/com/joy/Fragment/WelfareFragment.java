@@ -1,10 +1,8 @@
 package com.joy.Fragment;
 
-import gejw.android.quickandroid.QFragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,11 +15,11 @@ import android.widget.TextView;
 
 import com.joy.R;
 import com.joy.Activity.ActivityActivity;
-import com.joy.Activity.LogoStoreActivity;
+import com.joy.Activity.MainActivity;
 import com.joy.Activity.PostActivity;
-import com.joy.Activity.StoreDetailActivity;
 import com.joy.Activity.SurveyActivity;
 import com.joy.Activity.WelfareActivity;
+import com.joy.Fragment.welfare.LogoStoreFragment;
 import com.joy.Utils.Constants;
 
 /**
@@ -30,7 +28,7 @@ import com.joy.Utils.Constants;
  * @author daiye
  * 
  */
-public class WelfareFragment extends QFragment implements OnClickListener {
+public class WelfareFragment extends BaseFragment implements OnClickListener {
 
 	private final int IMAGEVIEWWH = 80;
 	private final int TEXTSIZE = 20;
@@ -46,6 +44,7 @@ public class WelfareFragment extends QFragment implements OnClickListener {
 	private LinearLayout layout_logostore;
 	private TextView tv_logostore;
 	private ImageView iv_logostore;
+	
 	private LinearLayout layout_activity;
 	private TextView tv_activity;
 	private ImageView iv_activity;
@@ -216,8 +215,12 @@ public class WelfareFragment extends QFragment implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.layout_logostore:
-			intent.setClass(mActivity, LogoStoreActivity.class);
-			startActivity(intent);
+			//intent.setClass(mActivity, LogoStoreActivity.class);
+			//startActivity(intent);
+			///new WelfFragmentOp().replace(new LogoStoreFragment(), true);
+			MainActivity.mActivity.replaceChildFragment(
+					"LogoStoreFragment", new LogoStoreFragment(), true);
+			//replaceChildFragment(new LogoStoreFragment(), true);
 			break;
 		default:
 			break;

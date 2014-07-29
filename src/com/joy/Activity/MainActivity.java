@@ -2,6 +2,7 @@ package com.joy.Activity;
 
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.bmp.BmpUtils;
+import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.utils.ResName2ID;
 import gejw.android.quickandroid.widget.Toast;
 
@@ -19,7 +20,9 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,11 +33,13 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Fragment.BaseFragment;
 import com.joy.Fragment.LifeFragment;
 import com.joy.Fragment.MallFragment;
 import com.joy.Fragment.PersonalFragment;
 import com.joy.Fragment.ShoppingCarFragment;
 import com.joy.Fragment.WelfareFragment;
+import com.joy.Fragment.TopFragment.TopWelfareFragment;
 import com.joy.json.model.GoodsDetail;
 import com.joy.json.model.PopularGoods;
 import com.joy.json.model.ShoppingCarGoods;
@@ -50,7 +55,7 @@ public class MainActivity extends QActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		mActivity = this;
 		resources = getResources();
 		initTab();
 	}
@@ -99,6 +104,7 @@ public class MainActivity extends QActivity {
 		}*/
 		MainActivity.goods_list.add(carGoods);
 		ShoppingCarFragment.updateShoppingcar();
+		MainActivity.setNotice(MainActivity.goods_list.size());
 		//intent.putExtra("goods", carGoods);
 		//context.sendBroadcast(intent);
 	}
@@ -140,7 +146,7 @@ public class MainActivity extends QActivity {
 			}
 		}
 	};
-
+	
 	/************************** Tab布局 ***************************************/
 	// 定义FragmentTabHost对象
 	public FragmentTabHost mTabHost;
@@ -148,7 +154,7 @@ public class MainActivity extends QActivity {
 	private LayoutInflater layoutInflater;
 	// 定义数组来存放Fragment界面
 	private Class<?> fragmentArray[] = {
-			WelfareFragment.class, MallFragment.class,ShoppingCarFragment.class,
+			TopWelfareFragment.class, MallFragment.class,ShoppingCarFragment.class,
 			PersonalFragment.class };
 	// 定义数组来存放按钮图片
 	private String mImageViewArray[] = {"menu_welfare",
@@ -209,6 +215,20 @@ public class MainActivity extends QActivity {
 			mTabHost.addTab(tabSpec, fragmentArray[i], null);
 		}
 	}
+	
+	TextView notice ;//购物车数量
+	public static void setNotice(int notice) {
+		if (mActivity == null || mActivity.notice == null) {
+			mActivity.notice.setVisibility(View.GONE);
+			return;
+		}
+
+		if (notice <= 0)
+			mActivity.notice.setVisibility(View.GONE);
+		else
+			mActivity.notice.setVisibility(View.VISIBLE);
+		mActivity.notice.setText(String.valueOf(notice));
+	}
 
 	/**
 	 * 给Tab按钮设置图标和文字
@@ -231,6 +251,16 @@ public class MainActivity extends QActivity {
 		TextView textView = (TextView) view.findViewById(R.id.txt_menu);
 		textView.setText(mTextviewArray[index]);
 		uiAdapter.setTextSize(textView, 16);
+		
+		if(index == 2){
+			notice = (TextView) view.findViewById(R.id.tx_notice);
+			notice.setVisibility(View.VISIBLE);
+			if(goods_list.size() == 0){
+				notice.setVisibility(View.GONE);
+			}
+		}else{
+			view.findViewById(R.id.tx_notice).setVisibility(View.GONE);
+		}
 
 		tabViewItem.put(getString(mTextviewArray[index]), view);
 		return view;
@@ -245,17 +275,76 @@ public class MainActivity extends QActivity {
 		super.onPause();
 		MobclickAgent.onPause(this);
 	}
+	
+	/**
+	 * 获取子类中的数量
+	 * 
+	 * @return
+	 */
+	public int getCurChildFragmentCount() {
+		FragmentManager fm = getCurChildFragmentManager();
+		if (fm != null)
+			return fm.getBackStackEntryCount();
+		return 0;
+	}
+	
+	/**
+	 * 跳转
+	 * 
+	 * @param key
+	 * @param fragment
+	 * @param canBack
+	 */
+	public void replaceChildFragment(String key, BaseFragment fragment,
+			boolean canBack) {
+
+		FragmentTransaction ft = getCurChildFragmentManager()
+				.beginTransaction();
+		ft.replace(R.id.child_fragment, fragment, key);
+		ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
+		if (canBack)
+			ft.addToBackStack(null);
+		try {
+			ft.commitAllowingStateLoss();
+		} catch (Exception e) {
+			PLog.e("%s", e.getMessage());
+		}
+	}
+	/**
+	 * 返回当前的子fragment管理
+	 * 
+	 * @return
+	 */
+	public FragmentManager getCurChildFragmentManager() {
+		FragmentManager fm = getSupportFragmentManager().findFragmentByTag(
+				mTabHost.getCurrentTabTag()).getChildFragmentManager();
+		return fm;
+	}
+	public boolean Back() {
+		FragmentManager fm = getCurChildFragmentManager();
+		PLog.e("%s  fm.getBackStackEntryCount() = %s",
+				mTabHost.getCurrentTabTag(), fm.getBackStackEntryCount());
+		if (fm.getBackStackEntryCount() > 1) {
+			fm.popBackStack();
+			return true;
+		}
+		if (fm.getBackStackEntryCount() <= 1) {
+			exit();
+			return true;
+		}
+		return false;
+	}
 
 	boolean isExit;
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			exit();
-			return false;
-		} else {
-			return super.onKeyDown(keyCode, event);
+			if (Back()) {
+				return true;
+			} 
 		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	public void exit() {
