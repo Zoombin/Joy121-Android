@@ -206,18 +206,16 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.layout_activity:
-			intent.setClass(mActivity, ActivityActivity.class);
+			/*intent.setClass(mActivity, ActivityActivity.class);
 			intent.putExtra("acttype", "1");
-			startActivity(intent);
+			startActivity(intent);*/
 			
-			
-			/*ActivityFragment aFragment = new ActivityFragment();
-			Bundle bundle = new Bundle();  
-            bundle.putString("acttype", "1");
+			ActivityFragment aFragment = new ActivityFragment();
+            Bundle bundle = new Bundle();  
+            bundle.putString("acttype", "1");  
             aFragment.setArguments(bundle); 
             
-        	MainActivity.mActivity.replaceChildFragment(
-					"ActivityFragment", new ActivityFragment(), true);*/
+        	MainActivity.mActivity.replaceChildFragment("ActivityFragment", aFragment, true);
 			break;
 		case R.id.layout_suivey:
 			intent.setClass(mActivity, SurveyActivity.class);

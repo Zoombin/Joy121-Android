@@ -94,7 +94,7 @@ public class ActivityDetailEntity extends TResult {
 	}
 
 	public Boolean getIsexprired() {
-		return isexprired.equals("2");
+		return "2".equals(isexprired);
 	}
 
 	public void setIsexprired(String isexprired) {

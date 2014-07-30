@@ -28,6 +28,11 @@ import com.joy.json.model.ActivityEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.ActivityOp;
 
+/****
+ * 公司活动
+ * @author LSD
+ *
+ */
 public class ActivityFragment extends BaseFragment implements OnClickListener{
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
@@ -49,9 +54,12 @@ public class ActivityFragment extends BaseFragment implements OnClickListener{
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		resources = getResources();
 		
-		//acttype = (String) getArguments().get("acttype");
-		acttype = "1";
+		Bundle bundle = getArguments();
+		if(bundle != null){
+			acttype = bundle.getString("acttype");
+		}
 	}
 	
 	@Override
@@ -95,11 +103,11 @@ public class ActivityFragment extends BaseFragment implements OnClickListener{
 		tv_expired = (TextView) v.findViewById(R.id.tv_expired);
 		
 		
-		initData("1");
+		initData("1",false);
 	}
 
-	private void initData(final String isexpired) {
-		if(tempList != null){
+	private void initData(final String isexpired,boolean isMenuSwitch) {
+		if(tempList != null && !isMenuSwitch){
 			adapter.setData(tempList);
 			return;
 		}
@@ -107,8 +115,10 @@ public class ActivityFragment extends BaseFragment implements OnClickListener{
 		
 		//Intent intent = getIntent();
 		//String acttype = intent.getStringExtra("acttype");
-		act.isexpired = isexpired;
-		act.acttype = acttype;
+		//act.isexpired = isexpired;
+		//act.acttype = acttype;
+		act.setIsExpired(isexpired);
+		act.setActType(acttype);
 		OperationBuilder builder = new OperationBuilder().append(new ActivityOp(),
 				act);
 		OnOperationListener listener = new OnOperationListener() {
@@ -157,14 +167,14 @@ public class ActivityFragment extends BaseFragment implements OnClickListener{
 			tv_expired.setTextColor(resources.getColor(R.color.BLACK));
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
-			initData("1");
+			initData("1",true);
 			break;
 		case R.id.layout_expired:
 			tv_expired.setTextColor(resources.getColor(R.color.title_bg));
 			tv_useful.setTextColor(resources.getColor(R.color.BLACK));
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
-			initData("2");
+			initData("2",true);
 			break;
 		default:
 			break;

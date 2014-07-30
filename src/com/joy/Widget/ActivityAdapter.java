@@ -11,6 +11,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,12 +27,16 @@ import android.widget.TextView;
 import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Activity.ActivitySubActivity;
+import com.joy.Activity.MainActivity;
 import com.joy.Activity.OrderDetailActivity;
+import com.joy.Fragment.portals.activity.SubActivityFragment;
+import com.joy.Fragment.portals.logostore.LogoStoreDetailFragment;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.ActivityDetailEntity;
 import com.joy.json.model.ActjoinEntity;
+import com.joy.json.model.CategoriesGoodsDEntity.CategoriesGoods;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.ActjoinOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -158,10 +163,17 @@ public class ActivityAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.putExtra(ActivitySubActivity.ActivityDetails, entity);
-				intent.setClass(mContext, ActivitySubActivity.class);
-				mActivity.startActivity(intent);
+				//Intent intent = new Intent();
+				//intent.putExtra(ActivitySubActivity.ActivityDetails, entity);
+				//intent.setClass(mContext, ActivitySubActivity.class);
+				//mActivity.startActivity(intent);
+				
+				
+				SubActivityFragment subFragment = new SubActivityFragment();
+				Bundle bundle = new Bundle();  
+                bundle.putSerializable(SubActivityFragment.ActivityDetails, entity);
+                subFragment.setArguments(bundle); 
+                MainActivity.mActivity.replaceChildFragment("SubActivityFragment",subFragment,true);
 			}
 		});
 
