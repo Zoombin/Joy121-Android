@@ -245,16 +245,27 @@ public class LogoStoreFragment extends BaseFragment {
 			CategoryEntity data = (CategoryEntity) getItem(position);
 			if (data != null) {
 				holder.txt_categoriesName.setText(data.getCategoryName());
-				holder.txt_categoriesName.setTag(data);
-				//holder.txt_categoriesName.setOnClickListener(LogoStoreActivity.this);
 
 				holder.txt_showall.setText("显示全部 >");
-				holder.txt_showall.setTag(data);
 
 				List<CategoriesGoods> goodsList = data.getGoodsList();
 				HorizontalCategoriseAdapter hAdapter = new HorizontalCategoriseAdapter();
 				holder.horizontalListView.setAdapter(hAdapter);
 				if(goodsList != null && goodsList.size()>0){
+					//传递数据
+					holder.txt_showall.setTag(data);
+					holder.txt_showall.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							CategoryEntity data =  (CategoryEntity) v.getTag();
+							LogoStoreAllFragment allFragment = new LogoStoreAllFragment();
+							Bundle bundle = new Bundle();  
+			                bundle.putSerializable("data", data);
+			                allFragment.setArguments(bundle); 
+			                MainActivity.mActivity.replaceChildFragment("LogoStoreAllFragment",allFragment,true);
+						}
+					});
 					hAdapter.setData(data.getGoodsList());
 					holder.horizontalListView.setOnItemClickListener(new OnItemClickListener() {
 						@Override
