@@ -1,11 +1,11 @@
 package com.joy.Fragment.portals.logostore;
 
+import gejw.android.quickandroid.widget.HorizontalListView;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.ActionBar.LayoutParams;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -267,14 +268,20 @@ public class LogoStoreDetailFragment extends BaseFragment {
 	 */
 	private void setColorAndSzieToView() {
 		if (tempColor.size() > 0) {
-			GridView colorGridView = new GridView(mActivity);
-			colorGridView.setNumColumns(tempColor.size());
-			colorGridView.setHorizontalSpacing(10);
-			colorGridView.setCacheColorHint(Color.parseColor("#00000000"));
-			colorGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-			colorGridView.setVerticalScrollBarEnabled(false);
-			colorGridView.setHorizontalFadingEdgeEnabled(false);
-			colorGridView.setOnItemClickListener(new OnItemClickListener() {
+			HorizontalListView hColorListView = new HorizontalListView(mActivity, null);
+			hColorListView.setHorizontalScrollBarEnabled(false);
+			hColorListView.setDivider(null);
+			hColorListView.setDividerWidth(15);
+			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,50);
+			hColorListView.setLayoutParams(params);
+			//GridView colorGridView = new GridView(mActivity);
+			//colorGridView.setNumColumns(tempColor.size());
+			//colorGridView.setHorizontalSpacing(10);
+			//colorGridView.setCacheColorHint(Color.parseColor("#00000000"));
+			//colorGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+			//colorGridView.setVerticalScrollBarEnabled(false);
+			//colorGridView.setHorizontalFadingEdgeEnabled(false);
+			hColorListView.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					// TODO Auto-generated method stub
@@ -294,19 +301,26 @@ public class LogoStoreDetailFragment extends BaseFragment {
 			});
 
 			GridAdapter colorAdapter = new GridAdapter();
-			colorGridView.setAdapter(colorAdapter);
+			hColorListView.setAdapter(colorAdapter);
 			colorAdapter.setData(tempColor);
-			colorLayout.addView(colorGridView);
+			colorLayout.addView(hColorListView);
 		}
 		if (tempSize.size() > 0) {
-			GridView sizeGridView = new GridView(mActivity);
-			sizeGridView.setNumColumns(tempSize.size());
-			sizeGridView.setHorizontalSpacing(10);
-			sizeGridView.setCacheColorHint(Color.parseColor("#00000000"));
-			sizeGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-			sizeGridView.setVerticalScrollBarEnabled(false);
-			sizeGridView.setHorizontalFadingEdgeEnabled(false);
-			sizeGridView.setOnItemClickListener(new OnItemClickListener() {
+			HorizontalListView hSizeListView = new HorizontalListView(mActivity, null);
+			hSizeListView.setHorizontalScrollBarEnabled(false);
+			hSizeListView.setDivider(null);
+			hSizeListView.setDividerWidth(15);
+			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,50);
+			hSizeListView.setLayoutParams(params);
+			
+			//GridView sizeGridView = new GridView(mActivity);
+			//sizeGridView.setNumColumns(tempSize.size());
+			//sizeGridView.setHorizontalSpacing(10);
+			//sizeGridView.setCacheColorHint(Color.parseColor("#00000000"));
+			//sizeGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+			//sizeGridView.setVerticalScrollBarEnabled(false);
+			//sizeGridView.setHorizontalFadingEdgeEnabled(false);
+			hSizeListView.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					// TODO Auto-generated method stub
@@ -326,9 +340,9 @@ public class LogoStoreDetailFragment extends BaseFragment {
 			});
 
 			GridAdapter sizeAdapter = new GridAdapter();
-			sizeGridView.setAdapter(sizeAdapter);
+			hSizeListView.setAdapter(sizeAdapter);
 			sizeAdapter.setData(tempSize);
-			sizeLayout.addView(sizeGridView);
+			sizeLayout.addView(hSizeListView);
 		}
 	}
 
