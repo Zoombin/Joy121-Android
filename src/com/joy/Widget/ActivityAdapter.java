@@ -163,17 +163,17 @@ public class ActivityAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				//Intent intent = new Intent();
-				//intent.putExtra(ActivitySubActivity.ActivityDetails, entity);
-				//intent.setClass(mContext, ActivitySubActivity.class);
-				//mActivity.startActivity(intent);
+				Intent intent = new Intent();
+				intent.putExtra(ActivitySubActivity.ActivityDetails, entity);
+				intent.setClass(mContext, ActivitySubActivity.class);
+				mActivity.startActivity(intent);
 				
 				
-				SubActivityFragment subFragment = new SubActivityFragment();
-				Bundle bundle = new Bundle();  
-                bundle.putSerializable(SubActivityFragment.ActivityDetails, entity);
-                subFragment.setArguments(bundle); 
-                MainActivity.mActivity.replaceChildFragment("SubActivityFragment",subFragment,true);
+				//SubActivityFragment subFragment = new SubActivityFragment();
+				//Bundle bundle = new Bundle();  
+                //bundle.putSerializable(SubActivityFragment.ActivityDetails, entity);
+                //subFragment.setArguments(bundle); 
+                //MainActivity.mActivity.replaceChildFragment("SubActivityFragment",subFragment,true);
 			}
 		});
 

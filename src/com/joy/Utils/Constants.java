@@ -23,4 +23,7 @@ public class Constants {
 	
 	// 图片logo
 	public static final String IMGLOGO = "http://cloud.joy121.com/files/logo/";
+	
+	//详情页图片路径
+	public static final String IMGDETAIL = "http://cloud.joy121.com/files/activity/";
 }

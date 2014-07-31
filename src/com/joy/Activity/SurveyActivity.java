@@ -90,7 +90,7 @@ public class SurveyActivity extends QActivity implements OnClickListener {
 		tv_expired = (TextView) findViewById(R.id.tv_expired);
 	}
 
-	private void initData(String isexpired) {
+	private void initData(final String isexpired) {
 		
 		SurveyEntity sur = new SurveyEntity();
 		sur.isexpired = isexpired;
@@ -117,6 +117,7 @@ public class SurveyActivity extends QActivity implements OnClickListener {
 				for (SurveyDetailEntity entity1 : surveylist) {
 					adapter.addItem(entity1);
 				}
+				adapter.setType(isexpired);
 				adapter.notifyDataSetChanged();
 			}
 

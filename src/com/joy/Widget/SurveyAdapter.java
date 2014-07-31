@@ -46,6 +46,7 @@ public class SurveyAdapter extends BaseAdapter {
 	private Activity mActivity = null;
 	private ArrayList<SurveyDetailEntity> data = new ArrayList<SurveyDetailEntity>();
 	private UIAdapter uiAdapter;
+	private String type;
 
 	/**
 	 * @param mainActivity
@@ -54,6 +55,10 @@ public class SurveyAdapter extends BaseAdapter {
 		mActivity = activity;
 		mContext = ctx;
 		uiAdapter = UIAdapter.getInstance(ctx);
+	}
+	
+	public void setType(String type){
+		this.type = type;
 	}
 
 	public void addItem(SurveyDetailEntity entity) {
@@ -129,6 +134,11 @@ public class SurveyAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
+		if("2".equals(type)){
+			holder.iv_survey.setImageResource(R.drawable.survey_pass);
+		}else{
+			holder.iv_survey.setImageResource(R.drawable.survey);
+		}
 		holder.tv_surveyname.setText(entity.getTitle());
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -171,7 +181,7 @@ public class SurveyAdapter extends BaseAdapter {
 						break;
 					}
 				}
-				if (l == -1) {
+				if (l == -1 || l >= surveyratelist.size()) {
 					checkbox.setText(question);
 				} else {
 					checkbox.setText(Html.fromHtml(question

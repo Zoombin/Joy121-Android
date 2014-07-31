@@ -9,6 +9,7 @@ import gejw.android.quickandroid.widget.Toast;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -135,12 +136,10 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 		}
 
 
-		
-
 		ImageLoader.getInstance().displayImage(
-				"http://www.joy121.com/sys/Files/activity/"
+				Constants.IMGDETAIL
 						+ entity.getActPicturePath(), iv_actpicture);
-
+		
 		tv_count.setText("报名人数" + entity.getCurrentCount() + "/"
 				+ entity.getLimitCount());
 
