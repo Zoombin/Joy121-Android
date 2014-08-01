@@ -28,6 +28,16 @@ public class PostDetailEntity extends TResult {
 	
 	private String isexpired;
 	
+	private String Picture;
+	
+	public String getPicture() {
+		return Picture;
+	}
+
+	public void setPicture(String picture) {
+		Picture = picture;
+	}
+
 	public String getIsexpired() {
 		return isexpired;
 	}
