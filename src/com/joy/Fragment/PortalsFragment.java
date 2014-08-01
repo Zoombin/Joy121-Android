@@ -202,6 +202,7 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 					"WelfareFragment", new WelfareFragment(), true);
 			break;
 		case R.id.layout_notice:
+			//公告
 			intent.setClass(mActivity, PostActivity.class);
 			startActivity(intent);
 			break;
