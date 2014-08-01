@@ -181,7 +181,11 @@ public class ActivityAdapter extends BaseAdapter {
 			holder.btn_actjoin.setClickable(false);
 			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
 					.getColor(R.color.btn_disable));
-		} 
+		} else{
+			holder.btn_actjoin.setClickable(true);
+			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
+					.getColor(R.color.menu_text_press));
+		}
 		
 		
 		holder.btn_actjoin.setText(entity.getStatus(entity.getLoginName()));
