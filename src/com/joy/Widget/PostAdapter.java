@@ -8,6 +8,7 @@ import java.util.Date;
 
 import android.content.Context;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Utils.Constants;
 import com.joy.json.model.PostDetailEntity;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class PostAdapter extends BaseAdapter {
 
@@ -101,11 +104,21 @@ public class PostAdapter extends BaseAdapter {
 			uiAdapter.setTextSize(holder.tv_postcontent, 20);
 			uiAdapter.setPadding(holder.tv_postcontent, 20, 10, 10, 10);
 			
+			holder.iv_img = (ImageView) convertView.findViewById(R.id.iv_postimg);
+			//uiAdapter.setMargin(holder.iv_img, 60,
+					//uiAdapter.CalcHeight(60, 133, 94), 0, 0, 0, 0);
+			
 			convertView.setTag(holder);
 		} else {// 有直接获得ViewHolder
 			holder = (ViewHolder) convertView.getTag();
 		}
 
+		String imgUrl = entity.getPicture();
+		if(TextUtils.isEmpty(imgUrl)){
+			holder.iv_img.setImageResource(R.drawable.img_default);
+		}else{
+			ImageLoader.getInstance().displayImage(Constants.IMGPOST+imgUrl, holder.iv_img);
+		}
 		holder.tv_posttitle.setText(entity.getTitle());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		holder.tv_posttime.setText(sdf.format(new Date(Long.parseLong(entity.getPostTime().substring(6, 19)))));
@@ -115,7 +128,7 @@ public class PostAdapter extends BaseAdapter {
 	}
 
 	public class ViewHolder {
-		ImageView iv_post;
+		ImageView iv_post,iv_img;
 		TextView tv_posttitle;
 		TextView tv_posttime;
 		TextView tv_postcontent;

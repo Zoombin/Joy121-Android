@@ -9,10 +9,11 @@
         android:id="@+id/layout_order_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/WHITE" >
+        android:background="#fbdea6" >
 
         <TextView
             android:id="@+id/tv_orderid"
+            android:text="订单id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -21,12 +22,14 @@
         <TextView
             android:id="@+id/tv_createTime"
             android:layout_width="wrap_content"
+            android:text="2014-0506"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:textColor="@color/BLACK" />
 
         <TextView
             android:id="@+id/tv_points"
+            android:text="积分"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -34,7 +37,18 @@
             android:textColor="@color/BLACK" />
 
         <TextView
+            android:id="@+id/tv_ordernum"
+            android:text="数量"
+            android:layout_marginLeft="5dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_orderid"
+            android:layout_toRightOf="@id/tv_points"
+            android:textColor="@color/BLACK" />
+
+        <TextView
             android:id="@+id/tv_flag"
+            android:text="待处理"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -48,14 +62,16 @@
         android:layout_height="wrap_content"
         android:background="@color/welfare_item_tab_bg" >
 
-        <GridView
+        <com.joy.Widget.CannotRollListView
             android:id="@+id/grid_order"
+            android:listSelector="#00000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/iv_arrowright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,21 +79,6 @@
             android:layout_centerVertical="true"
             android:scaleType="fitXY"
             android:src="@drawable/arrow_right" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout_ordernum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/WHITE" >
-
-        <TextView
-            android:id="@+id/tv_ordernum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-			android:layout_centerVertical="true"
-            android:textColor="@color/BLACK" />
     </RelativeLayout>
 
 </LinearLayout>

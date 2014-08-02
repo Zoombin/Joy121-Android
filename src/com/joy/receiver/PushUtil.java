@@ -1,8 +1,11 @@
 package com.joy.receiver;
 
+import java.io.Serializable;
+
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.joy.Activity.ActivityActivity;
@@ -22,7 +25,7 @@ public class PushUtil {
 		this.context = context;
 	}
 	
-	public class CommondModel {
+	public class CommondModel implements Serializable{
 		String msgtype;
 		String objid;
 
@@ -66,7 +69,6 @@ public class PushUtil {
 		if (key.equals("activity")) {
 			// 活动
 			Intent intent = new Intent();
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.setClass(context, ActivityActivity.class);
 			intent.putExtra("acttype", "1");
 			context.startActivity(intent);
@@ -81,20 +83,17 @@ public class PushUtil {
 		} else if (key.equals("post")) {
 			// 公告
 			Intent intent = new Intent();
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.setClass(context, ActivityActivity.class);
 			intent.putExtra("acttype", "1");
 			context.startActivity(intent);
 		} else if (key.equals("survey")) {
 			// 调查
 			Intent intent = new Intent();
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.setClass(context, SurveyActivity.class);
 			context.startActivity(intent);
 		} else if (key.equals("training")) {
 			// 培训
 			Intent intent = new Intent();
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			intent.setClass(context, ActivityActivity.class);
 			intent.putExtra("acttype", "2");
 			context.startActivity(intent);

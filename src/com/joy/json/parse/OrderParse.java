@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.joy.json.model.OrderEntity;
 import com.joy.json.model.TResult;
@@ -12,6 +14,7 @@ public class OrderParse extends AbstractParser<TResult> {
 	
 	@Override
 	public OrderEntity parse(JSONObject json) throws JSONException {
+		//Log.i("LSD", json.toString());
 		OrderEntity entity = new OrderEntity();
 		if(json!=null){
 			entity = new Gson().fromJson(

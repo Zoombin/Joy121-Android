@@ -3,24 +3,18 @@ package com.joy.Fragment;
 import gejw.android.quickandroid.QFragment;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,11 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
-import com.joy.Activity.OrderConfirmActivity;
-import com.joy.Activity.OrderDetailActivity;
 import com.joy.Utils.Constants;
-import com.joy.json.model.CommoditySet;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 生活服务模块

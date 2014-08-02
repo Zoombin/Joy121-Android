@@ -73,7 +73,7 @@ public class UserOrderEntity extends TResult {
 
 	private String ReceiverAddress;
 
-	private List<CommoditySet> LstCommoditySet;
+	private List<CommoditySet> CurProductsInfo;
 
 	private int LocalFee;
 
@@ -88,11 +88,11 @@ public class UserOrderEntity extends TResult {
 	private String Remark;
 
 	public List<CommoditySet> getLstCommoditySet() {
-		return LstCommoditySet;
+		return CurProductsInfo;
 	}
 
-	public void setLstCommoditySet(List<CommoditySet> lstCommoditySet) {
-		LstCommoditySet = lstCommoditySet;
+	public void setLstCommoditySet(List<CommoditySet> CurProductsInfo) {
+		this.CurProductsInfo = CurProductsInfo;
 	}
 
 	public String getLoginName() {

@@ -54,6 +54,12 @@ public class CommoditySet extends TResult {
 	private String StartDate;
 
 	private String EXPIREDDATE;
+	
+	private String ProductName;
+	private String Amount;
+	private String Property;
+	private String productPicture;
+	private String OrderId;
 
 	public int getId() {
 		return Id;
@@ -206,5 +212,47 @@ public class CommoditySet extends TResult {
 	public void setCommodities(List<Commodities> commodities) {
 		Commodities = commodities;
 	}
+
+	public String getProductName() {
+		return ProductName;
+	}
+
+	public void setProductName(String productName) {
+		ProductName = productName;
+	}
+
+	public String getAmount() {
+		return Amount;
+	}
+
+	public void setAmount(String amount) {
+		Amount = amount;
+	}
+
+	public String getProperty() {
+		return Property;
+	}
+
+	public void setProperty(String property) {
+		Property = property;
+	}
+
+	public String getProductPicture() {
+		return productPicture;
+	}
+
+	public void setProductPicture(String productPicture) {
+		this.productPicture = productPicture;
+	}
+
+	public String getOrderId() {
+		return OrderId;
+	}
+
+	public void setOrderId(String orderId) {
+		OrderId = orderId;
+	}
+	
+	
 
 }

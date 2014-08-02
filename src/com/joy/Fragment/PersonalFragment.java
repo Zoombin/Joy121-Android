@@ -374,6 +374,7 @@ public class PersonalFragment extends QFragment implements OnClickListener {
 			mActivity.finish();
 			break;
 		case R.id.layout_orderquery:
+			//我的订单
 			intent.setClass(mActivity, OrderqueryActivity.class);
 			startActivity(intent);
 			break;

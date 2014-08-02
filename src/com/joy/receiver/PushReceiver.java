@@ -1,5 +1,6 @@
 package com.joy.receiver;
 
+import com.joy.Activity.MainActivity;
 import com.joy.receiver.PushUtil.CommondModel;
 
 import android.content.BroadcastReceiver;
@@ -31,7 +32,7 @@ public class PushReceiver extends BroadcastReceiver {
 
 		} else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
 			// Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
-			int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
+			//int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
 			// Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
 
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
@@ -43,12 +44,14 @@ public class PushReceiver extends BroadcastReceiver {
 
 			PushUtil pUtil = new PushUtil(context);
 			CommondModel model = pUtil.getCommond(pushConten);
-			pUtil.dispatch(model);
-			// 打开自定义的Activity
-			// Intent i = new Intent(context, TestActivity.class);
-			// i.putExtras(bundle);
-			// i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			// context.startActivity(i);
+			//pUtil.dispatch(model);
+			
+			Bundle pushBundle = new Bundle();
+			pushBundle.putSerializable("push", model);
+			Intent i = new Intent(context, MainActivity.class);
+			i.putExtras(pushBundle);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			context.startActivity(i);
 
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
 			// Log.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " +

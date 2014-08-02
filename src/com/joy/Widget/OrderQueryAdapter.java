@@ -77,7 +77,7 @@ public class OrderQueryAdapter extends BaseAdapter {
 
 			holder.layout_order_info = (RelativeLayout) convertView
 					.findViewById(R.id.layout_order_info);
-			uiAdapter.setMargin(holder.layout_order_info, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 10, 5, 10, 0);
+			uiAdapter.setMargin(holder.layout_order_info, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 0, 2, 0, 0);
 			
 			// orderid
 			holder.tv_orderid = (TextView) convertView
@@ -110,18 +110,20 @@ public class OrderQueryAdapter extends BaseAdapter {
 			uiAdapter.setMargin(holder.layout_order, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 
 					10, 0, 10, 0);
 			
-			holder.grid_order = (GridView) convertView.findViewById(R.id.grid_order);
+			holder.grid_order = (CannotRollListView) convertView.findViewById(R.id.grid_order);
 
 			holder.iv_arrowright = (ImageView) convertView.findViewById(R.id.iv_arrowright);
 			uiAdapter.setMargin(holder.iv_arrowright, 15, uiAdapter.CalcHeight(15, 16, 28), 0, 10, 10, 10);
 			
-			holder.layout_ordernum = (RelativeLayout) convertView.findViewById(R.id.layout_ordernum);
+			/*holder.layout_ordernum = (RelativeLayout) convertView.findViewById(R.id.layout_ordernum);
 			uiAdapter.setMargin(holder.layout_ordernum, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, 
 					10, 0, 10, 5);
-			uiAdapter.setPadding(holder.layout_ordernum, 0, 10, 10, 10);
+			uiAdapter.setPadding(holder.layout_ordernum, 0, 10, 10, 10);*/
 			
 			holder.tv_ordernum = (TextView) convertView.findViewById(R.id.tv_ordernum);
 			uiAdapter.setTextSize(holder.tv_ordernum, 16);
+			uiAdapter.setMargin(holder.tv_ordernum, LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT, 10, 10, 0, 10);
 			
 			convertView.setTag(holder);
 		} else {// 有直接获得ViewHolder
@@ -139,9 +141,9 @@ public class OrderQueryAdapter extends BaseAdapter {
 		if (LstCommoditySet != null) {
 			OrderGridViewAdapter adapter = new OrderGridViewAdapter(mContext, LstCommoditySet);
 			holder.grid_order.setAdapter(adapter);
-			holder.tv_ordernum.setText("共" + LstCommoditySet.size() + "件");
+			holder.tv_ordernum.setText("商品数量：" + LstCommoditySet.size() );
 		} else {
-			holder.tv_ordernum.setText("共0件");
+			holder.tv_ordernum.setText("商品数量：0");
 		}
 		
 		return convertView;
@@ -154,9 +156,9 @@ public class OrderQueryAdapter extends BaseAdapter {
 		TextView tv_points;
 		TextView tv_flag;
 		RelativeLayout layout_order;
-		GridView grid_order;
+		CannotRollListView grid_order;
 		ImageView iv_arrowright;
-		RelativeLayout layout_ordernum;
+		//RelativeLayout layout_ordernum;
 		TextView tv_ordernum;
 	}
 }

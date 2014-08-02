@@ -57,7 +57,7 @@ public class OrderqueryActivity extends QActivity implements OnClickListener {
 
 		list_order = (ListView) findViewById(R.id.list_order);
 		uiAdapter.setMargin(list_order, LayoutParams.MATCH_PARENT,
-				LayoutParams.WRAP_CONTENT, 10, 10, 10, 0);
+				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
 		adapter = new OrderQueryAdapter(self);
 		list_order.setAdapter(adapter);
 	}

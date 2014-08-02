@@ -1,6 +1,5 @@
 package com.joy.Fragment.TopFragment;
 
-import android.util.Log;
 import android.view.View;
 
 import com.joy.Activity.MainActivity;
@@ -16,7 +15,6 @@ public class TopPortalsFragment extends BaseTopFragment {
 	@Override
 	protected void initTopView(View v) {
 		// TODO Auto-generated method stub
-		Log.e(TopPortalsFragment.class.getName()+"", "initTopView");
-		MainActivity.mActivity.replaceChildFragment(TopPortalsFragment.class.getName()+"", new PortalsFragment(), true);
+		MainActivity.mActivity.replaceChildFragment("PortalsFragment"+"", new PortalsFragment(), true);
 	}
 }

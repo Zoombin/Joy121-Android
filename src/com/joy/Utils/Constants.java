@@ -26,4 +26,7 @@ public class Constants {
 	
 	//详情页图片路径
 	public static final String IMGDETAIL = "http://cloud.joy121.com/files/activity/";
+	
+	//公告图片路径
+	public static final String IMGPOST = "http://cloud.joy121.com/files/comppost/";
 }

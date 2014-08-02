@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,9 +42,12 @@ import com.joy.Fragment.PersonalFragment;
 import com.joy.Fragment.ShoppingCarFragment;
 import com.joy.Fragment.PortalsFragment;
 import com.joy.Fragment.TopFragment.TopPortalsFragment;
+import com.joy.Fragment.portals.logostore.LogoStoreFragment;
 import com.joy.json.model.GoodsDetail;
 import com.joy.json.model.PopularGoods;
 import com.joy.json.model.ShoppingCarGoods;
+import com.joy.receiver.PushUtil;
+import com.joy.receiver.PushUtil.CommondModel;
 import com.umeng.analytics.MobclickAgent;
 
 public class MainActivity extends QActivity {
@@ -58,6 +63,35 @@ public class MainActivity extends QActivity {
 		mActivity = this;
 		resources = getResources();
 		initTab();
+		
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				checkPush(getIntent());
+			}
+		}, 300);
+		
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		// TODO Auto-generated method stub
+		checkPush(intent);
+	}
+	
+	private void checkPush(Intent intent) {
+		// /＝＝＝ 推送
+		Bundle pushBundle = intent.getExtras();
+		if (pushBundle != null && pushBundle.containsKey("push")) {
+			CommondModel model = (CommondModel) pushBundle
+					.getSerializable("push");
+			if (model != null) {
+				mTabHost.setCurrentTab(0);
+				PushUtil pushUtil = new PushUtil(MainActivity.this);
+				pushUtil.dispatch(model);
+			}
+		}
 	}
 	
 	public static void Add2ShopCar(Context context, PopularGoods goods) {
