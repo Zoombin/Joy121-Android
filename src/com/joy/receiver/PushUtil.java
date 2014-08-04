@@ -10,6 +10,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.joy.Activity.ActivityActivity;
 import com.joy.Activity.MainActivity;
+import com.joy.Activity.PostActivity;
 import com.joy.Activity.SurveyActivity;
 import com.joy.Fragment.portals.logostore.LogoStoreFragment;
 import com.joy.Fragment.portals.welfare.WelfareFragment;
@@ -83,8 +84,7 @@ public class PushUtil {
 		} else if (key.equals("post")) {
 			// 公告
 			Intent intent = new Intent();
-			intent.setClass(context, ActivityActivity.class);
-			intent.putExtra("acttype", "1");
+			intent.setClass(context, PostActivity.class);
 			context.startActivity(intent);
 		} else if (key.equals("survey")) {
 			// 调查
