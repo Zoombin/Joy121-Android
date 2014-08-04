@@ -70,7 +70,7 @@ public class OrderGridViewAdapter extends BaseAdapter {
 			holder.img_icon = (ImageView) convertView
 					.findViewById(R.id.img_icon);
 			ImageLoader.getInstance().displayImage(Constants.IMGSURL + entity.getPicture(), holder.img_icon);
-			holder.img_icon.setOnClickListener(clicklistener);
+			//holder.img_icon.setOnClickListener(clicklistener);
 			holder.img_icon.setTag(entity.getId());
 			uiAdapter.setMargin(holder.img_icon, 70,
 					uiAdapter.CalcHeight(70, 1, 1), 2, 0, 10, 0);

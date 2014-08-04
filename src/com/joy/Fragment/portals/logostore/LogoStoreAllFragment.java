@@ -108,6 +108,18 @@ public class LogoStoreAllFragment extends BaseFragment {
 		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
 		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
 		listView = (ListView) v.findViewById(R.id.listview);
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// TODO Auto-generated method stub
+				CategoriesGoods goods = (CategoriesGoods) parent.getAdapter().getItem(position);
+				LogoStoreDetailFragment detailFragment = new LogoStoreDetailFragment();
+				Bundle bundle = new Bundle();  
+                bundle.putSerializable("detail", goods);
+                detailFragment.setArguments(bundle); 
+                MainActivity.mActivity.replaceChildFragment("StoreDetailFragment",detailFragment,true);
+			}
+		});
 		listView.setAdapter(categoriseAllAdapter = new CategoriseAllAdapter());
 		if(data != null && data.getGoodsList() != null){
 			categoriseAllAdapter.setData(data.getGoodsList());

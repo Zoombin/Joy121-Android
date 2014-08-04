@@ -24,6 +24,7 @@ import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.ActivityDetailEntity;
 import com.joy.json.model.ActjoinEntity;
+import com.joy.json.model.ActjoinEntity.Result;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.ActjoinOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -170,16 +171,22 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 						return;
 					}
 					ActjoinEntity entity = (ActjoinEntity) resList.get(0);
-					int retobj = entity.getRetobj();
-					if (retobj == 0) {
-						Toast.show(self, "报名失败！");
+					Result result  = entity.getRetobj();
+					if (result == null) {
+						Toast.show(ActivitySubActivity.this, "报名失败！");
 						return;
 					} else {
-						Toast.show(self, "报名成功！");
-						btn_actjoin.setText("已报名");
-						v.setClickable(false);
-						v.setBackgroundColor(self.getResources().getColor(
-								R.color.btn_disable));
+						String ret = result.getResult();
+						if("0".equals(ret)){
+							Toast.show(ActivitySubActivity.this, "报名失败！");
+							return;
+						}else{
+							Toast.show(ActivitySubActivity.this, "报名成功！");
+							btn_actjoin.setText("已报名");
+							v.setClickable(false);
+							v.setBackgroundColor(getResources().getColor(
+									R.color.btn_disable));
+						}
 					}
 				}
 

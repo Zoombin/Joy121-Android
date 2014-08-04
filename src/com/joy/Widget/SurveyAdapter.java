@@ -211,8 +211,16 @@ public class SurveyAdapter extends BaseAdapter {
 		}
 
 		if (entity.getSurveyAnswer() == null) {
-			holder.btn_survey.setTag(entity);
-			holder.btn_survey.setOnClickListener(clicklistener);
+			holder.btn_survey.setText("投票");
+			holder.btn_survey.setBackgroundColor(mActivity.getResources()
+					.getColor(R.color.menu_text_press));
+			if("2".equals(type)){
+				holder.btn_survey.setClickable(false);
+			}else{
+				holder.btn_survey.setClickable(true);
+				holder.btn_survey.setTag(entity);
+				holder.btn_survey.setOnClickListener(clicklistener);
+			}
 		} else {
 			holder.btn_survey.setText("已投票");
 			holder.btn_survey.setClickable(false);

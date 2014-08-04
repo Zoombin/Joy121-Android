@@ -195,6 +195,7 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 		Intent intent = new Intent();
 		switch (v.getId()) {
 		case R.id.layout_welfare:
+			//福利
 			//intent.setClass(mActivity, WelfareActivity.class);
 			//startActivity(intent);
 			
@@ -207,6 +208,7 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.layout_activity:
+			//公司活动
 			intent.setClass(mActivity, ActivityActivity.class);
 			intent.putExtra("acttype", "1");
 			startActivity(intent);
@@ -219,10 +221,12 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
         	MainActivity.mActivity.replaceChildFragment("ActivityFragment", aFragment, true);*/
 			break;
 		case R.id.layout_suivey:
+			//调查
 			intent.setClass(mActivity, SurveyActivity.class);
 			startActivity(intent);
 			break;
 		case R.id.layout_train:
+			//公司培训
 			intent.setClass(mActivity, ActivityActivity.class);
 			intent.putExtra("acttype", "2");
 			startActivity(intent);

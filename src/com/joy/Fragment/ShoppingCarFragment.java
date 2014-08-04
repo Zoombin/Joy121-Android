@@ -83,8 +83,6 @@ public class ShoppingCarFragment extends QFragment {
 				List<ShoppingCarGoods> datas = adapter.getData();
 				if(datas != null && datas.size()>0){
 					commitShoppingCar(datas);
-				}else{
-					Toast.show(mActivity, "购物车空空的哦!");
 				}
 			}
 		});
@@ -118,7 +116,7 @@ public class ShoppingCarFragment extends QFragment {
 				if("1".equals(ret)){
 					Toast.show(mActivity, "提交成功");
 					adapter.cleanData();
-					MainActivity.setNotice(0);
+					MainActivity.setNotice();
 				}else{
 					Toast.show(mActivity, "提交失败!");
 				}
@@ -229,6 +227,7 @@ public class ShoppingCarFragment extends QFragment {
 						num--;
 						if (num == 0) {
 							datas.remove(position);
+							MainActivity.setNotice();
 						} else {
 							data.setCount(num);
 						}

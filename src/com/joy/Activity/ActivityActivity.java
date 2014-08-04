@@ -51,6 +51,9 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_activity);
 		resources = getResources();
+		Intent intent = getIntent();
+	    acttype = intent.getStringExtra("acttype");
+		
 		initView();
 		initData("1");
 	}
@@ -68,6 +71,11 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+		if("1".equals(acttype)){
+			tv_title.setText("公司活动");
+		}else if("2".equals(acttype)){
+			tv_title.setText("公司培训");
+		}
 
 		list_activity = (ListView) findViewById(R.id.list_activity);
 		uiAdapter.setMargin(list_activity, LayoutParams.MATCH_PARENT,
@@ -91,8 +99,6 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 	private void initData(final String isexpired) {
 		ActivityEntity act = new ActivityEntity();
 		
-		Intent intent = getIntent();
-		String acttype = intent.getStringExtra("acttype");
 		act.isexpired = isexpired;
 		act.acttype = acttype;
 		OperationBuilder builder = new OperationBuilder().append(new ActivityOp(),

@@ -34,7 +34,7 @@ public class SurveyDetailEntity extends TResult {
 	
 	private String Title;
 	
-	private SurveyAns SurveyAnswer;
+	private SurveyAns SurveyAnswer = null;
 	
 	private String[] answer;
 	

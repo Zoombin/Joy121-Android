@@ -24,6 +24,11 @@ import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.OrderOp;
 import com.umeng.analytics.MobclickAgent;
 
+/***
+ * 我的订单
+ * @author lsd
+ *
+ */
 public class OrderqueryActivity extends QActivity implements OnClickListener {
 	
 	private RelativeLayout layout_title;

@@ -30,6 +30,7 @@ import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.ActivityDetailEntity;
 import com.joy.json.model.ActjoinEntity;
+import com.joy.json.model.ActjoinEntity.Result;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.ActjoinOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -183,8 +184,11 @@ public class ActivityAdapter extends BaseAdapter {
 		
 		holder.btn_actjoin.setText(entity.getStatus(entity.getLoginName()));
 		if (entity.getIsEnabled(entity.getLoginName())) {
+			holder.btn_actjoin.setClickable(true);
 			holder.btn_actjoin.setTag(entity);
 			holder.btn_actjoin.setOnClickListener(clicklistener);
+			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
+					.getColor(R.color.menu_text_press));
 		} else {
 			holder.btn_actjoin.setClickable(false);
 			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
@@ -220,25 +224,31 @@ public class ActivityAdapter extends BaseAdapter {
 						return;
 					}
 					ActjoinEntity entity = (ActjoinEntity) resList.get(0);
-					int retobj = entity.getRetobj();
-					if (retobj == 0) {
+					Result result = entity.getRetobj();
+					if (result == null) {
 						Toast.show(mContext, "报名失败！");
 						return;
 					} else {
-						Toast.show(mContext, "报名成功！");
-						btn.setText("已报名");
-						btn.setClickable(false);
-						btn.setBackgroundColor(mActivity.getResources()
-								.getColor(R.color.btn_disable));
-						int index = data.indexOf(activitydetailentity);
-						// 改变报名状态
-						if (index != -1) {
-							((ActivityDetailEntity) data.get(index))
-									.setLoginName(SharedPreferencesUtils
-											.getLoginName(JoyApplication
-													.getSelf()));
+						String ret = result.getResult();
+						if("0".equals(ret)){
+							Toast.show(mContext, "报名失败！");
+							return;
+						}else{
+							Toast.show(mContext, "报名成功！");
+							btn.setText("已报名");
+							btn.setClickable(false);
+							btn.setBackgroundColor(mActivity.getResources()
+									.getColor(R.color.btn_disable));
+							int index = data.indexOf(activitydetailentity);
+							// 改变报名状态
+							if (index != -1) {
+								((ActivityDetailEntity) data.get(index))
+										.setLoginName(SharedPreferencesUtils
+												.getLoginName(JoyApplication
+														.getSelf()));
+							}
+							notifyDataSetChanged();
 						}
-						notifyDataSetChanged();
 					}
 				}
 

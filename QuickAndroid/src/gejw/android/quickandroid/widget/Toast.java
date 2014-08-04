@@ -18,7 +18,7 @@ public class Toast {
 		uiAdapter.setPadding(txt, 40, 10, 40, 10);
 		android.widget.Toast toast = new android.widget.Toast(context);
 		toast.setView(txt);
-		toast.setDuration(android.widget.Toast.LENGTH_LONG);
+		toast.setDuration(android.widget.Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 		

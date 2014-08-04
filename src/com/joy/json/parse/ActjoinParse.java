@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.joy.json.model.ActjoinEntity;
 import com.joy.json.model.TResult;
@@ -17,6 +19,7 @@ public class ActjoinParse extends AbstractParser<TResult> {
 	
 	@Override
 	public ActjoinEntity parse(JSONObject json) throws JSONException {
+		Log.i("LSD", json.toString());
 		ActjoinEntity entity = new ActjoinEntity();
 		if(json!=null){
 			entity = new Gson().fromJson(

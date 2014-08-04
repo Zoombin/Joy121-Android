@@ -114,31 +114,31 @@ public class MainActivity extends QActivity {
 		context.sendBroadcast(intent);
 	}
 
-	public static void Add2ShopCar(Context context, GoodsDetail goods, int count) {
+	public static void Add2ShopCar(Context context, GoodsDetail good, int count) {
 		//Intent intent = new Intent(ShoppingCarAction);
 		//intent.putExtra("action", "add");
 		ShoppingCarGoods carGoods = new ShoppingCarGoods();
 		carGoods.setCount(count);
-		carGoods.setGoods_id(goods.getGoods_id());
-		carGoods.setGoods_img(goods.getGoods_img());
-		carGoods.setGoods_name(goods.getGoods_name());
-		carGoods.setShop_price(goods.getShop_price());
-		carGoods.setMarket_price(goods.getMarket_price());
-		carGoods.setCost_integral(goods.getCost_integral());
-		carGoods.setColor(goods.getColor());
-		carGoods.setSize_cloth(goods.getSize_cloth());
-		carGoods.setIsLogoStore(goods.getIsLogoStore());
+		carGoods.setGoods_id(good.getGoods_id());
+		carGoods.setGoods_img(good.getGoods_img());
+		carGoods.setGoods_name(good.getGoods_name());
+		carGoods.setShop_price(good.getShop_price());
+		carGoods.setMarket_price(good.getMarket_price());
+		carGoods.setCost_integral(good.getCost_integral());
+		carGoods.setColor(good.getColor());
+		carGoods.setSize_cloth(good.getSize_cloth());
+		carGoods.setIsLogoStore(good.getIsLogoStore());
 		
-		/*for (ShoppingCarGoods sgoods : MainActivity.goods_list) {
-			if (carGoods.getGoods_id().equals(sgoods.getGoods_id())) {
-				sgoods.setCount(sgoods.getCount()
+		for (ShoppingCarGoods tempgoods : MainActivity.goods_list) {
+			if (carGoods.getGoods_id().equals(tempgoods.getGoods_id())) {
+				tempgoods.setCount(tempgoods.getCount()
 						+ carGoods.getCount());
-				//return;
+				return;
 			}
-		}*/
+		}
 		MainActivity.goods_list.add(carGoods);
 		ShoppingCarFragment.updateShoppingcar();
-		MainActivity.setNotice(MainActivity.goods_list.size());
+		MainActivity.setNotice();
 		//intent.putExtra("goods", carGoods);
 		//context.sendBroadcast(intent);
 	}
@@ -251,11 +251,13 @@ public class MainActivity extends QActivity {
 	}
 	
 	TextView notice ;//购物车数量
-	public static void setNotice(int notice) {
+	public static void setNotice() {
 		if (mActivity == null || mActivity.notice == null) {
 			mActivity.notice.setVisibility(View.GONE);
 			return;
 		}
+		
+		int notice = MainActivity.goods_list.size();
 
 		if (notice <= 0)
 			mActivity.notice.setVisibility(View.GONE);
