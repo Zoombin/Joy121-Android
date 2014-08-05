@@ -19,7 +19,7 @@ public class SurveyParse extends AbstractParser<TResult> {
 	
 	@Override
 	public SurveyEntity parse(JSONObject json) throws JSONException {
-		Log.i("LSD", json.toString());
+		//Log.i("LSD", json.toString());
 		SurveyEntity entity = new SurveyEntity();
 		if(json!=null){
 			entity = new Gson().fromJson(

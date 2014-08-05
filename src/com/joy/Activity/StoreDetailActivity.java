@@ -68,7 +68,7 @@ public class StoreDetailActivity extends QActivity {
 		Intent intent = getIntent();
 		if (intent.hasExtra("detail")) {
 			goods = (CategoriesGoods) intent.getSerializableExtra("detail");
-			Log.e("LSD", goods.getAppPicture());
+			//Log.e("LSD", goods.getAppPicture());
 		}
 		templist = new ArrayList<StoreDetail>();
 		tempColor = new ArrayList<SelectionModel>();

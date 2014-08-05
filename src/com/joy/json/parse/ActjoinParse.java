@@ -19,7 +19,7 @@ public class ActjoinParse extends AbstractParser<TResult> {
 	
 	@Override
 	public ActjoinEntity parse(JSONObject json) throws JSONException {
-		Log.i("LSD", json.toString());
+		//Log.i("LSD", json.toString());
 		ActjoinEntity entity = new ActjoinEntity();
 		if(json!=null){
 			entity = new Gson().fromJson(
