@@ -29,6 +29,7 @@ import com.joy.Widget.PagerviewAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CommoditySet;
+import com.joy.json.model.GoodsDetail;
 import com.joy.json.model.OrderDetailEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.OrderDetailOp;
@@ -143,6 +144,9 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 	}
 	
 	private void initViewForData(CommoditySet commoditySet) {
+		if(commoditySet != null){
+			btn_shopping.setTag(commoditySet);
+		}
 		this.commoditySet = commoditySet;
 		tv_setname.setText(commoditySet.getSetName());
 		
@@ -202,10 +206,21 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_shopping:
-			Intent intent = new Intent();
-			intent.setClass(self, OrderConfirmActivity.class);
-			intent.putExtra(EXTRA_COMMODITYSET, commoditySet);
-			startActivity(intent);
+			//Intent intent = new Intent();
+			//intent.setClass(self, OrderConfirmActivity.class);
+			//intent.putExtra(EXTRA_COMMODITYSET, commoditySet);
+			//startActivity(intent);
+			
+			CommoditySet entity = (CommoditySet) v.getTag();
+			if(entity != null){
+				GoodsDetail detail = new GoodsDetail();
+				detail.setGoods_name(entity.getDescription());
+				detail.setGoods_img(entity.getPicture());
+				detail.setIsLogoStore(false);
+				detail.setGoods_id(String.format("%d", entity.getId()));
+				MainActivity.Add2ShopCar(OrderDetailActivity.this, detail, 1);
+				Toast.show(OrderDetailActivity.this, "商品已加入购物车");
+			}
 			break;
 		case R.id.tv_ret:
 			finish();

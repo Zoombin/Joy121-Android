@@ -68,7 +68,7 @@
     <string name="comfirmnewpwd">确认新密码</string>
 
     <!-- orderdetail -->
-    <string name="addshoppting">订购</string>
+    <string name="addshoppting">加入购物车</string>
     <string name="producttitle">商品描述</string>
 
     <!-- orderconfirm -->

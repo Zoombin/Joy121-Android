@@ -25,6 +25,8 @@ import android.widget.TextView;
 import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Activity.ActivitySubActivity;
+import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
@@ -44,6 +46,7 @@ public class ActivityAdapter extends BaseAdapter {
 	private Activity mActivity = null;
 	private List<ActivityDetailEntity> data = new ArrayList<ActivityDetailEntity>();
 	private UIAdapter uiAdapter;
+	DialogUtil dUtil;
 
 	/**
 	 * @param mainActivity
@@ -52,6 +55,7 @@ public class ActivityAdapter extends BaseAdapter {
 		mActivity = activity;
 		mContext = ctx;
 		uiAdapter = UIAdapter.getInstance(ctx);
+		dUtil = new DialogUtil(ctx);
 	}
 
 	public void setData(List<ActivityDetailEntity> data){
@@ -186,7 +190,28 @@ public class ActivityAdapter extends BaseAdapter {
 		if (entity.getIsEnabled(entity.getLoginName())) {
 			holder.btn_actjoin.setClickable(true);
 			holder.btn_actjoin.setTag(entity);
-			holder.btn_actjoin.setOnClickListener(clicklistener);
+			//holder.btn_actjoin.setOnClickListener(clicklistener);
+			
+			holder.btn_actjoin.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(final View v) {
+					// TODO Auto-generated method stub
+					dUtil.showDialog("报名确认", "确定", "取消", new DialogButtonClickCallback() {
+						@Override
+						public void positiveButtonClick() {
+							// TODO Auto-generated method stub
+							final ActivityDetailEntity activitydetailentity = (ActivityDetailEntity) v
+									.getTag();
+							singUp(v, activitydetailentity);
+						}
+						
+						@Override
+						public void negativeButtonClick() {
+							// TODO Auto-generated method stub
+						}
+					});
+				}
+			});
 			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
 					.getColor(R.color.menu_text_press));
 		} else {
@@ -204,65 +229,69 @@ public class ActivityAdapter extends BaseAdapter {
 		return convertView;
 	}
 
+	
 	OnClickListener clicklistener = new OnClickListener() {
-
 		@Override
 		public void onClick(View v) {
 			final ActivityDetailEntity activitydetailentity = (ActivityDetailEntity) v
 					.getTag();
-			final Button btn = (Button) v;
-			OperationBuilder builder = new OperationBuilder().append(
-					new ActjoinOp(), activitydetailentity);
-			OnOperationListener listener = new OnOperationListener() {
-				@Override
-				public void onOperationFinished(List<Object> resList) {
-					if (mActivity.isFinishing()) {
-						return;
-					}
-					if (resList == null) {
-						Toast.show(mContext, "连接超时");
-						return;
-					}
-					ActjoinEntity entity = (ActjoinEntity) resList.get(0);
-					Result result = entity.getRetobj();
-					if (result == null) {
-						Toast.show(mContext, "报名失败！");
-						return;
-					} else {
-						String ret = result.getResult();
-						if("0".equals(ret)){
-							Toast.show(mContext, "报名失败！");
-							return;
-						}else{
-							Toast.show(mContext, "报名成功！");
-							btn.setText("已报名");
-							btn.setClickable(false);
-							btn.setBackgroundColor(mActivity.getResources()
-									.getColor(R.color.btn_disable));
-							int index = data.indexOf(activitydetailentity);
-							// 改变报名状态
-							if (index != -1) {
-								((ActivityDetailEntity) data.get(index))
-										.setLoginName(SharedPreferencesUtils
-												.getLoginName(JoyApplication
-														.getSelf()));
-							}
-							notifyDataSetChanged();
-						}
-					}
-				}
-
-				@Override
-				public void onOperationError(Exception e) {
-					e.printStackTrace();
-				}
-			};
-
-			JsonCommon task = new JsonCommon(mContext, builder, listener,
-					JsonCommon.PROGRESSCOMMIT);
-			task.execute();
+			singUp(v, activitydetailentity);
 		}
 	};
+	private void singUp(View v,final ActivityDetailEntity activitydetailentity){
+		final Button btn = (Button) v;
+		OperationBuilder builder = new OperationBuilder().append(
+				new ActjoinOp(), activitydetailentity);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (mActivity.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					Toast.show(mContext, "连接超时");
+					return;
+				}
+				ActjoinEntity entity = (ActjoinEntity) resList.get(0);
+				Result result = entity.getRetobj();
+				if (result == null) {
+					Toast.show(mContext, "报名失败！");
+					return;
+				} else {
+					String ret = result.getResult();
+					if("0".equals(ret)){
+						Toast.show(mContext, "报名失败！");
+						return;
+					}else{
+						Toast.show(mContext, "报名成功！");
+						btn.setText("已报名");
+						btn.setClickable(false);
+						btn.setBackgroundColor(mActivity.getResources()
+								.getColor(R.color.btn_disable));
+						int index = data.indexOf(activitydetailentity);
+						// 改变报名状态
+						if (index != -1) {
+							((ActivityDetailEntity) data.get(index))
+									.setLoginName(SharedPreferencesUtils
+											.getLoginName(JoyApplication
+													.getSelf()));
+						}
+						notifyDataSetChanged();
+					}
+				}
+			}
+
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+
+		JsonCommon task = new JsonCommon(mContext, builder, listener,
+				JsonCommon.PROGRESSCOMMIT);
+		task.execute();
+	}
+	
 
 	public class ViewHolder {
 		ImageView iv_activity;

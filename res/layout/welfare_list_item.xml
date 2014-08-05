@@ -33,10 +33,11 @@
 
         <ImageView
             android:id="@+id/iv_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dip"
+            android:layout_height="70dip"
             android:layout_gravity="center_vertical"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:src="@drawable/img_default" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -57,14 +58,33 @@
                 android:maxLines="2"
                 android:textColor="@color/welfare_item_text" />
 
-            <Button
-                android:id="@+id/btn_buy"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@color/menu_text_press"
-                android:text="@string/buy"
-                android:textColor="@color/WHITE" />
+                android:layout_gravity="bottom"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_credit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dip"
+                    android:layout_alignParentBottom="true"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/welfare_item_text" />
+
+                <Button
+                    android:id="@+id/btn_buy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/menu_text_press"
+                    android:text="加入购物车"
+                    android:textColor="@color/WHITE" />
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

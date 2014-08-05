@@ -115,7 +115,11 @@ public class WelfareAdapter extends BaseAdapter {
 			uiAdapter.setTextSize(holder.tv_name, 18);
 			uiAdapter.setMargin(holder.tv_name, LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT, 10, 10, 50, 0);
-
+			
+			//所需积分
+			holder.credit = (TextView) convertView.findViewById(R.id.tv_credit);
+			uiAdapter.setTextSize(holder.credit, 18);
+					
 			// 内容
 			holder.tv_content = (TextView) convertView
 					.findViewById(R.id.tv_content);
@@ -160,6 +164,7 @@ public class WelfareAdapter extends BaseAdapter {
 			});
 			holder.btn_buy.setText("加入购物车");
 			holder.btn_buy.setTag(entity);
+			holder.credit.setText("所需积分："+entity.getPoints());
 
 			// 加载头像
 			if (entity.getAppPicture() != null) {
@@ -205,5 +210,6 @@ public class WelfareAdapter extends BaseAdapter {
 		TextView tv_name;
 		TextView tv_content;
 		Button btn_buy;
+		TextView credit;
 	}
 }

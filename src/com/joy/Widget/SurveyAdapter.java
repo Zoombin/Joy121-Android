@@ -133,6 +133,8 @@ public class SurveyAdapter extends BaseAdapter {
 		} else {// 有直接获得ViewHolder
 			holder = (ViewHolder) convertView.getTag();
 		}
+		
+		
 
 		if("2".equals(type)){
 			holder.iv_survey.setImageResource(R.drawable.survey_pass);
@@ -140,12 +142,12 @@ public class SurveyAdapter extends BaseAdapter {
 			holder.iv_survey.setImageResource(R.drawable.survey);
 		}
 		holder.tv_surveyname.setText(entity.getTitle());
-
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		holder.tv_expiretime.setText("截止日期："
 				+ sdf.format(new Date(Long.parseLong(entity.getExpireTime()
 						.substring(6, 19)))));
-
+		
 		String[] questionlist = entity.getQuestions().split("\\^");
 		// 清空checkbox
 		holder.layout_multichoice.removeAllViews();
@@ -191,41 +193,52 @@ public class SurveyAdapter extends BaseAdapter {
 			}
 
 			checkbox.setChecked(answer[j].equals("0") ? false : true);
-			if (entity.getSurveyAnswer() == null) {
-				checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						String[] answer = entity.getAnswer();
-						answer[k] = (isChecked ? "1" : "0");
-						entity.setAnswer(answer);
-					}
-				});
-			} else {
+			if("2".equals(type)){
 				checkbox.setClickable(false);
 				checkbox.setOnCheckedChangeListener(null);
+			}else{
+				if (entity.getSurveyAnswer() == null) {
+					checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+						@Override
+						public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+							String[] answer = entity.getAnswer();
+							answer[k] = (isChecked ? "1" : "0");
+							entity.setAnswer(answer);
+						}
+					});
+				} else {
+					checkbox.setClickable(false);
+					checkbox.setOnCheckedChangeListener(null);
+				}
 			}
 
 			holder.layout_multichoice.addView(checkbox);
 		}
-
-		if (entity.getSurveyAnswer() == null) {
-			holder.btn_survey.setText("投票");
-			holder.btn_survey.setBackgroundColor(mActivity.getResources()
-					.getColor(R.color.menu_text_press));
-			if("2".equals(type)){
-				holder.btn_survey.setClickable(false);
-			}else{
-				holder.btn_survey.setClickable(true);
-				holder.btn_survey.setTag(entity);
-				holder.btn_survey.setOnClickListener(clicklistener);
-			}
-		} else {
-			holder.btn_survey.setText("已投票");
+		
+		if("2".equals(type)){
+			//过期
 			holder.btn_survey.setClickable(false);
 			holder.btn_survey.setBackgroundColor(mActivity.getResources()
 					.getColor(R.color.btn_disable));
+			if (entity.getSurveyAnswer() == null) {
+				holder.btn_survey.setText("投票");
+			}else{
+				holder.btn_survey.setText("已投票");
+			}
+		}else{
+			if (entity.getSurveyAnswer() == null) {
+				holder.btn_survey.setText("投票");
+				holder.btn_survey.setBackgroundColor(mActivity.getResources()
+						.getColor(R.color.menu_text_press));
+				holder.btn_survey.setClickable(true);
+				holder.btn_survey.setTag(entity);
+				holder.btn_survey.setOnClickListener(clicklistener);
+			} else {
+				holder.btn_survey.setText("已投票");
+				holder.btn_survey.setClickable(false);
+				holder.btn_survey.setBackgroundColor(mActivity.getResources()
+						.getColor(R.color.btn_disable));
+			}
 		}
 
 		return convertView;
@@ -283,7 +296,7 @@ public class SurveyAdapter extends BaseAdapter {
 						btn.setClickable(false);
 						btn.setBackgroundColor(mActivity.getResources()
 								.getColor(R.color.btn_disable));
-						int index = data.indexOf(surveyaentity);
+						/*int index = data.indexOf(surveyaentity);
 						if (index != -1) {
 							((SurveyDetailEntity) data.get(index))
 									.setLoginName(SharedPreferencesUtils
@@ -296,7 +309,12 @@ public class SurveyAdapter extends BaseAdapter {
 
 							((SurveyDetailEntity) data.get(index))
 									.setSurveyRates(retobj);
-						}
+						}*/
+						
+						SurveyAns sruveyans = new SurveyAns();
+						sruveyans.setAnswers(finalanswer);
+						surveydetailentity.setSurveyAnswer(sruveyans);
+						
 						notifyDataSetChanged();
 					}
 				}
