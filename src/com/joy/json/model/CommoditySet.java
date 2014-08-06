@@ -58,7 +58,7 @@ public class CommoditySet extends TResult {
 	private String ProductName;
 	private String Amount;
 	private String Property;
-	private String productPicture;
+	private String ProductPicture;
 	private String OrderId;
 
 	public int getId() {
@@ -238,11 +238,11 @@ public class CommoditySet extends TResult {
 	}
 
 	public String getProductPicture() {
-		return productPicture;
+		return ProductPicture;
 	}
 
 	public void setProductPicture(String productPicture) {
-		this.productPicture = productPicture;
+		this.ProductPicture = productPicture;
 	}
 
 	public String getOrderId() {

@@ -8,6 +8,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -86,7 +87,7 @@ public class OrderGridViewAdapter extends BaseAdapter {
 		if(singleSet != null){
 			String urlString = singleSet.getProductPicture();
 			if(!TextUtils.isEmpty(urlString)){
-				ImageLoader.getInstance().displayImage(Constants.IMGDETAIL+urlString, holder.img_icon);
+				ImageLoader.getInstance().displayImage(Constants.IMGSURL + urlString, holder.img_icon);
 			}else{
 				holder.img_icon.setImageResource(R.drawable.img_default);
 			}
