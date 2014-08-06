@@ -196,7 +196,7 @@ public class ActivityAdapter extends BaseAdapter {
 				@Override
 				public void onClick(final View v) {
 					// TODO Auto-generated method stub
-					dUtil.showDialog("报名确认", "确定", "取消", new DialogButtonClickCallback() {
+					dUtil.showDialog("报名确认", 0, "确定要参加吗？", "确定", "取消", new DialogButtonClickCallback() {
 						@Override
 						public void positiveButtonClick() {
 							// TODO Auto-generated method stub
