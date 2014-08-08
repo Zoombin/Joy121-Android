@@ -6,6 +6,7 @@ import java.util.List;
 
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Html;
@@ -19,6 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Utils.Constants;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
@@ -52,6 +55,8 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 	private TextView tv_contenttitle;
 	private TextView tv_content;
 	private Resources resources;
+	public String acttype;
+	DialogUtil dUtil;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,7 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 		setContentView(R.layout.activity_activitysub);
 
 		resources = getResources();
+		dUtil = new DialogUtil(self);
 
 		initView();
 		initData();
@@ -121,17 +127,47 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 	}
 
 	private void initData() {
-		ActivityDetailEntity entity = (ActivityDetailEntity) getIntent()
-				.getSerializableExtra(ActivityDetails);
+		Intent intent = getIntent();
+		ActivityDetailEntity entity = (ActivityDetailEntity) intent.getSerializableExtra(ActivityDetails);
+		acttype = intent.getStringExtra("acttype");
+
+		if ("1".equals(acttype)) {
+			tv_title.setText("活动详情");
+		} else if ("2".equals(acttype)) {
+			tv_title.setText("培训详情");
+		}
 
 		tv_actname.setText(entity.getActName());
 		
 		btn_actjoin.setText(entity.getStatus(entity.getLoginName()));
 		if (entity.getIsEnabled(entity.getLoginName())) {
+			btn_actjoin.setClickable(true);
 			btn_actjoin.setTag(entity);
-			btn_actjoin.setOnClickListener(clicklistener);
+			btn_actjoin.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(final View v) {
+					// TODO Auto-generated method stub
+					dUtil.showDialog("报名确认", "确定要参加吗？", "确定", "取消", new DialogButtonClickCallback() {
+						@Override
+						public void positiveButtonClick() {
+							// TODO Auto-generated method stub
+							final ActivityDetailEntity activitydetailentity = (ActivityDetailEntity) v
+									.getTag();
+							singUp(v, activitydetailentity);
+						}
+						
+						@Override
+						public void negativeButtonClick() {
+							// TODO Auto-generated method stub
+						}
+					});
+				}
+			});
+			btn_actjoin.setBackgroundColor(self.getResources()
+					.getColor(R.color.menu_text_press));
 		} else {
 			btn_actjoin.setClickable(false);
+			btn_actjoin.setOnClickListener(null);
 			btn_actjoin.setBackgroundColor(self.getResources()
 					.getColor(R.color.btn_disable));
 		}
@@ -153,52 +189,56 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 		tv_content.setText(Html.fromHtml(entity.getContent()));
 	}
 
-	OnClickListener clicklistener = new OnClickListener() {
-
-		@Override
-		public void onClick(final View v) {
-			ActivityDetailEntity entity = (ActivityDetailEntity) v.getTag();
-			OperationBuilder builder = new OperationBuilder().append(
-					new ActjoinOp(), entity);
-			OnOperationListener listener = new OnOperationListener() {
-				@Override
-				public void onOperationFinished(List<Object> resList) {
-					if (self.isFinishing()) {
-						return;
-					}
-					if (resList == null) {
-						Toast.show(self, "连接超时");
-						return;
-					}
-					ActjoinEntity entity = (ActjoinEntity) resList.get(0);
-					Result result  = entity.getRetobj();
-					if (result == null) {
+	
+	private void singUp(final View v,final ActivityDetailEntity activitydetailentity){
+		ActivityDetailEntity entity = activitydetailentity;
+		OperationBuilder builder = new OperationBuilder().append(
+				new ActjoinOp(), entity);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (self.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					Toast.show(self, "连接超时");
+					return;
+				}
+				ActjoinEntity entity = (ActjoinEntity) resList.get(0);
+				Result result  = entity.getRetobj();
+				if (result == null) {
+					Toast.show(ActivitySubActivity.this, "报名失败！");
+					return;
+				} else {
+					String ret = result.getResult();
+					if("0".equals(ret)){
 						Toast.show(ActivitySubActivity.this, "报名失败！");
 						return;
-					} else {
-						String ret = result.getResult();
-						if("0".equals(ret)){
-							Toast.show(ActivitySubActivity.this, "报名失败！");
-							return;
-						}else{
-							Toast.show(ActivitySubActivity.this, "报名成功！");
-							btn_actjoin.setText("已报名");
-							v.setClickable(false);
-							v.setBackgroundColor(getResources().getColor(
-									R.color.btn_disable));
-						}
+					}else{
+						Toast.show(ActivitySubActivity.this, "报名成功！");
+						btn_actjoin.setText("已报名");
+						v.setClickable(false);
+						v.setBackgroundColor(getResources().getColor(
+								R.color.btn_disable));
 					}
 				}
+			}
 
-				@Override
-				public void onOperationError(Exception e) {
-					e.printStackTrace();
-				}
-			};
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
 
-			JsonCommon task = new JsonCommon(self, builder, listener,
-					JsonCommon.PROGRESSCOMMIT);
-			task.execute();
+		JsonCommon task = new JsonCommon(self, builder, listener,
+				JsonCommon.PROGRESSCOMMIT);
+		task.execute();
+	}
+	
+	OnClickListener clicklistener = new OnClickListener() {
+		@Override
+		public void onClick(final View v) {
+			
 		}
 	};
 

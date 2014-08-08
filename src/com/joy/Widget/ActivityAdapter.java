@@ -47,6 +47,14 @@ public class ActivityAdapter extends BaseAdapter {
 	private List<ActivityDetailEntity> data = new ArrayList<ActivityDetailEntity>();
 	private UIAdapter uiAdapter;
 	DialogUtil dUtil;
+	public String acttype;
+	
+	/***
+	 * @param type
+	 */
+	public void setType(String type){
+		acttype = type;
+	}
 
 	/**
 	 * @param mainActivity
@@ -162,6 +170,7 @@ public class ActivityAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
+				intent.putExtra("acttype", acttype);
 				intent.putExtra(ActivitySubActivity.ActivityDetails, entity);
 				intent.setClass(mContext, ActivitySubActivity.class);
 				mActivity.startActivity(intent);

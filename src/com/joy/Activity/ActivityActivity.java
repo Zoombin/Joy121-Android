@@ -124,6 +124,7 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 					entity1.setIsexprired(isexpired);
 					adapter.addItem(entity1);
 				}
+				adapter.setType(acttype);
 				adapter.notifyDataSetChanged();
 			}
 
