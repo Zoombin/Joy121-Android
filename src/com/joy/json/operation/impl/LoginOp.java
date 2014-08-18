@@ -4,6 +4,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import android.telephony.TelephonyManager;
 
@@ -37,6 +38,7 @@ public class LoginOp implements ITaskOperation {
 						login.getLoginname(), login.getLoginpwd(), imei)),
 				new BasicNameValuePair("token", new MD5().getMD5ofStr(login.getLoginname()
 						+ MD5.key)));
+		HttpParams P  = get.getParams();
 		return (LoginEntity) httpApi.doHttpRequest(get, new LoginParse());
 	}
 }
