@@ -42,13 +42,22 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 	private WelfareAdapter mAdapter;
 	List<CommoditySet> tempList ;
 	
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View v= inflater.inflate(R.layout.activity_welfare, container,false);
 		initView(v);
 		return v;
+	}*/
+	
+	@Override
+	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v= inflater.inflate(R.layout.activity_welfare, container,false);
+		initView(v);
+		return v;
 	}
+	
 	
 	
 	private void initView(View v) {

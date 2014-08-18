@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Utils.Constants;
 import com.joy.Widget.PagerviewAdapter;
@@ -40,7 +42,7 @@ import com.umeng.analytics.MobclickAgent;
  * @author daiye
  *
  */
-public class OrderDetailActivity extends QActivity implements OnClickListener {
+public class OrderDetailActivity extends BaseActivity implements OnClickListener {
 	
 	private int commsetid;
 	public static final String EXTRA_COMMSETID = "commsetid";
@@ -57,7 +59,7 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 	private TextView tv_product_detail;
 	CommoditySet commoditySet;
 	
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_orderdetail);
@@ -66,6 +68,18 @@ public class OrderDetailActivity extends QActivity implements OnClickListener {
 		
 		initView();
 		initData();
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_orderdetail, null);
+		setContentView(v);
+		commsetid = getIntent().getIntExtra(EXTRA_COMMSETID, -1);
+		
+		initView();
+		initData();
+		return v;
 	}
 
 	private void initView() {

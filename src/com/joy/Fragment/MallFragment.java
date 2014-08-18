@@ -2,6 +2,7 @@ package com.joy.Fragment;
 
 import gejw.android.quickandroid.QFragment;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
+import gejw.android.quickandroid.utils.ResName2ID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +29,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @author daiye
  * 
  */
-public class MallFragment extends QFragment {
+public class MallFragment extends BaseFragment {
 
 	private RelativeLayout layout_title;
 	private ImageView iv_title;
 	private TextView tv_title;
+	private ImageView ivLogo;
 	private ListView list_mall;
 	private final int[] iconlist = { R.drawable.sc, R.drawable.sg,
 			R.drawable.rql, R.drawable.dftc, R.drawable.jg, R.drawable.hwg };
@@ -43,13 +45,42 @@ public class MallFragment extends QFragment {
 			"西北特产/东北特产/西南特产/台湾特产...", "榛子/核桃/松子/腰果/杏仁/开心果/碧...",
 			"进口红酒/进口牛奶/进口巧克力/进口零..." };
 
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_mall, container, false);
 
 		initView(v);
 		return v;
+	}*/
+	
+	@Override
+	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.fragment_mall, container, false);
+
+		initView(v);
+		return v;
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(appSet != null){
+			int imgid = 0;
+			try {
+				imgid =	ResName2ID.getDrawableID(mActivity, appSet.getLogo().replaceAll(".png", ""));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(imgid != 0){
+				tv_title.setVisibility(View.GONE);
+				ivLogo.setVisibility(View.VISIBLE);
+				ivLogo.setImageResource(imgid);
+			}
+		}
 	}
 
 	private void initView(View v) {
@@ -63,7 +94,8 @@ public class MallFragment extends QFragment {
 
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
-
+		
+		ivLogo = (ImageView) v.findViewById(R.id.iv_logo);
 		list_mall = (ListView) v.findViewById(R.id.list_mall);
 
 		List<MallEntity> data = new ArrayList<MallEntity>();

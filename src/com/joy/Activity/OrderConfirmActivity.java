@@ -1,12 +1,14 @@
 package com.joy.Activity;
 
 import gejw.android.quickandroid.QActivity;
+import gejw.android.quickandroid.ui.adapter.UIManager;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -35,7 +37,7 @@ import com.umeng.analytics.MobclickAgent;
  * @author daiye
  *
  */
-public class OrderConfirmActivity extends QActivity implements OnClickListener {
+public class OrderConfirmActivity extends BaseActivity implements OnClickListener {
 	
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
@@ -60,7 +62,7 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 	private UserInfoEntity userinfo;
 	private CommoditySet commoditySet;
 	
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_orderconfirm);
@@ -71,6 +73,20 @@ public class OrderConfirmActivity extends QActivity implements OnClickListener {
 		
 		initView();
 		initData();
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_orderconfirm, null);
+		setContentView(v);
+		Intent intent = getIntent();
+		commoditySet = (CommoditySet) intent.getSerializableExtra(OrderDetailActivity.EXTRA_COMMODITYSET);
+		userinfo = JoyApplication.getInstance().getUserinfo();
+		
+		initView();
+		initData();
+		return v;
 	}
 
 	private void initView() {

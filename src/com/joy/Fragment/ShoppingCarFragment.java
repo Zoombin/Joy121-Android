@@ -1,6 +1,7 @@
 package com.joy.Fragment;
 
 import gejw.android.quickandroid.QFragment;
+import gejw.android.quickandroid.utils.ResName2ID;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.util.List;
@@ -33,10 +34,11 @@ import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.CommitShopCarOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class ShoppingCarFragment extends QFragment {
+public class ShoppingCarFragment extends BaseFragment {
 	private RelativeLayout layout_title;
 	private ImageView iv_title;
 	private TextView tv_title;
+	private ImageView ivLogo;
 	private ListView carList;
 	private Button commitBt;
 	private static ShoppingCarFragment shoppingCarFragment = null;
@@ -50,18 +52,40 @@ public class ShoppingCarFragment extends QFragment {
 		shoppingCarFragment = this;
 	}
 
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_shoppingcar, container, false);
 		initView(v);
 		initData();
 		return v;
+	}*/
+	@Override
+	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.fragment_shoppingcar, container, false);
+		initView(v);
+		initData();
+		return v;
 	}
-
+	
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		if(appSet != null){
+			int imgid = 0;
+			try {
+				imgid =	ResName2ID.getDrawableID(mActivity, appSet.getLogo().replaceAll(".png", ""));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(imgid != 0){
+				tv_title.setVisibility(View.GONE);
+				ivLogo.setVisibility(View.VISIBLE);
+				ivLogo.setImageResource(imgid);
+			}
+		}
 	}
 
 	private void initView(View v) {
@@ -73,7 +97,8 @@ public class ShoppingCarFragment extends QFragment {
 
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
-
+		
+		ivLogo = (ImageView) v.findViewById(R.id.iv_logo);
 		carList = (ListView) v.findViewById(R.id.car_list);
 		commitBt = (Button) v.findViewById(R.id.commit_bt);
 		commitBt.setOnClickListener(new OnClickListener() {

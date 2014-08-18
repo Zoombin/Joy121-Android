@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -32,7 +33,7 @@ import com.umeng.analytics.MobclickAgent;
  * @author daiye
  * 
  */
-public class WelfareActivity extends QActivity implements OnClickListener {
+public class WelfareActivity extends BaseActivity implements OnClickListener {
 
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
@@ -40,13 +41,23 @@ public class WelfareActivity extends QActivity implements OnClickListener {
 	private ListView mListView;
 	private WelfareAdapter mAdapter;
 	
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welfare);
 		
 		initView();
 		getWelfareList();
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_welfare, null);
+		setContentView(v);
+		initView();
+		getWelfareList();
+		return v;
 	}
 
 	private void initView() {

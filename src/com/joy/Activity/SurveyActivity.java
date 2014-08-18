@@ -3,11 +3,13 @@ package com.joy.Activity;
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -22,8 +24,11 @@ import com.joy.Widget.SurveyAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.ActivityEntity;
+import com.joy.json.model.SelectionModel;
 import com.joy.json.model.SurveyDetailEntity;
 import com.joy.json.model.SurveyEntity;
+import com.joy.json.model.CategoriesGoodsDEntity.CategoriesGoods;
+import com.joy.json.model.StoreDetailEntity.StoreDetail;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.SurveyOp;
 import com.umeng.analytics.MobclickAgent;
@@ -33,7 +38,7 @@ import com.umeng.analytics.MobclickAgent;
  * @author daiye
  *
  */
-public class SurveyActivity extends QActivity implements OnClickListener {
+public class SurveyActivity extends BaseActivity implements OnClickListener {
 	
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
@@ -48,13 +53,24 @@ public class SurveyActivity extends QActivity implements OnClickListener {
 	private TextView tv_expired;
 	private Resources resources;
 	
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_survey);
 		resources = getResources();
 		initView();
 		initData("1");
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_survey, null);
+		setContentView(v);
+		resources = getResources();
+		initView();
+		initData("1");
+		return v;
 	}
 
 	private void initView() {

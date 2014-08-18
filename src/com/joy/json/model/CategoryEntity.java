@@ -12,8 +12,6 @@ public class CategoryEntity extends TResult{
 	private static final long serialVersionUID = 1L;
 	private String CategoryName;
 	private String Id;
-	private String categorytype;
-	private String CompAppSetting;
 	private List<CategoryEntity> retobj;
 	private List<CategoriesGoods> goodsList;//类别下的商品列表
 	
@@ -40,17 +38,5 @@ public class CategoryEntity extends TResult{
 	}
 	public void setGoodsList(List<CategoriesGoods> goodsList) {
 		this.goodsList = goodsList;
-	}
-	public String getCategorytype() {
-		return categorytype;
-	}
-	public void setCategorytype(String categorytype) {
-		this.categorytype = categorytype;
-	}
-	public String getCompAppSetting() {
-		return CompAppSetting;
-	}
-	public void setCompAppSetting(String compAppSetting) {
-		CompAppSetting = compAppSetting;
 	}
 }

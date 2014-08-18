@@ -4,8 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.joy.json.model.LoginEntity;
 import com.joy.json.model.TResult;
@@ -14,7 +12,6 @@ public class LoginParse extends AbstractParser<TResult> {
 	
 	@Override
 	public LoginEntity parse(JSONObject json) throws JSONException {
-		Log.i("LSD", json.toString());
 		LoginEntity login = new LoginEntity();
 		if(json!=null){ 
 			login = new Gson().fromJson(

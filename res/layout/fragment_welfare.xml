@@ -12,13 +12,22 @@
         android:background="@color/title_bg" >
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/iv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:scaleType="fitXY"
-            android:src="@drawable/title_icon" />
+            android:src="@drawable/title_icon"
+            android:visibility="gone" />
+
+        <ImageView 
+            android:visibility="gone"
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/tommy"/>
 
         <TextView
             android:id="@+id/tv_title"
@@ -29,7 +38,7 @@
             android:textColor="@color/WHITE" />
     </RelativeLayout>
 
-     <!-- 1 -->
+    <!-- 1 -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -121,7 +130,7 @@
                 android:src="@drawable/com_event" />
         </LinearLayout>
     </LinearLayout>
-    
+
     <!-- 2 -->
 
     <LinearLayout
@@ -214,8 +223,8 @@
                 android:src="@drawable/com_survey" />
         </LinearLayout>
     </LinearLayout>
-    
-      <!-- 3 -->
+
+    <!-- 3 -->
 
     <LinearLayout
         android:layout_width="match_parent"

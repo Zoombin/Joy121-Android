@@ -6,6 +6,7 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -29,7 +30,7 @@ import com.umeng.analytics.MobclickAgent;
  * @author lsd
  *
  */
-public class OrderqueryActivity extends QActivity implements OnClickListener {
+public class OrderqueryActivity extends BaseActivity implements OnClickListener {
 	
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
@@ -37,13 +38,23 @@ public class OrderqueryActivity extends QActivity implements OnClickListener {
 	private ListView list_order;
 	private OrderQueryAdapter adapter;
 	
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_orderquery);
 		
 		initView();
 		initData();
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_orderquery, null);
+		setContentView(v);
+		initView();
+		initData();
+		return v;
 	}
 
 	private void initView() {

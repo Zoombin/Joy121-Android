@@ -17,6 +17,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,6 +35,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Fragment.BaseFragment;
 import com.joy.Fragment.LifeFragment;
@@ -43,6 +45,7 @@ import com.joy.Fragment.ShoppingCarFragment;
 import com.joy.Fragment.PortalsFragment;
 import com.joy.Fragment.TopFragment.TopPortalsFragment;
 import com.joy.Fragment.portals.logostore.LogoStoreFragment;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.model.GoodsDetail;
 import com.joy.json.model.PopularGoods;
 import com.joy.json.model.ShoppingCarGoods;
@@ -71,7 +74,6 @@ public class MainActivity extends QActivity {
 				checkPush(getIntent());
 			}
 		}, 300);
-		
 	}
 	
 	@Override
@@ -143,10 +145,25 @@ public class MainActivity extends QActivity {
 		//context.sendBroadcast(intent);
 	}
 	
+	/**
+	 * 清空购物车
+	 * @param context
+	 */
 	public static void CleanShopCar(Context context) {
 		Intent intent = new Intent(ShoppingCarAction);
 		intent.putExtra("action", "clean");
 		context.sendBroadcast(intent);
+	}
+	
+	/***
+	 * 刷新tab颜色
+	 * @param color
+	 */
+	public void refreshTobColor(int color) {
+		if(mActivity == null && mTabHost == null){
+			return;
+		}
+		mTabHost.setBackgroundColor(color);
 	}
 
 	/*-------------------广播处理------------------------------*/
@@ -305,6 +322,22 @@ public class MainActivity extends QActivity {
 	public void onResume() {
 		super.onResume();
 		MobclickAgent.onResume(this);
+		
+		CompAppSet appSet = JoyApplication.getInstance().getCompAppSet();
+		if(appSet != null){
+			
+			int tabColor = 0;
+			try {
+				tabColor = Color.parseColor(appSet.getColor1());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(tabColor !=0){
+				refreshTobColor(tabColor);
+			}
+		}
+		
 	}
 
 	public void onPause() {

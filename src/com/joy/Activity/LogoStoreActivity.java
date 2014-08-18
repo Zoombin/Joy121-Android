@@ -51,7 +51,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @author ADMIN
  * 
  */
-public class LogoStoreActivity extends QActivity implements OnClickListener {
+public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 	private RelativeLayout layout_title;
 	private TextView tv_title, tv_ret;
 	private Resources resources;
@@ -68,7 +68,7 @@ public class LogoStoreActivity extends QActivity implements OnClickListener {
 	private List<CategoryEntity> tempList;
 	private int index  = 0;
 
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_logostore);
@@ -76,6 +76,18 @@ public class LogoStoreActivity extends QActivity implements OnClickListener {
 		mActivity = this;
 		mUiManager = new UIManager(self);
 		initView();
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_logostore, null);
+		setContentView(v);
+		resources = this.getResources();
+		mActivity = this;
+		mUiManager = new UIManager(self);
+		initView();
+		return v;
 	}
 
 	private void initView() {

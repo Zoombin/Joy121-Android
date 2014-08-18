@@ -62,8 +62,16 @@ public class ActivityFragment extends BaseFragment implements OnClickListener{
 		}
 	}
 	
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v= inflater.inflate(R.layout.activity_activity, container,false);
+		initView(v);
+		return v;
+	}*/
+	
+	@Override
+	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View v= inflater.inflate(R.layout.activity_activity, container,false);
 		initView(v);

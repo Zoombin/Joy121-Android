@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -20,7 +21,7 @@ import com.joy.Utils.Constants;
 import com.joy.json.model.UserInfoEntity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class PersonalInfoActivity extends QActivity implements OnClickListener {
+public class PersonalInfoActivity extends BaseActivity implements OnClickListener {
 
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
@@ -57,7 +58,7 @@ public class PersonalInfoActivity extends QActivity implements OnClickListener {
 	private TextView tv_points_title;
 	private TextView tv_points;
 	
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_personal_info);
@@ -65,6 +66,17 @@ public class PersonalInfoActivity extends QActivity implements OnClickListener {
 		userinfo = (UserInfoEntity) getIntent().getSerializableExtra(PersonalFragment.EXTRA_USERINFO);
 		initView();
 		initData();
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_personal_info, null);
+		setContentView(v);
+		userinfo = (UserInfoEntity) getIntent().getSerializableExtra(PersonalFragment.EXTRA_USERINFO);
+		initView();
+		initData();
+		return v;
 	}
 	
 	private void initView() {

@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -39,7 +40,7 @@ import com.umeng.analytics.MobclickAgent;
  * @author daiye
  * 
  */
-public class ActivitySubActivity extends QActivity implements OnClickListener {
+public class ActivitySubActivity extends BaseActivity implements OnClickListener {
 
 	public static final String ActivityDetails = "activitydetails";
 	private RelativeLayout layout_title;
@@ -58,7 +59,7 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 	public String acttype;
 	DialogUtil dUtil;
 
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_activitysub);
@@ -68,6 +69,19 @@ public class ActivitySubActivity extends QActivity implements OnClickListener {
 
 		initView();
 		initData();
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_activitysub, null);
+		setContentView(v);
+		resources = getResources();
+		dUtil = new DialogUtil(self);
+
+		initView();
+		initData();
+		return v;
 	}
 
 	private void initView() {

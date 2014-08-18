@@ -30,7 +30,7 @@ public class CategoryOp implements ITaskOperation {
 				IP,
 				new BasicNameValuePair("action", "comm_category"),
 				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\",\"company\":\"%s\"}", SharedPreferencesUtils
+						"{\"loginname\":\"%s\",\"company\":\"%s\",\"categorytype\":\"2\"}", SharedPreferencesUtils
 								.getLoginName(JoyApplication.getSelf()),SharedPreferencesUtils
 								.getCompany(JoyApplication.getSelf()))),
 								new BasicNameValuePair("token", new MD5()

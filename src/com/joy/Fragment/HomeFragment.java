@@ -50,7 +50,7 @@ import com.joy.json.operation.impl.PicOp;
  * @author daiye
  * 
  */
-public class HomeFragment extends QFragment implements OnClickListener, OnItemClickListener {
+public class HomeFragment extends BaseFragment implements OnClickListener, OnItemClickListener {
 
 	private RelativeLayout layout_title;
 	private ImageView iv_title;
@@ -64,9 +64,23 @@ public class HomeFragment extends QFragment implements OnClickListener, OnItemCl
 	private Resources resources;
 	Button mPreSelectedBt;
 
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+		resources = getResources();
+		
+		initView(v);
+
+		getPicList();
+		getWelfareList();
+		return v;
+	}*/
+	
+	@Override
+	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		View v = inflater.inflate(R.layout.fragment_home, container, false);
 
 		resources = getResources();
@@ -140,6 +154,7 @@ public class HomeFragment extends QFragment implements OnClickListener, OnItemCl
 		grid_welfare = (GridView) v.findViewById(R.id.grid_welfare);
 		grid_welfare.setNumColumns(2);
 	}
+	
 
 	private void getWelfareList() {
 		OperationBuilder builder = new OperationBuilder().append(

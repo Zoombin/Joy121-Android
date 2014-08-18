@@ -71,8 +71,16 @@ public class LogoStoreDetailFragment extends BaseFragment {
 		goods = (CategoriesGoods) getArguments().getSerializable("detail");
 	}
 
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_goods, container, false);
+		initViews(v);
+		return v;
+	}*/
+	
+	@Override
+	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View v = inflater.inflate(R.layout.activity_goods, container, false);
 		initViews(v);

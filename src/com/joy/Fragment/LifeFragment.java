@@ -30,7 +30,7 @@ import com.joy.Utils.Constants;
  * @author daiye
  * 
  */
-public class LifeFragment extends QFragment implements OnClickListener {
+public class LifeFragment extends BaseFragment implements OnClickListener {
 
 	private RelativeLayout layout_title;
 	private ImageView iv_title;
@@ -53,9 +53,19 @@ public class LifeFragment extends QFragment implements OnClickListener {
 	private final String[] healthlist = {"入职体检", "年度体检", "牙齿健康", "心理咨询"};
 	private final String[] safetylist = {"意外险", "医疗险", "雇主险", "家属险"};
 	
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.fragment_life, container, false);
+		
+		resources = getResources();
+		initView(v);
+		return v;
+	}*/
+	
+	@Override
+	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		View v = inflater.inflate(R.layout.fragment_life, container, false);
 		
 		resources = getResources();

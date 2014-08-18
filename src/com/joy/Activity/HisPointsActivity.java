@@ -6,6 +6,7 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Dialog.DialogUtil;
 import com.joy.Utils.Constants;
 import com.joy.Widget.HispointsAdapter;
 import com.joy.json.JsonCommon;
@@ -29,7 +31,7 @@ import com.umeng.analytics.MobclickAgent;
  * @author daiye
  *
  */
-public class HisPointsActivity extends QActivity implements OnClickListener {
+public class HisPointsActivity extends BaseActivity implements OnClickListener {
 
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
@@ -37,13 +39,23 @@ public class HisPointsActivity extends QActivity implements OnClickListener {
 	private ListView list_hispoints;
 	private HispointsAdapter adapter;
 
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_hispoints);
 		
 		initView();
 		initData();
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_hispoints, null);
+		setContentView(v);
+		initView();
+		initData();
+		return v;
 	}
 
 	private void initView() {

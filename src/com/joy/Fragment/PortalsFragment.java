@@ -1,5 +1,6 @@
 package com.joy.Fragment;
 
+import gejw.android.quickandroid.utils.ResName2ID;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 	private RelativeLayout layout_title;
 	private ImageView iv_title;
 	private TextView tv_title;
+	private ImageView ivLogo;
 	
 	private LinearLayout layout_welfare;
 	private TextView tv_welfare;
@@ -69,7 +71,7 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 	private TextView tv_shop;
 	private ImageView iv_shop;
 	
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_welfare, container, false);
@@ -78,6 +80,37 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 		initView(v);
 
 		return v;
+	}*/
+	
+	@Override
+	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.fragment_welfare, container, false);
+		
+		resources = getResources();
+		initView(v);
+
+		return v;
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(appSet != null){
+			int imgid = 0;
+			try {
+				imgid =	ResName2ID.getDrawableID(mActivity, appSet.getLogo().replaceAll(".png", ""));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(imgid != 0){
+				tv_title.setVisibility(View.GONE);
+				ivLogo.setVisibility(View.VISIBLE);
+				ivLogo.setImageResource(imgid);
+			}
+		}
 	}
 
 	private void initView(View v) {
@@ -90,6 +123,7 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 		
+		ivLogo = (ImageView) v.findViewById(R.id.iv_logo);
 		// 公司福利
 		layout_welfare = (LinearLayout) v.findViewById(R.id.layout_welfare);
 		layout_welfare.setOnClickListener(this);
@@ -189,7 +223,7 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 		iv_shop = (ImageView) v.findViewById(R.id.iv_shop);
 		uiAdapter.setMargin(iv_shop, IMAGEVIEWWH, IMAGEVIEWWH, 0, 10, 0, 20);
 	}
-
+	
 	@Override
 	public void onClick(View v) {
 		Intent intent = new Intent();

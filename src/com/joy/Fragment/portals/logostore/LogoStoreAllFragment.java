@@ -77,8 +77,16 @@ public class LogoStoreAllFragment extends BaseFragment {
 		data = (CategoryEntity) getArguments().getSerializable("data");
 	}
 	
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v= inflater.inflate(R.layout.activity_logostore_all, container,false);
+		initView(v);
+		return v;
+	}*/
+	
+	@Override
+	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View v= inflater.inflate(R.layout.activity_logostore_all, container,false);
 		initView(v);

@@ -3,9 +3,16 @@ package com.joy;
 import gejw.android.quickandroid.QApplication;
 import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
+import android.text.TextUtils;
+import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.joy.Utils.MD5;
+import com.joy.json.model.CompAppSet;
+import com.joy.json.model.CompanyInfoEntity;
+import com.joy.json.model.LoginEntity;
 import com.joy.json.model.UserInfoEntity;
 //import com.lidroid.xutils.HttpUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -21,6 +28,33 @@ public class JoyApplication extends QApplication {
 
 	private UserInfoEntity userinfo;
 
+	/***
+	 * APP设置
+	 * @return
+	 */
+	public CompAppSet  getCompAppSet (){
+		UserInfoEntity userinfo = getUserinfo();
+		if(userinfo != null){
+			CompanyInfoEntity cEntity = userinfo.getCompanyInfo();
+			if(cEntity != null){
+				String appSet = cEntity.getCompAppSetting();
+				if(!TextUtils.isEmpty(appSet)){
+					try {
+						CompAppSet set = new Gson().fromJson(
+								appSet, CompAppSet.class);
+						return set;
+					} catch (JsonSyntaxException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	
+	
 	public UserInfoEntity getUserinfo() {
 		return userinfo;
 	}

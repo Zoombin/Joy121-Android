@@ -1,6 +1,7 @@
 package com.joy.Fragment;
 
 import gejw.android.quickandroid.QFragment;
+import gejw.android.quickandroid.utils.ResName2ID;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,11 +47,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @author daiye
  * 
  */
-public class PersonalFragment extends QFragment implements OnClickListener {
+public class PersonalFragment extends BaseFragment implements OnClickListener {
 
 	private RelativeLayout layout_title;
 	private ImageView iv_title;
 	private TextView tv_title;
+	private ImageView ivLogo;
 	private LinearLayout layout_personinfo;
 	private TextView tv_name;
 	private ImageView img_company;
@@ -93,7 +96,7 @@ public class PersonalFragment extends QFragment implements OnClickListener {
 	// private TextView tv_createtime_title;
 	// private TextView tv_createtime;
 
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_personal, container, false);
@@ -101,6 +104,36 @@ public class PersonalFragment extends QFragment implements OnClickListener {
 		initView(v);
 		initData();
 		return v;
+	}*/
+	
+	@Override
+	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.fragment_personal, container, false);
+
+		initView(v);
+		initData();
+		return v;
+	}
+	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(appSet != null){
+			int imgid = 0;
+			try {
+				imgid =	ResName2ID.getDrawableID(mActivity, appSet.getLogo().replaceAll(".png", ""));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(imgid != 0){
+				tv_title.setVisibility(View.GONE);
+				ivLogo.setVisibility(View.VISIBLE);
+				ivLogo.setImageResource(imgid);
+			}
+		}
 	}
 
 	private void initView(View v) {
@@ -114,7 +147,8 @@ public class PersonalFragment extends QFragment implements OnClickListener {
 
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
-
+		
+		ivLogo = (ImageView) v.findViewById(R.id.iv_logo);
 		layout_personinfo = (LinearLayout) v
 				.findViewById(R.id.layout_personinfo);
 		uiAdapter.setMargin(layout_personinfo, LayoutParams.MATCH_PARENT, 113,

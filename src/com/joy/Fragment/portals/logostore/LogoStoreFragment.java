@@ -2,6 +2,7 @@ package com.joy.Fragment.portals.logostore;
 
 import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.ui.adapter.UIManager;
+import gejw.android.quickandroid.utils.ResName2ID;
 import gejw.android.quickandroid.widget.HorizontalListView;
 import gejw.android.quickandroid.widget.Toast;
 import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshBase;
@@ -12,9 +13,13 @@ import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -56,6 +61,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class LogoStoreFragment extends BaseFragment {
 	private RelativeLayout layout_title;
 	private TextView tv_title, tv_ret;
+	private ImageView ivLogo;
 	private Resources resources;
 	private Activity curActivity;
 	protected UIManager mUiManager;
@@ -78,8 +84,16 @@ public class LogoStoreFragment extends BaseFragment {
 		mUiManager = new UIManager(curActivity);
 	}
 	
-	@Override
+	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v= inflater.inflate(R.layout.activity_logostore, container,false);
+		initView(v);
+		return v;
+	}*/
+	
+	@Override
+	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View v= inflater.inflate(R.layout.activity_logostore, container,false);
 		initView(v);
@@ -88,22 +102,7 @@ public class LogoStoreFragment extends BaseFragment {
 	
 	private void initView(View v) {
 		PLog.e("进入--->%s", "LogoStoreActivity");
-		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
-
-		tv_title = (TextView) v.findViewById(R.id.tv_title);
-		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
-
-		tv_ret = (TextView) v.findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				MainActivity.mActivity.Back();
-			}
-		});
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+		initTitleLayout(v);
 		listView = (PullToRefreshListView) v.findViewById(R.id.listview);
 		listView.setMode(Mode.PULL_FROM_START);
 		listView.setAdapter(categoriseAdapter = new CategoriseAdapter());
@@ -119,6 +118,27 @@ public class LogoStoreFragment extends BaseFragment {
         }else{
         	categoriseAdapter.setData(tempList);
         }
+	}
+	
+	
+	private void initTitleLayout(View v){
+		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
+
+		tv_title = (TextView) v.findViewById(R.id.tv_title);
+		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+
+		ivLogo = (ImageView) v.findViewById(R.id.iv_logo);
+		tv_ret = (TextView) v.findViewById(R.id.tv_ret);
+		tv_ret.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				MainActivity.mActivity.Back();
+			}
+		});
+		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
+		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
 	}
 	
 	private void getCategories() {
@@ -143,7 +163,7 @@ public class LogoStoreFragment extends BaseFragment {
 					//finish();
 					return;
 				}
-
+				
 				categoriseAdapter.setData(surveylist);
 				
 				tempList = surveylist;

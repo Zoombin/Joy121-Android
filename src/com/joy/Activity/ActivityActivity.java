@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -29,7 +30,7 @@ import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.ActivityOp;
 import com.umeng.analytics.MobclickAgent;
 
-public class ActivityActivity extends QActivity implements OnClickListener {
+public class ActivityActivity extends BaseActivity implements OnClickListener {
 	
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
@@ -46,7 +47,7 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 	
 	public String acttype;
 	
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_activity);
@@ -56,6 +57,20 @@ public class ActivityActivity extends QActivity implements OnClickListener {
 		
 		initView();
 		initData("1");
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_activity, null);
+		setContentView(v);
+		resources = getResources();
+		Intent intent = getIntent();
+	    acttype = intent.getStringExtra("acttype");
+		
+		initView();
+		initData("1");
+		return v;
 	}
 
 	private void initView() {

@@ -47,7 +47,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * @author ADMIN
  * 
  */
-public class StoreDetailActivity extends QActivity {
+public class StoreDetailActivity extends BaseActivity {
 	private RelativeLayout layout_title;
 	private TextView addToStore, storeNum;
 	private TextView tv_ret, tv_title;
@@ -59,7 +59,7 @@ public class StoreDetailActivity extends QActivity {
 	private List<SelectionModel> tempSize;
 	private String colorSelect;
 	private String sizeSelect;
-
+/*
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -79,6 +79,28 @@ public class StoreDetailActivity extends QActivity {
 		if (goods != null) {
 			getCategorieStore(goods.getId());
 		}
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_goods, null);
+		setContentView(v);
+		Intent intent = getIntent();
+		if (intent.hasExtra("detail")) {
+			goods = (CategoriesGoods) intent.getSerializableExtra("detail");
+			//Log.e("LSD", goods.getAppPicture());
+		}
+		templist = new ArrayList<StoreDetail>();
+		tempColor = new ArrayList<SelectionModel>();
+		tempSize = new ArrayList<SelectionModel>();
+
+		initViews();
+		initViewPager();
+		if (goods != null) {
+			getCategorieStore(goods.getId());
+		}
+		return v;
 	}
 
 	private void initViews() {

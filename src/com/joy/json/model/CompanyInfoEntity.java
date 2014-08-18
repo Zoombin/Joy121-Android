@@ -42,6 +42,8 @@ public class CompanyInfoEntity extends TResult {
 	private String Company;
 
 	private String AllowCustom;
+	
+	private String CompAppSetting;
 
 	public int getPersonCount() {
 		return PersonCount;
@@ -130,4 +132,13 @@ public class CompanyInfoEntity extends TResult {
 	public void setCompLogo(String compLogo) {
 		CompLogo = compLogo;
 	}
+
+	public String getCompAppSetting() {
+		return CompAppSetting;
+	}
+
+	public void setCompAppSetting(String compAppSetting) {
+		CompAppSetting = compAppSetting;
+	}
+	
 }

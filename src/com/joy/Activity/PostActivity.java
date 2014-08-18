@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -16,12 +17,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.Fragment.PersonalFragment;
 import com.joy.Utils.Constants;
 import com.joy.Widget.PostAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.PostDetailEntity;
 import com.joy.json.model.PostEntity;
+import com.joy.json.model.UserInfoEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.PostOp;
 import com.umeng.analytics.MobclickAgent;
@@ -31,7 +34,7 @@ import com.umeng.analytics.MobclickAgent;
  * @author daiye
  *
  */
-public class PostActivity extends QActivity implements OnClickListener {
+public class PostActivity extends BaseActivity implements OnClickListener {
 	
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
@@ -46,13 +49,24 @@ public class PostActivity extends QActivity implements OnClickListener {
 	private TextView tv_expired;
 	private Resources resources;
 	
-	@Override
+	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_post);
 		resources = this.getResources();
 		initView();
 		initData("1");
+	}*/
+	
+	@Override
+	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View v = inflater.inflate(R.layout.activity_post, null);
+		setContentView(v);
+		resources = this.getResources();
+		initView();
+		initData("1");
+		return v;
 	}
 
 	private void initView() {

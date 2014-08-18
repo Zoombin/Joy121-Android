@@ -30,6 +30,7 @@ import com.joy.R;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.model.LoginEntity;
 import com.joy.json.model.UserInfoEntity;
 import com.joy.json.operation.OperationBuilder;
