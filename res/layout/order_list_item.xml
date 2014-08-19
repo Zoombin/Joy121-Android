@@ -9,7 +9,7 @@
         android:id="@+id/layout_order_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fbdea6" >
+        android:background="@color/WHITE" >
 
         <TextView
             android:id="@+id/tv_orderid"

@@ -7,6 +7,7 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,12 +23,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Activity.MainActivity;
 import com.joy.Utils.Constants;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CommitResultEntity;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.model.CommitResultEntity.CommitResult;
 import com.joy.json.model.ShoppingCarGoods;
 import com.joy.json.operation.OperationBuilder;
@@ -43,11 +46,24 @@ public class ShoppingCarFragment extends BaseFragment {
 	private Button commitBt;
 	private static ShoppingCarFragment shoppingCarFragment = null;
 	private CarAdapter adapter;
+	public String acttype;
+	CompAppSet appSet;
+	int color;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) { 
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		color = Color.parseColor("#ffa800");
+		appSet = JoyApplication.getInstance().getCompAppSet();
+		if (appSet != null) {
+			try {
+				color = Color.parseColor(appSet.getColor2());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		adapter = new CarAdapter(mActivity);
 		shoppingCarFragment = this;
 	}
@@ -102,6 +118,7 @@ public class ShoppingCarFragment extends BaseFragment {
 		ivLogo = (ImageView) v.findViewById(R.id.iv_logo);
 		carList = (ListView) v.findViewById(R.id.car_list);
 		commitBt = (Button) v.findViewById(R.id.commit_bt);
+		commitBt.setBackgroundColor(color);
 		commitBt.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

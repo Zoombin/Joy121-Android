@@ -11,6 +11,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +34,7 @@ import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.ActivityDetailEntity;
 import com.joy.json.model.ActjoinEntity;
 import com.joy.json.model.ActjoinEntity.Result;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.ActjoinOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -48,6 +50,8 @@ public class ActivityAdapter extends BaseAdapter {
 	private UIAdapter uiAdapter;
 	DialogUtil dUtil;
 	public String acttype;
+	int color;
+	CompAppSet appSet;
 	
 	/***
 	 * @param type
@@ -64,6 +68,8 @@ public class ActivityAdapter extends BaseAdapter {
 		mContext = ctx;
 		uiAdapter = UIAdapter.getInstance(ctx);
 		dUtil = new DialogUtil(ctx);
+		color = 0;
+		appSet = JoyApplication.getInstance().getCompAppSet();
 	}
 
 	public void setData(List<ActivityDetailEntity> data){
@@ -190,8 +196,18 @@ public class ActivityAdapter extends BaseAdapter {
 					.getColor(R.color.btn_disable));
 		} else{
 			holder.btn_actjoin.setClickable(true);
-			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
-					.getColor(R.color.menu_text_press));
+			if (appSet != null) {
+				try {
+					color = Color.parseColor(appSet.getColor2());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (color != 0) {
+				// 设置颜色
+				holder.btn_actjoin.setBackgroundColor(color);
+			}
 		}
 		
 		
@@ -221,8 +237,18 @@ public class ActivityAdapter extends BaseAdapter {
 					});
 				}
 			});
-			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
-					.getColor(R.color.menu_text_press));
+			if (appSet != null) {
+				try {
+					color = Color.parseColor(appSet.getColor2());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (color != 0) {
+				// 设置颜色
+				holder.btn_actjoin.setBackgroundColor(color);
+			}
 		} else {
 			holder.btn_actjoin.setClickable(false);
 			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()

@@ -106,8 +106,23 @@ public class LogoStoreDetailFragment extends BaseFragment {
 		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
 		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
 
+		int color = 0;
+		if (appSet != null) {
+			try {
+				color = Color.parseColor(appSet.getColor2());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 		storeNum = (TextView) v.findViewById(R.id.store_num);
 		addToStore = (TextView) v.findViewById(R.id.add_to_store);
+		if (color != 0) {
+			// 设置颜色
+			addToStore.setBackgroundColor(color);
+		}
 		addToStore.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

@@ -8,6 +8,7 @@ import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
@@ -29,6 +31,7 @@ import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.ActivityDetailEntity;
 import com.joy.json.model.ActjoinEntity;
 import com.joy.json.model.ActjoinEntity.Result;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.ActjoinOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -58,6 +61,8 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 	private Resources resources;
 	public String acttype;
 	DialogUtil dUtil;
+	CompAppSet appSet;
+	int color;
 
 	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +83,8 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 		setContentView(v);
 		resources = getResources();
 		dUtil = new DialogUtil(self);
-
+		color = 0;
+		appSet = JoyApplication.getInstance().getCompAppSet();
 		initView();
 		initData();
 		return v;
@@ -120,7 +126,8 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 		btn_actjoin = (Button) findViewById(R.id.btn_actjoin);
 		uiAdapter.setMargin(btn_actjoin, 120, 50, 0, 10, 30, 10);
 		uiAdapter.setTextSize(btn_actjoin, 20);
-
+		
+		
 		tv_actlocationaddrtitle = (TextView) findViewById(R.id.tv_actlocationaddrtitle);
 		uiAdapter.setPadding(tv_actlocationaddrtitle, 10, 5, 0, 5);
 		uiAdapter.setTextSize(tv_actlocationaddrtitle, 20);
@@ -161,7 +168,7 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 				@Override
 				public void onClick(final View v) {
 					// TODO Auto-generated method stub
-					dUtil.showDialog("报名确认", "确定要参加吗？", "确定", "取消", new DialogButtonClickCallback() {
+					dUtil.showDialog("报名确认", 0, "确定要参加吗？", "确定", "取消", new DialogButtonClickCallback() {
 						@Override
 						public void positiveButtonClick() {
 							// TODO Auto-generated method stub
@@ -177,8 +184,19 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 					});
 				}
 			});
-			btn_actjoin.setBackgroundColor(self.getResources()
-					.getColor(R.color.menu_text_press));
+			if (appSet != null) {
+				try {
+					color = Color.parseColor(appSet.getColor2());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (color != 0) {
+				// 设置颜色
+				btn_actjoin.setBackgroundColor(color);
+			}
+
 		} else {
 			btn_actjoin.setClickable(false);
 			btn_actjoin.setOnClickListener(null);

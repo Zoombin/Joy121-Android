@@ -6,6 +6,7 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.List;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Fragment.PersonalFragment;
 import com.joy.Utils.Constants;
 import com.joy.Widget.PostAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.model.PostDetailEntity;
 import com.joy.json.model.PostEntity;
 import com.joy.json.model.UserInfoEntity;
@@ -48,6 +51,8 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 	private LinearLayout layout_expired;
 	private TextView tv_expired;
 	private Resources resources;
+	CompAppSet appSet;
+	int color;
 	
 	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,16 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		color = Color.parseColor("#ffa800");
+		appSet = JoyApplication.getInstance().getCompAppSet();
+		if (appSet != null) {
+			try {
+				color = Color.parseColor(appSet.getColor2());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		View v = inflater.inflate(R.layout.activity_post, null);
 		setContentView(v);
 		resources = this.getResources();
@@ -100,7 +115,18 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
 		adapter = new PostAdapter(self);
 		list_post.setAdapter(adapter);	
+		
+		defaultColor();
 	}
+	
+	private void defaultColor()
+	{
+		layout_useful.setBackgroundColor(color);
+		layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+		tv_useful.setTextColor(resources.getColor(R.color.WHITE));
+		tv_expired.setTextColor(resources.getColor(R.color.WHITE));
+	}
+
 
 	private void initData(final String isexpired){
 		PostEntity post = new PostEntity();
@@ -145,15 +171,19 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 	private void showMenu(int layout) {
 		switch (layout) {
 		case R.id.layout_useful:
-			tv_useful.setTextColor(resources.getColor(R.color.title_bg));
-			tv_expired.setTextColor(resources.getColor(R.color.BLACK));
+			layout_useful.setBackgroundColor(color);
+			layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+			tv_useful.setTextColor(resources.getColor(R.color.WHITE));
+			tv_expired.setTextColor(resources.getColor(R.color.WHITE));
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
 			initData("1");
 			break;
 		case R.id.layout_expired:
-			tv_expired.setTextColor(resources.getColor(R.color.title_bg));
-			tv_useful.setTextColor(resources.getColor(R.color.BLACK));
+			layout_expired.setBackgroundColor(color);
+			layout_useful.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+			tv_expired.setTextColor(resources.getColor(R.color.WHITE));
+			tv_useful.setTextColor(resources.getColor(R.color.WHITE));
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
 			initData("2");

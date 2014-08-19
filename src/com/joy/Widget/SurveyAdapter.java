@@ -10,6 +10,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.joy.R;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.model.SurveyAEntity;
 import com.joy.json.model.SurveyDetailEntity;
 import com.joy.json.model.SurveyDetailEntity.SurveyAns;
@@ -47,6 +49,8 @@ public class SurveyAdapter extends BaseAdapter {
 	private ArrayList<SurveyDetailEntity> data = new ArrayList<SurveyDetailEntity>();
 	private UIAdapter uiAdapter;
 	private String type;
+	CompAppSet appSet;
+	int color;
 
 	/**
 	 * @param mainActivity
@@ -55,6 +59,8 @@ public class SurveyAdapter extends BaseAdapter {
 		mActivity = activity;
 		mContext = ctx;
 		uiAdapter = UIAdapter.getInstance(ctx);
+		color = Color.parseColor("#ffa800");
+		appSet = JoyApplication.getInstance().getCompAppSet();
 	}
 	
 	public void setType(String type){
@@ -228,8 +234,18 @@ public class SurveyAdapter extends BaseAdapter {
 		}else{
 			if (entity.getSurveyAnswer() == null) {
 				holder.btn_survey.setText("投票");
-				holder.btn_survey.setBackgroundColor(mActivity.getResources()
-						.getColor(R.color.menu_text_press));
+				if (appSet != null) {
+					try {
+						color = Color.parseColor(appSet.getColor2());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				if (color != 0) {
+					// 设置颜色
+					holder.btn_survey.setBackgroundColor(color);
+				}
 				holder.btn_survey.setClickable(true);
 				holder.btn_survey.setTag(entity);
 				holder.btn_survey.setOnClickListener(clicklistener);
