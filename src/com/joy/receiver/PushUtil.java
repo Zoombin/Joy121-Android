@@ -5,7 +5,6 @@ import java.io.Serializable;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.joy.Activity.ActivityActivity;
@@ -14,6 +13,7 @@ import com.joy.Activity.PostActivity;
 import com.joy.Activity.SurveyActivity;
 import com.joy.Fragment.portals.logostore.LogoStoreFragment;
 import com.joy.Fragment.portals.welfare.WelfareFragment;
+import com.joy.receiver.PushUtil.CommondModel;
 /***
  * 推送处理类
  * @author LSD

@@ -118,7 +118,7 @@
                         android:id="@+id/tv_loginname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/menu_text_press" />
+                        android:textColor="@color/BLACK" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -139,7 +139,7 @@
                         android:id="@+id/tv_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/menu_text_press" />
+                        android:textColor="@color/BLACK" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -160,7 +160,7 @@
                         android:id="@+id/tv_idno"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/menu_text_press" />
+                        android:textColor="@color/BLACK" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -181,7 +181,7 @@
                         android:id="@+id/tv_gender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/menu_text_press" />
+                        android:textColor="@color/BLACK" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -202,7 +202,7 @@
                         android:id="@+id/tv_birthday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/menu_text_press" />
+                        android:textColor="@color/BLACK" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -223,7 +223,7 @@
                         android:id="@+id/tv_companyname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/menu_text_press" />
+                        android:textColor="@color/BLACK" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -244,7 +244,7 @@
                         android:id="@+id/tv_companyaddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/menu_text_press" />
+                        android:textColor="@color/BLACK" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -265,7 +265,7 @@
                         android:id="@+id/tv_companyphone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/menu_text_press" />
+                        android:textColor="@color/BLACK" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -286,7 +286,7 @@
                         android:id="@+id/tv_mail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/menu_text_press" />
+                        android:textColor="@color/BLACK" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -307,7 +307,7 @@
                         android:id="@+id/tv_cellnumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/menu_text_press" />
+                        android:textColor="@color/BLACK" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -328,7 +328,7 @@
                         android:id="@+id/tv_createtime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/menu_text_press" />
+                        android:textColor="@color/BLACK" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

@@ -85,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/producttitle"
-        android:textColor="@color/menu_text_press" />
+        android:textColor="@color/BLACK" />
 
     <ScrollView
         android:id="@+id/scroll_product"
