@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -31,6 +32,7 @@ import com.joy.Widget.PagerviewAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CommoditySet;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.model.GoodsDetail;
 import com.joy.json.model.OrderDetailEntity;
 import com.joy.json.operation.OperationBuilder;
@@ -58,6 +60,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private TextView tv_product_title;
 	private TextView tv_product_detail;
 	CommoditySet commoditySet;
+	CompAppSet appSet;
+	int color;
 	
 	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +80,16 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		View v = inflater.inflate(R.layout.activity_orderdetail, null);
 		setContentView(v);
 		commsetid = getIntent().getIntExtra(EXTRA_COMMSETID, -1);
-		
+		color =  Color.parseColor("#ffa800");
+		 appSet = JoyApplication.getInstance().getCompAppSet();
+		 if(appSet != null){
+				try {
+					color = Color.parseColor(appSet.getColor2());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		initView();
 		initData();
 		return v;
@@ -110,6 +123,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		uiAdapter.setMargin(tv_points, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
 		
 		btn_shopping = (Button) findViewById(R.id.btn_shopping);
+		btn_shopping.setBackgroundColor(color);
 		btn_shopping.setOnClickListener(this);
 		uiAdapter.setMargin(btn_shopping, 160, 40, 140, 20, 0, 20);
 		uiAdapter.setTextSize(btn_shopping, 20);

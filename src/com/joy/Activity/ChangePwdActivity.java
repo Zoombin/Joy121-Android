@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Utils.Constants;
@@ -25,12 +26,13 @@ import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.ChangePwdEntity;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.ChangePwdOp;
 import com.umeng.analytics.MobclickAgent;
 
 public class ChangePwdActivity extends BaseActivity implements OnClickListener {
-	
+
 	private RelativeLayout layout_title;
 	private TextView tv_ret;
 	private TextView tv_title;
@@ -41,100 +43,125 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 	private ImageView iv_comfirmnewpwd;
 	private EditText et_comfirmnewpwd;
 	private Button btn_changepwd;
-	
-	/*@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_changepwd);
-		
-		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
+	CompAppSet appSet;
+	int color;
 
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(this);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
-		
-		tv_title = (TextView) findViewById(R.id.tv_title);
-		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
-		
-		iv_currpwd = (ImageView) findViewById(R.id.iv_currpwd);
-		uiAdapter.setMargin(iv_currpwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23, 34, 0, 0);
-		uiAdapter.setPadding(iv_currpwd, 10, 10, 10, 10);
-		
-		et_currpwd = (EditText) findViewById(R.id.et_currpwd);
-		uiAdapter.setMargin(et_currpwd, LayoutParams.MATCH_PARENT, 50, 0, 34, 20, 0);
-		uiAdapter.setPadding(et_currpwd, 10, 0, 0, 0);
-		
-		iv_newpwd = (ImageView) findViewById(R.id.iv_newpwd);
-		uiAdapter.setMargin(iv_newpwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23, 34, 0, 0);
-		uiAdapter.setPadding(iv_newpwd, 10, 10, 10, 10);
-		
-		et_newpwd = (EditText) findViewById(R.id.et_newpwd);
-		uiAdapter.setMargin(et_newpwd, LayoutParams.MATCH_PARENT, 50, 0, 34, 20, 0);
-		uiAdapter.setPadding(et_newpwd, 10, 0, 0, 0);
-		
-		iv_comfirmnewpwd = (ImageView) findViewById(R.id.iv_comfirmnewpwd);
-		uiAdapter.setMargin(iv_comfirmnewpwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23, 34, 0, 0);
-		uiAdapter.setPadding(iv_comfirmnewpwd, 10, 10, 10, 10);
-		
-		et_comfirmnewpwd = (EditText) findViewById(R.id.et_comfirmnewpwd);
-		uiAdapter.setMargin(et_comfirmnewpwd, LayoutParams.MATCH_PARENT, 50, 0, 34, 20, 20);
-		uiAdapter.setPadding(et_comfirmnewpwd, 10, 0, 0, 0);
-		
-		btn_changepwd = (Button) findViewById(R.id.btn_changepwd);
-		uiAdapter.setMargin(btn_changepwd, LayoutParams.MATCH_PARENT, 46, 20, 50, 20, 50);
-		uiAdapter.setTextSize(btn_changepwd, 24);
-		btn_changepwd.setOnClickListener(this);
-	}*/
-	
+	/*
+	 * @Override protected void onCreate(Bundle savedInstanceState) {
+	 * super.onCreate(savedInstanceState);
+	 * setContentView(R.layout.activity_changepwd);
+	 * 
+	 * layout_title = (RelativeLayout) findViewById(R.id.layout_title);
+	 * uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT,
+	 * Constants.TitleHeight, 0, 0, 0, 0);
+	 * 
+	 * tv_ret = (TextView) findViewById(R.id.tv_ret);
+	 * tv_ret.setOnClickListener(this); uiAdapter.setTextSize(tv_ret,
+	 * Constants.TitleRetSize); uiAdapter.setMargin(tv_ret,
+	 * LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+	 * 
+	 * tv_title = (TextView) findViewById(R.id.tv_title);
+	 * uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+	 * 
+	 * iv_currpwd = (ImageView) findViewById(R.id.iv_currpwd);
+	 * uiAdapter.setMargin(iv_currpwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23,
+	 * 34, 0, 0); uiAdapter.setPadding(iv_currpwd, 10, 10, 10, 10);
+	 * 
+	 * et_currpwd = (EditText) findViewById(R.id.et_currpwd);
+	 * uiAdapter.setMargin(et_currpwd, LayoutParams.MATCH_PARENT, 50, 0, 34, 20,
+	 * 0); uiAdapter.setPadding(et_currpwd, 10, 0, 0, 0);
+	 * 
+	 * iv_newpwd = (ImageView) findViewById(R.id.iv_newpwd);
+	 * uiAdapter.setMargin(iv_newpwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23,
+	 * 34, 0, 0); uiAdapter.setPadding(iv_newpwd, 10, 10, 10, 10);
+	 * 
+	 * et_newpwd = (EditText) findViewById(R.id.et_newpwd);
+	 * uiAdapter.setMargin(et_newpwd, LayoutParams.MATCH_PARENT, 50, 0, 34, 20,
+	 * 0); uiAdapter.setPadding(et_newpwd, 10, 0, 0, 0);
+	 * 
+	 * iv_comfirmnewpwd = (ImageView) findViewById(R.id.iv_comfirmnewpwd);
+	 * uiAdapter.setMargin(iv_comfirmnewpwd, 50, uiAdapter.CalcHeight(50, 1, 1),
+	 * 23, 34, 0, 0); uiAdapter.setPadding(iv_comfirmnewpwd, 10, 10, 10, 10);
+	 * 
+	 * et_comfirmnewpwd = (EditText) findViewById(R.id.et_comfirmnewpwd);
+	 * uiAdapter.setMargin(et_comfirmnewpwd, LayoutParams.MATCH_PARENT, 50, 0,
+	 * 34, 20, 20); uiAdapter.setPadding(et_comfirmnewpwd, 10, 0, 0, 0);
+	 * 
+	 * btn_changepwd = (Button) findViewById(R.id.btn_changepwd);
+	 * uiAdapter.setMargin(btn_changepwd, LayoutParams.MATCH_PARENT, 46, 20, 50,
+	 * 20, 50); uiAdapter.setTextSize(btn_changepwd, 24);
+	 * btn_changepwd.setOnClickListener(this); }
+	 */
+
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		color = Color.parseColor("#ffa800");
+		appSet = JoyApplication.getInstance().getCompAppSet();
+		if (appSet != null) {
+			try {
+				color = Color.parseColor(appSet.getColor1());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		View v = inflater.inflate(R.layout.activity_changepwd, null);
 		setContentView(v);
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT,
+				Constants.TitleHeight, 0, 0, 0, 0);
 
 		tv_ret = (TextView) findViewById(R.id.tv_ret);
 		tv_ret.setOnClickListener(this);
 		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
-		
+		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 		tv_title.setText(R.string.titlepwd);
-		
+
 		iv_currpwd = (ImageView) findViewById(R.id.iv_currpwd);
-		uiAdapter.setMargin(iv_currpwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23, 34, 0, 0);
+		uiAdapter.setMargin(iv_currpwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23,
+				34, 0, 0);
 		uiAdapter.setPadding(iv_currpwd, 10, 10, 10, 10);
-		
+
 		et_currpwd = (EditText) findViewById(R.id.et_currpwd);
-		uiAdapter.setMargin(et_currpwd, LayoutParams.MATCH_PARENT, 50, 0, 34, 20, 0);
+		uiAdapter.setMargin(et_currpwd, LayoutParams.MATCH_PARENT, 50, 0, 34,
+				20, 0);
 		uiAdapter.setPadding(et_currpwd, 10, 0, 0, 0);
-		
+
 		iv_newpwd = (ImageView) findViewById(R.id.iv_newpwd);
-		uiAdapter.setMargin(iv_newpwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23, 34, 0, 0);
+		uiAdapter.setMargin(iv_newpwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23,
+				34, 0, 0);
 		uiAdapter.setPadding(iv_newpwd, 10, 10, 10, 10);
-		
+		iv_newpwd.setBackgroundColor(color);
+
 		et_newpwd = (EditText) findViewById(R.id.et_newpwd);
-		uiAdapter.setMargin(et_newpwd, LayoutParams.MATCH_PARENT, 50, 0, 34, 20, 0);
+		uiAdapter.setMargin(et_newpwd, LayoutParams.MATCH_PARENT, 50, 0, 34,
+				20, 0);
 		uiAdapter.setPadding(et_newpwd, 10, 0, 0, 0);
-		
+
 		iv_comfirmnewpwd = (ImageView) findViewById(R.id.iv_comfirmnewpwd);
-		uiAdapter.setMargin(iv_comfirmnewpwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23, 34, 0, 0);
+		uiAdapter.setMargin(iv_comfirmnewpwd, 50,
+				uiAdapter.CalcHeight(50, 1, 1), 23, 34, 0, 0);
 		uiAdapter.setPadding(iv_comfirmnewpwd, 10, 10, 10, 10);
-		
+		iv_comfirmnewpwd.setBackgroundColor(color);
+
 		et_comfirmnewpwd = (EditText) findViewById(R.id.et_comfirmnewpwd);
-		uiAdapter.setMargin(et_comfirmnewpwd, LayoutParams.MATCH_PARENT, 50, 0, 34, 20, 20);
+		uiAdapter.setMargin(et_comfirmnewpwd, LayoutParams.MATCH_PARENT, 50, 0,
+				34, 20, 20);
 		uiAdapter.setPadding(et_comfirmnewpwd, 10, 0, 0, 0);
-		
+
 		btn_changepwd = (Button) findViewById(R.id.btn_changepwd);
-		uiAdapter.setMargin(btn_changepwd, LayoutParams.MATCH_PARENT, 46, 20, 50, 20, 50);
+		uiAdapter.setMargin(btn_changepwd, LayoutParams.MATCH_PARENT, 46, 20,
+				50, 20, 50);
 		uiAdapter.setTextSize(btn_changepwd, 24);
-		
-		int color =0;
-		if(appSet != null){
+
+		int color = 0;
+		if (appSet != null) {
 			try {
 				color = Color.parseColor(appSet.getColor2());
 			} catch (Exception e) {
@@ -142,15 +169,14 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 				e.printStackTrace();
 			}
 		}
-		if(color !=0){
-			//设置颜色
+		if (color != 0) {
+			// 设置颜色
 			btn_changepwd.setBackgroundColor(color);
 		}
-		
+
 		btn_changepwd.setOnClickListener(this);
 		return v;
 	}
-	
 
 	@Override
 	public void onClick(View v) {
@@ -162,7 +188,8 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 			String currpwd = et_currpwd.getText().toString();
 			String newpwd = et_newpwd.getText().toString();
 			String comfirmnewpwd = et_comfirmnewpwd.getText().toString();
-			if (TextUtils.isEmpty(currpwd) || TextUtils.isEmpty(newpwd) || TextUtils.isEmpty(comfirmnewpwd)) {
+			if (TextUtils.isEmpty(currpwd) || TextUtils.isEmpty(newpwd)
+					|| TextUtils.isEmpty(comfirmnewpwd)) {
 				Toast.show(self, "请输入密码！");
 				return;
 			} else if (!newpwd.equals(comfirmnewpwd)) {
@@ -176,13 +203,13 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 	}
-	
+
 	private void changepwd(String ologinpwd, final String nloginpwd) {
 		ChangePwdEntity entity = new ChangePwdEntity();
 		entity.setOloginpwd(ologinpwd);
 		entity.setNloginpwd(nloginpwd);
-		OperationBuilder builder = new OperationBuilder().append(new ChangePwdOp(),
-				entity);
+		OperationBuilder builder = new OperationBuilder().append(
+				new ChangePwdOp(), entity);
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
 			public void onOperationFinished(List<Object> resList) {
@@ -216,7 +243,7 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 				JsonCommon.PROGRESSCOMMIT);
 		task.execute();
 	}
-	
+
 	public void onResume() {
 		super.onResume();
 		MobclickAgent.onResume(this);
