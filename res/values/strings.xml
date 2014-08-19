@@ -63,6 +63,7 @@
     <string name="row_train">培训</string>
 
     <!-- changepwd -->
+    <string name="titlepwd">修改密码</string>
     <string name="currpwd">当前密码</string>
     <string name="newpwd">新密码</string>
     <string name="comfirmnewpwd">确认新密码</string>

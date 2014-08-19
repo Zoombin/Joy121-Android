@@ -86,6 +86,7 @@ public class SurveyActivity extends BaseActivity implements OnClickListener {
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+		tv_title.setText(R.string.row_suivey);//调查
 
 		list_survey = (ListView) findViewById(R.id.list_survey);
 		uiAdapter.setMargin(list_survey, LayoutParams.MATCH_PARENT,

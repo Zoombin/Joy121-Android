@@ -242,7 +242,7 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.layout_activity:
-			//公司活动
+			//活动
 			intent.setClass(mActivity, ActivityActivity.class);
 			intent.putExtra("acttype", "1");
 			startActivity(intent);
@@ -260,7 +260,7 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.layout_train:
-			//公司培训
+			//培训
 			intent.setClass(mActivity, ActivityActivity.class);
 			intent.putExtra("acttype", "2");
 			startActivity(intent);

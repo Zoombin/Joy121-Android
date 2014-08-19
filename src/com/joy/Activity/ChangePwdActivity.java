@@ -5,6 +5,7 @@ import gejw.android.quickandroid.widget.Toast;
 
 import java.util.List;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -102,6 +103,7 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 		
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+		tv_title.setText(R.string.titlepwd);
 		
 		iv_currpwd = (ImageView) findViewById(R.id.iv_currpwd);
 		uiAdapter.setMargin(iv_currpwd, 50, uiAdapter.CalcHeight(50, 1, 1), 23, 34, 0, 0);
@@ -130,9 +132,25 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 		btn_changepwd = (Button) findViewById(R.id.btn_changepwd);
 		uiAdapter.setMargin(btn_changepwd, LayoutParams.MATCH_PARENT, 46, 20, 50, 20, 50);
 		uiAdapter.setTextSize(btn_changepwd, 24);
+		
+		int color =0;
+		if(appSet != null){
+			try {
+				color = Color.parseColor(appSet.getColor2());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(color !=0){
+			//设置颜色
+			btn_changepwd.setBackgroundColor(color);
+		}
+		
 		btn_changepwd.setOnClickListener(this);
 		return v;
 	}
+	
 
 	@Override
 	public void onClick(View v) {

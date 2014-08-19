@@ -8,6 +8,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -321,6 +322,20 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 		uiAdapter.setMargin(btn_loginout, LayoutParams.MATCH_PARENT, 46, 10, 0,
 				10, 50);
 		uiAdapter.setTextSize(btn_loginout, 24);
+		int color =0;
+		if(appSet != null){
+			try {
+				color = Color.parseColor(appSet.getColor2());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(color !=0){
+			//设置颜色
+			btn_loginout.setBackgroundColor(color);
+		}
+		
 		btn_loginout.setOnClickListener(this);
 	}
 

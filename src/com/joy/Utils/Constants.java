@@ -10,7 +10,7 @@ public class Constants {
 	public static final int TitleRetSize = 20;
 	
 	// title栏高度
-	public static final int TitleHeight = 50;
+	public static final int TitleHeight = 80;
 	
 	// title栏图片长宽
 	public static final int TitleIvWidth = 30;

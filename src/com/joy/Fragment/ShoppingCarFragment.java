@@ -37,7 +37,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class ShoppingCarFragment extends BaseFragment {
 	private RelativeLayout layout_title;
 	private ImageView iv_title;
-	private TextView tv_title;
+	private TextView tv_title,tv_message;
 	private ImageView ivLogo;
 	private ListView carList;
 	private Button commitBt;
@@ -89,6 +89,7 @@ public class ShoppingCarFragment extends BaseFragment {
 	}
 
 	private void initView(View v) {
+		tv_message = (TextView) v.findViewById(R.id.tv_message);
 		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
 

@@ -82,6 +82,7 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+		tv_title.setText(R.string.row_notice);//公告
 		
 		layout_menu = (LinearLayout) findViewById(R.id.layout_menu);
 		

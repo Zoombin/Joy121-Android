@@ -226,7 +226,7 @@ public class MainActivity extends QActivity {
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup(self, getSupportFragmentManager(), R.id.layout_fragment);
 		uiAdapter
-				.setMargin(mTabHost, LayoutParams.MATCH_PARENT, 76, 0, 0, 0, 0);
+				.setMargin(mTabHost, LayoutParams.MATCH_PARENT, 85, 0, 0, 0, 0);
 		uiAdapter.setPadding(mTabHost, 0, 0, 0, 0);
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
 
@@ -250,7 +250,7 @@ public class MainActivity extends QActivity {
 					TextView tv_view = (TextView) ((View) entry.getValue())
 							.findViewById(R.id.txt_menu);
 					tv_view.setTextColor(textView == tv_view ? resources
-							.getColor(R.color.menu_text_press) : resources
+							.getColor(R.color.WHITE) : resources
 							.getColor(R.color.menu_text));
 				}
 			}

@@ -87,9 +87,9 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 		if("1".equals(acttype)){
-			tv_title.setText("公司活动");
+			tv_title.setText(R.string.row_activity);//活动
 		}else if("2".equals(acttype)){
-			tv_title.setText("公司培训");
+			tv_title.setText(R.string.row_train);//培训
 		}
 
 		list_activity = (ListView) findViewById(R.id.list_activity);

@@ -48,7 +48,7 @@
                 android:id="@+id/iv_newpwd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/menu_text_press"
+                android:background="#ff781f"
                 android:scaleType="fitXY"
                 android:src="@drawable/password" />
 
@@ -71,7 +71,7 @@
                 android:id="@+id/iv_comfirmnewpwd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/menu_text_press"
+                android:background="#ff781f"
                 android:scaleType="fitXY"
                 android:src="@drawable/password" />
 

@@ -28,7 +28,7 @@ public abstract class BaseFragment extends QFragment {
 	private RelativeLayout baseTitleLayou;
 	private TextView baseTvTitle;
 	private ImageView baseIvLogo;
-	CompAppSet appSet;
+	public CompAppSet appSet;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,13 +40,14 @@ public abstract class BaseFragment extends QFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		//baseTitleLayou = find
+		appSet = JoyApplication.getInstance().getCompAppSet();
+		
 		View v = initContentView(inflater, container, savedInstanceState);
 		
 		/***
 		 * 设置Nav背景
 		 */
 		baseTitleLayou = (RelativeLayout) v.findViewById(R.id.layout_title);
-		appSet = JoyApplication.getInstance().getCompAppSet();
 		if(appSet != null){
 			int navColor = 0;
 			try {

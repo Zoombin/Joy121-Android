@@ -10,6 +10,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ public class WelfareAdapter extends BaseAdapter {
 	private Context mContext = null;
 	private List<CommoditySet> data = new ArrayList<CommoditySet>();
 	private UIAdapter uiAdapter;
+	private int color;
 
 	/**
 	 * @param mainActivity
@@ -46,10 +48,17 @@ public class WelfareAdapter extends BaseAdapter {
 	public WelfareAdapter(Context ctx) {
 		mContext = ctx;
 		uiAdapter = UIAdapter.getInstance(ctx);
+		color =  Color.parseColor("#ffa800");
 	}
 
 	public void addItem(CommoditySet entity) {
 		data.add(entity);
+	}
+	
+	public void setBtColor(int color){
+		if(color !=0 ){
+			this.color = color;
+		}
 	}
 	
 	public void setData(List<CommoditySet> data){
@@ -129,6 +138,7 @@ public class WelfareAdapter extends BaseAdapter {
 
 			holder.btn_buy = (Button) convertView.findViewById(R.id.btn_buy);
 			holder.btn_buy.setOnClickListener(clicklistener);
+			holder.btn_buy.setBackgroundColor(color);
 			uiAdapter.setTextSize(holder.btn_buy, 16);
 			uiAdapter.setMargin(holder.btn_buy, 120, 35, 0, 5, 50, 10);
 

@@ -24,12 +24,13 @@ public abstract class BaseActivity extends QActivity {
 		super.onCreate(savedInstanceState);
 		LayoutInflater inflater = getLayoutInflater();
 		
+		appSet = JoyApplication.getInstance().getCompAppSet();
+		
 		View v = ceateView(inflater,savedInstanceState);
 		/***
 		 * 设置Nav背景
 		 */
 		baseTitleLayou = (RelativeLayout) v.findViewById(R.id.layout_title);
-		appSet = JoyApplication.getInstance().getCompAppSet();
 		if(appSet != null){
 			int navColor = 0;
 			try {

@@ -5,6 +5,7 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +88,7 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 	 */
 	private void getWelfareList() {
 		if(tempList != null){
-			mAdapter.setData(tempList);
+			setAdapterData(tempList);
 			return;
 		}
 		OperationBuilder builder = new OperationBuilder().append(
@@ -114,7 +115,7 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 					}
 					mAdapter.notifyDataSetChanged();*/
 					tempList = commoditySetlist;
-					mAdapter.setData(commoditySetlist);
+					setAdapterData(commoditySetlist);
 				}
 			}
 
@@ -126,6 +127,20 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 
 		JsonCommon task = new JsonCommon(mActivity, builder, listener, JsonCommon.PROGRESSQUERY);
 		task.execute();
+	}
+	
+	private void setAdapterData(List<CommoditySet> list){
+		int color = 0;
+		if(appSet != null){
+			try {
+				color = Color.parseColor(appSet.getColor2());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		mAdapter.setBtColor(color);
+		mAdapter.setData(list);
 	}
 	
 	private List<CommoditySet> getCommoditySetList(List<CommoditySet> commoditySetlist) {
