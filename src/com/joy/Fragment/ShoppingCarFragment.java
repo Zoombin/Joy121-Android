@@ -134,6 +134,7 @@ public class ShoppingCarFragment extends BaseFragment {
 	private void initData() {
 		// TODO Auto-generated method stub
 		carList.setAdapter(adapter);
+		refreshTxt();
 		adapter.setData(MainActivity.goods_list);
 	}
 
@@ -178,7 +179,16 @@ public class ShoppingCarFragment extends BaseFragment {
 	public static void updateShoppingcar() {
 		if (shoppingCarFragment == null)
 			return;
+		refreshTxt();
 		shoppingCarFragment.adapter.setData(MainActivity.goods_list);
+	}
+	
+	public static void refreshTxt(){
+		if(MainActivity.goods_list.size() == 0){
+			shoppingCarFragment.tv_message.setText(R.string.nullshoppingcar_txt);
+		}else{
+			shoppingCarFragment.tv_message.setText(R.string.shoppingcar_txt);
+		}
 	}
 
 	/***
@@ -270,6 +280,7 @@ public class ShoppingCarFragment extends BaseFragment {
 						num--;
 						if (num == 0) {
 							datas.remove(position);
+							refreshTxt();
 							MainActivity.setNotice();
 						} else {
 							data.setCount(num);
