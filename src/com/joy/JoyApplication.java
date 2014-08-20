@@ -10,6 +10,7 @@ import cn.jpush.android.api.JPushInterface;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.joy.Utils.MD5;
+import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.model.CompAppSet;
 import com.joy.json.model.CompanyInfoEntity;
 import com.joy.json.model.LoginEntity;
@@ -32,23 +33,30 @@ public class JoyApplication extends QApplication {
 	 * APP设置
 	 * @return
 	 */
-	public CompAppSet  getCompAppSet (){
+	public CompAppSet getCompAppSet() {
 		UserInfoEntity userinfo = getUserinfo();
-		if(userinfo != null){
+		String appSet = "";
+		if (userinfo != null) {
+			//每次登陆会更新 APP设置,都取最新的
 			CompanyInfoEntity cEntity = userinfo.getCompanyInfo();
-			if(cEntity != null){
-				String appSet = cEntity.getCompAppSetting();
-				if(!TextUtils.isEmpty(appSet)){
-					try {
-						CompAppSet set = new Gson().fromJson(
-								appSet, CompAppSet.class);
-						return set;
-					} catch (JsonSyntaxException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+			if (cEntity != null) {
+				appSet = cEntity.getCompAppSetting();
+				if (TextUtils.isEmpty(appSet)) {
+					appSet = SharedPreferencesUtils.getAppSet(self);
 				}
+			}else{
+				appSet = SharedPreferencesUtils.getAppSet(self);
 			}
+		}else{
+			appSet = SharedPreferencesUtils.getAppSet(self);
+		}
+		
+		try {
+			CompAppSet set = new Gson().fromJson(appSet, CompAppSet.class);
+			return set;
+		} catch (JsonSyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -61,6 +69,16 @@ public class JoyApplication extends QApplication {
 
 	public void setUserinfo(UserInfoEntity userinfo) {
 		this.userinfo = userinfo;
+		/**
+		 * 持久化 APP配置信息，每次登陆更新
+		 */
+		CompanyInfoEntity cEntity = userinfo.getCompanyInfo();
+		if(cEntity != null){
+			String appSet = cEntity.getCompAppSetting();
+			if(!TextUtils.isEmpty(appSet)){
+				SharedPreferencesUtils.setAppSet(self, appSet);
+			}
+		}
 	}
 
 	public static JoyApplication getSelf() {

@@ -14,6 +14,7 @@ public class SharedPreferencesUtils {
 	private static final String KEY_LOGINNAME = "LOGIN_NAME";
 	private static final String KEY_LOGINPWD = "LOGIN_PWD";
 	private static final String KEY_COMPANY = "COMPANY";
+	private static final String KEY_APPSET = "APPSET";
 	
 	public static void setLoginName(Context context, String loginname) {
 		SharedPreferences userInfo = context.getSharedPreferences(PREFERENCES_USERINFO,
@@ -49,5 +50,16 @@ public class SharedPreferencesUtils {
 		SharedPreferences userInfo = context.getSharedPreferences(PREFERENCES_USERINFO,
 				0);
 		return userInfo.getString(KEY_COMPANY, "");
+	}
+	public static void setAppSet(Context context, String appset) {
+		SharedPreferences userInfo = context.getSharedPreferences(PREFERENCES_USERINFO,
+				0);
+		userInfo.edit().putString(KEY_APPSET, appset).commit();
+	}
+
+	public static String getAppSet(Context context) {
+		SharedPreferences userInfo = context.getSharedPreferences(PREFERENCES_USERINFO,
+				0);
+		return userInfo.getString(KEY_APPSET, "");
 	}
 }

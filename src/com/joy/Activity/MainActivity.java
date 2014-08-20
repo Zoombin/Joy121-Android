@@ -25,6 +25,7 @@ import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -45,10 +46,17 @@ import com.joy.Fragment.ShoppingCarFragment;
 import com.joy.Fragment.PortalsFragment;
 import com.joy.Fragment.TopFragment.TopPortalsFragment;
 import com.joy.Fragment.portals.logostore.LogoStoreFragment;
+import com.joy.Utils.SharedPreferencesUtils;
+import com.joy.json.JsonCommon;
+import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CompAppSet;
 import com.joy.json.model.GoodsDetail;
+import com.joy.json.model.LoginEntity;
 import com.joy.json.model.PopularGoods;
 import com.joy.json.model.ShoppingCarGoods;
+import com.joy.json.model.UserInfoEntity;
+import com.joy.json.operation.OperationBuilder;
+import com.joy.json.operation.impl.LoginOp;
 import com.joy.receiver.PushUtil;
 import com.joy.receiver.PushUtil.CommondModel;
 import com.umeng.analytics.MobclickAgent;
@@ -65,6 +73,11 @@ public class MainActivity extends QActivity {
 		setContentView(R.layout.activity_main);
 		mActivity = this;
 		resources = getResources();
+		
+		if(JoyApplication.getInstance().getUserinfo() == null){
+			login(mActivity);
+		}
+		
 		initTab();
 		
 		new Handler().postDelayed(new Runnable() {
@@ -73,7 +86,7 @@ public class MainActivity extends QActivity {
 				// TODO Auto-generated method stub
 				checkPush(getIntent());
 			}
-		}, 300);
+		}, 500);
 	}
 	
 	@Override
@@ -159,11 +172,24 @@ public class MainActivity extends QActivity {
 	 * 刷新tab颜色
 	 * @param color
 	 */
-	public void refreshTobColor(int color) {
+	public void refreshTobColor() {
 		if(mActivity == null && mTabHost == null){
 			return;
 		}
-		mTabHost.setBackgroundColor(color);
+		CompAppSet appSet = JoyApplication.getInstance().getCompAppSet();
+		if(appSet != null){
+			
+			int tabColor = 0;
+			try {
+				tabColor = Color.parseColor(appSet.getColor1());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(tabColor !=0){
+				mTabHost.setBackgroundColor(tabColor);
+			}
+		}
 	}
 
 	/*-------------------广播处理------------------------------*/
@@ -323,21 +349,7 @@ public class MainActivity extends QActivity {
 		super.onResume();
 		MobclickAgent.onResume(this);
 		
-		CompAppSet appSet = JoyApplication.getInstance().getCompAppSet();
-		if(appSet != null){
-			
-			int tabColor = 0;
-			try {
-				tabColor = Color.parseColor(appSet.getColor1());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(tabColor !=0){
-				refreshTobColor(tabColor);
-			}
-		}
-		
+		refreshTobColor();
 	}
 
 	public void onPause() {
@@ -436,4 +448,50 @@ public class MainActivity extends QActivity {
 			isExit = false;
 		}
 	};
+	
+	/***
+	 * 登陆获取用户数据
+	 * @param context
+	 * @param loginname
+	 * @param loginpwd
+	 */
+	public void login(final Context context ) {
+		final String loginname = SharedPreferencesUtils.getLoginName(context);
+		final String loginpwd = SharedPreferencesUtils.getLoginPwd(context);
+		if (TextUtils.isEmpty(loginname) || TextUtils.isEmpty(loginpwd)) {
+			return;
+		}
+		LoginEntity loginentity = new LoginEntity();
+		loginentity.setLoginname(loginname);
+		loginentity.setLoginpwd(loginpwd);
+		
+		OperationBuilder builder = new OperationBuilder().append(
+				new LoginOp(), loginentity);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (resList == null) {
+					return;
+				}
+				LoginEntity entity = (LoginEntity) resList.get(0);
+				UserInfoEntity userInfoEntity = entity.getRetobj();
+				if (userInfoEntity == null) {
+					return;
+				}
+				
+				JoyApplication.getInstance().setUserinfo(userInfoEntity);
+				SharedPreferencesUtils.setLoginName(context, loginname);
+				SharedPreferencesUtils.setLoginPwd(context, loginpwd);
+				SharedPreferencesUtils.setCompany(context, userInfoEntity.getCompany());
+				refreshTobColor();
+			}
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+		JsonCommon task = new JsonCommon(context, builder, listener,
+				false);
+		task.execute();
+	}
 }
