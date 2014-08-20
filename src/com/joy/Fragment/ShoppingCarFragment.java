@@ -162,7 +162,7 @@ public class ShoppingCarFragment extends BaseFragment {
 					adapter.cleanData();
 					MainActivity.setNotice();
 				}else{
-					Toast.show(mActivity, "提交失败!");
+					Toast.show(mActivity, "提交失败 :"+result.getStatusRemark());
 				}
 			}
 
