@@ -28,6 +28,8 @@ import com.joy.Activity.HisPointsActivity;
 import com.joy.Activity.LoginActivity;
 import com.joy.Activity.OrderqueryActivity;
 import com.joy.Activity.PersonalInfoActivity;
+import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Utils.Constants;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.Utils.UpdateManager;
@@ -415,12 +417,23 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 			break;
 		case R.id.btn_loginout:
 			// 清空用户名密码
-			SharedPreferencesUtils.setLoginName(mActivity, "");
-			SharedPreferencesUtils.setLoginPwd(mActivity, "");
-
-			intent.setClass(mActivity, LoginActivity.class);
-			startActivity(intent);
-			mActivity.finish();
+			DialogUtil dUtil = new DialogUtil(mActivity);
+			dUtil.showDialog("是否退出", "确定", "取消", new DialogButtonClickCallback() {
+				@Override
+				public void positiveButtonClick() {
+					// TODO Auto-generated method stub
+					SharedPreferencesUtils.setLoginName(mActivity, "");
+					SharedPreferencesUtils.setLoginPwd(mActivity, "");
+					Intent intent = new Intent();
+					intent.setClass(mActivity, LoginActivity.class);
+					startActivity(intent);
+					mActivity.finish();
+				}
+				@Override
+				public void negativeButtonClick() {
+					// TODO Auto-generated method stub
+				}
+			});
 			break;
 		case R.id.layout_orderquery:
 			//我的订单

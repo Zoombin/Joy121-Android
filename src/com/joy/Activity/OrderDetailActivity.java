@@ -197,7 +197,10 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		for (int i = 0; i < piclist.size(); i++) {
 			Button bt = new Button(self);
 			bt.setLayoutParams(new ViewGroup.LayoutParams(uiAdapter.CalcWidth(10), uiAdapter.CalcWidth(10)));
-			bt.setBackgroundResource(R.drawable.point);
+			if (color != 0)
+				bt.setBackgroundColor(color);
+			else
+				bt.setBackgroundResource(R.drawable.point);
 			mNumLayout.addView(bt);
 		}
 		viewpager.setAdapter(pagerviewAdapter);
@@ -207,8 +210,10 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			@Override
 			public void onPageSelected(int position) {
 				if (mPreSelectedBt != null) {
-					mPreSelectedBt
-							.setBackgroundResource(R.drawable.point);
+					if (color != 0)
+						mPreSelectedBt.setBackgroundColor(color);
+					else
+						mPreSelectedBt.setBackgroundResource(R.drawable.point);
 				}
 
 				Button currentBt = (Button) mNumLayout.getChildAt(position);

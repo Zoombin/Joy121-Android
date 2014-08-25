@@ -29,10 +29,27 @@
             android:textColor="@color/WHITE" />
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pic_viewpager"
-        android:layout_width="fill_parent"
-        android:layout_height="160dip" />
+    <RelativeLayout
+        android:id="@+id/layout_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="160dip"
+        android:background="@color/WHITE" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pic_viewpager"
+            android:layout_width="fill_parent"
+            android:layout_height="160dip" />
+
+        <LinearLayout
+            android:id="@+id/ll_pager_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dip"
+            android:background="#10000000"
+            android:orientation="horizontal" />
+    </RelativeLayout>
 
     <!-- 颜色选择 -->
 

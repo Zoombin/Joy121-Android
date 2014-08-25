@@ -6,11 +6,13 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.integer;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -59,6 +62,8 @@ public class LogoStoreDetailFragment extends BaseFragment {
 	private List<SelectionModel> tempSize;
 	private String colorSelect;
 	private String sizeSelect;
+	private LinearLayout ll_pager_num;
+	int color =0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +100,7 @@ public class LogoStoreDetailFragment extends BaseFragment {
 		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
 		tv_ret = (TextView) v.findViewById(R.id.tv_ret);
+		ll_pager_num = (LinearLayout) v.findViewById(R.id.ll_pager_num);
 		tv_ret.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -106,7 +112,6 @@ public class LogoStoreDetailFragment extends BaseFragment {
 		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
 		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
 
-		int color = 0;
 		if (appSet != null) {
 			try {
 				color = Color.parseColor(appSet.getColor2());
@@ -115,7 +120,6 @@ public class LogoStoreDetailFragment extends BaseFragment {
 				e.printStackTrace();
 			}
 		}
-		
 		
 		storeNum = (TextView) v.findViewById(R.id.store_num);
 		addToStore = (TextView) v.findViewById(R.id.add_to_store);
@@ -170,6 +174,40 @@ public class LogoStoreDetailFragment extends BaseFragment {
 				String[] picUrls = pics.split(";");
 				int len = picUrls.length;
 				if (len > 0) {
+					for (int i = 0; i < len; i++) {
+						Button bt = new Button(mActivity);
+						bt.setLayoutParams(new ViewGroup.LayoutParams(uiAdapter.CalcWidth(10), uiAdapter.CalcWidth(10)));
+						if(color != 0){
+							bt.setBackgroundColor(color);
+						}else{
+							bt.setBackgroundResource(R.drawable.point);
+						}
+						ll_pager_num.addView(bt);
+					}
+					picViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+						@Override
+						public void onPageSelected(int position) {
+							int count = ll_pager_num.getChildCount();
+							for(int i=0;i<count;i++){
+								Button bt = (Button) ll_pager_num.getChildAt(i);
+								if(color != 0){
+									bt.setBackgroundColor(color);
+								}else{
+									bt.setBackgroundResource(R.drawable.point);
+								}
+							}
+							Button currentBt = (Button) ll_pager_num.getChildAt(position);
+							currentBt.setBackgroundResource(R.drawable.point_press);
+							uiAdapter.setMargin(currentBt, 12, 12, 5, 0, 5, 0);
+						}
+						@Override
+						public void onPageScrolled(int arg0, float arg1, int arg2) {
+						}
+						@Override
+						public void onPageScrollStateChanged(int arg0) {
+						}
+					});
+					
 					List<View> views = new ArrayList<View>();
 					for (int i = 0; i < len; i++) {
 						View view = LayoutInflater.from(mActivity).inflate(R.layout.store_item_image, null);
