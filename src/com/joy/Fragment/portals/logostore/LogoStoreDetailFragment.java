@@ -176,7 +176,9 @@ public class LogoStoreDetailFragment extends BaseFragment {
 				if (len > 0) {
 					for (int i = 0; i < len; i++) {
 						Button bt = new Button(mActivity);
-						bt.setLayoutParams(new ViewGroup.LayoutParams(uiAdapter.CalcWidth(10), uiAdapter.CalcWidth(10)));
+						LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(uiAdapter.CalcWidth(10), uiAdapter.CalcWidth(10));
+						params.setMargins(5, 0, 5, 0);
+						bt.setLayoutParams(params);
 						if(color != 0){
 							bt.setBackgroundColor(color);
 						}else{
@@ -198,7 +200,7 @@ public class LogoStoreDetailFragment extends BaseFragment {
 							}
 							Button currentBt = (Button) ll_pager_num.getChildAt(position);
 							currentBt.setBackgroundResource(R.drawable.point_press);
-							uiAdapter.setMargin(currentBt, 12, 12, 5, 0, 5, 0);
+							//uiAdapter.setMargin(currentBt, 12, 12, 5, 0, 5, 0);
 						}
 						@Override
 						public void onPageScrolled(int arg0, float arg1, int arg2) {

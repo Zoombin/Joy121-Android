@@ -152,9 +152,10 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 				}
 				for (PostDetailEntity entity1 : postlist) {
 					entity1.setIsexpired(isexpired);
-					adapter.addItem(entity1);
+					//adapter.addItem(entity1);
 				}
-				adapter.notifyDataSetChanged();
+				//adapter.notifyDataSetChanged();
+				adapter.setData(postlist);
 			}
 
 			@Override
@@ -175,8 +176,8 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 			layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
 			tv_useful.setTextColor(resources.getColor(R.color.WHITE));
 			tv_expired.setTextColor(resources.getColor(R.color.WHITE));
-			adapter.removeAll();
-			adapter.notifyDataSetChanged();
+			//adapter.removeAll();
+			//adapter.notifyDataSetChanged();
 			initData("1");
 			break;
 		case R.id.layout_expired:
@@ -184,8 +185,8 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 			layout_useful.setBackgroundColor(getResources().getColor(R.color.btn_disable));
 			tv_expired.setTextColor(resources.getColor(R.color.WHITE));
 			tv_useful.setTextColor(resources.getColor(R.color.WHITE));
-			adapter.removeAll();
-			adapter.notifyDataSetChanged();
+			//adapter.removeAll();
+			//adapter.notifyDataSetChanged();
 			initData("2");
 			break;
 		default:

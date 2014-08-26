@@ -1,5 +1,7 @@
 package com.joy.json.model;
 
+import android.R.integer;
+
 /**
  * 活动详情
  * @author daiye
@@ -55,6 +57,16 @@ public class ActivityDetailEntity extends TResult {
 		if (this.getIsexprired()) {
 			return false;
 		} else {
+			int count = 0;
+			try {
+				count = Integer.parseInt(getCurrentCount());
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(count == getLimitCount()){
+				return false;
+			}
 			if (loginname == null) {
 				return true;
 			}
@@ -74,6 +86,16 @@ public class ActivityDetailEntity extends TResult {
 				return "未参与";
 			}
 		} else {
+			int count = 0;
+			try {
+				count = Integer.parseInt(getCurrentCount());
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(count == getLimitCount()){
+				return "已满";
+			}
 			if (loginname == null) {
 				return "未报名";
 			}

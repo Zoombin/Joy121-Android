@@ -196,7 +196,9 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 				piclist);
 		for (int i = 0; i < piclist.size(); i++) {
 			Button bt = new Button(self);
-			bt.setLayoutParams(new ViewGroup.LayoutParams(uiAdapter.CalcWidth(10), uiAdapter.CalcWidth(10)));
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(uiAdapter.CalcWidth(10), uiAdapter.CalcWidth(10));
+			params.setMargins(5, 0, 5, 0);
+			bt.setLayoutParams(params);
 			if (color != 0)
 				bt.setBackgroundColor(color);
 			else
@@ -204,9 +206,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			mNumLayout.addView(bt);
 		}
 		viewpager.setAdapter(pagerviewAdapter);
-		
 		viewpager.setOnPageChangeListener(new OnPageChangeListener() {
-
 			@Override
 			public void onPageSelected(int position) {
 				if (mPreSelectedBt != null) {
@@ -219,7 +219,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 				Button currentBt = (Button) mNumLayout.getChildAt(position);
 				currentBt
 						.setBackgroundResource(R.drawable.point_press);
-				uiAdapter.setMargin(currentBt, 12, 12, 5, 0, 5, 0);
+				//uiAdapter.setMargin(currentBt, 12, 12, 5, 0, 5, 0);
 				mPreSelectedBt = currentBt;
 			}
 

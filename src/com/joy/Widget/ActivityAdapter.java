@@ -311,6 +311,8 @@ public class ActivityAdapter extends BaseAdapter {
 											.getLoginName(JoyApplication
 													.getSelf()));
 						}
+						//更改报名人数
+						activitydetailentity.setCurrentCount(""+(Integer.valueOf(activitydetailentity.getCurrentCount())+1));
 						notifyDataSetChanged();
 					}
 				}
