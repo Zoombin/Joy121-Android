@@ -14,8 +14,8 @@ public class ShoppingCarGoods implements Serializable {
 	private String market_price;
 	private String cost_integral;
 	private int count;
-	private String color;
-	private String size_cloth;
+	private String color="";
+	private String size_cloth="";
 	private Boolean isLogoStore;
 
 	public String getGoodsParams() {

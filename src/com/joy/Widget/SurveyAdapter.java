@@ -11,6 +11,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 
 import com.joy.JoyApplication;
 import com.joy.R;
+import com.joy.Activity.SurveyActivity;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
@@ -51,6 +53,7 @@ public class SurveyAdapter extends BaseAdapter {
 	private String type;
 	CompAppSet appSet;
 	int color;
+	Handler mHandler;
 
 	/**
 	 * @param mainActivity
@@ -61,6 +64,7 @@ public class SurveyAdapter extends BaseAdapter {
 		uiAdapter = UIAdapter.getInstance(ctx);
 		color = Color.parseColor("#ffa800");
 		appSet = JoyApplication.getInstance().getCompAppSet();
+		mHandler = new Handler();
 	}
 	
 	public void setType(String type){
@@ -308,10 +312,17 @@ public class SurveyAdapter extends BaseAdapter {
 						return;
 					} else {
 						Toast.show(mContext, "投票成功！");
-						btn.setText("已投票");
-						btn.setClickable(false);
-						btn.setBackgroundColor(mActivity.getResources()
-								.getColor(R.color.btn_disable));
+						//btn.setText("已投票");
+						//btn.setClickable(false);
+						//btn.setBackgroundColor(mActivity.getResources().getColor(R.color.btn_disable));
+						
+						//SurveyAns sruveyans = new SurveyAns();
+						//sruveyans.setAnswers(finalanswer);
+						//surveydetailentity.setSurveyAnswer(sruveyans);
+						//notifyDataSetChanged();
+						
+						
+						
 						/*int index = data.indexOf(surveyaentity);
 						if (index != -1) {
 							((SurveyDetailEntity) data.get(index))
@@ -327,11 +338,8 @@ public class SurveyAdapter extends BaseAdapter {
 									.setSurveyRates(retobj);
 						}*/
 						
-						SurveyAns sruveyans = new SurveyAns();
-						sruveyans.setAnswers(finalanswer);
-						surveydetailentity.setSurveyAnswer(sruveyans);
-						
-						notifyDataSetChanged();
+						//重调接口获取数据
+						((SurveyActivity)mContext).reLoad();
 					}
 				}
 

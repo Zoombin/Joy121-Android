@@ -418,7 +418,7 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 		case R.id.btn_loginout:
 			// 清空用户名密码
 			DialogUtil dUtil = new DialogUtil(mActivity);
-			dUtil.showDialog("是否退出", "确定", "取消", new DialogButtonClickCallback() {
+			dUtil.showDialog("是否注销登录？", "确定", "取消", new DialogButtonClickCallback() {
 				@Override
 				public void positiveButtonClick() {
 					// TODO Auto-generated method stub

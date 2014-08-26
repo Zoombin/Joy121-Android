@@ -144,16 +144,30 @@ public class MainActivity extends QActivity {
 		carGoods.setSize_cloth(good.getSize_cloth());
 		carGoods.setIsLogoStore(good.getIsLogoStore());
 		
+		
+		boolean add2Car = true;
 		for (ShoppingCarGoods tempgoods : MainActivity.goods_list) {
 			if (carGoods.getGoods_id().equals(tempgoods.getGoods_id())) {
-				tempgoods.setCount(tempgoods.getCount()
-						+ carGoods.getCount());
-				return;
+				if(carGoods.getIsLogoStore()){
+					if ((!"".equals(tempgoods.getColor()) && tempgoods.getColor().equals(carGoods.getColor()))
+							&& (!"".equals(tempgoods.getSize_cloth()) && tempgoods.getSize_cloth().equals(carGoods.getSize_cloth()))) {
+						//不用添加
+						tempgoods.setCount(tempgoods.getCount() + carGoods.getCount());
+						add2Car = false;
+					}
+				}else{
+					//不用添加
+					tempgoods.setCount(tempgoods.getCount() + carGoods.getCount());
+					add2Car = false;
+				}
 			}
 		}
-		MainActivity.goods_list.add(carGoods);
-		ShoppingCarFragment.updateShoppingcar();
-		MainActivity.setNotice();
+		
+		if(add2Car){
+			MainActivity.goods_list.add(carGoods);
+			ShoppingCarFragment.updateShoppingcar();
+			MainActivity.setNotice();
+		}
 		//intent.putExtra("goods", carGoods);
 		//context.sendBroadcast(intent);
 	}

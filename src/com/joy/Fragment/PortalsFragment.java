@@ -1,14 +1,25 @@
 package com.joy.Fragment;
 
 import gejw.android.quickandroid.utils.ResName2ID;
+import gejw.android.quickandroid.widget.Toast;
+
+import java.util.List;
+
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,11 +30,15 @@ import com.joy.Activity.ActivityActivity;
 import com.joy.Activity.MainActivity;
 import com.joy.Activity.PostActivity;
 import com.joy.Activity.SurveyActivity;
-import com.joy.Activity.WelfareActivity;
-import com.joy.Fragment.portals.activity.ActivityFragment;
 import com.joy.Fragment.portals.logostore.LogoStoreFragment;
 import com.joy.Fragment.portals.welfare.WelfareFragment;
 import com.joy.Utils.Constants;
+import com.joy.json.JsonCommon;
+import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.PortalsModule;
+import com.joy.json.model.PortalsModule.Module;
+import com.joy.json.operation.OperationBuilder;
+import com.joy.json.operation.impl.PortalsModulesOp;
 
 /**
  * 公司门户
@@ -71,6 +86,10 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 	private TextView tv_shop;
 	private ImageView iv_shop;
 	
+	private GridView moduleGrid;
+	private ModulesAdapter adapter;
+	List<Module> temp;
+	
 	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -83,13 +102,28 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 	}*/
 	
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		
+		resources = getResources();
+		
+		if(adapter == null){
+			adapter = new ModulesAdapter();
+		}
+	}
+	@Override
 	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View v = inflater.inflate(R.layout.fragment_welfare, container, false);
 		
-		resources = getResources();
 		initView(v);
 
+		if(temp != null && temp.size()>0){
+			adapter.setData(temp);
+		}else{
+			getModules();
+		}
 		return v;
 	}
 	
@@ -222,6 +256,11 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 														
 		iv_shop = (ImageView) v.findViewById(R.id.iv_shop);
 		uiAdapter.setMargin(iv_shop, IMAGEVIEWWH, IMAGEVIEWWH, 0, 10, 0, 20);
+		
+		
+		moduleGrid = (GridView) v.findViewById(R.id.modeule_grid);
+		moduleGrid.setOnItemClickListener(itemClickListener);
+		moduleGrid.setAdapter(adapter);
 	}
 	
 	@Override
@@ -274,6 +313,201 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			break;
 		default:
 			break;
+		}
+	}
+	
+	
+	
+	/***
+	 * 获取接口模块
+	 */
+	private void getModules() {
+		OperationBuilder builder = new OperationBuilder().append(
+				new PortalsModulesOp(), null);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (mActivity.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					// Toast.show(mActivity, "连接超时");
+					return;
+				}
+				PortalsModule entity = (PortalsModule) resList.get(0);
+				if(1== entity.getFlag()){
+					List<Module> modules = entity.getRetobj();
+					if(modules != null && modules.size()>0){
+						adapter.setData(modules);
+						temp = modules;
+					}
+				}else{
+					Toast.show(mActivity, entity.getMsg());
+				}
+			}
+
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+		JsonCommon task = new JsonCommon(mActivity, builder, listener, true);
+		task.execute();
+	}
+	
+	
+	/***
+	 * GridView选项点击
+	 */
+	OnItemClickListener itemClickListener = new OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			// TODO Auto-generated method stub
+			Module module = (Module) adapter.getItem(position);
+			String name = module.getModuleName();
+			if(!TextUtils.isEmpty(name)){
+				dispatch(name);
+			};
+		}
+	};
+	
+	
+	private void dispatch(String name){
+		Intent intent = new Intent();
+		if(name.contains("福利")){
+			//公司福利
+			MainActivity.mActivity.replaceChildFragment(
+					"WelfareFragment", new WelfareFragment(), true);
+		}else if(name.contains("商店")){
+			//Logo商店
+			MainActivity.mActivity.replaceChildFragment(
+					"LogoStoreFragment", new LogoStoreFragment(), true);
+		}else if(name.contains("活动")){
+			//活动
+			intent.setClass(mActivity, ActivityActivity.class);
+			intent.putExtra("acttype", "1");
+			startActivity(intent);
+		}else if(name.contains("培训")){
+			//培训
+			intent.setClass(mActivity, ActivityActivity.class);
+			intent.putExtra("acttype", "2");
+			startActivity(intent);
+		}else if(name.contains("公告")){
+			//公告
+			intent.setClass(mActivity, PostActivity.class);
+			startActivity(intent);
+		}else if(name.contains("调查")){
+			//调查
+			intent.setClass(mActivity, SurveyActivity.class);
+			startActivity(intent);
+		}else if(name.contains("通讯")){
+			//通讯簿
+		}else if(name.contains("团购")){
+			//限时团购
+		}else if(name.contains("商户")){
+			//特约商户
+		}else{
+		}
+	}
+	
+	
+	
+	class ModulesAdapter extends BaseAdapter {
+		List<Module> datas;
+		public void setData(List<Module> datas){
+			this.datas = datas;
+			this.notifyDataSetChanged();
+		}
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return datas == null ? 0 : datas.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return datas == null ? null : datas.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return datas == null ? 0 : position;
+		}
+
+		@Override
+		public View getView(int position, View conventView, ViewGroup parent) {
+			// TODO Auto-generated method stub
+			Tag tag;
+			if(conventView == null){
+				tag = new Tag();
+				conventView = LayoutInflater.from(parent.getContext()).inflate(R.layout.portals_module_item, null);
+				tag.moduleIcon = (ImageView) conventView.findViewById(R.id.iv_icon);
+				tag.moduleName= (TextView) conventView.findViewById(R.id.tv_name);
+				conventView.setTag(tag);
+			}else{
+				tag = (Tag) conventView.getTag();
+			}
+			
+			Module data = (Module) getItem(position);
+			if(data != null){
+				String name = data.getModuleName();
+				if(!TextUtils.isEmpty(name)){
+					tag.moduleName.setText(name);
+					fitView(name, conventView, tag.moduleIcon);
+				}
+			}
+			return conventView;
+		}
+		
+		private void fitView(String name,View v,ImageView imageView){
+			if(name.contains("福利")){
+				//公司福利
+				v.setBackgroundColor(Color.parseColor("#2e8aef"));
+				imageView.setImageResource(R.drawable.com_benefits);
+			}else if(name.contains("商店")){
+				//Logo商店
+				v.setBackgroundColor(Color.parseColor("#474cfd"));
+				imageView.setImageResource(R.drawable.com_logostore);
+			}else if(name.contains("活动")){
+				//活动
+				v.setBackgroundColor(Color.parseColor("#5e3cba"));
+				imageView.setImageResource(R.drawable.com_event);
+			}else if(name.contains("培训")){
+				//培训
+				v.setBackgroundColor(Color.parseColor("#7ab102"));
+				imageView.setImageResource(R.drawable.com_training);
+			}else if(name.contains("公告")){
+				//公告
+				v.setBackgroundColor(Color.parseColor("#01a31c"));
+				imageView.setImageResource(R.drawable.com_notice);
+			}else if(name.contains("调查")){
+				//调查
+				v.setBackgroundColor(Color.parseColor("#13771c"));
+				imageView.setImageResource(R.drawable.com_survey);
+			}else if(name.contains("通讯")){
+				//通讯簿
+				v.setBackgroundColor(Color.parseColor("#dfb700"));
+				imageView.setImageResource(R.drawable.com_contacts);
+			}else if(name.contains("团购")){
+				//限时团购
+				v.setBackgroundColor(Color.parseColor("#f7a211"));
+				imageView.setImageResource(R.drawable.com_groupon);
+			}else if(name.contains("商户")){
+				//特约商户
+				v.setBackgroundColor(Color.parseColor("#fe8649"));
+				imageView.setImageResource(R.drawable.com_businessman);
+			}else{
+				v.setBackgroundColor(Color.parseColor("#fe8649"));
+				imageView.setImageResource(R.drawable.img_default);
+			}
+		}
+
+		class Tag{
+			ImageView moduleIcon;
+			TextView moduleName;
 		}
 	}
 }

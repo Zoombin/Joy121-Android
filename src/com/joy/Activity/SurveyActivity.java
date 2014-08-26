@@ -85,7 +85,7 @@ public class SurveyActivity extends BaseActivity implements OnClickListener {
 		setContentView(v);
 		resources = getResources();
 		initView();
-		initData("1");
+		initData("1",true);
 		return v;
 	}
 
@@ -134,7 +134,7 @@ public class SurveyActivity extends BaseActivity implements OnClickListener {
 	}
 
 
-	private void initData(final String isexpired) {
+	public void initData(final String isexpired,boolean pro) {
 		
 		SurveyEntity sur = new SurveyEntity();
 		sur.isexpired = isexpired;
@@ -171,8 +171,14 @@ public class SurveyActivity extends BaseActivity implements OnClickListener {
 			}
 		};
 
-		JsonCommon task = new JsonCommon(self, builder, listener,
-				JsonCommon.PROGRESSQUERY);
+		JsonCommon task = null;
+		if(pro){
+			task = new JsonCommon(self, builder, listener,
+					JsonCommon.PROGRESSQUERY);
+		}else{
+			task = new JsonCommon(self, builder, listener,
+					false);
+		}
 		task.execute();
 	}
 
@@ -199,7 +205,7 @@ public class SurveyActivity extends BaseActivity implements OnClickListener {
 			tv_useful.setTextColor(resources.getColor(R.color.WHITE));
 			tv_expired.setTextColor(resources.getColor(R.color.WHITE));
 			adapter.removeAll();
-			initData("1");
+			initData("1",true);
 			break;
 		case R.id.layout_expired:
 			layout_expired.setBackgroundColor(color);
@@ -207,11 +213,21 @@ public class SurveyActivity extends BaseActivity implements OnClickListener {
 			tv_expired.setTextColor(resources.getColor(R.color.WHITE));
 			tv_useful.setTextColor(resources.getColor(R.color.WHITE));
 			adapter.removeAll();
-			initData("2");
+			initData("2",true);
 			break;
 		default:
 			break;
 		}
+	}
+	
+	//重调接口刷新数据
+	public void reLoad(){
+		layout_useful.setBackgroundColor(color);
+		layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+		tv_useful.setTextColor(resources.getColor(R.color.WHITE));
+		tv_expired.setTextColor(resources.getColor(R.color.WHITE));
+		adapter.removeAll();
+		initData("1",false);
 	}
 	
 	public void onResume() {
