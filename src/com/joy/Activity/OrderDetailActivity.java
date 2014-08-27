@@ -27,6 +27,8 @@ import android.widget.TextView;
 
 import com.joy.JoyApplication;
 import com.joy.R;
+import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Utils.Constants;
 import com.joy.Widget.PagerviewAdapter;
 import com.joy.json.JsonCommon;
@@ -62,6 +64,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	CommoditySet commoditySet;
 	CompAppSet appSet;
 	int color2;
+	DialogUtil dUtil;
 	
 	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,13 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		initView();
 		initData();
 	}*/
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		dUtil = new DialogUtil(OrderDetailActivity.this);
+		super.onCreate(savedInstanceState);
+	}
 	
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
@@ -235,7 +245,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	}
 	
 	@Override
-	public void onClick(View v) {
+	public void onClick(final View v) {
 		switch (v.getId()) {
 		case R.id.btn_shopping:
 			//Intent intent = new Intent();
@@ -243,16 +253,26 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			//intent.putExtra(EXTRA_COMMODITYSET, commoditySet);
 			//startActivity(intent);
 			
-			CommoditySet entity = (CommoditySet) v.getTag();
-			if(entity != null){
-				GoodsDetail detail = new GoodsDetail();
-				detail.setGoods_name(entity.getDescription());
-				detail.setGoods_img(entity.getPicture());
-				detail.setIsLogoStore(false);
-				detail.setGoods_id(String.format("%d", entity.getId()));
-				MainActivity.Add2ShopCar(OrderDetailActivity.this, detail, 1);
-				Toast.show(OrderDetailActivity.this, "商品已加入购物车");
-			}
+			dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {
+				@Override
+				public void positiveButtonClick() {
+					// TODO Auto-generated method stub
+					CommoditySet entity = (CommoditySet) v.getTag();
+					if(entity != null){
+						GoodsDetail detail = new GoodsDetail();
+						detail.setGoods_name(entity.getDescription());
+						detail.setGoods_img(entity.getPicture());
+						detail.setIsLogoStore(false);
+						detail.setGoods_id(String.format("%d", entity.getId()));
+						MainActivity.Add2ShopCar(OrderDetailActivity.this, detail, 1);
+						Toast.show(OrderDetailActivity.this, "商品已加入购物车");
+					}
+				}
+				@Override
+				public void negativeButtonClick() {
+					// TODO Auto-generated method stub
+				}
+			});
 			break;
 		case R.id.tv_ret:
 			finish();

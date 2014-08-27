@@ -87,9 +87,7 @@ public class DialogUtil {
 	public void showDialog(String title, int incoId, String message, String pStr, String nStr, final DialogButtonClickCallback callback) {
 		AlertDialog.Builder builder = new Builder(context);
 		builder.setTitle(title);
-		if(incoId !=0){
-			builder.setIcon(incoId);
-		}
+		builder.setIcon(incoId);
 		builder.setMessage(message);
 		builder.setPositiveButton(pStr, new OnClickListener() {
 			@Override

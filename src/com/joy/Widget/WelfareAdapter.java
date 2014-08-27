@@ -27,6 +27,8 @@ import com.joy.R;
 import com.joy.Activity.MainActivity;
 import com.joy.Activity.OrderConfirmActivity;
 import com.joy.Activity.OrderDetailActivity;
+import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Utils.Constants;
 import com.joy.json.model.CommoditySet;
 import com.joy.json.model.GoodsDetail;
@@ -41,6 +43,7 @@ public class WelfareAdapter extends BaseAdapter {
 	private List<CommoditySet> data = new ArrayList<CommoditySet>();
 	private UIAdapter uiAdapter;
 	private int color;
+	DialogUtil dUtil;
 
 	/**
 	 * @param mainActivity
@@ -49,6 +52,7 @@ public class WelfareAdapter extends BaseAdapter {
 		mContext = ctx;
 		uiAdapter = UIAdapter.getInstance(ctx);
 		color =  Color.parseColor("#ffa800");
+		dUtil = new DialogUtil(ctx);
 	}
 
 	public void addItem(CommoditySet entity) {
@@ -193,17 +197,27 @@ public class WelfareAdapter extends BaseAdapter {
 	OnClickListener clicklistener = new OnClickListener() {
 
 		@Override
-		public void onClick(View v) {
+		public void onClick(final View v) {
 			switch (v.getId()) {
 			case R.id.btn_buy:
-				CommoditySet entity = (CommoditySet) v.getTag();
-				GoodsDetail detail = new GoodsDetail();
-				detail.setGoods_name(entity.getDescription());
-				detail.setGoods_img(entity.getPicture());
-				detail.setIsLogoStore(false);
-				detail.setGoods_id(String.format("%d", entity.getId()));
-				MainActivity.Add2ShopCar(mContext, detail, 1);
-				Toast.show(mContext, "商品已加入购物车");
+				dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {
+					@Override
+					public void positiveButtonClick() {
+						// TODO Auto-generated method stub
+						CommoditySet entity = (CommoditySet) v.getTag();
+						GoodsDetail detail = new GoodsDetail();
+						detail.setGoods_name(entity.getDescription());
+						detail.setGoods_img(entity.getPicture());
+						detail.setIsLogoStore(false);
+						detail.setGoods_id(String.format("%d", entity.getId()));
+						MainActivity.Add2ShopCar(mContext, detail, 1);
+						Toast.show(mContext, "商品已加入购物车");
+					}
+					@Override
+					public void negativeButtonClick() {
+						// TODO Auto-generated method stub
+					}
+				});
 				break;
 			default:
 				break;

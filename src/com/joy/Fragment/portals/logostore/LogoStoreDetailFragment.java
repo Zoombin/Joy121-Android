@@ -31,6 +31,8 @@ import android.widget.TextView;
 
 import com.joy.R;
 import com.joy.Activity.MainActivity;
+import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Fragment.BaseFragment;
 import com.joy.Utils.Constants;
 import com.joy.json.JsonCommon;
@@ -63,7 +65,11 @@ public class LogoStoreDetailFragment extends BaseFragment {
 	private String colorSelect;
 	private String sizeSelect;
 	private LinearLayout ll_pager_num;
+	private ImageView ivAdd,ivSub;
+	private TextView tvNum;
 	int color2 ;
+	DialogUtil dUtil;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,8 @@ public class LogoStoreDetailFragment extends BaseFragment {
 		
 		//默认颜色2
 		color2 = Color.parseColor("#24ab00");
+		
+		dUtil = new DialogUtil(mActivity);
 		
 		goods = (CategoriesGoods) getArguments().getSerializable("detail");
 	}
@@ -100,10 +108,25 @@ public class LogoStoreDetailFragment extends BaseFragment {
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+		
 		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
+		
 		tv_ret = (TextView) v.findViewById(R.id.tv_ret);
 		ll_pager_num = (LinearLayout) v.findViewById(R.id.ll_pager_num);
+		
+		tvNum = (TextView) v.findViewById(R.id.txt_num);
+		uiAdapter.setTextSize(tvNum, 23);
+		uiAdapter.setMargin(tvNum, -2, 48, 5, 0, 5, 0);
+		uiAdapter.setPadding(tvNum, 20, 5, 20, 5);
+		
+		
+		ivAdd = (ImageView) v.findViewById(R.id.img_plus);
+		uiAdapter.setMargin(ivAdd, 60, 60, 0, 0, 0, 0);
+		
+		ivSub = (ImageView) v.findViewById(R.id.img_minus);
+		uiAdapter.setMargin(ivSub, 60, 60, 0, 0, 0, 0);
+		
 		tv_ret.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -125,7 +148,11 @@ public class LogoStoreDetailFragment extends BaseFragment {
 		}
 		
 		storeNum = (TextView) v.findViewById(R.id.store_num);
+		
 		addToStore = (TextView) v.findViewById(R.id.add_to_store);
+		uiAdapter.setMargin(addToStore, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 5, 0, 0);
+		uiAdapter.setPadding(addToStore, 30, 6, 30, 6);
+		
 		if (color2 != 0) {
 			// 设置颜色
 			addToStore.setBackgroundColor(color2);
@@ -141,16 +168,26 @@ public class LogoStoreDetailFragment extends BaseFragment {
 					return;
 				}
 
-				GoodsDetail detail = new GoodsDetail();
-				detail.setGoods_id(goods.getId() + "");
-				detail.setGoods_img(goods.getPicture());
-				detail.setGoods_name(goods.getComName());
-				detail.setColor(colorSelect);
-				detail.setSize_cloth(sizeSelect);
-				detail.setIsLogoStore(true);
-				MainActivity.Add2ShopCar(mActivity, detail, 1);
-				Toast.show(mActivity, "商品已加入购物车");
-				// StoreDetailActivity.this.finish();
+				dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {
+					@Override
+					public void positiveButtonClick() {
+						// TODO Auto-generated method stub
+						GoodsDetail detail = new GoodsDetail();
+						detail.setGoods_id(goods.getId() + "");
+						detail.setGoods_img(goods.getPicture());
+						detail.setGoods_name(goods.getComName());
+						detail.setColor(colorSelect);
+						detail.setSize_cloth(sizeSelect);
+						detail.setIsLogoStore(true);
+						MainActivity.Add2ShopCar(mActivity, detail, 1);
+						Toast.show(mActivity, "商品已加入购物车");
+						// StoreDetailActivity.this.finish();
+					}
+					@Override
+					public void negativeButtonClick() {
+						// TODO Auto-generated method stub
+					}
+				});
 			}
 		});
 		picViewPager = (ViewPager) v.findViewById(R.id.pic_viewpager);

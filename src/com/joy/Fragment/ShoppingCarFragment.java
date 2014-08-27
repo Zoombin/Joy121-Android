@@ -26,6 +26,8 @@ import android.widget.TextView;
 import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Activity.MainActivity;
+import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Utils.Constants;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
@@ -49,11 +51,13 @@ public class ShoppingCarFragment extends BaseFragment {
 	public String acttype;
 	CompAppSet appSet;
 	int color;
+	DialogUtil dUtil;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) { 
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		dUtil = new DialogUtil(mActivity);
 		color = Color.parseColor("#ffa800");
 		appSet = JoyApplication.getInstance().getCompAppSet();
 		if (appSet != null) {
@@ -282,10 +286,22 @@ public class ShoppingCarFragment extends BaseFragment {
 						// TODO Auto-generated method stub
 						int num = data.getCount();
 						num--;
-						if (num == 0) {
-							datas.remove(position);
-							refreshView();
-							MainActivity.setNotice();
+						if (num <= 0) {
+							num = 0;
+							data.setCount(num);
+							dUtil.showDialog("是否删除该商品?", 0, "确定", "取消", new DialogButtonClickCallback() {
+								@Override
+								public void positiveButtonClick() {
+									// TODO Auto-generated method stub
+									datas.remove(position);
+									refreshView();
+									MainActivity.setNotice();
+								}
+								@Override
+								public void negativeButtonClick() {
+									// TODO Auto-generated method stub
+								}
+							});
 						} else {
 							data.setCount(num);
 						}

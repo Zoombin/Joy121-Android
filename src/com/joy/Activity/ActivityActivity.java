@@ -51,6 +51,7 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 	public String acttype;
 	CompAppSet appSet;
 	int color;
+	private String isSelect;//表示当时选中的时候哪个选项 onResume的时候刷新数据
 	
 	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,12 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 		initView();
 		initData("1");
 	}*/
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		isSelect = "1";
+	}
 	
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
@@ -84,9 +91,19 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 	    acttype = intent.getStringExtra("acttype");
 		
 		initView();
-		initData("1");
 		return v;
 	}
+	
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+		
+		//刷新数据
+		adapter.removeAll();
+		adapter.notifyDataSetChanged();
+		initData(isSelect);
+	}
+	
 
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
@@ -189,6 +206,7 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 			tv_expired.setTextColor(resources.getColor(R.color.WHITE));
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
+			isSelect = "1";
 			initData("1");
 			break;
 		case R.id.layout_expired:
@@ -198,6 +216,7 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 			tv_useful.setTextColor(resources.getColor(R.color.WHITE));
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
+			isSelect = "2";
 			initData("2");
 			break;
 		default:
@@ -220,11 +239,6 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 	
-	public void onResume() {
-		super.onResume();
-		MobclickAgent.onResume(this);
-	}
-
 	public void onPause() {
 		super.onPause();
 		MobclickAgent.onPause(this);
