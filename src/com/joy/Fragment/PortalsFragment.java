@@ -451,6 +451,11 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 				tag = (Tag) conventView.getTag();
 			}
 			
+			uiAdapter.setTextSize(tag.moduleName, TEXTSIZE);
+			uiAdapter.setPadding(tag.moduleName, 5, 5, 0, 0);
+			
+			uiAdapter.setMargin(tag.moduleIcon, IMAGEVIEWWH, IMAGEVIEWWH, 0, 10, 0, 20);
+			
 			Module data = (Module) getItem(position);
 			if(data != null){
 				String name = data.getModuleName();

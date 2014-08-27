@@ -2,6 +2,7 @@ package com.joy.Dialog;
 
 import com.joy.R;
 
+import android.R.integer;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
@@ -74,6 +75,10 @@ public class DialogUtil {
 	public void showDialog(String message, String pStr, String nStr, final DialogButtonClickCallback callback) {
 		showDialog("提示", R.drawable.app_icon, message, pStr, nStr, callback);
 	}
+	
+	public void showDialog(String message, int icon ,String pStr, String nStr, final DialogButtonClickCallback callback) {
+		showDialog("提示", icon, message, pStr, nStr, callback);
+	}
 
 	public void showDialog(String title, String message, String pStr, String nStr, final DialogButtonClickCallback callback) {
 		showDialog(title, R.drawable.app_icon, message, pStr, nStr, callback);
@@ -82,7 +87,9 @@ public class DialogUtil {
 	public void showDialog(String title, int incoId, String message, String pStr, String nStr, final DialogButtonClickCallback callback) {
 		AlertDialog.Builder builder = new Builder(context);
 		builder.setTitle(title);
-		builder.setIcon(incoId);
+		if(incoId !=0){
+			builder.setIcon(incoId);
+		}
 		builder.setMessage(message);
 		builder.setPositiveButton(pStr, new OnClickListener() {
 			@Override

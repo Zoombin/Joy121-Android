@@ -63,7 +63,7 @@ public class LogoStoreDetailFragment extends BaseFragment {
 	private String colorSelect;
 	private String sizeSelect;
 	private LinearLayout ll_pager_num;
-	int color =0;
+	int color2 ;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +72,9 @@ public class LogoStoreDetailFragment extends BaseFragment {
 		templist = new ArrayList<StoreDetail>();
 		tempColor = new ArrayList<SelectionModel>();
 		tempSize = new ArrayList<SelectionModel>();
+		
+		//默认颜色2
+		color2 = Color.parseColor("#24ab00");
 		
 		goods = (CategoriesGoods) getArguments().getSerializable("detail");
 	}
@@ -114,7 +117,7 @@ public class LogoStoreDetailFragment extends BaseFragment {
 
 		if (appSet != null) {
 			try {
-				color = Color.parseColor(appSet.getColor2());
+				color2 = Color.parseColor(appSet.getColor2());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -123,9 +126,9 @@ public class LogoStoreDetailFragment extends BaseFragment {
 		
 		storeNum = (TextView) v.findViewById(R.id.store_num);
 		addToStore = (TextView) v.findViewById(R.id.add_to_store);
-		if (color != 0) {
+		if (color2 != 0) {
 			// 设置颜色
-			addToStore.setBackgroundColor(color);
+			addToStore.setBackgroundColor(color2);
 		}
 		addToStore.setOnClickListener(new OnClickListener() {
 			@Override
@@ -179,10 +182,12 @@ public class LogoStoreDetailFragment extends BaseFragment {
 						LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(uiAdapter.CalcWidth(10), uiAdapter.CalcWidth(10));
 						params.setMargins(5, 0, 5, 0);
 						bt.setLayoutParams(params);
-						if(color != 0){
-							bt.setBackgroundColor(color);
-						}else{
-							bt.setBackgroundResource(R.drawable.point);
+						bt.setBackgroundResource(R.drawable.point_press);
+						if(i == 0){
+							//设置第一个
+							if(color2 != 0){
+								bt.setBackgroundColor(color2);
+							}
 						}
 						ll_pager_num.addView(bt);
 					}
@@ -192,15 +197,13 @@ public class LogoStoreDetailFragment extends BaseFragment {
 							int count = ll_pager_num.getChildCount();
 							for(int i=0;i<count;i++){
 								Button bt = (Button) ll_pager_num.getChildAt(i);
-								if(color != 0){
-									bt.setBackgroundColor(color);
-								}else{
-									bt.setBackgroundResource(R.drawable.point);
-								}
+								bt.setBackgroundResource(R.drawable.point_press);
 							}
+							//选中的
 							Button currentBt = (Button) ll_pager_num.getChildAt(position);
-							currentBt.setBackgroundResource(R.drawable.point_press);
-							//uiAdapter.setMargin(currentBt, 12, 12, 5, 0, 5, 0);
+							if(color2 != 0){
+								currentBt.setBackgroundColor(color2);
+							}
 						}
 						@Override
 						public void onPageScrolled(int arg0, float arg1, int arg2) {

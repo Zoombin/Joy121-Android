@@ -42,18 +42,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dip" 
-        >
+        android:paddingLeft="5dip" 
+        android:paddingRight="5dip"
+        android:paddingTop="10dip"
+          >
 
         <GridView
             android:id="@+id/modeule_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:cacheColorHint="#00000000"
-            android:horizontalSpacing="8dip"
+            android:horizontalSpacing="10dip"
             android:listSelector="#00000000"
             android:numColumns="3"
-            android:verticalSpacing="8dip" >
+            android:verticalSpacing="10dip" >
         </GridView>
     </LinearLayout>
 
@@ -63,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-         android:visibility="gone">
+       android:visibility="gone" >
 
         <!-- 1 -->
 

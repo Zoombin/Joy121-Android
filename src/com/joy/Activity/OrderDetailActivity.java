@@ -61,7 +61,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	private TextView tv_product_detail;
 	CommoditySet commoditySet;
 	CompAppSet appSet;
-	int color;
+	int color2;
 	
 	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,11 +80,12 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		View v = inflater.inflate(R.layout.activity_orderdetail, null);
 		setContentView(v);
 		commsetid = getIntent().getIntExtra(EXTRA_COMMSETID, -1);
-		color =  Color.parseColor("#ffa800");
+		//默认color2颜色
+		color2 =  Color.parseColor("#ffa800");
 		 appSet = JoyApplication.getInstance().getCompAppSet();
 		 if(appSet != null){
 				try {
-					color = Color.parseColor(appSet.getColor2());
+					color2 = Color.parseColor(appSet.getColor2());
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -123,7 +124,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		uiAdapter.setMargin(tv_points, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
 		
 		btn_shopping = (Button) findViewById(R.id.btn_shopping);
-		btn_shopping.setBackgroundColor(color);
+		btn_shopping.setBackgroundColor(color2);
 		btn_shopping.setOnClickListener(this);
 		uiAdapter.setMargin(btn_shopping, 160, 40, 140, 20, 0, 20);
 		uiAdapter.setTextSize(btn_shopping, 20);
@@ -199,10 +200,12 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(uiAdapter.CalcWidth(10), uiAdapter.CalcWidth(10));
 			params.setMargins(5, 0, 5, 0);
 			bt.setLayoutParams(params);
-			if (color != 0)
-				bt.setBackgroundColor(color);
-			else
-				bt.setBackgroundResource(R.drawable.point);
+			bt.setBackgroundResource(R.drawable.point_press);
+			if (i == 0) {
+				if (color2 != 0) {
+					bt.setBackgroundColor(color2);
+				}
+			}
 			mNumLayout.addView(bt);
 		}
 		viewpager.setAdapter(pagerviewAdapter);
@@ -210,16 +213,12 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			@Override
 			public void onPageSelected(int position) {
 				if (mPreSelectedBt != null) {
-					if (color != 0)
-						mPreSelectedBt.setBackgroundColor(color);
-					else
-						mPreSelectedBt.setBackgroundResource(R.drawable.point);
+					mPreSelectedBt.setBackgroundResource(R.drawable.point_press);
 				}
-
 				Button currentBt = (Button) mNumLayout.getChildAt(position);
-				currentBt
-						.setBackgroundResource(R.drawable.point_press);
-				//uiAdapter.setMargin(currentBt, 12, 12, 5, 0, 5, 0);
+				if(color2 != 0 ){
+					currentBt.setBackgroundColor(color2);
+				}
 				mPreSelectedBt = currentBt;
 			}
 
