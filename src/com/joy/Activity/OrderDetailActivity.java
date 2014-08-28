@@ -65,6 +65,9 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	CompAppSet appSet;
 	int color2;
 	DialogUtil dUtil;
+	private ImageView ivAdd,ivSub;
+	private TextView tvGoodNum;
+	int goodsNum =1;//商品选择的个数
 	
 	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -133,12 +136,6 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		uiAdapter.setTextSize(tv_points, 20);
 		uiAdapter.setMargin(tv_points, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
 		
-		btn_shopping = (Button) findViewById(R.id.btn_shopping);
-		btn_shopping.setBackgroundColor(color2);
-		btn_shopping.setOnClickListener(this);
-		uiAdapter.setMargin(btn_shopping, 160, 40, 140, 20, 0, 20);
-		uiAdapter.setTextSize(btn_shopping, 20);
-		
 		tv_product_title = (TextView) findViewById(R.id.tv_product_title);
 		uiAdapter.setTextSize(tv_product_title, 20);
 		uiAdapter.setMargin(tv_product_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 5);
@@ -146,6 +143,28 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		tv_product_detail = (TextView) findViewById(R.id.tv_product_detail);
 		uiAdapter.setTextSize(tv_product_detail, 20);
 		uiAdapter.setPadding(tv_product_detail, 20, 10, 20, 10);
+		
+		tvGoodNum = (TextView) findViewById(R.id.txt_num);
+		uiAdapter.setTextSize(tvGoodNum, 23);
+		uiAdapter.setMargin(tvGoodNum, -2, 48, 5, 0, 5, 0);
+		uiAdapter.setPadding(tvGoodNum, 20, 5, 20, 5);
+		tvGoodNum.setText(goodsNum+"");
+		
+		
+		ivAdd = (ImageView) findViewById(R.id.img_plus);
+		uiAdapter.setMargin(ivAdd, 60, 60, 0, 0, 0, 0);
+		ivAdd.setOnClickListener(this);
+		
+		ivSub = (ImageView) findViewById(R.id.img_minus);
+		uiAdapter.setMargin(ivSub, 60, 60, 0, 0, 0, 0);
+		ivSub.setOnClickListener(this);
+		
+		btn_shopping = (Button) findViewById(R.id.btn_shopping);
+		btn_shopping.setBackgroundColor(color2);
+		btn_shopping.setOnClickListener(this);
+		uiAdapter.setTextSize(btn_shopping, 20);
+		uiAdapter.setMargin(btn_shopping, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 5, 0, 0);
+		uiAdapter.setPadding(btn_shopping, 30, 6, 30, 6);
 	}
 	
 	private void initData() {
@@ -264,7 +283,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 						detail.setGoods_img(entity.getPicture());
 						detail.setIsLogoStore(false);
 						detail.setGoods_id(String.format("%d", entity.getId()));
-						MainActivity.Add2ShopCar(OrderDetailActivity.this, detail, 1);
+						MainActivity.Add2ShopCar(OrderDetailActivity.this, detail, goodsNum);
 						Toast.show(OrderDetailActivity.this, "商品已加入购物车");
 					}
 				}
@@ -273,6 +292,17 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 					// TODO Auto-generated method stub
 				}
 			});
+			break;
+		case R.id.img_plus:
+			goodsNum++;
+			tvGoodNum.setText(goodsNum+"");
+			break;
+		case R.id.img_minus:
+			goodsNum--;
+			if(goodsNum <=1){
+				goodsNum =1;
+			}
+			tvGoodNum.setText(goodsNum+"");
 			break;
 		case R.id.tv_ret:
 			finish();

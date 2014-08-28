@@ -294,7 +294,7 @@ public class ActivityAdapter extends BaseAdapter {
 					return;
 				} else {
 					String ret = result.getResult();
-					if("0".equals(ret)){
+					if(!"1".equals(ret)){
 						Toast.show(mContext, "报名失败！");
 						return;
 					}else{

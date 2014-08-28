@@ -6,9 +6,7 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.R.integer;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -23,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -66,9 +63,10 @@ public class LogoStoreDetailFragment extends BaseFragment {
 	private String sizeSelect;
 	private LinearLayout ll_pager_num;
 	private ImageView ivAdd,ivSub;
-	private TextView tvNum;
+	private TextView tvGoodNum;
 	int color2 ;
 	DialogUtil dUtil;
+	int goodsNum =1;//商品选择的个数
 	
 
 	@Override
@@ -115,17 +113,37 @@ public class LogoStoreDetailFragment extends BaseFragment {
 		tv_ret = (TextView) v.findViewById(R.id.tv_ret);
 		ll_pager_num = (LinearLayout) v.findViewById(R.id.ll_pager_num);
 		
-		tvNum = (TextView) v.findViewById(R.id.txt_num);
-		uiAdapter.setTextSize(tvNum, 23);
-		uiAdapter.setMargin(tvNum, -2, 48, 5, 0, 5, 0);
-		uiAdapter.setPadding(tvNum, 20, 5, 20, 5);
+		tvGoodNum = (TextView) v.findViewById(R.id.txt_num);
+		uiAdapter.setTextSize(tvGoodNum, 23);
+		uiAdapter.setMargin(tvGoodNum, -2, 48, 5, 0, 5, 0);
+		uiAdapter.setPadding(tvGoodNum, 20, 5, 20, 5);
+		tvGoodNum.setText(goodsNum+"");
 		
 		
 		ivAdd = (ImageView) v.findViewById(R.id.img_plus);
 		uiAdapter.setMargin(ivAdd, 60, 60, 0, 0, 0, 0);
+		ivAdd.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				goodsNum++;
+				tvGoodNum.setText(goodsNum+"");
+			}
+		});
 		
 		ivSub = (ImageView) v.findViewById(R.id.img_minus);
 		uiAdapter.setMargin(ivSub, 60, 60, 0, 0, 0, 0);
+		ivSub.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				goodsNum--;
+				if(goodsNum <=1){
+					goodsNum =1;
+				}
+				tvGoodNum.setText(goodsNum+"");
+			}
+		});
 		
 		tv_ret.setOnClickListener(new OnClickListener() {
 			@Override
@@ -163,7 +181,7 @@ public class LogoStoreDetailFragment extends BaseFragment {
 				// TODO Auto-generated method stub
 				String numStr = storeNum.getText().toString();
 				int num = Integer.parseInt(numStr);
-				if (num == 0) {
+				if (num == 0 || goodsNum>num) {
 					Toast.show(mActivity, "库存不足");
 					return;
 				}
@@ -179,7 +197,7 @@ public class LogoStoreDetailFragment extends BaseFragment {
 						detail.setColor(colorSelect);
 						detail.setSize_cloth(sizeSelect);
 						detail.setIsLogoStore(true);
-						MainActivity.Add2ShopCar(mActivity, detail, 1);
+						MainActivity.Add2ShopCar(mActivity, detail, goodsNum);
 						Toast.show(mActivity, "商品已加入购物车");
 						// StoreDetailActivity.this.finish();
 					}

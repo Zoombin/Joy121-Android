@@ -11,10 +11,8 @@ import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
-import com.joy.json.model.ActivityEntity;
 import com.joy.json.model.PortalsModule;
 import com.joy.json.operation.ITaskOperation;
-import com.joy.json.parse.ActivityParse;
 import com.joy.json.parse.ModuleParse;
 
 public class PortalsModulesOp implements ITaskOperation {
