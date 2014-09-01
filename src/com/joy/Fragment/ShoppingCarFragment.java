@@ -53,6 +53,7 @@ public class ShoppingCarFragment extends BaseFragment {
 	View footView;
 	private Button commitBt;
 	private TextView tvInfo;
+	private TextView tvSumPoints;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) { 
@@ -119,6 +120,7 @@ public class ShoppingCarFragment extends BaseFragment {
 		carList.addFooterView(footView);
 		
 		tvInfo = (TextView) footView.findViewById(R.id.tv_info);
+		tvSumPoints = (TextView) footView.findViewById(R.id.sum_points);
 		commitBt = (Button) footView.findViewById(R.id.commit_bt);
 		commitBt.setBackgroundColor(color);
 		commitBt.setOnClickListener(new OnClickListener() {
@@ -190,13 +192,27 @@ public class ShoppingCarFragment extends BaseFragment {
 			return;
 		if(MainActivity.goods_list.size() == 0){
 			shoppingCarFragment.tv_message.setText(R.string.nullshoppingcar_txt);
-			shoppingCarFragment.commitBt.setVisibility(View.INVISIBLE);
+			shoppingCarFragment.commitBt.setVisibility(View.GONE);
 			shoppingCarFragment.tvInfo.setVisibility(View.VISIBLE);
+			shoppingCarFragment.tvSumPoints.setVisibility(View.GONE);
 		}else{
 			shoppingCarFragment.tv_message.setText(R.string.shoppingcar_txt);
 			shoppingCarFragment.commitBt.setVisibility(View.VISIBLE);
-			shoppingCarFragment.tvInfo.setVisibility(View.INVISIBLE);
+			shoppingCarFragment.tvInfo.setVisibility(View.GONE);
+			shoppingCarFragment.tvSumPoints.setVisibility(View.VISIBLE);
+			countAllPoints();
 		}
+	}
+	
+	private static void countAllPoints(){
+		//计算总积分
+		int sum = 0;
+		for(ShoppingCarGoods carGoods:MainActivity.goods_list){
+			if(!carGoods.getIsLogoStore()){
+				sum+= carGoods.getCount()*carGoods.getPoints();
+			}
+		}
+		shoppingCarFragment.tvSumPoints.setText(String.format(shoppingCarFragment.getActivity().getString(R.string.format_sum_points), sum));
 	}
 
 	/***
@@ -268,17 +284,26 @@ public class ShoppingCarFragment extends BaseFragment {
 			if (data != null) {
 				ImageLoader.getInstance().displayImage(Constants.IMGSURL + data.getGoods_img(), tag.goodsImg);
 				tag.goodsName.setText(data.getGoods_name());
-				tag.goodsNum.setText(data.getCount() + "");
+				int count = data.getCount() ;
+				tag.goodsNum.setText(count + "");
 
-				String color = "";
-				if (!TextUtils.isEmpty(data.getColor())) {
-					color = data.getColor();
+				if(data.getIsLogoStore()){
+					String color = "";
+					if (!TextUtils.isEmpty(data.getColor())) {
+						color = data.getColor();
+					}
+					String size = "";
+					if (!TextUtils.isEmpty(data.getSize_cloth())) {
+						size = data.getSize_cloth();
+					}
+					tag.goodsProperty.setText(color + "   " + size);
+				}else{
+					int points = data.getPoints();
+					int sumPoints = count*points;
+					if(sumPoints != 0){
+						tag.goodsProperty.setText("x "+points+"="+sumPoints+"积分");
+					}
 				}
-				String size = "";
-				if (!TextUtils.isEmpty(data.getSize_cloth())) {
-					size = data.getSize_cloth();
-				}
-				tag.goodsProperty.setText(color + "   " + size);
 
 				tag.minus.setOnClickListener(new OnClickListener() {
 					@Override
@@ -306,6 +331,7 @@ public class ShoppingCarFragment extends BaseFragment {
 							data.setCount(num);
 						}
 						notifyDataSetChanged();
+						countAllPoints();
 					}
 				});
 				tag.plus.setOnClickListener(new OnClickListener() {
@@ -316,6 +342,7 @@ public class ShoppingCarFragment extends BaseFragment {
 						num++;
 						data.setCount(num);
 						notifyDataSetChanged();
+						countAllPoints();
 					}
 				});
 			}

@@ -114,4 +114,5 @@
     <!-- shoppingcar -->
  	<string name="shoppingcar_txt">即将购买的商品</string>
   	<string name="nullshoppingcar_txt">请前往Logo商店或者公司福利添加商品</string>
+  	<string name="format_sum_points">总计：%1$s积分</string>
 </resources>

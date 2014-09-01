@@ -143,6 +143,7 @@ public class MainActivity extends QActivity {
 		carGoods.setColor(good.getColor());
 		carGoods.setSize_cloth(good.getSize_cloth());
 		carGoods.setIsLogoStore(good.getIsLogoStore());
+		carGoods.setPoints(good.getPoints());
 		
 		
 		boolean add2Car = true;

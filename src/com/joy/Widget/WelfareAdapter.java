@@ -25,7 +25,6 @@ import android.widget.TextView;
 
 import com.joy.R;
 import com.joy.Activity.MainActivity;
-import com.joy.Activity.OrderConfirmActivity;
 import com.joy.Activity.OrderDetailActivity;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
@@ -208,6 +207,7 @@ public class WelfareAdapter extends BaseAdapter {
 						GoodsDetail detail = new GoodsDetail();
 						detail.setGoods_name(entity.getDescription());
 						detail.setGoods_img(entity.getPicture());
+						detail.setPoints(entity.getPoints());
 						detail.setIsLogoStore(false);
 						detail.setGoods_id(String.format("%d", entity.getId()));
 						MainActivity.Add2ShopCar(mContext, detail, 1);

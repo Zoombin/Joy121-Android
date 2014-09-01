@@ -6,12 +6,11 @@ public class GoodsDetail {
 	private String goods_img;
 	private String shop_price;
 	private String market_price;
-	//积分
 	private String cost_integral;
 	private String color;
 	private String size_cloth;
-	
 	private Boolean isLogoStore;
+	private int Points;//积分
 
 	public Boolean getIsLogoStore() {
 		return isLogoStore;
@@ -91,6 +90,14 @@ public class GoodsDetail {
 
 	public void setSize_cloth(String size_cloth) {
 		this.size_cloth = size_cloth;
+	}
+
+	public int getPoints() {
+		return Points;
+	}
+
+	public void setPoints(int points) {
+		Points = points;
 	}
 	
 }

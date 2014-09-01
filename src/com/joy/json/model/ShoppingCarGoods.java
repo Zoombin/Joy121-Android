@@ -17,6 +17,7 @@ public class ShoppingCarGoods implements Serializable {
 	private String color="";
 	private String size_cloth="";
 	private Boolean isLogoStore;
+	private int Points;//积分
 
 	public String getGoodsParams() {
 		if (this.getIsLogoStore()) {
@@ -106,4 +107,11 @@ public class ShoppingCarGoods implements Serializable {
 		this.size_cloth = size_cloth;
 	}
 
+	public int getPoints() {
+		return Points;
+	}
+
+	public void setPoints(int points) {
+		Points = points;
+	}
 }

@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 
 import com.joy.JoyApplication;
 import com.joy.R;
+import com.joy.Activity.ActivityActivity;
 import com.joy.Activity.ActivitySubActivity;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
@@ -40,7 +42,7 @@ import com.joy.json.operation.impl.ActjoinOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ActivityAdapter extends BaseAdapter {
-
+   
 	/**
 	 * 上下文对象
 	 */
@@ -52,6 +54,7 @@ public class ActivityAdapter extends BaseAdapter {
 	public String acttype;
 	int color;
 	CompAppSet appSet;
+	boolean cancel = false;
 	
 	/***
 	 * @param type
@@ -190,44 +193,33 @@ public class ActivityAdapter extends BaseAdapter {
 			}
 		});
 
-		if (entity.getIsexprired().equals("2")) {
-			holder.btn_actjoin.setClickable(false);
-			holder.btn_actjoin.setBackgroundColor(mActivity.getResources()
-					.getColor(R.color.btn_disable));
-		} else{
-			holder.btn_actjoin.setClickable(true);
-			if (appSet != null) {
-				try {
-					color = Color.parseColor(appSet.getColor2());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if (color != 0) {
-				// 设置颜色
-				holder.btn_actjoin.setBackgroundColor(color);
-			}
-		}
-		
-		
-		holder.btn_actjoin.setText(entity.getStatus(entity.getLoginName()));
+		final String joinTxt = entity.getStatus(entity.getLoginName());
+		holder.btn_actjoin.setText(joinTxt);
 		if (entity.getIsEnabled(entity.getLoginName())) {
 			holder.btn_actjoin.setClickable(true);
 			holder.btn_actjoin.setTag(entity);
-			//holder.btn_actjoin.setOnClickListener(clicklistener);
-			
 			holder.btn_actjoin.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(final View v) {
 					// TODO Auto-generated method stub
-					dUtil.showDialog("报名确认", 0, "确定要参加吗？", "确定", "取消", new DialogButtonClickCallback() {
+					String msgTitle = "";
+					String msgContent ="";
+					if("未报名".equals(joinTxt)){
+						msgTitle = "报名确认";
+						msgContent = "确定要参加吗？";
+						cancel = false;
+					}else if("取消报名".equals(joinTxt)){
+						msgTitle = "报名取消";
+						msgContent = "确定要取消吗？";
+						cancel = true;
+					}
+					dUtil.showDialog(msgTitle, 0, msgContent, "确定", "取消", new DialogButtonClickCallback() {
 						@Override
 						public void positiveButtonClick() {
 							// TODO Auto-generated method stub
 							final ActivityDetailEntity activitydetailentity = (ActivityDetailEntity) v
 									.getTag();
-							singUp(v, activitydetailentity);
+							singUp(v, activitydetailentity,cancel);
 						}
 						
 						@Override
@@ -265,16 +257,9 @@ public class ActivityAdapter extends BaseAdapter {
 	}
 
 	
-	OnClickListener clicklistener = new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			final ActivityDetailEntity activitydetailentity = (ActivityDetailEntity) v
-					.getTag();
-			singUp(v, activitydetailentity);
-		}
-	};
-	private void singUp(View v,final ActivityDetailEntity activitydetailentity){
+	private void singUp(View v,final ActivityDetailEntity activitydetailentity,final boolean cancel){
 		final Button btn = (Button) v;
+		activitydetailentity.setActionCancel(cancel);
 		OperationBuilder builder = new OperationBuilder().append(
 				new ActjoinOp(), activitydetailentity);
 		OnOperationListener listener = new OnOperationListener() {
@@ -290,30 +275,30 @@ public class ActivityAdapter extends BaseAdapter {
 				ActjoinEntity entity = (ActjoinEntity) resList.get(0);
 				Result result = entity.getRetobj();
 				if (result == null) {
-					Toast.show(mContext, "报名失败！");
+					if(cancel){
+						Toast.show(mContext, "取消失败！");
+					}else{
+						Toast.show(mContext, "报名失败！");
+					}
 					return;
 				} else {
 					String ret = result.getResult();
 					if(!"1".equals(ret)){
-						Toast.show(mContext, "报名失败！");
+						if(cancel){
+							Toast.show(mContext, "取消失败！");
+						}else{
+							Toast.show(mContext, "报名失败！");
+						}
 						return;
 					}else{
-						Toast.show(mContext, "报名成功！");
-						btn.setText("已报名");
-						btn.setClickable(false);
-						btn.setBackgroundColor(mActivity.getResources()
-								.getColor(R.color.btn_disable));
-						int index = data.indexOf(activitydetailentity);
-						// 改变报名状态
-						if (index != -1) {
-							((ActivityDetailEntity) data.get(index))
-									.setLoginName(SharedPreferencesUtils
-											.getLoginName(JoyApplication
-													.getSelf()));
+						if(cancel){
+							Toast.show(mContext, "取消成功！");
+						}else{
+							Toast.show(mContext, "报名成功！");
 						}
-						//更改报名人数
-						activitydetailentity.setCurrentCount(""+(Integer.valueOf(activitydetailentity.getCurrentCount())+1));
-						notifyDataSetChanged();
+						
+						//重新加载数据
+						((ActivityActivity)mContext).reLoad();
 					}
 				}
 			}

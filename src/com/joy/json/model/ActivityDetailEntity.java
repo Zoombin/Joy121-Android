@@ -52,6 +52,7 @@ public class ActivityDetailEntity extends TResult {
 	private String isexprired;
 	
 	private String IsJoin;
+	private boolean actionCancel;//用于是报名还是取消
 	
 	public Boolean getIsEnabled(String loginname) {
 		if (this.getIsexprired()) {
@@ -71,7 +72,7 @@ public class ActivityDetailEntity extends TResult {
 				return true;
 			}
 			if (this.getLoginName().equals(loginname)) {
-				return false;
+				return true;//可以取消报名
 			} else {
 				return true;
 			}
@@ -100,7 +101,7 @@ public class ActivityDetailEntity extends TResult {
 				return "未报名";
 			}
 			if (this.getLoginName().equals(loginname)) {
-				return "已报名";
+				return "取消报名";
 			} else {
 				return "未报名";
 			}
@@ -249,5 +250,13 @@ public class ActivityDetailEntity extends TResult {
 
 	public void setActTypeId(int actTypeId) {
 		ActTypeId = actTypeId;
+	}
+
+	public boolean isActionCancel() {
+		return actionCancel;
+	}
+
+	public void setActionCancel(boolean actionCancel) {
+		this.actionCancel = actionCancel;
 	}
 }

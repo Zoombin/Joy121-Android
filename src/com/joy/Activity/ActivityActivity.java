@@ -1,6 +1,5 @@
 package com.joy.Activity;
 
-import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.util.List;
@@ -9,12 +8,10 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -101,7 +98,14 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 		//刷新数据
 		adapter.removeAll();
 		adapter.notifyDataSetChanged();
-		initData(isSelect);
+		initData(isSelect,true);
+	}
+	
+	public void reLoad() {
+		// 刷新数据
+		adapter.removeAll();
+		adapter.notifyDataSetChanged();
+		initData(isSelect,false);
 	}
 	
 
@@ -153,7 +157,7 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 		tv_expired.setTextColor(resources.getColor(R.color.WHITE));
 	}
 
-	private void initData(final String isexpired) {
+	private void initData(final String isexpired,boolean pro) {
 		ActivityEntity act = new ActivityEntity();
 		
 		act.isexpired = isexpired;
@@ -191,8 +195,14 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 			}
 		};
 
-		JsonCommon task = new JsonCommon(self, builder, listener,
-				JsonCommon.PROGRESSQUERY);
+		JsonCommon task  = null;
+		if(pro){
+			task = new JsonCommon(self, builder, listener,
+					JsonCommon.PROGRESSQUERY);
+		}else{
+			task = new JsonCommon(self, builder, listener,
+					false);
+		}
 		task.execute();
 	}
 	
@@ -207,7 +217,7 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
 			isSelect = "1";
-			initData("1");
+			initData("1",true);
 			break;
 		case R.id.layout_expired:
 			layout_expired.setBackgroundColor(color);
@@ -217,7 +227,7 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
 			isSelect = "2";
-			initData("2");
+			initData("2",true);
 			break;
 		default:
 			break;

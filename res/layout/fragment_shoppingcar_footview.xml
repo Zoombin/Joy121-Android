@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/tv_info"
+        android:id="@+id/sum_points"
         android:layout_width="fill_parent"
         android:layout_height="45dip"
-        android:textColor="@color/BLACK"
         android:gravity="center"
-        android:text="亲，暂时没有商品，选好商品后再回来结算哦！" />
+        android:text="总计：0积分"
+        android:textColor="@color/BLACK"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/commit_bt"
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="45dip"
-        android:background="#ffa800"
-        android:text="提交订单"
-        android:textColor="@color/WHITE"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content" >
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="fill_parent"
+            android:layout_height="45dip"
+            android:gravity="center"
+            android:text="亲，暂时没有商品，选好商品后再回来结算哦！"
+            android:textColor="@color/BLACK" />
+
+        <Button
+            android:id="@+id/commit_bt"
+            android:layout_width="fill_parent"
+            android:layout_height="45dip"
+            android:background="#ffa800"
+            android:text="提交订单"
+            android:textColor="@color/WHITE"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</LinearLayout>
