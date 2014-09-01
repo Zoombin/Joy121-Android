@@ -26,6 +26,7 @@ import com.joy.R;
 import com.joy.Activity.ChangePwdActivity;
 import com.joy.Activity.HisPointsActivity;
 import com.joy.Activity.LoginActivity;
+import com.joy.Activity.MainActivity;
 import com.joy.Activity.OrderqueryActivity;
 import com.joy.Activity.PersonalInfoActivity;
 import com.joy.Dialog.DialogUtil;
@@ -422,6 +423,7 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 				@Override
 				public void positiveButtonClick() {
 					// TODO Auto-generated method stub
+					MainActivity.CleanShopCar(mActivity);
 					SharedPreferencesUtils.setLoginName(mActivity, "");
 					SharedPreferencesUtils.setLoginPwd(mActivity, "");
 					Intent intent = new Intent();

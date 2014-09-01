@@ -59,7 +59,7 @@
                         android:id="@+id/txt_property"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dip"
+                        android:layout_marginLeft="10dip"
                         android:text="属性"
                         android:textColor="@color/BLACK"
                         android:textSize="15sp" />

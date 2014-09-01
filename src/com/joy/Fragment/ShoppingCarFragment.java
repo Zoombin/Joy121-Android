@@ -1,6 +1,5 @@
 package com.joy.Fragment;
 
-import gejw.android.quickandroid.QFragment;
 import gejw.android.quickandroid.utils.ResName2ID;
 import gejw.android.quickandroid.widget.Toast;
 
@@ -10,7 +9,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,8 +30,8 @@ import com.joy.Utils.Constants;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CommitResultEntity;
-import com.joy.json.model.CompAppSet;
 import com.joy.json.model.CommitResultEntity.CommitResult;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.model.ShoppingCarGoods;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.CommitShopCarOp;
@@ -45,13 +43,17 @@ public class ShoppingCarFragment extends BaseFragment {
 	private TextView tv_title,tv_message;
 	private ImageView ivLogo;
 	private ListView carList;
-	private Button commitBt;
 	private static ShoppingCarFragment shoppingCarFragment = null;
 	private CarAdapter adapter;
 	public String acttype;
 	CompAppSet appSet;
 	int color;
 	DialogUtil dUtil;
+	
+	View footView;
+	private Button commitBt;
+	private TextView tvInfo;
+	private TextView tvSumPoints;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) { 
@@ -72,13 +74,6 @@ public class ShoppingCarFragment extends BaseFragment {
 		shoppingCarFragment = this;
 	}
 
-	/*@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_shoppingcar, container, false);
-		initView(v);
-		initData();
-		return v;
-	}*/
 	@Override
 	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -109,6 +104,7 @@ public class ShoppingCarFragment extends BaseFragment {
 	}
 
 	private void initView(View v) {
+		footView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_shoppingcar_footview, null);
 		tv_message = (TextView) v.findViewById(R.id.tv_message);
 		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
@@ -121,7 +117,11 @@ public class ShoppingCarFragment extends BaseFragment {
 		
 		ivLogo = (ImageView) v.findViewById(R.id.iv_logo);
 		carList = (ListView) v.findViewById(R.id.car_list);
-		commitBt = (Button) v.findViewById(R.id.commit_bt);
+		carList.addFooterView(footView);
+		
+		tvInfo = (TextView) footView.findViewById(R.id.tv_info);
+		tvSumPoints = (TextView) footView.findViewById(R.id.sum_points);
+		commitBt = (Button) footView.findViewById(R.id.commit_bt);
 		commitBt.setBackgroundColor(color);
 		commitBt.setOnClickListener(new OnClickListener() {
 			@Override
@@ -192,11 +192,27 @@ public class ShoppingCarFragment extends BaseFragment {
 			return;
 		if(MainActivity.goods_list.size() == 0){
 			shoppingCarFragment.tv_message.setText(R.string.nullshoppingcar_txt);
-			shoppingCarFragment.commitBt.setVisibility(View.INVISIBLE);
+			shoppingCarFragment.commitBt.setVisibility(View.GONE);
+			shoppingCarFragment.tvInfo.setVisibility(View.VISIBLE);
+			shoppingCarFragment.tvSumPoints.setVisibility(View.GONE);
 		}else{
 			shoppingCarFragment.tv_message.setText(R.string.shoppingcar_txt);
 			shoppingCarFragment.commitBt.setVisibility(View.VISIBLE);
+			shoppingCarFragment.tvInfo.setVisibility(View.GONE);
+			shoppingCarFragment.tvSumPoints.setVisibility(View.VISIBLE);
+			countAllPoints();
 		}
+	}
+	
+	private static void countAllPoints(){
+		//计算总积分
+		int sum = 0;
+		for(ShoppingCarGoods carGoods:MainActivity.goods_list){
+			if(!carGoods.getIsLogoStore()){
+				sum+= carGoods.getCount()*carGoods.getPoints();
+			}
+		}
+		shoppingCarFragment.tvSumPoints.setText(String.format(shoppingCarFragment.getActivity().getString(R.string.format_sum_points), sum));
 	}
 
 	/***
@@ -268,17 +284,26 @@ public class ShoppingCarFragment extends BaseFragment {
 			if (data != null) {
 				ImageLoader.getInstance().displayImage(Constants.IMGSURL + data.getGoods_img(), tag.goodsImg);
 				tag.goodsName.setText(data.getGoods_name());
-				tag.goodsNum.setText(data.getCount() + "");
+				int count = data.getCount() ;
+				tag.goodsNum.setText(count + "");
 
-				String color = "";
-				if (!TextUtils.isEmpty(data.getColor())) {
-					color = data.getColor();
+				if(data.getIsLogoStore()){
+					String color = "";
+					if (!TextUtils.isEmpty(data.getColor())) {
+						color = data.getColor();
+					}
+					String size = "";
+					if (!TextUtils.isEmpty(data.getSize_cloth())) {
+						size = data.getSize_cloth();
+					}
+					tag.goodsProperty.setText(color + "   " + size);
+				}else{
+					int points = data.getPoints();
+					int sumPoints = count*points;
+					if(sumPoints != 0){
+						tag.goodsProperty.setText("x "+points+"="+sumPoints+"积分");
+					}
 				}
-				String size = "";
-				if (!TextUtils.isEmpty(data.getSize_cloth())) {
-					size = data.getSize_cloth();
-				}
-				tag.goodsProperty.setText(color + "   " + size);
 
 				tag.minus.setOnClickListener(new OnClickListener() {
 					@Override
@@ -306,6 +331,7 @@ public class ShoppingCarFragment extends BaseFragment {
 							data.setCount(num);
 						}
 						notifyDataSetChanged();
+						countAllPoints();
 					}
 				});
 				tag.plus.setOnClickListener(new OnClickListener() {
@@ -316,6 +342,7 @@ public class ShoppingCarFragment extends BaseFragment {
 						num++;
 						data.setCount(num);
 						notifyDataSetChanged();
+						countAllPoints();
 					}
 				});
 			}

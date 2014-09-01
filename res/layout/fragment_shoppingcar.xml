@@ -11,22 +11,22 @@
         android:background="@color/title_bg" >
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/iv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:scaleType="fitXY"
-            android:src="@drawable/title_icon" />
-        
-         <ImageView 
-            android:visibility="gone"
+            android:src="@drawable/title_icon"
+            android:visibility="gone" />
+
+        <ImageView
             android:id="@+id/iv_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/tommy"/>
+            android:src="@drawable/tommy"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -62,18 +62,8 @@
             android:layout_height="wrap_content"
             android:cacheColorHint="#00000000"
             android:listSelector="#00000000"
-            android:scrollbars="none" >
+            android:scrollbars="none">
         </ListView>
-
-        <Button
-            android:id="@+id/commit_bt"
-            android:layout_width="fill_parent"
-            android:layout_height="45dip"
-            android:background="#ffa800"
-            android:layout_below="@id/car_list"
-            android:text="提交订单"
-            android:textColor="@color/WHITE"
-            android:textSize="20sp" />
     </RelativeLayout>
 
 </LinearLayout>

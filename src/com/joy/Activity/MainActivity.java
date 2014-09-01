@@ -143,6 +143,7 @@ public class MainActivity extends QActivity {
 		carGoods.setColor(good.getColor());
 		carGoods.setSize_cloth(good.getSize_cloth());
 		carGoods.setIsLogoStore(good.getIsLogoStore());
+		carGoods.setPoints(good.getPoints());
 		
 		
 		boolean add2Car = true;
@@ -177,9 +178,13 @@ public class MainActivity extends QActivity {
 	 * @param context
 	 */
 	public static void CleanShopCar(Context context) {
-		Intent intent = new Intent(ShoppingCarAction);
-		intent.putExtra("action", "clean");
-		context.sendBroadcast(intent);
+		//Intent intent = new Intent(ShoppingCarAction);
+		//intent.putExtra("action", "clean");
+		//context.sendBroadcast(intent);
+		
+		MainActivity.goods_list.clear();;
+		ShoppingCarFragment.updateShoppingcar();
+		MainActivity.setNotice();
 	}
 	
 	/***
