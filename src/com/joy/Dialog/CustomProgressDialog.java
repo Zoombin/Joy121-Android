@@ -7,7 +7,7 @@ import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.joy.R;
+import com.joy121.R;
 
 public class CustomProgressDialog extends Dialog {
 	private Context context = null;

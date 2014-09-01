@@ -2,6 +2,8 @@ package com.joy.json.model;
 
 import java.util.List;
 
+import android.R.integer;
+
 /**
  * 调查详情
  * @author daiye
@@ -29,6 +31,8 @@ public class SurveyDetailEntity extends TResult {
 	private int SurveyId;
 	
 	private int OptionType;
+	private String OptionMin;
+	private String OptionMax;
 	
 	private int ResultShow;
 	
@@ -208,5 +212,21 @@ public class SurveyDetailEntity extends TResult {
 
 	public void setSurveyRates(List<SurveyRate> surveyRates) {
 		SurveyRates = surveyRates;
+	}
+
+	public String getOptionMin() {
+		return OptionMin;
+	}
+
+	public void setOptionMin(String optionMin) {
+		OptionMin = optionMin;
+	}
+
+	public String getOptionMax() {
+		return OptionMax;
+	}
+
+	public void setOptionMax(String optionMax) {
+		OptionMax = optionMax;
 	}
 }

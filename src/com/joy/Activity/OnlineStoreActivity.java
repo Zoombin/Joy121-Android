@@ -1,6 +1,6 @@
 package com.joy.Activity;
 
-import com.joy.R;
+import com.joy121.R;
 
 import gejw.android.quickandroid.QActivity;
 import android.os.Bundle;

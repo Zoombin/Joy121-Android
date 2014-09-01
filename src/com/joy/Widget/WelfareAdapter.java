@@ -23,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.joy.R;
+import com.joy121.R;
 import com.joy.Activity.MainActivity;
 import com.joy.Activity.OrderDetailActivity;
 import com.joy.Dialog.DialogUtil;

@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.JoyApplication;
-import com.joy.R;
+import com.joy121.R;
 import com.joy.json.model.CompAppSet;
 import com.umeng.analytics.MobclickAgent;
 

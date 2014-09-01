@@ -1,6 +1,6 @@
 package com.joy.Fragment.TopFragment;
 
-import com.joy.R;
+import com.joy121.R;
 import com.joy.Activity.MainActivity;
 
 import gejw.android.quickandroid.QFragment;

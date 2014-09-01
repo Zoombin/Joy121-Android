@@ -37,7 +37,7 @@ import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
 import com.joy.JoyApplication;
-import com.joy.R;
+import com.joy121.R;
 import com.joy.Fragment.BaseFragment;
 import com.joy.Fragment.LifeFragment;
 import com.joy.Fragment.MallFragment;

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -28,7 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.joy.JoyApplication;
-import com.joy.R;
+import com.joy121.R;
 import com.joy.Activity.SurveyActivity;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
@@ -103,7 +104,7 @@ public class SurveyAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final SurveyDetailEntity entity = data.get(position);
 
-		ViewHolder holder;
+		final ViewHolder holder;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.survey_list_item, parent, false);
@@ -145,6 +146,15 @@ public class SurveyAdapter extends BaseAdapter {
 		}
 		
 		
+		String optionStr="";
+		final int optionType = entity.getOptionType();
+		String max = entity.getOptionMax();
+		String min = entity.getOptionMin();
+		if(0 == optionType){
+			optionStr = "  单选";
+		}else{
+			optionStr = "  最少选"+min+"项"+" 最多选"+max+"项";
+		}
 
 		if("2".equals(type)){
 			holder.iv_survey.setImageResource(R.drawable.survey_pass);
@@ -156,7 +166,7 @@ public class SurveyAdapter extends BaseAdapter {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		holder.tv_expiretime.setText("截止日期："
 				+ sdf.format(new Date(Long.parseLong(entity.getExpireTime()
-						.substring(6, 19)))));
+						.substring(6, 19))))+ optionStr);
 		
 		String[] questionlist = entity.getQuestions().split("\\^");
 		// 清空checkbox
@@ -183,6 +193,11 @@ public class SurveyAdapter extends BaseAdapter {
 			int l = -1;
 			String question = questionlist[j];
 			CheckBox checkbox = new CheckBox(mContext);
+			if(optionType == 0){
+				checkbox.setButtonDrawable(R.drawable.checkbox_single_style);
+			}else{
+				checkbox.setButtonDrawable(R.drawable.checkbox_multiple_style);
+			}
 			if (surveyratelist == null || entity.getSurveyAnswer() == null) {
 				checkbox.setText(question);
 			} else {
@@ -211,9 +226,26 @@ public class SurveyAdapter extends BaseAdapter {
 					checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 						@Override
 						public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-							String[] answer = entity.getAnswer();
-							answer[k] = (isChecked ? "1" : "0");
-							entity.setAnswer(answer);
+							if(optionType == 0){
+								//单选
+								int childCount = holder.layout_multichoice.getChildCount();
+								for(int x = 0;x<childCount;x++){
+									CheckBox ck = (CheckBox) holder.layout_multichoice.getChildAt(x);
+									ck.setChecked(false);
+								}
+								if(isChecked){
+									CheckBox curCk = (CheckBox) holder.layout_multichoice.getChildAt(k);
+									curCk.setChecked(true);
+								}
+								String[] answer = entity.getAnswer();
+								answer[k] = (isChecked ? "1" : "0");
+								entity.setAnswer(answer);
+							}else{
+								//多选
+								String[] answer = entity.getAnswer();
+								answer[k] = (isChecked ? "1" : "0");
+								entity.setAnswer(answer);
+							}
 						}
 					});
 				} else {
@@ -221,7 +253,6 @@ public class SurveyAdapter extends BaseAdapter {
 					checkbox.setOnCheckedChangeListener(null);
 				}
 			}
-
 			holder.layout_multichoice.addView(checkbox);
 		}
 		
@@ -278,8 +309,19 @@ public class SurveyAdapter extends BaseAdapter {
 					count++;
 				}
 			}
+			int optionType = surveydetailentity.getOptionType();
+			int iMax = Integer.parseInt(surveydetailentity.getOptionMax());
+			int iMin= Integer.parseInt(surveydetailentity.getOptionMin());
 			if (count == 0) {
-				Toast.show(mContext, "请选择选项！");
+				if(optionType == 0){
+					Toast.show(mContext, "请选择选项！");
+				}else{
+					if(count < iMin){
+						Toast.show(mContext, "最少选择"+iMin+"项");
+					}else if(count>iMax){
+						Toast.show(mContext, "最多选择"+iMax+"项");
+					}
+				}
 				return;
 			}
 

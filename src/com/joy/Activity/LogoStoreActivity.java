@@ -32,7 +32,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.joy.R;
+import com.joy121.R;
 import com.joy.Utils.Constants;
 import com.joy.Widget.RectangleTextView;
 import com.joy.json.JsonCommon;

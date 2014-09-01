@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.joy.R;
+import com.joy121.R;
 import com.joy.json.model.CommoditySet;
 import com.joy.json.model.UserOrderEntity;
 

@@ -27,7 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.joy.R;
+import com.joy121.R;
 import com.joy.Activity.OrderqueryActivity;
 import com.joy.Activity.WelfareActivity;
 import com.joy.Utils.Constants;
