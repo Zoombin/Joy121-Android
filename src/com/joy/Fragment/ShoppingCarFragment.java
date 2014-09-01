@@ -1,6 +1,5 @@
 package com.joy.Fragment;
 
-import gejw.android.quickandroid.QFragment;
 import gejw.android.quickandroid.utils.ResName2ID;
 import gejw.android.quickandroid.widget.Toast;
 
@@ -10,7 +9,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,8 +30,8 @@ import com.joy.Utils.Constants;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CommitResultEntity;
-import com.joy.json.model.CompAppSet;
 import com.joy.json.model.CommitResultEntity.CommitResult;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.model.ShoppingCarGoods;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.CommitShopCarOp;
@@ -45,13 +43,16 @@ public class ShoppingCarFragment extends BaseFragment {
 	private TextView tv_title,tv_message;
 	private ImageView ivLogo;
 	private ListView carList;
-	private Button commitBt;
 	private static ShoppingCarFragment shoppingCarFragment = null;
 	private CarAdapter adapter;
 	public String acttype;
 	CompAppSet appSet;
 	int color;
 	DialogUtil dUtil;
+	
+	View footView;
+	private Button commitBt;
+	private TextView tvInfo;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) { 
@@ -72,13 +73,6 @@ public class ShoppingCarFragment extends BaseFragment {
 		shoppingCarFragment = this;
 	}
 
-	/*@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_shoppingcar, container, false);
-		initView(v);
-		initData();
-		return v;
-	}*/
 	@Override
 	protected View initContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -109,6 +103,7 @@ public class ShoppingCarFragment extends BaseFragment {
 	}
 
 	private void initView(View v) {
+		footView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_shoppingcar_footview, null);
 		tv_message = (TextView) v.findViewById(R.id.tv_message);
 		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
@@ -121,7 +116,10 @@ public class ShoppingCarFragment extends BaseFragment {
 		
 		ivLogo = (ImageView) v.findViewById(R.id.iv_logo);
 		carList = (ListView) v.findViewById(R.id.car_list);
-		commitBt = (Button) v.findViewById(R.id.commit_bt);
+		carList.addFooterView(footView);
+		
+		tvInfo = (TextView) footView.findViewById(R.id.tv_info);
+		commitBt = (Button) footView.findViewById(R.id.commit_bt);
 		commitBt.setBackgroundColor(color);
 		commitBt.setOnClickListener(new OnClickListener() {
 			@Override
@@ -193,9 +191,11 @@ public class ShoppingCarFragment extends BaseFragment {
 		if(MainActivity.goods_list.size() == 0){
 			shoppingCarFragment.tv_message.setText(R.string.nullshoppingcar_txt);
 			shoppingCarFragment.commitBt.setVisibility(View.INVISIBLE);
+			shoppingCarFragment.tvInfo.setVisibility(View.VISIBLE);
 		}else{
 			shoppingCarFragment.tv_message.setText(R.string.shoppingcar_txt);
 			shoppingCarFragment.commitBt.setVisibility(View.VISIBLE);
+			shoppingCarFragment.tvInfo.setVisibility(View.INVISIBLE);
 		}
 	}
 

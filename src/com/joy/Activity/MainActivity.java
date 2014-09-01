@@ -177,9 +177,13 @@ public class MainActivity extends QActivity {
 	 * @param context
 	 */
 	public static void CleanShopCar(Context context) {
-		Intent intent = new Intent(ShoppingCarAction);
-		intent.putExtra("action", "clean");
-		context.sendBroadcast(intent);
+		//Intent intent = new Intent(ShoppingCarAction);
+		//intent.putExtra("action", "clean");
+		//context.sendBroadcast(intent);
+		
+		MainActivity.goods_list.clear();;
+		ShoppingCarFragment.updateShoppingcar();
+		MainActivity.setNotice();
 	}
 	
 	/***
