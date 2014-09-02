@@ -14,6 +14,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
 import android.text.Html;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.joy.JoyApplication;
-import com.joy121.R;
+import com.joy.R;
 import com.joy.Activity.SurveyActivity;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
@@ -309,20 +311,33 @@ public class SurveyAdapter extends BaseAdapter {
 					count++;
 				}
 			}
+			int iMax =0;
 			int optionType = surveydetailentity.getOptionType();
-			int iMax = Integer.parseInt(surveydetailentity.getOptionMax());
-			int iMin= Integer.parseInt(surveydetailentity.getOptionMin());
-			if (count == 0) {
-				if(optionType == 0){
+			if(!TextUtils.isEmpty(surveydetailentity.getOptionMax())){
+				iMax = Integer.parseInt(surveydetailentity.getOptionMax());
+			}
+			int iMin = 0;
+			if(!TextUtils.isEmpty(surveydetailentity.getOptionMin())){
+				iMin= Integer.parseInt(surveydetailentity.getOptionMin());
+			}
+			if(optionType == 0){
+				if(count == 0){
 					Toast.show(mContext, "请选择选项！");
+					return;
+				}
+			}else{
+				if(count == 0){
+					Toast.show(mContext, "请选择选项！");
+					return;
 				}else{
 					if(count < iMin){
 						Toast.show(mContext, "最少选择"+iMin+"项");
+						return;
 					}else if(count>iMax){
 						Toast.show(mContext, "最多选择"+iMax+"项");
+						return;
 					}
 				}
-				return;
 			}
 
 			String answers = "";

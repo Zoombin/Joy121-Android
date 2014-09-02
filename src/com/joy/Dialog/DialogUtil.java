@@ -1,6 +1,6 @@
 package com.joy.Dialog;
 
-import com.joy121.R;
+import com.joy.R;
 
 import android.R.integer;
 import android.app.AlertDialog;

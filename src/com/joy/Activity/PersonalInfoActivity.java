@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.joy121.R;
+import com.joy.R;
 import com.joy.Fragment.PersonalFragment;
 import com.joy.Utils.Constants;
 import com.joy.json.model.UserInfoEntity;

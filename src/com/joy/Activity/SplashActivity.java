@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import cn.jpush.android.api.JPushInterface;
 
-import com.joy121.R;
+import com.joy.R;
 
 public class SplashActivity extends QActivity {
 

@@ -22,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.joy121.R;
+import com.joy.R;
 import com.joy.Activity.ChangePwdActivity;
 import com.joy.Activity.HisPointsActivity;
 import com.joy.Activity.LoginActivity;

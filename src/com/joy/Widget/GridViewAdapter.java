@@ -12,7 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.joy121.R;
+import com.joy.R;
 
 /**
  * gridview适配器

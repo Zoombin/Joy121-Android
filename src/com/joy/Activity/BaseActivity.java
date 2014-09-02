@@ -1,7 +1,7 @@
 package com.joy.Activity;
 
 import com.joy.JoyApplication;
-import com.joy121.R;
+import com.joy.R;
 import com.joy.json.model.CompAppSet;
 
 import gejw.android.quickandroid.QActivity;

@@ -22,7 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.JoyApplication;
-import com.joy121.R;
+import com.joy.R;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Utils.Constants;
@@ -63,6 +63,8 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 	DialogUtil dUtil;
 	CompAppSet appSet;
 	int color;
+	boolean cancel = false;
+	String joinTxt;
 
 	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -160,7 +162,8 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 
 		tv_actname.setText(entity.getActName());
 		
-		btn_actjoin.setText(entity.getStatus(entity.getLoginName()));
+		joinTxt = entity.getStatus(entity.getLoginName());
+		btn_actjoin.setText(joinTxt);
 		if (entity.getIsEnabled(entity.getLoginName())) {
 			btn_actjoin.setClickable(true);
 			btn_actjoin.setTag(entity);
@@ -168,13 +171,24 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 				@Override
 				public void onClick(final View v) {
 					// TODO Auto-generated method stub
-					dUtil.showDialog("报名确认", 0, "确定要参加吗？", "确定", "取消", new DialogButtonClickCallback() {
+					String msgTitle = "";
+					String msgContent ="";
+					if("未报名".equals(joinTxt)){
+						msgTitle = "报名确认";
+						msgContent = "确定要参加吗？";
+						cancel = false;
+					}else if("取消报名".equals(joinTxt)){
+						msgTitle = "报名取消";
+						msgContent = "确定要取消吗？";
+						cancel = true;
+					}
+					dUtil.showDialog(msgTitle, 0, msgContent, "确定", "取消", new DialogButtonClickCallback() {
 						@Override
 						public void positiveButtonClick() {
 							// TODO Auto-generated method stub
 							final ActivityDetailEntity activitydetailentity = (ActivityDetailEntity) v
 									.getTag();
-							singUp(v, activitydetailentity);
+							singUp(v, activitydetailentity,cancel);
 						}
 						
 						@Override
@@ -220,12 +234,12 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 
 		tv_content.setText(Html.fromHtml(entity.getContent()));
 	}
-
 	
-	private void singUp(final View v,final ActivityDetailEntity activitydetailentity){
-		ActivityDetailEntity entity = activitydetailentity;
+	private void singUp(View v,final ActivityDetailEntity activitydetailentity,final boolean cancel){
+		final Button btn = (Button) v;
+		activitydetailentity.setActionCancel(cancel);
 		OperationBuilder builder = new OperationBuilder().append(
-				new ActjoinOp(), entity);
+				new ActjoinOp(), activitydetailentity);
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
 			public void onOperationFinished(List<Object> resList) {
@@ -237,21 +251,38 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 					return;
 				}
 				ActjoinEntity entity = (ActjoinEntity) resList.get(0);
-				Result result  = entity.getRetobj();
+				Result result = entity.getRetobj();
 				if (result == null) {
-					Toast.show(ActivitySubActivity.this, "报名失败！");
+					if(cancel){
+						Toast.show(self, "取消失败！");
+					}else{
+						Toast.show(self, "报名失败！");
+					}
 					return;
 				} else {
 					String ret = result.getResult();
-					if("0".equals(ret)){
-						Toast.show(ActivitySubActivity.this, "报名失败！");
+					if(!"1".equals(ret)){
+						if(cancel){
+							Toast.show(self, "取消失败！");
+						}else{
+							Toast.show(self, "报名失败！");
+						}
 						return;
 					}else{
-						Toast.show(ActivitySubActivity.this, "报名成功！");
-						btn_actjoin.setText("已报名");
-						v.setClickable(false);
-						v.setBackgroundColor(getResources().getColor(
-								R.color.btn_disable));
+						int count = Integer.parseInt(activitydetailentity.getCurrentCount());
+						if(cancel){
+							Toast.show(self, "取消成功！");
+							count = count - 1;
+							joinTxt = "未报名";
+						}else{
+							Toast.show(self, "报名成功！");
+							count = count + 1;
+							joinTxt = "取消报名";
+						}
+						tv_count.setText("报名人数" + count + "/"
+								+ activitydetailentity.getLimitCount());
+						activitydetailentity.setCurrentCount(count+"");
+						btn_actjoin.setText(joinTxt);
 					}
 				}
 			}

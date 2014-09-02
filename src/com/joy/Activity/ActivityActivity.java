@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,7 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.JoyApplication;
-import com.joy121.R;
+import com.joy.R;
 import com.joy.Utils.Constants;
 import com.joy.Widget.ActivityAdapter;
 import com.joy.json.JsonCommon;
@@ -104,8 +105,7 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 	public void reLoad() {
 		// 刷新数据
 		adapter.removeAll();
-		adapter.notifyDataSetChanged();
-		initData(isSelect,false);
+		initData(isSelect,true);
 	}
 	
 
@@ -158,6 +158,7 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initData(final String isexpired,boolean pro) {
+		Log.i("LSD", "1111");
 		ActivityEntity act = new ActivityEntity();
 		
 		act.isexpired = isexpired;

@@ -12,6 +12,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.joy121.R;
+import com.joy.R;
 import com.joy.Activity.MainActivity;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
@@ -186,7 +188,17 @@ public class LogoStoreDetailFragment extends BaseFragment {
 					return;
 				}
 
-				dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {
+				GoodsDetail detail = new GoodsDetail();
+				detail.setGoods_id(goods.getId() + "");
+				detail.setGoods_img(goods.getPicture());
+				detail.setGoods_name(goods.getComName());
+				detail.setColor(colorSelect);
+				detail.setSize_cloth(sizeSelect);
+				detail.setIsLogoStore(true);
+				MainActivity.Add2ShopCar(mActivity, detail, goodsNum);
+				Toast.show(mActivity, "商品已加入购物车");
+				
+				/*dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {
 					@Override
 					public void positiveButtonClick() {
 						// TODO Auto-generated method stub
@@ -205,7 +217,7 @@ public class LogoStoreDetailFragment extends BaseFragment {
 					public void negativeButtonClick() {
 						// TODO Auto-generated method stub
 					}
-				});
+				});*/
 			}
 		});
 		picViewPager = (ViewPager) v.findViewById(R.id.pic_viewpager);
@@ -393,15 +405,7 @@ public class LogoStoreDetailFragment extends BaseFragment {
 			hColorListView.setHorizontalScrollBarEnabled(false);
 			hColorListView.setDivider(null);
 			hColorListView.setDividerWidth(15);
-			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,50);
-			hColorListView.setLayoutParams(params);
-			//GridView colorGridView = new GridView(mActivity);
-			//colorGridView.setNumColumns(tempColor.size());
-			//colorGridView.setHorizontalSpacing(10);
-			//colorGridView.setCacheColorHint(Color.parseColor("#00000000"));
-			//colorGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-			//colorGridView.setVerticalScrollBarEnabled(false);
-			//colorGridView.setHorizontalFadingEdgeEnabled(false);
+			uiAdapter.setMargin(hColorListView, LayoutParams.MATCH_PARENT, 80, 0, 5, 0, 5);
 			hColorListView.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -424,6 +428,8 @@ public class LogoStoreDetailFragment extends BaseFragment {
 			GridAdapter colorAdapter = new GridAdapter();
 			hColorListView.setAdapter(colorAdapter);
 			colorAdapter.setData(tempColor);
+			colorLayout.setGravity(Gravity.CENTER_VERTICAL);
+			uiAdapter.setMargin(colorLayout, LayoutParams.MATCH_PARENT, 84, 0, 2, 0, 2);
 			colorLayout.addView(hColorListView);
 		}
 		if (tempSize.size() > 0) {
@@ -431,16 +437,7 @@ public class LogoStoreDetailFragment extends BaseFragment {
 			hSizeListView.setHorizontalScrollBarEnabled(false);
 			hSizeListView.setDivider(null);
 			hSizeListView.setDividerWidth(15);
-			LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,50);
-			hSizeListView.setLayoutParams(params);
-			
-			//GridView sizeGridView = new GridView(mActivity);
-			//sizeGridView.setNumColumns(tempSize.size());
-			//sizeGridView.setHorizontalSpacing(10);
-			//sizeGridView.setCacheColorHint(Color.parseColor("#00000000"));
-			//sizeGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-			//sizeGridView.setVerticalScrollBarEnabled(false);
-			//sizeGridView.setHorizontalFadingEdgeEnabled(false);
+			uiAdapter.setMargin(hSizeListView, LayoutParams.MATCH_PARENT, 80, 0, 2, 0, 2);
 			hSizeListView.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -463,6 +460,8 @@ public class LogoStoreDetailFragment extends BaseFragment {
 			GridAdapter sizeAdapter = new GridAdapter();
 			hSizeListView.setAdapter(sizeAdapter);
 			sizeAdapter.setData(tempSize);
+			sizeLayout.setGravity(Gravity.CENTER_VERTICAL);
+			uiAdapter.setMargin(sizeLayout, LayoutParams.MATCH_PARENT, 84, 0, 2, 0, 2);
 			sizeLayout.addView(hSizeListView);
 		}
 	}

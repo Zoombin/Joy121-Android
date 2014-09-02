@@ -26,7 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.JoyApplication;
-import com.joy121.R;
+import com.joy.R;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Utils.Constants;
@@ -272,7 +272,19 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			//intent.putExtra(EXTRA_COMMODITYSET, commoditySet);
 			//startActivity(intent);
 			
-			dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {
+			CommoditySet entity = (CommoditySet) v.getTag();
+			if(entity != null){
+				GoodsDetail detail = new GoodsDetail();
+				detail.setGoods_name(entity.getDescription());
+				detail.setGoods_img(entity.getPicture());
+			    detail.setPoints(entity.getPoints());
+				detail.setIsLogoStore(false);
+				detail.setGoods_id(String.format("%d", entity.getId()));
+				MainActivity.Add2ShopCar(OrderDetailActivity.this, detail, goodsNum);
+				Toast.show(OrderDetailActivity.this, "商品已加入购物车");
+			}
+			
+			/*dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {
 				@Override
 				public void positiveButtonClick() {
 					// TODO Auto-generated method stub
@@ -291,7 +303,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 				public void negativeButtonClick() {
 					// TODO Auto-generated method stub
 				}
-			});
+			});*/
 			break;
 		case R.id.img_plus:
 			goodsNum++;

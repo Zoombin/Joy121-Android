@@ -17,7 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.joy121.R;
+import com.joy.R;
 import com.joy.json.model.UserPointsHisEntity;
 
 public class HispointsAdapter extends BaseAdapter {

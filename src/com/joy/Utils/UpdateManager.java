@@ -23,7 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.joy121.R;
+import com.joy.R;
 
 public class UpdateManager {
 

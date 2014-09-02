@@ -23,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.joy121.R;
+import com.joy.R;
 import com.joy.Activity.MainActivity;
 import com.joy.Activity.OrderDetailActivity;
 import com.joy.Dialog.DialogUtil;
@@ -199,7 +199,16 @@ public class WelfareAdapter extends BaseAdapter {
 		public void onClick(final View v) {
 			switch (v.getId()) {
 			case R.id.btn_buy:
-				dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {
+				CommoditySet entity = (CommoditySet) v.getTag();
+				GoodsDetail detail = new GoodsDetail();
+				detail.setGoods_name(entity.getDescription());
+				detail.setGoods_img(entity.getPicture());
+				detail.setPoints(entity.getPoints());
+				detail.setIsLogoStore(false);
+				detail.setGoods_id(String.format("%d", entity.getId()));
+				MainActivity.Add2ShopCar(mContext, detail, 1);
+				Toast.show(mContext, "商品已加入购物车");
+				/*dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {
 					@Override
 					public void positiveButtonClick() {
 						// TODO Auto-generated method stub
@@ -217,7 +226,7 @@ public class WelfareAdapter extends BaseAdapter {
 					public void negativeButtonClick() {
 						// TODO Auto-generated method stub
 					}
-				});
+				});*/
 				break;
 			default:
 				break;

@@ -22,7 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.JoyApplication;
-import com.joy121.R;
+import com.joy.R;
 import com.joy.Activity.MainActivity;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
@@ -310,9 +310,8 @@ public class ShoppingCarFragment extends BaseFragment {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						int num = data.getCount();
-						num--;
-						if (num <= 0) {
-							num = 0;
+						if (num <= 1) {
+							num = 1;
 							data.setCount(num);
 							dUtil.showDialog("是否删除该商品?", 0, "确定", "取消", new DialogButtonClickCallback() {
 								@Override
@@ -328,6 +327,7 @@ public class ShoppingCarFragment extends BaseFragment {
 								}
 							});
 						} else {
+							num--;
 							data.setCount(num);
 						}
 						notifyDataSetChanged();

@@ -36,7 +36,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.joy121.R;
+import com.joy.R;
 import com.joy.Activity.MainActivity;
 import com.joy.Activity.StoreDetailActivity;
 import com.joy.Fragment.BaseFragment;

@@ -25,7 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.joy.JoyApplication;
-import com.joy121.R;
+import com.joy.R;
 import com.joy.Activity.ActivityActivity;
 import com.joy.Activity.ActivitySubActivity;
 import com.joy.Dialog.DialogUtil;
