@@ -471,10 +471,15 @@ public class LogoStoreDetailFragment extends BaseFragment {
 	 */
 	private void calculateStore() {
 		if (!TextUtils.isEmpty(colorSelect) && !TextUtils.isEmpty(sizeSelect)) {
+			boolean find = false;
 			for (StoreDetail cStore : templist) {
 				if (colorSelect.equals(cStore.getColor()) && sizeSelect.equals(cStore.getSize())) {
+					find = true;
 					storeNum.setText(cStore.getAmount() + "");
 				}
+			}
+			if(!find){
+				storeNum.setText(0 + "");
 			}
 		} else if (!TextUtils.isEmpty(colorSelect) && TextUtils.isEmpty(sizeSelect)) {
 			for (StoreDetail cStore : templist) {
