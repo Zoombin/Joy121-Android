@@ -165,6 +165,7 @@ public class ShoppingCarFragment extends BaseFragment {
 					Toast.show(mActivity, "提交成功");
 					adapter.cleanData();
 					MainActivity.setNotice();
+					refreshView();
 				}else{
 					Toast.show(mActivity, "提交失败 :"+result.getStatusRemark());
 				}
@@ -205,6 +206,8 @@ public class ShoppingCarFragment extends BaseFragment {
 	}
 	
 	private static void countAllPoints(){
+		if (shoppingCarFragment == null)
+			return;
 		//计算总积分
 		int sum = 0;
 		for(ShoppingCarGoods carGoods:MainActivity.goods_list){
