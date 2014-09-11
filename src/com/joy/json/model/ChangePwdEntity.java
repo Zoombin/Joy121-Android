@@ -14,7 +14,7 @@ public class ChangePwdEntity extends TResult {
 
 	private String nloginpwd;
 
-	private boolean retobj;
+	private int retobj;
 
 	private String msg;
 
@@ -36,11 +36,11 @@ public class ChangePwdEntity extends TResult {
 		this.nloginpwd = nloginpwd;
 	}
 
-	public boolean isRetobj() {
+	public int isRetobj() {
 		return retobj;
 	}
 
-	public void setRetobj(boolean retobj) {
+	public void setRetobj(int retobj) {
 		this.retobj = retobj;
 	}
 

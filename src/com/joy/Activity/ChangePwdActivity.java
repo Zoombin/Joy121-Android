@@ -218,8 +218,8 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 					return;
 				}
 				ChangePwdEntity entity = (ChangePwdEntity) resList.get(0);
-				boolean retobj = entity.isRetobj();
-				if (!retobj) {
+				int retobj = entity.isRetobj();
+				if (retobj !=1) {
 					Toast.show(self, "旧密码不正确！");
 					return;
 				} else {

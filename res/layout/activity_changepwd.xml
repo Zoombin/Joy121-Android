@@ -35,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/bg"
                 android:hint="@string/currpwd"
+                android:password="true"
                 android:singleLine="true"
                 android:textColor="@color/BLACK" />
         </LinearLayout>
@@ -53,6 +54,7 @@
                 android:src="@drawable/password" />
 
             <EditText
+                android:password="true"
                 android:id="@+id/et_newpwd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,6 +78,7 @@
                 android:src="@drawable/password" />
 
             <EditText
+                android:password="true"
                 android:id="@+id/et_comfirmnewpwd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

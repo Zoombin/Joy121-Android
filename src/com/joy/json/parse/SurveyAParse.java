@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.joy.json.model.SurveyAEntity;
 import com.joy.json.model.TResult;
@@ -19,6 +21,7 @@ public class SurveyAParse extends AbstractParser<TResult> {
 	public SurveyAEntity parse(JSONObject json) throws JSONException {
 		SurveyAEntity entity = new SurveyAEntity();
 		if(json!=null){
+			Log.i("LSD", json.toString());
 			entity = new Gson().fromJson(
 					 json.toString(), SurveyAEntity.class);
 		}
