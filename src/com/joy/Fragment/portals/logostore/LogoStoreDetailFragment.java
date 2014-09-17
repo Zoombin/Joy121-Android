@@ -12,7 +12,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +30,6 @@ import android.widget.TextView;
 import com.joy.R;
 import com.joy.Activity.MainActivity;
 import com.joy.Dialog.DialogUtil;
-import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Fragment.BaseFragment;
 import com.joy.Utils.Constants;
 import com.joy.json.JsonCommon;
@@ -58,11 +56,13 @@ public class LogoStoreDetailFragment extends BaseFragment {
 	private ViewPager picViewPager;
 	private LinearLayout colorLayout, sizeLayout;
 	private CategoriesGoods goods;
-	private List<StoreDetail> templist;
-	private List<SelectionModel> tempColor;
-	private List<SelectionModel> tempSize;
-	private String colorSelect;
-	private String sizeSelect;
+	private List<StoreDetail> templist;//临时保存数据
+	
+	private List<SelectionModel> tempColor;//临时保存所有的颜色属性
+	private List<SelectionModel> tempSize;//临时保存所有的尺寸属性
+	private String colorSelect;//当前选择的颜色
+	private String sizeSelect;//当前保存的尺寸
+	
 	private LinearLayout ll_pager_num;
 	private ImageView ivAdd,ivSub;
 	private TextView tvGoodNum;
@@ -181,6 +181,15 @@ public class LogoStoreDetailFragment extends BaseFragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(tempColor.size()>0 && TextUtils.isEmpty(colorSelect)){
+					Toast.show(mActivity, "请选择商品属性");
+					return;
+				}
+				if(tempSize.size()>0 && TextUtils.isEmpty(sizeSelect)){
+					Toast.show(mActivity, "请选择商品属性");
+					return;
+				}
+				
 				String numStr = storeNum.getText().toString();
 				int num = Integer.parseInt(numStr);
 				if (num == 0 || goodsNum>num) {
