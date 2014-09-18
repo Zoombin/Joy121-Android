@@ -158,7 +158,6 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initData(final String isexpired,boolean pro) {
-		Log.i("LSD", "1111");
 		ActivityEntity act = new ActivityEntity();
 		
 		act.isexpired = isexpired;

@@ -232,7 +232,8 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 
 		tv_actlocationaddr.setText(entity.getLocationAddr());
 
-		tv_content.setText(Html.fromHtml(entity.getContent()));
+		//tv_content.setText(Html.fromHtml(entity.getContent()));
+		tv_content.setText(entity.getContent());
 	}
 	
 	private void singUp(View v,final ActivityDetailEntity activitydetailentity,final boolean cancel){

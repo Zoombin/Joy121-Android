@@ -217,7 +217,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		
 		tv_points.setText("所需积分：" + commoditySet.getPoints());
 		
-		tv_product_detail.setText(Html.fromHtml(commoditySet.getDescription()));
+		//tv_product_detail.setText(Html.fromHtml(commoditySet.getDescription()));
+		tv_product_detail.setText(commoditySet.getDescription());
 	}
 	
 	Button mPreSelectedBt;
