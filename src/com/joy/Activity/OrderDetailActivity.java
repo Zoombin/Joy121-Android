@@ -276,7 +276,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			CommoditySet entity = (CommoditySet) v.getTag();
 			if(entity != null){
 				GoodsDetail detail = new GoodsDetail();
-				detail.setGoods_name(entity.getDescription());
+				detail.setGoods_name(entity.getSetName());
 				detail.setGoods_img(entity.getPicture());
 			    detail.setPoints(entity.getPoints());
 				detail.setIsLogoStore(false);

@@ -126,7 +126,8 @@ public class MainActivity extends QActivity {
 		carGoods.setMarket_price(goods.getMarket_price());
 		carGoods.setCost_integral(goods.getCost_integral());
 		intent.putExtra("goods", carGoods);
-		context.sendBroadcast(intent);
+		//此方法没处理
+		//context.sendBroadcast(intent);
 	}
 
 	public static void Add2ShopCar(Context context, GoodsDetail good, int count) {
@@ -165,7 +166,7 @@ public class MainActivity extends QActivity {
 		}
 		
 		if(add2Car){
-			MainActivity.goods_list.add(carGoods);
+			MainActivity.goods_list.add(0,carGoods);
 			ShoppingCarFragment.updateShoppingcar();
 			MainActivity.setNotice();
 		}

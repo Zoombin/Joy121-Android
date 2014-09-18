@@ -201,7 +201,7 @@ public class WelfareAdapter extends BaseAdapter {
 			case R.id.btn_buy:
 				CommoditySet entity = (CommoditySet) v.getTag();
 				GoodsDetail detail = new GoodsDetail();
-				detail.setGoods_name(entity.getDescription());
+				detail.setGoods_name(entity.getSetName());
 				detail.setGoods_img(entity.getPicture());
 				detail.setPoints(entity.getPoints());
 				detail.setIsLogoStore(false);

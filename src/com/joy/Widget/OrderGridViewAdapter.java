@@ -98,7 +98,7 @@ public class OrderGridViewAdapter extends BaseAdapter {
 				holder.subTitle.setVisibility(View.VISIBLE);
 				holder.subTitle.setText(singleSet.getProductName());
 			}
-			holder.subDetail.setText(singleSet.getAmount()
+			holder.subDetail.setText("数量："+singleSet.getAmount()
 					+ "   "
 					+ singleSet.getProperty().replaceAll("color:", "")
 							.replaceAll("size_trousers:", "")

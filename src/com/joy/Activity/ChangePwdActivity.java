@@ -4,6 +4,7 @@ import gejw.android.quickandroid.widget.Toast;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -224,7 +225,13 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 					return;
 				} else {
 					SharedPreferencesUtils.setLoginPwd(self, nloginpwd);
-					Toast.show(self, "修改密码成功！");
+					Toast.show(self, "修改密码成功,请重新登录!");
+					MainActivity.CleanShopCar(self);
+					SharedPreferencesUtils.setLoginName(self, "");
+					SharedPreferencesUtils.setLoginPwd(self, "");
+					Intent intent = new Intent();
+					intent.setClass(self, LoginActivity.class);
+					startActivity(intent);
 					finish();
 					return;
 				}
