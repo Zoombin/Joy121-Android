@@ -223,11 +223,11 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 				Constants.IMGDETAIL
 						+ entity.getActPicturePath(), iv_actpicture);
 		
-		tv_count.setText("报名人数" + entity.getCurrentCount() + "/"
+		tv_count.setText("报名人数：" + entity.getCurrentCount() + "/"
 				+ entity.getLimitCount());
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		tv_deadline.setText(sdf.format(new Date(Long.parseLong(entity
+		tv_deadline.setText("截止日期：" + sdf.format(new Date(Long.parseLong(entity
 				.getDeadLine().substring(6, 19)))));
 
 		tv_actlocationaddr.setText(entity.getLocationAddr());

@@ -278,6 +278,7 @@ public class MainActivity extends QActivity {
 
 			@Override
 			public void onTabChanged(String tabId) {
+				Log.i("LSD", "Changed");
 				View v = tabViewItem.get(tabId);
 				ImageView imageView = (ImageView) v.findViewById(R.id.img_menu);
 				TextView textView = (TextView) tabViewItem.get(tabId)
@@ -432,6 +433,29 @@ public class MainActivity extends QActivity {
 		if (fm.getBackStackEntryCount() <= 1) {
 			exit();
 			return true;
+		}
+		return false;
+	}
+	
+	
+	/***
+	 * 返回fragment顶层
+	 * 
+	 * @return
+	 */
+	public boolean cleanTop() {
+		try {
+			FragmentManager fm = getCurChildFragmentManager();
+			PLog.e("%s  fm.getBackStackEntryCount() = %s",
+					mTabHost.getCurrentTabTag(), fm.getBackStackEntryCount());
+			if (fm.getBackStackEntryCount() > 1) {
+				for(int i =0;i<fm.getBackStackEntryCount()-1;i++){
+					fm.popBackStack();
+				}
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 		return false;
 	}
