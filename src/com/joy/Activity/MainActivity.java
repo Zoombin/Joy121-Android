@@ -278,7 +278,6 @@ public class MainActivity extends QActivity {
 
 			@Override
 			public void onTabChanged(String tabId) {
-				Log.i("LSD", "Changed");
 				View v = tabViewItem.get(tabId);
 				ImageView imageView = (ImageView) v.findViewById(R.id.img_menu);
 				TextView textView = (TextView) tabViewItem.get(tabId)
