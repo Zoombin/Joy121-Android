@@ -33,6 +33,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
@@ -67,7 +69,7 @@ public class MainActivity extends QActivity {
 	public static MainActivity mActivity = null;
 	private Resources resources;
 	public static List<ShoppingCarGoods> goods_list = new ArrayList<ShoppingCarGoods>();
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -245,6 +247,8 @@ public class MainActivity extends QActivity {
 		}
 	};
 	
+	
+	
 	/************************** Tab布局 ***************************************/
 	// 定义FragmentTabHost对象
 	public FragmentTabHost mTabHost;
@@ -275,13 +279,15 @@ public class MainActivity extends QActivity {
 		uiAdapter
 				.setMargin(mTabHost, LayoutParams.MATCH_PARENT, 85, 0, 0, 0, 0);
 		uiAdapter.setPadding(mTabHost, 0, 0, 0, 0);
-		mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
-
+		/*
+		 * 改用View 的点击 getTabItemView();
+		 * 
+		 * mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
 			@Override
 			public void onTabChanged(String tabId) {
-				//tabChange(tabId);
+				tabChange(tabId);
 			}
-		});
+		});*/
 
 		// 得到fragment的个数
 		int count = fragmentArray.length;
@@ -291,6 +297,8 @@ public class MainActivity extends QActivity {
 			// 将Tab按钮添加进Tab选项卡中
 			mTabHost.addTab(tabSpec, fragmentArray[i], null);
 		}
+		mTabHost.setCurrentTab(0);
+		tabChange(getString(mTextviewArray[0]));
 	}
 	
 	
@@ -333,14 +341,29 @@ public class MainActivity extends QActivity {
 			mActivity.notice.setVisibility(View.VISIBLE);
 		mActivity.notice.setText(String.valueOf(notice));
 	}
-
+	
 	/**
 	 * 给Tab按钮设置图标和文字
 	 */
-	private View getTabItemView(int index) {
+	private View getTabItemView(final int index) {
 		View view = layoutInflater
 				.inflate(R.layout.layout_main_menu_item, null);
 		uiAdapter.setMargin(view, 120, LayoutParams.MATCH_PARENT, 0, 0, 0, 0);
+		
+		LinearLayout tabItem = (LinearLayout) view.findViewById(R.id.tab_item);
+		tabItem.setTag(getString(mTextviewArray[index]));
+		tabItem.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				tabChange((String) v.getTag());
+				if(isCurentTab((String) v.getTag())){
+					cleanTop();
+				}else{
+					mTabHost.setCurrentTab(index);
+				}
+			}
+		});
 
 		// 图标
 		ImageView imageView = (ImageView) view.findViewById(R.id.img_menu);
@@ -350,7 +373,7 @@ public class MainActivity extends QActivity {
 		Point bmpSize = BmpUtils.getBmpSizeFromRes(getResources(), iconid);
 		float width = uiAdapter.CalcWidth(40, bmpSize.x, bmpSize.y);
 		uiAdapter.setMargin(imageView, width, 40, 0, 5, 0, 3);
-
+		
 		// 文字
 		TextView textView = (TextView) view.findViewById(R.id.txt_menu);
 		textView.setText(mTextviewArray[index]);
@@ -366,14 +389,6 @@ public class MainActivity extends QActivity {
 			view.findViewById(R.id.tx_notice).setVisibility(View.GONE);
 		}
 
-		view.setTag(getString(mTextviewArray[index]));
-		view.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				tabChange((String) v.getTag());
-			}
-		});
 		tabViewItem.put(getString(mTextviewArray[index]), view);
 		return view;
 	}
@@ -471,7 +486,21 @@ public class MainActivity extends QActivity {
 		}
 		return false;
 	}
-
+	
+	
+	public boolean isCurentTab(String tabTag) {
+		try {
+			String tag = mTabHost.getCurrentTabTag();
+			if(tag.equals(tabTag)){
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+	
+	
 	boolean isExit;
 
 	@Override
