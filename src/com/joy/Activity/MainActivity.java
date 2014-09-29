@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TabHost.OnTabChangeListener;
@@ -278,27 +279,7 @@ public class MainActivity extends QActivity {
 
 			@Override
 			public void onTabChanged(String tabId) {
-				View v = tabViewItem.get(tabId);
-				ImageView imageView = (ImageView) v.findViewById(R.id.img_menu);
-				TextView textView = (TextView) tabViewItem.get(tabId)
-						.findViewById(R.id.txt_menu);
-
-				Iterator iterator = tabViewItem.entrySet().iterator();
-				while (iterator.hasNext()) {
-					Map.Entry entry = (Map.Entry) iterator.next();
-					ImageView img_view = (ImageView) ((View) entry.getValue())
-							.findViewById(R.id.img_menu);
-					int iconid = ResName2ID.getDrawableID(self, String.format(
-							"%s%s", img_view.getTag().toString(),
-							imageView == img_view ? "_press" : ""));
-					img_view.setImageResource(iconid);
-
-					TextView tv_view = (TextView) ((View) entry.getValue())
-							.findViewById(R.id.txt_menu);
-					tv_view.setTextColor(textView == tv_view ? resources
-							.getColor(R.color.WHITE) : resources
-							.getColor(R.color.menu_text));
-				}
+				//tabChange(tabId);
 			}
 		});
 
@@ -306,10 +287,34 @@ public class MainActivity extends QActivity {
 		int count = fragmentArray.length;
 		for (int i = 0; i < count; i++) {
 			// 为每一个Tab按钮设置图标、文字和内容
-			TabSpec tabSpec = mTabHost.newTabSpec(getString(mTextviewArray[i]))
-					.setIndicator(getTabItemView(i));
+			TabSpec tabSpec = mTabHost.newTabSpec(getString(mTextviewArray[i])).setIndicator(getTabItemView(i));
 			// 将Tab按钮添加进Tab选项卡中
 			mTabHost.addTab(tabSpec, fragmentArray[i], null);
+		}
+	}
+	
+	
+	private void tabChange(String tabId){
+		View v = tabViewItem.get(tabId);
+		ImageView imageView = (ImageView) v.findViewById(R.id.img_menu);
+		TextView textView = (TextView) tabViewItem.get(tabId)
+				.findViewById(R.id.txt_menu);
+
+		Iterator iterator = tabViewItem.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Map.Entry entry = (Map.Entry) iterator.next();
+			ImageView img_view = (ImageView) ((View) entry.getValue())
+					.findViewById(R.id.img_menu);
+			int iconid = ResName2ID.getDrawableID(self, String.format(
+					"%s%s", img_view.getTag().toString(),
+					imageView == img_view ? "_press" : ""));
+			img_view.setImageResource(iconid);
+
+			TextView tv_view = (TextView) ((View) entry.getValue())
+					.findViewById(R.id.txt_menu);
+			tv_view.setTextColor(textView == tv_view ? resources
+					.getColor(R.color.WHITE) : resources
+					.getColor(R.color.menu_text));
 		}
 	}
 	
@@ -361,6 +366,14 @@ public class MainActivity extends QActivity {
 			view.findViewById(R.id.tx_notice).setVisibility(View.GONE);
 		}
 
+		view.setTag(getString(mTextviewArray[index]));
+		view.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				tabChange((String) v.getTag());
+			}
+		});
 		tabViewItem.put(getString(mTextviewArray[index]), view);
 		return view;
 	}
