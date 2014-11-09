@@ -115,4 +115,9 @@
  	<string name="shoppingcar_txt">即将购买的商品</string>
   	<string name="nullshoppingcar_txt">请前往Logo商店或者公司福利添加商品</string>
   	<string name="format_sum_points">总计：%1$s积分</string>
+  	
+  	<!-- contact -->
+    <string name="contact">公司通讯录</string>
+    <string name="contactdetail">联系人详情</string>
+    <string name="search">搜索</string>
 </resources>
