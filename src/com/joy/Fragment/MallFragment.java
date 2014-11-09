@@ -4,11 +4,19 @@ import gejw.android.quickandroid.QFragment;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
 import gejw.android.quickandroid.utils.ResName2ID;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 import com.joy.R;
 import com.joy.Utils.Constants;
@@ -75,12 +84,52 @@ public class MallFragment extends BaseFragment {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(imgid != 0){
-				tv_title.setVisibility(View.GONE);
-				ivLogo.setVisibility(View.VISIBLE);
-				ivLogo.setImageResource(imgid);
-			}
+			//if(imgid != 0){
+				//tv_title.setVisibility(View.GONE);
+				//ivLogo.setVisibility(View.VISIBLE);
+				//ivLogo.setImageResource(imgid);
+			tv_title.setVisibility(View.GONE);
+			ImageLoader.getInstance().displayImage(Constants.IMGLOGO + appSet.getLogo(), ivLogo);
+			ivLogo.setScaleType(ScaleType.CENTER);
+			ivLogo.setVisibility(View.VISIBLE);
+			//}
 		}
+	}
+	
+	private InputStream openHttpConnection(String urlString) throws IOException {
+		InputStream in = null;
+		int response = -1;
+		URL url = new URL(urlString);
+		URLConnection conn = url.openConnection();
+		if (!(conn instanceof HttpURLConnection))
+			throw new IOException("Not an HTTP connection");
+		try {
+			HttpURLConnection httpConn = (HttpURLConnection) conn;
+			httpConn.setAllowUserInteraction(false);
+			httpConn.setInstanceFollowRedirects(true);
+			httpConn.setRequestMethod("GET");
+			httpConn.connect();
+			response = httpConn.getResponseCode();
+			if (response == HttpURLConnection.HTTP_OK) {
+				in = httpConn.getInputStream();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return in;
+	}
+	
+	private Bitmap downloadImage(String URL) {
+		Bitmap bitmap = null;
+		InputStream in = null;
+		try {
+			in = openHttpConnection(URL);
+			bitmap = BitmapFactory.decodeStream(in);
+			in.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return bitmap;
 	}
 
 	private void initView(View v) {

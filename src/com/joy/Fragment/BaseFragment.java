@@ -1,5 +1,7 @@
 package com.joy.Fragment;
 
+import java.net.URI;
+
 import gejw.android.quickandroid.QFragment;
 import gejw.android.quickandroid.ui.adapter.UIManager;
 import android.graphics.Color;
@@ -10,10 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.util.Log;
 
 import com.joy.JoyApplication;
 import com.joy.R;
+import com.joy.Utils.Constants;
 import com.joy.json.model.CompAppSet;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -59,6 +64,18 @@ public abstract class BaseFragment extends QFragment {
 			if(navColor !=0){
 				baseTitleLayou.setBackgroundColor(navColor);
 			}
+			String logo = null;
+			try {
+				logo = appSet.getLogo();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(logo !=null){
+				
+			}
+			
+			
 		}
 		return v;
 	}
