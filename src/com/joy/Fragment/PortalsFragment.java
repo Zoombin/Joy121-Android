@@ -21,12 +21,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
+import com.joy.R.layout;
 import com.joy.Activity.ActivityActivity;
+import com.joy.Activity.ContactActivity;
 import com.joy.Activity.MainActivity;
 import com.joy.Activity.PostActivity;
 import com.joy.Activity.SurveyActivity;
@@ -39,6 +42,7 @@ import com.joy.json.model.PortalsModule;
 import com.joy.json.model.PortalsModule.Module;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.PortalsModulesOp;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 公司门户
@@ -120,8 +124,10 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 		initView(v);
 
 		if(temp != null && temp.size()>0){
+			//第二次显示，从temp读取modules数据
 			adapter.setData(temp);
 		}else{
+			//第一次显示，从API读书modules数据
 			getModules();
 		}
 		return v;
@@ -132,18 +138,28 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onResume();
 		if(appSet != null){
-			int imgid = 0;
+			/*int imgid = 0;
 			try {
 				imgid =	ResName2ID.getDrawableID(mActivity, appSet.getLogo().replaceAll(".png", ""));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			if(imgid != 0){
-				tv_title.setVisibility(View.GONE);
-				ivLogo.setVisibility(View.VISIBLE);
-				ivLogo.setImageResource(imgid);
-			}
+			}*/
+			//if(imgid != 0){
+			//	tv_title.setVisibility(View.GONE);
+			//	ivLogo.setVisibility(View.VISIBLE);
+			//	ivLogo.setImageResource(imgid);
+			//}
+			tv_title.setVisibility(View.GONE);
+			ImageLoader.getInstance().displayImage(Constants.IMGLOGO + appSet.getLogo(), ivLogo);
+			ivLogo.setScaleType(ScaleType.CENTER_INSIDE);
+			ivLogo.setVisibility(View.VISIBLE);
+			
+			
+			
+			//LayoutParams mParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			//ivLogo.setLayoutParams(mParams);
+			
 		}
 	}
 
@@ -402,6 +418,8 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			startActivity(intent);
 		}else if(name.contains("通讯")){
 			//通讯簿
+			intent.setClass(mActivity, ContactActivity.class);
+			startActivity(intent);
 		}else if(name.contains("团购")){
 			//限时团购
 		}else if(name.contains("商户")){
@@ -500,7 +518,7 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 				//限时团购
 				v.setBackgroundColor(Color.parseColor("#f7a211"));
 				imageView.setImageResource(R.drawable.com_groupon);
-			}else if(name.contains("商户")){
+			}else if(name.contains("工资")){
 				//特约商户
 				v.setBackgroundColor(Color.parseColor("#fe8649"));
 				imageView.setImageResource(R.drawable.com_businessman);
