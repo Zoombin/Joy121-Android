@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/tommy"
             android:visibility="gone" />
 
         <TextView
@@ -301,15 +300,15 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/tv_groupbuy"
+                    android:id="@+id/tv_itemdraw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
-                    android:text="@string/row_groupbuy"
+                    android:text="@string/row_itemdraw"
                     android:textColor="@color/WHITE" />
 
                 <ImageView
-                    android:id="@+id/iv_groupbuy"
+                    android:id="@+id/iv_itemdraw"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

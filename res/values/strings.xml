@@ -21,6 +21,7 @@
     <string name="menu_logostore">Logo商店</string>
     <string name="menu_personal">个人空间</string>
     <string name="mywelfare">我的福利</string>
+    <string name="nodatagetted">无法取得数据！</string>
 
     <!-- home -->
     <string name="grid_onlineinquery">在线查询</string>
@@ -48,6 +49,9 @@
     <string name="companyname">公司名称：</string>
     <string name="companyaddress">公司地址：</string>
     <string name="compangphone">公司电话：</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    
 
     <!-- welfare -->
     <string name="buy">直 接 订 购</string>
@@ -59,19 +63,32 @@
     <string name="row_activity">活动</string>
     <string name="row_suivey">调查</string>
     <string name="row_contact">通讯录</string>
+    <string name="row_itemdraw">物品领用></string>
     <string name="row_groupbuy">限时团购</string>
     <string name="row_train">培训</string>
+    <string name="nowelfareinfo">无福利商品数据！</string>
+    
 
     <!-- changepwd -->
     <string name="titlepwd">修改密码</string>
     <string name="currpwd">当前密码</string>
     <string name="newpwd">新密码</string>
     <string name="comfirmnewpwd">确认新密码</string>
+    <string name="enterpwd">请输入密码！</string>
+    <string name="diffpwderr">新密码输入与确认密码不同！</string>
+    <string name="oldpwderr">旧密码不正确！</string>
+    <string name="chgpwdsuccess">"修改密码成功,请重新登录!"</string>
 
     <!-- orderdetail -->
     <string name="addshoppting">加入购物车</string>
     <string name="producttitle">商品描述</string>
-
+    <string name="nodetailinfo">无详情信息</string>
+    <string name="pointsneeded">所需积分：</string>
+    <string name="shopptingadded">商品已加入购物车</string>
+    
+    <!-- points history -->
+    <string name="nopointshis">没有积分历史</string>
+    
     <!-- orderconfirm -->
     <string name="orderconfirm">提交订单</string>
     <string name="receiverinfo">收货信息</string>
@@ -83,6 +100,10 @@
     <string name="recPhone_title">联系电话：</string>
     <string name="request_points_title">合计所需积分：</string>
     <string name="total_points_title">您的剩余积分：</string>
+    <string name="commitordersuccess">提交订单成功</string>
+    
+    <!-- orderquery -->
+    <string name="noorderinfo">没有订单信息！</string>
 
     <!-- life -->
     <string name="life">生活</string>
@@ -95,13 +116,32 @@
 
     <!-- post -->
     <string name="post">公司公告</string>
+    <string name="nopostinfo">没有公告信息！</string>
+    
 
     <!-- activity -->
+    <string name="activitydetail">活动详情</string>
+    <string name="trainingdetail">培训详情</string>
     <string name="activity">公司活动</string>
     <string name="activity_sub">公司详情</string>
     <string name="btn_actjoin">报名</string>
     <string name="locationaddr">活动地点</string>
     <string name="activity_content">活动内容</string>
+    <string name="noactivityinfo">没有活动信息！</string>
+    <string name="notraininginfo">没有培训信息！</string>
+    <string name="noenroll">未报名</string>
+    <string name="enrollconfirm">报名确认</string>
+    <string name="cancelenroll">取消报名</string>
+    <string name="isenrollconfirm">确定要参加吗？</string>
+    <string name="enrollcancel">报名取消</string>
+    <string name="isenrollcancel">确定要取消吗？</string>
+    <string name="applicants">已报名人数/报名限制人数：</string>
+    <string name="deadline">报名截止时间：</string>
+    <string name="enrollfailed">报名失败</string>
+    <string name="cancelfailed">取消失败</string>
+    <string name="cancelsuccess">取消成功</string>
+    <string name="enrollsuccess">报名成功</string>
+    
 
     <!-- survey -->
     <string name="survey">公司调查</string>
@@ -109,15 +149,35 @@
     <string name="title_activity_store">StoreActivity</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="nosurveyinfo">没有调查信息！</string>
+    
     
     
     <!-- shoppingcar -->
  	<string name="shoppingcar_txt">即将购买的商品</string>
   	<string name="nullshoppingcar_txt">请前往Logo商店或者公司福利添加商品</string>
   	<string name="format_sum_points">总计：%1$s积分</string>
+  	<string name="commitsuccess">提交成功</string>
+  	<string name="commitfailed">提交失败</string>
+  	<string name="commitfailed2">提交失败 ：</string>
+  	
+  	
   	
   	<!-- contact -->
     <string name="contact">公司通讯录</string>
     <string name="contactdetail">联系人详情</string>
     <string name="search">搜索</string>
+    <string name="nocontact">查无此联系人</string>
+    <string name="searchtext_hint">请搜索中文名，英文名，部门</string>
+    <string name="addcontact">添加联系人</string>
+    
+    <!-- Logo商店 -->
+    <string name="toast_nologocommo">没有分类信息！</string>
+    <string name="displayall">显示全部</string>
+    
+    <!-- prompt -->
+    <string name="timeout">连接超时</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="toast_clicktwice">再按一次退出程序</string>
 </resources>
