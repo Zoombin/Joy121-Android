@@ -17,7 +17,7 @@
         android:inputType="none"
         android:singleLine="true"
         android:textColor = "#808080"
-        android:hint="请输入搜索名称"
+        android:hint="@string/searchtext_hint"
         android:background="@drawable/searchtext_background"
         android:drawableLeft="@drawable/search"
         android:drawablePadding="3dip"
