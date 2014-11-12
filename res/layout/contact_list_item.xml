@@ -10,21 +10,39 @@
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:src="@drawable/user" />
+    
+    	<LinearLayout android:id="@+id/contact_info"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content" 
+    	android:orientation="vertical" >
+    	
+	    	<LinearLayout android:id="@+id/contact_name"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/tv_personname"
-            android:layout_width="wrap_content"
-            android:text=""
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:textColor="@color/BLACK" />
+		        <TextView
+		            android:id="@+id/tv_personname"
+		            android:layout_width="wrap_content"
+		            android:layout_gravity="center_vertical"
+		            android:layout_height="wrap_content"
+		            android:textColor="@color/BLACK" />
+		        
+		        <TextView
+		            android:id="@+id/tv_englishname"
+		            android:layout_width="wrap_content"
+		            android:layout_gravity="center_vertical"
+		            android:layout_height="wrap_content"
+		            android:textColor="@color/BLACK" />
         
-        <TextView
-            android:id="@+id/tv_englishname"
-            android:layout_width="wrap_content"
-            android:text=""
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:textColor="@color/BLACK" />
+        	</LinearLayout>
+        	
+	    	<TextView
+		            android:id="@+id/tv_comdep"
+		            android:layout_width="wrap_content"
+		            android:layout_gravity="center_vertical"
+		            android:layout_height="wrap_content"
+		            android:textColor="@color/BLACK" />
+        	
+	    </LinearLayout>
 
 </LinearLayout>

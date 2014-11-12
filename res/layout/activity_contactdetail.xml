@@ -68,7 +68,7 @@
                             android:id="@+id/tv_compdep"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/red" />
+                            android:textColor="@color/BLACK" />
                     </LinearLayout>
                     <!-- 所属公司名称 -->
                     <TextView
@@ -175,4 +175,11 @@
                 </LinearLayout>
             </LinearLayout>
     </LinearLayout>
+    <Button
+        android:id="@+id/btn_addcontact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/greenbutton"
+        android:text="@string/addcontact"
+        android:textColor="@color/WHITE" />
 </LinearLayout>
