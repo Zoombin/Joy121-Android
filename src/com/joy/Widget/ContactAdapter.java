@@ -96,22 +96,22 @@ public class ContactAdapter extends BaseAdapter {
 			uiAdapter.setTextSize(holder.tv_personname, 22);
 			TextPaint tp = holder.tv_personname.getPaint(); 
 			tp.setFakeBoldText(true); 
-			uiAdapter.setMargin(holder.tv_personname, 100,
-					LayoutParams.WRAP_CONTENT, 10, 0, 0, 0);
+			uiAdapter.setMargin(holder.tv_personname, LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT, 10, 5, 0, 0);
 
 			// English name
 			holder.tv_englishname = (TextView) convertView
 					.findViewById(R.id.tv_englishname);
-			uiAdapter.setTextSize(holder.tv_englishname, 16);
+			uiAdapter.setTextSize(holder.tv_englishname, 22);
 			uiAdapter.setMargin(holder.tv_englishname, LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
+					LayoutParams.WRAP_CONTENT, 10, 5, 0, 0);
 
 			// department
-			/*holder.tv_dep = (TextView) convertView
-					.findViewById(R.id.tv_dep);
-			uiAdapter.setTextSize(holder.tv_dep, 14);
-			uiAdapter.setMargin(holder.tv_dep, LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT, 20, 10, 0, 10);*/
+			holder.tv_comdep = (TextView) convertView
+					.findViewById(R.id.tv_comdep);
+			uiAdapter.setTextSize(holder.tv_comdep, 16);
+			uiAdapter.setMargin(holder.tv_comdep, LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT, 30, 10, 0, 5);
 
 			convertView.setTag(holder);
 		} else {// 有直接获得ViewHolder
@@ -120,8 +120,8 @@ public class ContactAdapter extends BaseAdapter {
 
 		holder.tv_personname.setText(entity.getPersonName());
 		personname = entity.getPersonName();
-		holder.tv_englishname.setText(entity.getComDep());
-		//holder.tv_dep.setText("部门：" + entity.getComDep());
+		holder.tv_englishname.setText(entity.getEnglishName());
+		holder.tv_comdep.setText(entity.getComDep());
 		holder.layout_contact.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -140,6 +140,6 @@ public class ContactAdapter extends BaseAdapter {
 		ImageView iv_contactpic;
 		TextView tv_personname;
 		TextView tv_englishname;
-		TextView tv_dep;
+		TextView tv_comdep;
 	}
 }

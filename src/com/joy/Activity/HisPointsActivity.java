@@ -89,13 +89,13 @@ public class HisPointsActivity extends BaseActivity implements OnClickListener {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, getResources().getString(R.string.timeout));
 					return;
 				}
 				PointEntity entity = (PointEntity) resList.get(0);
 				List<UserPointsHisEntity> userpointshislist = entity.getRetobj();
-				if (userpointshislist == null) {
-					Toast.show(self, "没有积分历史！");
+				if (userpointshislist == null || userpointshislist.size() == 0) {
+					Toast.show(self, getResources().getString(R.string.nopointshis));
 					finish();
 					return;
 				}

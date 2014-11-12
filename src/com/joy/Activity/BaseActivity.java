@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 public abstract class BaseActivity extends QActivity {
 	private RelativeLayout baseTitleLayou;
-	private TextView baseTvTitle;
-	private ImageView baseIvLogo;
 	CompAppSet appSet;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

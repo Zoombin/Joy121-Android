@@ -34,6 +34,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,6 +53,11 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 	private ContactAdapter adapter;
 	private Resources resources;
 	
+	private int pageNum;
+	private int pageSize = 20;
+	
+	private int visibleLastIndex = 0;   //最后的可视项索引  
+    private int visibleItemCount1 = 0;       // 当前窗口可见项总数 
 	
 	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +75,7 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 		resources = getResources();
 		setContentView(v);
 		initView();
-		initData("");
+		initData("", pageSize, 1);
 		return v;
 	}
 	
@@ -107,17 +114,39 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 				LayoutParams.WRAP_CONTENT, 10, 10, 10, 0);
 		adapter = new ContactAdapter(self, self);
 		list_contacts.setAdapter(adapter);
+		list_contacts.setOnScrollListener(new OnScrollListener() {
+			@Override  
+            public void onScrollStateChanged(AbsListView paramAbsListView, int scrollState) {
+				int itemsLastIndex = adapter.getCount();    //数据集最后一项的索引  
+		        int lastIndex = itemsLastIndex - 1;             //加上底部的loadMoreView项
+		        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE && visibleLastIndex == lastIndex && itemsLastIndex % pageSize == 0) {  
+		            //如果是自动加载,可以在这里放置异步加载数据的代码
+		        	//adapter = new ContactAdapter(self, self);
+					//list_contacts.setAdapter(adapter);
+		        	pageNum = pageNum + 1;
+		        	initData(tv_search.getText().toString(), pageSize, pageNum);
+		        }  
+			}
+			
+			 @Override  
+	         public void onScroll(AbsListView paramAbsListView, int firstVisibleItem
+	        		 , int visibleItemCount, int totalItemCount) { 
+			      visibleLastIndex = firstVisibleItem + visibleItemCount - 1;  
+			 }
+		});
 		
 		 
 		tv_search.setOnEditorActionListener(new OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 				// TODO Auto-generated method stub
+				 
 				 if ((actionId == 0 || actionId == 3) && event != null) {
 					 //list_contacts.clearDisappearingChildren();
 					 adapter = new ContactAdapter(self, self);
 					 list_contacts.setAdapter(adapter);
-					 initData(((EditText) v).getText().toString());
+					 pageNum = 1;
+					 initData(((EditText) v).getText().toString(), pageSize, pageNum);
 				 }
 				return false;
 			}
@@ -125,8 +154,8 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 
 	}
 	
-	private void initData(String qvalue) {
-		OperationBuilder builder = new OperationBuilder().append(new ContactOp(qvalue),
+	private void initData(String qvalue, int PageSize, int pageNum) {
+		OperationBuilder builder = new OperationBuilder().append(new ContactOp(qvalue, pageSize, pageNum),
 				null);
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
@@ -135,14 +164,14 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, resources.getString(R.string.timeout));
 					return;
 				}
 				ContactListEntity entity = (ContactListEntity) resList.get(0);
 				List<ContactEntity> contactEntityList = entity.getRetobj();
-				if (contactEntityList == null) {
-					Toast.show(self, "无此联系人！");
-					finish();
+				if (contactEntityList == null || contactEntityList.size() == 0) {
+					Toast.show(self, resources.getString(R.string.nocontact));
+					//finish();
 					return;
 				}
 				int position = 0;

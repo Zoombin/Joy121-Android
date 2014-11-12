@@ -177,13 +177,13 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, getResources().getString(R.string.timeout));
 					return;
 				}
 				OrderDetailEntity entity = (OrderDetailEntity) resList.get(0);
 				CommoditySet commoditySet = entity.getRetobj();
 				if (commoditySet == null) {
-					Toast.show(self, "无详情信息！");
+					Toast.show(self, getResources().getString(R.string.nodetailinfo));
 					finish();
 					return;
 				}
@@ -215,7 +215,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 		}
 		setviewpager(piclist);
 		
-		tv_points.setText("所需积分：" + commoditySet.getPoints());
+		tv_points.setText(getResources().getString(R.string.pointsneeded) + commoditySet.getPoints());
 		
 		//tv_product_detail.setText(Html.fromHtml(commoditySet.getDescription()));
 		tv_product_detail.setText(commoditySet.getDescription());
@@ -282,7 +282,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 				detail.setIsLogoStore(false);
 				detail.setGoods_id(String.format("%d", entity.getId()));
 				MainActivity.Add2ShopCar(OrderDetailActivity.this, detail, goodsNum);
-				Toast.show(OrderDetailActivity.this, "商品已加入购物车");
+				Toast.show(OrderDetailActivity.this, getResources().getString(R.string.shopptingadded));
 			}
 			
 			/*dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {

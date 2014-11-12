@@ -22,8 +22,12 @@ public class ContactOp implements ITaskOperation {
 	
 	
 	private String qvalue;
-	public ContactOp(String qvalue) {
+	private String pageSize;
+	private String pageNum;
+	public ContactOp(String qvalue, int pageSize, int pageNum) {
 		this.qvalue = qvalue;
+		this.pageSize = pageSize + "";
+		this.pageNum = pageNum + "";
 	}
 
 	@Override
@@ -38,7 +42,8 @@ public class ContactOp implements ITaskOperation {
 				IP,
 				new BasicNameValuePair("action", "comp_personinfos"),
 				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\",\"qvalue\":\"%s\"}", "310225198112162465", qvalue.trim())),
+						"{\"loginname\":\"%s\",\"qvalue\":\"%s\",\"pagesize\":\"%s\",\"pagenum\":\"%s\"}", "310225198112162465"
+						, qvalue.trim(), pageSize, pageNum)),
 								new BasicNameValuePair("token", new MD5()
 								.getMD5ofStr(SharedPreferencesUtils
 										.getLoginName(JoyApplication.getSelf())

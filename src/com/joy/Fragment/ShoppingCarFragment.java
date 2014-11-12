@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 import com.joy.JoyApplication;
 import com.joy.R;
@@ -95,11 +96,15 @@ public class ShoppingCarFragment extends BaseFragment {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(imgid != 0){
-				tv_title.setVisibility(View.GONE);
-				ivLogo.setVisibility(View.VISIBLE);
-				ivLogo.setImageResource(imgid);
-			}
+			//if(imgid != 0){
+			//	tv_title.setVisibility(View.GONE);
+			//	ivLogo.setVisibility(View.VISIBLE);
+			//	ivLogo.setImageResource(imgid);
+			//}
+			tv_title.setVisibility(View.GONE);
+			ImageLoader.getInstance().displayImage(Constants.IMGLOGO + appSet.getLogo(), ivLogo);
+			ivLogo.setScaleType(ScaleType.CENTER_INSIDE);
+			ivLogo.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -151,23 +156,23 @@ public class ShoppingCarFragment extends BaseFragment {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(mActivity, "连接超时");
+					Toast.show(mActivity, getResources().getString(R.string.timeout));
 					return;
 				}
 				CommitResultEntity entity = (CommitResultEntity) resList.get(0);
 				CommitResult result = entity.getRetobj();
 				if (result == null) {
-					Toast.show(mActivity, "提交失败!");
+					Toast.show(mActivity, getResources().getString(R.string.commitfailed));
 					return;
 				}
 				String ret = result.getStatusFlag();
 				if("1".equals(ret)){
-					Toast.show(mActivity, "提交成功");
+					Toast.show(mActivity, getResources().getString(R.string.commitsuccess));
 					adapter.cleanData();
 					MainActivity.setNotice();
 					refreshView();
 				}else{
-					Toast.show(mActivity, "提交失败 :"+result.getStatusRemark());
+					Toast.show(mActivity, getResources().getString(R.string.commitfailed2) + result.getStatusRemark());
 				}
 			}
 

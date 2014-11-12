@@ -166,13 +166,13 @@ public class HomeFragment extends BaseFragment implements OnClickListener, OnIte
 					return;
 				}
 				if (resList == null) {
-					Toast.show(mActivity, "连接超时");
+					Toast.show(mActivity, getResources().getString(R.string.timeout));
 					return;
 				}
 				WelfareEntity entity = (WelfareEntity) resList.get(0);
 				List<CommoditySet> commoditySetlist = entity.getRetobj();
-				if (commoditySetlist == null) {
-					Toast.show(mActivity, "无法取得数据！");
+				if (commoditySetlist == null || commoditySetlist.size() == 0) {
+					Toast.show(mActivity, getResources().getString(R.string.nodatagetted));
 					return;
 				} else {
 					grid_welfare.setAdapter(new HomeWelfareGridViewAdapter(mActivity, commoditySetlist));

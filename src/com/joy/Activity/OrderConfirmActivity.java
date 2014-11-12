@@ -243,13 +243,13 @@ public class OrderConfirmActivity extends BaseActivity implements OnClickListene
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, getResources().getString(R.string.timeout));
 					return;
 				}
 				OrderSubmitEntity entity = (OrderSubmitEntity) resList.get(0);
 				SubmitRet result = entity.getRetobj();
 				if (result != null && result.getStatusFlag().equals("1")) {
-					Toast.show(self, "提交订单成功！");
+					Toast.show(self, getResources().getString(R.string.commitordersuccess));
 					finish();
 				} else {
 					Toast.show(self, result.getStatusRemark());

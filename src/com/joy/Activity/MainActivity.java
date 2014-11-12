@@ -516,7 +516,7 @@ public class MainActivity extends QActivity {
 	public void exit() {
 		if (!isExit) {
 			isExit = true;
-			Toast.show(self, "再按一次退出程序");
+			Toast.show(self, resources.getString(R.string.toast_clicktwice));
 			mHandler.sendEmptyMessageDelayed(0, 2000);
 		} else {
 			Intent intent = new Intent(Intent.ACTION_MAIN);

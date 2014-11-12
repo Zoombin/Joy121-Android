@@ -7,13 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActionBar.LayoutParams;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract.Contacts;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -59,15 +64,11 @@ public class ContactDetailActivity extends BaseActivity implements OnClickListen
 	private ImageView iv_contactpic;
 	private TextView tv_ret, tv_title, tv_personname, tv_englishname, tv_comppos, tv_compdep, tv_company
 	, tv_label_phone, tv_label_mobile, tv_mobile, tv_label_work, tv_work, tv_label_fax, tv_fax, tv_label_mail, tv_label_workmail, tv_workmail;
-	private ViewPager picViewPager;
-	private LinearLayout colorLayout, sizeLayout;
-	private CategoriesGoods goods;
-	private List<StoreDetail> templist;
-	private List<SelectionModel> tempColor;
-	private List<SelectionModel> tempSize;
-	private String colorSelect;
-	private String sizeSelect;
+	private Button btn_addcontact;
 	private ContactEntity entity;
+	private final String CONTACT_PREFS = "contact";
+	
+	
 /*
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -125,12 +126,14 @@ public class ContactDetailActivity extends BaseActivity implements OnClickListen
 		tv_personname = (TextView) findViewById(R.id.tv_personname);
 		uiAdapter.setMargin(tv_personname, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 0, 20, 0, 0);
-		uiAdapter.setTextSize(tv_personname, 20);
+		uiAdapter.setTextSize(tv_personname, 22);
+		TextPaint tp = tv_personname.getPaint(); 
+		tp.setFakeBoldText(true); 
 		
 		tv_englishname = (TextView) findViewById(R.id.tv_englishname);
 		uiAdapter.setMargin(tv_englishname, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 0, 20, 0, 0);
-		uiAdapter.setTextSize(tv_englishname, 16);
+				LayoutParams.WRAP_CONTENT, 10, 20, 0, 0);
+		uiAdapter.setTextSize(tv_englishname, 20);
 		
 		tv_comppos = (TextView) findViewById(R.id.tv_comppos);
 		uiAdapter.setMargin(tv_comppos, LayoutParams.WRAP_CONTENT,
@@ -139,7 +142,7 @@ public class ContactDetailActivity extends BaseActivity implements OnClickListen
 		
 		tv_compdep = (TextView) findViewById(R.id.tv_compdep);
 		uiAdapter.setMargin(tv_compdep, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 0, 5, 0, 0);
+				LayoutParams.WRAP_CONTENT, 10, 5, 0, 0);
 		uiAdapter.setTextSize(tv_compdep, 16);
 		
 		tv_company = (TextView) findViewById(R.id.tv_company);
@@ -206,6 +209,24 @@ public class ContactDetailActivity extends BaseActivity implements OnClickListen
 		tv_workmail.setTextColor(Color.rgb(51, 165, 235));
 		tv_workmail.setOnClickListener(this);
 		
+		btn_addcontact = (Button) findViewById(R.id.btn_addcontact);
+		uiAdapter.setMargin(btn_addcontact, LayoutParams.MATCH_PARENT,
+				46, 10, 50, 10, 50);
+		uiAdapter.setTextSize(btn_addcontact, 24);
+		int color = 0;
+		if (appSet != null) {
+			try {
+				color = Color.parseColor(appSet.getColor2());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (color != 0) {
+			// 设置颜色
+			btn_addcontact.setBackgroundColor(color);
+		}
+		btn_addcontact.setOnClickListener(this);
 	}
 	
 	/*****
@@ -214,13 +235,16 @@ public class ContactDetailActivity extends BaseActivity implements OnClickListen
 	 * @param storelist
 	 */
 	private void setData(ContactEntity entity) {
-		tv_personname.setText(entity.getPersonName());
-		tv_comppos.setText(entity.getComDep());
-		tv_company.setText("汤美费格（上海）服饰有限公司");
-		tv_mobile.setText(entity.getMobile());
-		tv_work.setText("021-22139898");
-		tv_fax.setText("021-22139899");
-		tv_workmail.setText(entity.getEmail());
+		tv_personname.setText(entity.getPersonName()!=null ? entity.getPersonName() : "");
+		
+		tv_englishname.setText(entity.getEnglishName()!=null ? entity.getEnglishName() : "");
+		tv_comppos.setText(entity.getComPos()!=null ? entity.getComPos() : "");
+		tv_compdep.setText(entity.getComDep()!=null ? entity.getComDep() : "");
+		tv_company.setText(entity.getCompanyName()!=null ? entity.getCompanyName() : "");
+		tv_mobile.setText(entity.getMobile()!=null ? entity.getMobile() : "");
+		tv_work.setText("021-65832286");
+		tv_fax.setText(entity.getFax()!=null ? entity.getFax() : "");
+		tv_workmail.setText(entity.getEmail()!=null ? entity.getEmail() : "");
 		
 	}
 	
@@ -230,16 +254,27 @@ public class ContactDetailActivity extends BaseActivity implements OnClickListen
 		case R.id.tv_ret:
 			finish();
 			break;
+		case R.id.btn_addcontact:
+			Intent contactIntent = new Intent(Intent.ACTION_INSERT, Uri.withAppendedPath(
+					Uri.parse("content://com.android.contacts"), "contacts"));
+			contactIntent.setType("vnd.android.cursor.dir/person");
+			contactIntent.putExtra(android.provider.ContactsContract.Intents.Insert.NAME, entity.getPersonName());
+			contactIntent.putExtra(android.provider.ContactsContract.Intents.Insert.COMPANY, entity.getCompanyName());
+			contactIntent.putExtra(android.provider.ContactsContract.Intents.Insert.PHONE,entity.getMobile());
+			contactIntent.putExtra(android.provider.ContactsContract.Intents.Insert.SECONDARY_PHONE,entity.getPhone());
+			contactIntent.putExtra(android.provider.ContactsContract.Intents.Insert.EMAIL, entity.getEmail());
+		    startActivity(contactIntent);
+			break;
 		case R.id.tv_mobile:
-			Intent i = new Intent(android.content.Intent.ACTION_DIAL, Uri.parse("tel:+"+entity.getMobile()));
-			startActivity(i);
+			Intent phoneIntent = new Intent(android.content.Intent.ACTION_DIAL, Uri.parse("tel:+"+entity.getMobile()));
+			startActivity(phoneIntent);
 			break;
 		case R.id.tv_workmail:
 			Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 			String[] recipients = new String[]{entity.getEmail(), "",};
 			emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, recipients);
-			emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Test");
-			emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is email's message");
+			//emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Test");
+			//emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is email's message");
 			emailIntent.setType("text/plain");
 			startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 		default:

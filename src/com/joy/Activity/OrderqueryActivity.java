@@ -88,13 +88,13 @@ public class OrderqueryActivity extends BaseActivity implements OnClickListener 
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, getResources().getString(R.string.timeout));
 					return;
 				}
 				OrderEntity entity = (OrderEntity) resList.get(0);
 				List<UserOrderEntity> userorderlist = entity.getRetobj();
 				if (userorderlist == null) {
-					Toast.show(self, "没有订单信息！");
+					Toast.show(self, getResources().getString(R.string.noorderinfo));
 					finish();
 					return;
 				}

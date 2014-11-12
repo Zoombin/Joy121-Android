@@ -18,7 +18,18 @@ public class ContactEntity extends TResult {
 	private String ComPos;
 	private String Email;
 	private String EnglishName;
+	private String CompanyName;
 	
+	public String getCompanyName() {
+		return CompanyName;
+	}
+
+
+	public void setCompanyName(String companyName) {
+		CompanyName = companyName;
+	}
+
+
 	private int background;
 	
 

@@ -152,12 +152,13 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 	private void initData() {
 		Intent intent = getIntent();
 		ActivityDetailEntity entity = (ActivityDetailEntity) intent.getSerializableExtra(ActivityDetails);
+		//Log.d("0", "@@@@@@"+entity.getContent());
 		acttype = intent.getStringExtra("acttype");
 
 		if ("1".equals(acttype)) {
-			tv_title.setText("活动详情");
+			tv_title.setText(resources.getString(R.string.activitydetail));
 		} else if ("2".equals(acttype)) {
-			tv_title.setText("培训详情");
+			tv_title.setText(resources.getString(R.string.trainingdetail));
 		}
 
 		tv_actname.setText(entity.getActName());
@@ -173,16 +174,18 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 					// TODO Auto-generated method stub
 					String msgTitle = "";
 					String msgContent ="";
-					if("未报名".equals(joinTxt)){
-						msgTitle = "报名确认";
-						msgContent = "确定要参加吗？";
+					if(resources.getString(R.string.noenroll).equals(joinTxt)){
+						msgTitle = resources.getString(R.string.enrollconfirm);
+						msgContent = resources.getString(R.string.isenrollconfirm);
 						cancel = false;
-					}else if("取消报名".equals(joinTxt)){
-						msgTitle = "报名取消";
-						msgContent = "确定要取消吗？";
+					}else if(resources.getString(R.string.cancelenroll).equals(joinTxt)){
+						msgTitle = resources.getString(R.string.cancelenroll);
+						msgContent = resources.getString(R.string.isenrollcancel);
 						cancel = true;
 					}
-					dUtil.showDialog(msgTitle, 0, msgContent, "确定", "取消", new DialogButtonClickCallback() {
+					
+					dUtil.showDialog(msgTitle, 0, msgContent, resources.getString(R.string.confirm), resources.getString(R.string.cancel)
+							, new DialogButtonClickCallback() {
 						@Override
 						public void positiveButtonClick() {
 							// TODO Auto-generated method stub
@@ -223,17 +226,18 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 				Constants.IMGDETAIL
 						+ entity.getActPicturePath(), iv_actpicture);
 		
-		tv_count.setText("报名人数：" + entity.getCurrentCount() + "/"
+		tv_count.setText(resources.getString(R.string.applicants) + entity.getCurrentCount() + "/"
 				+ entity.getLimitCount());
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		tv_deadline.setText("截止日期：" + sdf.format(new Date(Long.parseLong(entity
+		tv_deadline.setText(resources.getString(R.string.deadline) + sdf.format(new Date(Long.parseLong(entity
 				.getDeadLine().substring(6, 19)))));
 
 		tv_actlocationaddr.setText(entity.getLocationAddr());
-
-		//tv_content.setText(Html.fromHtml(entity.getContent()));
-		tv_content.setText(entity.getContent());
+		//html格式显示
+		tv_content.setText(Html.fromHtml(entity.getContent()));
+		//text格式显示
+		//tv_content.setText(entity.getContent());
 	}
 	
 	private void singUp(View v,final ActivityDetailEntity activitydetailentity,final boolean cancel){
@@ -248,39 +252,39 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, resources.getString(R.string.timeout));
 					return;
 				}
 				ActjoinEntity entity = (ActjoinEntity) resList.get(0);
 				Result result = entity.getRetobj();
 				if (result == null) {
 					if(cancel){
-						Toast.show(self, "取消失败！");
+						Toast.show(self, resources.getString(R.string.cancelenroll));
 					}else{
-						Toast.show(self, "报名失败！");
+						Toast.show(self, resources.getString(R.string.enrollfailed));
 					}
 					return;
 				} else {
 					String ret = result.getResult();
 					if(!"1".equals(ret)){
 						if(cancel){
-							Toast.show(self, "取消失败！");
+							Toast.show(self, resources.getString(R.string.cancelfailed));
 						}else{
-							Toast.show(self, "报名失败！");
+							Toast.show(self, resources.getString(R.string.enrollfailed));
 						}
 						return;
 					}else{
 						int count = Integer.parseInt(activitydetailentity.getCurrentCount());
 						if(cancel){
-							Toast.show(self, "取消成功！");
+							Toast.show(self, resources.getString(R.string.cancelsuccess));
 							count = count - 1;
-							joinTxt = "未报名";
+							joinTxt = resources.getString(R.string.noenroll);
 						}else{
-							Toast.show(self, "报名成功！");
+							Toast.show(self, resources.getString(R.string.enrollsuccess));
 							count = count + 1;
-							joinTxt = "取消报名";
+							joinTxt = resources.getString(R.string.cancelenroll);;
 						}
-						tv_count.setText("报名人数" + count + "/"
+						tv_count.setText(resources.getString(R.string.applicants) + count + "/"
 								+ activitydetailentity.getLimitCount());
 						activitydetailentity.setCurrentCount(count+"");
 						btn_actjoin.setText(joinTxt);

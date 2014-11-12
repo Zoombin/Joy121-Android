@@ -201,7 +201,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnClickListene
 		tv_loginname.setText(userinfo.getLoginName());
 		tv_username.setText(userinfo.getUserName());
 		tv_idno.setText(userinfo.getIdNo());
-		tv_gender.setText(userinfo.getGender().equals("0") ? "男" : "女");
+		tv_gender.setText(userinfo.getGender().equals("0") ? getResources().getString(R.string.male) : getResources().getString(R.string.female));
 		tv_birthday.setText(sdf.format(new Date(Long.parseLong(userinfo.getBirthDay().substring(6, 18)))));
 		tv_mail.setText(userinfo.getMail());
 		tv_cellnumber.setText(userinfo.getPhoneNumber());

@@ -140,14 +140,14 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, getResources().getString(R.string.timeout));
 					return;
 				}
 				PostEntity entity = (PostEntity) resList.get(0);
 				List<PostDetailEntity> postlist = entity.getRetobj();
-				if (postlist == null) {
-					Toast.show(self, "没有公告信息！");
-					finish();
+				if (postlist == null || postlist.size() == 0) {
+					Toast.show(self, getResources().getString(R.string.nopostinfo));
+					//finish();
 					return;
 				}
 				for (PostDetailEntity entity1 : postlist) {

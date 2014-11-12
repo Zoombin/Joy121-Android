@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 import com.joy.R;
 import com.joy.Activity.ChangePwdActivity;
@@ -132,11 +133,15 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(imgid != 0){
+			/*if(imgid != 0){
 				tv_title.setVisibility(View.GONE);
 				ivLogo.setVisibility(View.VISIBLE);
 				ivLogo.setImageResource(imgid);
-			}
+			}*/
+			tv_title.setVisibility(View.GONE);
+			ImageLoader.getInstance().displayImage(Constants.IMGLOGO + appSet.getLogo(), ivLogo);
+			ivLogo.setScaleType(ScaleType.CENTER_INSIDE);
+			ivLogo.setVisibility(View.VISIBLE);
 		}
 	}
 

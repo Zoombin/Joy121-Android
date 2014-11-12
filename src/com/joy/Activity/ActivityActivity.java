@@ -171,14 +171,21 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, resources.getString(R.string.timeout));
+					
+					
 					return;
 				}
 				ActivityEntity entity = (ActivityEntity) resList.get(0);
 				List<ActivityDetailEntity> activitylist = entity.getRetobj();
-				if (activitylist == null) {
-					Toast.show(self, "没有活动信息！");
-					finish();
+				if (activitylist == null || activitylist.size() == 0) {
+					if("1".equals(acttype)) {
+						Toast.show(self, resources.getString(R.string.noactivityinfo));
+					} else if ("2".equals(acttype)) {
+						Toast.show(self, resources.getString(R.string.notraininginfo));
+					}
+					
+					//finish();
 					return;
 				}
 				for (ActivityDetailEntity entity1 : activitylist) {

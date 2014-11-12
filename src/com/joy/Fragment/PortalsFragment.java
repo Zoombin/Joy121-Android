@@ -251,15 +251,15 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 		iv_contact = (ImageView) v.findViewById(R.id.iv_contact);
 		uiAdapter.setMargin(iv_contact, IMAGEVIEWWH, IMAGEVIEWWH, 0, 10, 0, 20);
 		
-		// 限时团购
+		// 物品领用
 		layout_groupbuy = (LinearLayout) v.findViewById(R.id.layout_groupbuy);
 		layout_groupbuy.setOnClickListener(this);
 														
-		tv_groupbuy = (TextView) v.findViewById(R.id.tv_groupbuy);
+		tv_groupbuy = (TextView) v.findViewById(R.id.tv_itemdraw);
 		uiAdapter.setTextSize(tv_groupbuy, TEXTSIZE);
 		uiAdapter.setPadding(tv_groupbuy, 5, 5, 0, 0);
 														
-		iv_groupbuy = (ImageView) v.findViewById(R.id.iv_groupbuy);
+		iv_groupbuy = (ImageView) v.findViewById(R.id.iv_itemdraw);
 		uiAdapter.setMargin(iv_groupbuy, IMAGEVIEWWH, IMAGEVIEWWH, 0, 10, 0, 20);
 				
 		// 特约商户
@@ -422,8 +422,8 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			startActivity(intent);
 		}else if(name.contains("团购")){
 			//限时团购
-		}else if(name.contains("商户")){
-			//特约商户
+		}else if(name.contains("物品")){
+			//限时团购
 		}else{
 		}
 	}
@@ -519,9 +519,13 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 				v.setBackgroundColor(Color.parseColor("#f7a211"));
 				imageView.setImageResource(R.drawable.com_groupon);
 			}else if(name.contains("工资")){
-				//特约商户
-				v.setBackgroundColor(Color.parseColor("#fe8649"));
+				//工资
+				v.setBackgroundColor(Color.parseColor("#f7a211"));
 				imageView.setImageResource(R.drawable.com_businessman);
+			}else if(name.contains("物品")){
+				//物品领用
+				v.setBackgroundColor(Color.parseColor("#fe8649"));
+				imageView.setImageResource(R.drawable.com_groupon);
 			}else{
 				v.setBackgroundColor(Color.parseColor("#fe8649"));
 				imageView.setImageResource(R.drawable.img_default);

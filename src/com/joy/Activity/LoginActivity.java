@@ -142,7 +142,7 @@ public class LoginActivity extends QActivity {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, resources.getString(R.string.timeout));
 					setContentView(R.layout.activity_login);
 					initView();
 					et_user.setText(loginname);
@@ -152,7 +152,7 @@ public class LoginActivity extends QActivity {
 				LoginEntity entity = (LoginEntity) resList.get(0);
 				UserInfoEntity userInfoEntity = entity.getRetobj();
 				if (userInfoEntity == null) {
-					Toast.show(self, "用户名或密码错误！");
+					Toast.show(self, resources.getString(R.string.toast_login_error));
 					setContentView(R.layout.activity_login);
 					initView();
 					et_user.setText(loginname);
@@ -201,13 +201,13 @@ public class LoginActivity extends QActivity {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, resources.getString(R.string.timeout));
 					return;
 				}
 				LoginEntity entity = (LoginEntity) resList.get(0);
 				UserInfoEntity userInfoEntity = entity.getRetobj();
 				if (userInfoEntity == null) {
-					Toast.show(self, "用户名或密码错误！");
+					Toast.show(self, resources.getString(R.string.toast_login_error));
 					return;
 				}
 				String s = userInfoEntity.getAppAccessCodes();

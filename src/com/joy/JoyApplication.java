@@ -4,18 +4,15 @@ import gejw.android.quickandroid.QApplication;
 import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
 import android.text.TextUtils;
-import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.joy.Utils.MD5;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.model.CompAppSet;
 import com.joy.json.model.CompanyInfoEntity;
-import com.joy.json.model.LoginEntity;
 import com.joy.json.model.UserInfoEntity;
-//import com.lidroid.xutils.HttpUtils;
+
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

@@ -5,6 +5,7 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.List;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -44,6 +45,7 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 	private Button btn_changepwd;
 	CompAppSet appSet;
 	int color;
+	private Resources resources;
 
 /*	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,7 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		resources = getResources();
 		color = Color.parseColor("#ffa800");
 		appSet = JoyApplication.getInstance().getCompAppSet();
 		if (appSet != null) {
@@ -188,10 +191,11 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 			String comfirmnewpwd = et_comfirmnewpwd.getText().toString();
 			if (TextUtils.isEmpty(currpwd) || TextUtils.isEmpty(newpwd)
 					|| TextUtils.isEmpty(comfirmnewpwd)) {
-				Toast.show(self, "请输入密码！");
+				Toast.show(self, resources.getString(R.string.enterpwd));
+				
 				return;
 			} else if (!newpwd.equals(comfirmnewpwd)) {
-				Toast.show(self, "新密码输入与确认密码不同！");
+				Toast.show(self, resources.getString(R.string.diffpwderr));
 				return;
 			} else {
 				changepwd(currpwd, newpwd);
@@ -215,17 +219,17 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, resources.getString(R.string.timeout));
 					return;
 				}
 				ChangePwdEntity entity = (ChangePwdEntity) resList.get(0);
 				int retobj = entity.isRetobj();
 				if (retobj !=1) {
-					Toast.show(self, "旧密码不正确！");
+					Toast.show(self, resources.getString(R.string.oldpwderr));
 					return;
 				} else {
 					SharedPreferencesUtils.setLoginPwd(self, nloginpwd);
-					Toast.show(self, "修改密码成功,请重新登录!");
+					Toast.show(self, resources.getString(R.string.chgpwdsuccess));
 					MainActivity.CleanShopCar(self);
 					SharedPreferencesUtils.setLoginName(self, "");
 					SharedPreferencesUtils.setLoginPwd(self, "");

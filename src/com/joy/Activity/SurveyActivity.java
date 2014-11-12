@@ -148,13 +148,13 @@ public class SurveyActivity extends BaseActivity implements OnClickListener {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, getResources().getString(R.string.timeout));
 					return;
 				}
 				SurveyEntity entity = (SurveyEntity) resList.get(0);
 				List<SurveyDetailEntity> surveylist = entity.getRetobj();
-				if (surveylist == null) {
-					Toast.show(self, "没有调查信息！");
+				if (surveylist == null || surveylist.size() == 0) {
+					Toast.show(self, getResources().getString(R.string.nosurveyinfo));
 					finish();
 					return;
 				}

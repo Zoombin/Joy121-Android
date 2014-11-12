@@ -134,14 +134,14 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, resources.getString(R.string.timeout));
 					return;
 				}
 				CategoryEntity entity = (CategoryEntity) resList.get(0);
 				List<CategoryEntity> surveylist = entity.getRetobj();
-				if (surveylist == null) {
-					Toast.show(self, "没有分类信息！");
-					finish();
+				if (surveylist == null || surveylist.size() == 0) {
+					Toast.show(self, resources.getString(R.string.toast_nologocommo));
+					//finish();
 					return;
 				}
 
@@ -249,7 +249,7 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 				holder.txt_categoriesName.setTag(data);
 				holder.txt_categoriesName.setOnClickListener(LogoStoreActivity.this);
 
-				holder.txt_showall.setText("显示全部 >");
+				holder.txt_showall.setText(resources.getString(R.string.displayall) + " >");
 				holder.txt_showall.setTag(data);
 
 				List<CategoriesGoods> goodsList = data.getGoodsList();

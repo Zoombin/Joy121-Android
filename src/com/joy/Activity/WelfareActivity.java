@@ -93,13 +93,13 @@ public class WelfareActivity extends BaseActivity implements OnClickListener {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, "连接超时");
+					Toast.show(self, getResources().getString(R.string.timeout));
 					return;
 				}
 				WelfareEntity entity = (WelfareEntity) resList.get(0);
 				List<CommoditySet> commoditySetlist = entity.getRetobj();
 				if (commoditySetlist == null) {
-					Toast.show(self, "无法取得数据！");
+					Toast.show(self, getResources().getString(R.string.nowelfareinfo));
 					return;
 				} else {
 					commoditySetlist = getCommoditySetList(commoditySetlist);
