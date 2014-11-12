@@ -157,8 +157,8 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 		uiAdapter.setPadding(et_comfirmnewpwd, 10, 0, 0, 0);
 
 		btn_changepwd = (Button) findViewById(R.id.btn_changepwd);
-		uiAdapter.setMargin(btn_changepwd, LayoutParams.MATCH_PARENT, 46, 20,
-				50, 20, 50);
+		uiAdapter.setMargin(btn_changepwd, LayoutParams.MATCH_PARENT, 46, 10,
+				50, 10, 50);
 		uiAdapter.setTextSize(btn_changepwd, 24);
 
 		int color = 0;
