@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <include 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/navigation_layout" />
+
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+	    <com.amap.api.maps2d.MapView
+	        android:id="@+id/map"
+	        android:layout_width="fill_parent"
+	        android:layout_height="300dip" />
+    </LinearLayout>
+    
+	<LinearLayout
+        android:id="@+id/layout_buttons"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+	    <Button
+        	android:id="@+id/btn_punchin"
+        	android:layout_width="0dip"
+        	android:layout_height="40dip"
+        	android:layout_gravity="left"
+        	android:layout_weight="1"
+        	android:background="@drawable/greenbutton"
+        	android:text=" 上 班 "
+        	android:textColor="@color/WHITE" />
+	    <Button
+        	android:id="@+id/btn_punchout"
+        	android:layout_width="0dip"
+        	android:layout_height="40dip"
+        	android:layout_gravity="right"
+        	android:background="@drawable/greenbutton"
+        	android:layout_weight="1"
+        	android:text=" 下 班 "
+        	android:textColor="@color/WHITE" />
+	</LinearLayout>
+
+    
+    <LinearLayout
+        android:id="@+id/layout_attendances"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent">
+	    <ListView
+	        android:id="@+id/list_attendances"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:fadeScrollbars="true"
+	        android:scrollbars="none" />
+    </LinearLayout>
+    
+    
+
+</LinearLayout>

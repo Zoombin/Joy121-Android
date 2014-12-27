@@ -1,0 +1,619 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical" >
+
+    <include 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/navigation_layout" />
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        <LinearLayout
+            android:id="@+id/layout_payroll_info"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+            <!-- 实发工资 -->
+            <LinearLayout
+                android:id="@+id/layout_realwages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|center_vertical"
+                android:orientation="horizontal" >
+            	<LinearLayout
+	                android:id="@+id/realwages_info"
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:gravity="center|center_vertical"
+	                android:orientation="vertical"
+	                android:background="@drawable/payroll_background" >
+	
+	                <TextView
+			            android:id="@+id/tv_realwages"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"
+			            android:textColor="@color/BLACK" />
+	                
+	                <TextView
+			            android:id="@+id/tv_peroid_title"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_gravity="center"
+			            android:text="@string/periodmonth_title"
+			            android:textColor="@color/BLACK" />
+	                
+	            </LinearLayout>
+	        </LinearLayout>
+	        <!-- 基本薪酬 row-->
+            <LinearLayout
+                android:id="@+id/layout_totalpay"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_totalpay_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/totalpay_title" />
+            </LinearLayout>
+            <!-- 基本工资 row-->
+            <LinearLayout
+                android:id="@+id/layout_basepay"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_basepay_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/basepay_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_basepay"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!-- 绩效工资 row-->
+            <LinearLayout
+                android:id="@+id/layout_meritpay"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_meritpay_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/meritpay_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_meritpay"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!-- 特勤工资 row-->
+            <LinearLayout
+                android:id="@+id/layout_secret"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_secret_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/secret_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_secret"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!-- 岗位工资 row-->
+            <LinearLayout
+                android:id="@+id/layout_positionsalary"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_positionsalary_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/positionsalary_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_positionsalary"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            
+            
+            <!-- 薪资增项 row-->
+            <LinearLayout
+                android:id="@+id/layout_salaryadd"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_salaryadd_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/salaryadd_title" />
+            </LinearLayout>
+            <!-- 加班费 row-->
+            <LinearLayout
+                android:id="@+id/layout_overtimesalary"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_overtimesalary_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/overtimesalary_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_overtimesalary"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!-- 津贴 row-->
+            <LinearLayout
+                android:id="@+id/layout_subsidy"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_subsidy_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/subsidy_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_subsidy"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!-- 独生子女费 row-->
+            <LinearLayout
+                android:id="@+id/layout_onechildfee"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_onechildfee_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/onechildfee_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_onechildfee"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!-- 奖金 row-->
+            <LinearLayout
+                android:id="@+id/layout_bonus"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_bonus_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bonus_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_bonus"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!-- 年终奖 row-->
+            <LinearLayout
+                android:id="@+id/layout_annualbonus"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_annualbonus_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/annualbonus_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_annualbonus"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--其他应发  row-->
+            <LinearLayout
+                android:id="@+id/layout_addothers"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_addothers_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/addothers_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_addothers"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--其他  row-->
+            <LinearLayout
+                android:id="@+id/layout_others"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_others_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/others_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_others"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            
+            <!-- 薪资减项 row-->
+            <LinearLayout
+                android:id="@+id/layout_totalallowance"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_salarydeduct_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/salarydeduct_title" />
+            </LinearLayout>
+            <!--请假扣款合计  row-->
+            <LinearLayout
+                android:id="@+id/layout_leavededuction"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_leavededuction_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/leavededuction_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_leavededuction"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--个人养老保险  row-->
+            <LinearLayout
+                android:id="@+id/layout_endowmentinsurance"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_endowmentinsurance_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/endowmentinsurance_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_endowmentinsurance"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--个人养老保险补缴  row-->
+            <LinearLayout
+                android:id="@+id/layout_endowmentinsuranceretroactive"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_endowmentinsuranceretroactive_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/endowmentinsuranceretroactive_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_endowmentinsuranceretroactive"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--个人医疗保险  row-->
+            <LinearLayout
+                android:id="@+id/layout_hospitalizationinsurance"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_hospitalizationinsurance_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hospitalizationinsurance_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_hospitalizationinsurance"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--个人医疗保险补缴  row-->
+            <LinearLayout
+                android:id="@+id/layout_hospitalizationinsuranceretroactive"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_hospitalizationinsuranceretroactive_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hospitalizationinsuranceretroactive_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_hospitalizationinsuranceretroactive"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--个人失业保险  row-->
+            <LinearLayout
+                android:id="@+id/layout_unemploymentinsurance"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_unemploymentinsurance_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unemploymentinsurance_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_unemploymentinsurance"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--个人失业保险补缴  row-->
+            <LinearLayout
+                android:id="@+id/layout_unemploymentinsuranceretroactive"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_unemploymentinsuranceretroactive_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unemploymentinsuranceretroactive_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_unemploymentinsuranceretroactive"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--个人公积金  row-->
+            <LinearLayout
+                android:id="@+id/layout_reservefund"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_reservefund_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reservefund_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_reservefund"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--个人公积金补缴  row-->
+            <LinearLayout
+                android:id="@+id/layout_reservefundretroactive"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_reservefundretroactive_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reservefundretroactive_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_reservefundretroactive"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--其他应扣  row-->
+            <LinearLayout
+                android:id="@+id/layout_deductothers"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_deductothers_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/deductothers_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_deductothers"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--计税薪酬  row-->
+            <LinearLayout
+                android:id="@+id/layout_salarytax"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_salarytax_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/salarytax_title" />
+            </LinearLayout>
+            <!--税前工资  row-->
+            <LinearLayout
+                android:id="@+id/layout_pretaxwages"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_pretaxwages_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pretaxwages_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_pretaxwages"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+            <!--所得税  row-->
+            <LinearLayout
+                android:id="@+id/layout_incometax"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_incometax_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/incometax_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_incometax"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+
+            <!--实发工资  row-->
+            <LinearLayout
+                android:id="@+id/layout_realwages1"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/tabbar"
+                android:gravity="left|center_vertical"
+                android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tv_realwages1_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/realwages1_title"
+                    android:textColor="@color/BLACK" />
+                <TextView
+                    android:id="@+id/tv_realwages1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/BLACK"
+                    android:gravity="right" />
+            </LinearLayout>
+        </LinearLayout>
+        
+    </ScrollView>
+    
+</LinearLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_rentgoods"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    
+    	<ImageView
+        	android:id="@+id/iv_pictures"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:src="@drawable/img_default" />
+    
+    	<RelativeLayout android:id="@+id/layout_text"
+    		android:layout_width="match_parent"
+    		android:layout_height="match_parent" 
+    		android:layout_gravity="center_vertical" >
+    	
+    		<LinearLayout android:id="@+id/layout_info"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="match_parent"
+		    	android:layout_alignParentLeft="true"
+		    	android:layout_gravity="center_vertical"
+		    	android:orientation="vertical" >
+
+		        <TextView
+		            android:id="@+id/tv_name"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="left"
+		            android:textColor="@color/BLACK" />
+		        
+		        <TextView
+		            android:id="@+id/tv_model"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="left"
+		            android:textColor="@color/BLACK" />
+		      </LinearLayout>
+		      
+    		<LinearLayout android:id="@+id/layout_button"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="match_parent"
+		    	android:layout_alignParentRight="true"
+		    	android:layout_gravity="center_vertical" >
+		        
+		       <Button
+                    android:id="@+id/bt_rent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/menu_text_press"
+                    android:text="领 用"
+                    android:textColor="@color/WHITE" />
+		    </LinearLayout>
+		        
+        	
+	    </RelativeLayout>
+
+</LinearLayout>

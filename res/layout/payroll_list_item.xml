@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_payroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    
+    	<RelativeLayout android:id="@+id/payroll_info"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent" 
+    	android:layout_gravity="center_vertical" >
+    	
+    		<LinearLayout android:id="@+id/layout_wages"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:layout_alignParentLeft="true"
+		    	android:layout_gravity="center_vertical"
+		    	android:orientation="vertical"
+		    	android:background="@drawable/payroll_background" >
+
+		        <TextView
+		            android:id="@+id/tv_realwages"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="center"
+		            android:textColor="@color/BLACK" />
+		        
+		        <TextView
+		            android:id="@+id/tv_realwagestitle"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="center"
+		            android:text="@string/realwages_title"
+		            android:textColor="@color/BLACK" />
+		        
+		      </LinearLayout>
+		      
+    		<LinearLayout android:id="@+id/layout_period"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="match_parent"
+		    	android:layout_alignParentRight="true"
+		    	android:layout_gravity="center_vertical"
+		    	android:orientation="vertical" >
+		        
+		        <TextView
+		            android:id="@+id/tv_period"
+		            android:layout_width="wrap_content"
+		            android:layout_height="match_parent"
+		            android:gravity="center_vertical"
+		            android:textColor="@color/BLACK" />
+		        </LinearLayout>
+		        
+        	
+	    </RelativeLayout>
+
+</LinearLayout>
