@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -34,7 +35,7 @@ import com.umeng.analytics.MobclickAgent;
 public class ActivityActivity extends BaseActivity implements OnClickListener {
 	
 	private RelativeLayout layout_title;
-	private TextView tv_ret;
+	private ImageView iv_ret;
 	private TextView tv_title;
 	private ListView list_activity;
 	private ActivityAdapter adapter;
@@ -42,8 +43,10 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 	private LinearLayout layout_menu;
 	private LinearLayout layout_useful;
 	private TextView tv_useful;
+	private View line_useful;
 	private LinearLayout layout_expired;
 	private TextView tv_expired;
+	private View line_expired;
 	private Resources resources;
 	
 	public String acttype;
@@ -111,14 +114,11 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.SubTitleHeight, 0, 0,
 				0, 0);
 
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(this);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -140,21 +140,24 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 		layout_useful.setOnClickListener(this);
 		
 		tv_useful = (TextView) findViewById(R.id.tv_useful);
+		line_useful = (View) findViewById(R.id.line_useful);
 		
 		layout_expired = (LinearLayout) findViewById(R.id.layout_expired);
 		layout_expired.setOnClickListener(this);
 		
 		tv_expired = (TextView) findViewById(R.id.tv_expired);
+		line_expired = (View) findViewById(R.id.line_expired);
 		
 		defaultColor();
 	}
 	
 	private void defaultColor()
 	{
-		layout_useful.setBackgroundColor(color);
-		layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
-		tv_useful.setTextColor(resources.getColor(R.color.WHITE));
-		tv_expired.setTextColor(resources.getColor(R.color.WHITE));
+		//layout_useful.setBackgroundColor(color);
+		//layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+		tv_useful.setTextColor(color);
+		line_useful.setBackgroundColor(color);
+		tv_expired.setTextColor(resources.getColor(R.color.gray));
 	}
 
 	private void initData(final String isexpired,boolean pro) {
@@ -217,20 +220,28 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 	private void showMenu(int layout) {
 		switch (layout) {
 		case R.id.layout_useful:
-			layout_useful.setBackgroundColor(color);
+			/*layout_useful.setBackgroundColor(color);
 			layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
 			tv_useful.setTextColor(resources.getColor(R.color.WHITE));
-			tv_expired.setTextColor(resources.getColor(R.color.WHITE));
+			tv_expired.setTextColor(resources.getColor(R.color.WHITE));*/
+			tv_useful.setTextColor(color);
+			line_useful.setBackgroundColor(color);
+			tv_expired.setTextColor(resources.getColor(R.color.gray));
+			line_expired.setBackgroundColor(resources.getColor(R.color.WHITE));
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
 			isSelect = "1";
 			initData("1",true);
 			break;
 		case R.id.layout_expired:
-			layout_expired.setBackgroundColor(color);
+			/*layout_expired.setBackgroundColor(color);
 			layout_useful.setBackgroundColor(getResources().getColor(R.color.btn_disable));
 			tv_expired.setTextColor(resources.getColor(R.color.WHITE));
-			tv_useful.setTextColor(resources.getColor(R.color.WHITE));
+			tv_useful.setTextColor(resources.getColor(R.color.WHITE));*/
+			tv_useful.setTextColor(resources.getColor(R.color.gray));
+			line_useful.setBackgroundColor(resources.getColor(R.color.WHITE));
+			tv_expired.setTextColor(color);
+			line_expired.setBackgroundColor(color);
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
 			isSelect = "2";
@@ -248,7 +259,7 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 		case R.id.layout_expired:
 			showMenu(v.getId());
 			break;
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			finish();
 			break;
 		default:

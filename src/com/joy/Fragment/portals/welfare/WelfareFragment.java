@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,8 +38,10 @@ import com.umeng.analytics.MobclickAgent;
  */
 public class WelfareFragment extends BaseFragment implements OnClickListener{
 	private RelativeLayout layout_title;
-	private TextView tv_ret;
+	private ImageView iv_ret;
 	private TextView tv_title;
+	private RelativeLayout layout_prompt;
+	private ImageView iv_prompt;
 	private ListView mListView;
 	private WelfareAdapter mAdapter;
 	List<CommoditySet> tempList ;
@@ -66,14 +69,17 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
 				0, 0);
 
-		tv_ret = (TextView) v.findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(this);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+		iv_ret = (ImageView) v.findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
 
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+		tv_title.setText(R.string.row_welfare);//工资单
+		
+		layout_prompt = (RelativeLayout) v.findViewById(R.id.layout_prompt);
+		layout_prompt.setBackgroundColor(Color.parseColor(appSet.getColor2()));
+		iv_prompt = (ImageView) v.findViewById(R.id.iv_prompt);
+		iv_prompt.setOnClickListener(this);
 		
 		mListView = (ListView) v.findViewById(R.id.list_welfare);
 		mAdapter = new WelfareAdapter(mActivity);
@@ -105,8 +111,8 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 				}
 				WelfareEntity entity = (WelfareEntity) resList.get(0);
 				List<CommoditySet> commoditySetlist = entity.getRetobj();
-				if (commoditySetlist == null) {
-					Toast.show(mActivity, "无法取得数据！");
+				if (commoditySetlist == null || commoditySetlist.size() == 0) {
+					layout_prompt.setVisibility(View.VISIBLE);
 					return;
 				} else {
 					commoditySetlist = getCommoditySetList(commoditySetlist);
@@ -118,13 +124,11 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 					setAdapterData(commoditySetlist);
 				}
 			}
-
 			@Override
 			public void onOperationError(Exception e) {
 				e.printStackTrace();
 			}
 		};
-
 		JsonCommon task = new JsonCommon(mActivity, builder, listener, JsonCommon.PROGRESSQUERY);
 		task.execute();
 	}
@@ -165,10 +169,12 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			MainActivity.mActivity.Back();
 			break;
-
+		case R.id.iv_prompt:
+			layout_prompt.setVisibility(View.GONE);
+			break;
 		default:
 			break;
 		}

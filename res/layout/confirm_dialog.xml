@@ -58,7 +58,7 @@
 	        android:layout_width="0dp"
 	        android:layout_weight="1" 
 	        android:layout_height="wrap_content"    
-	        android:textColor="#999999"
+	        android:textColor="#4ba2f2"
 	        android:gravity="center"
 	        android:paddingTop="10dp"
 	        android:paddingBottom="10dp" 

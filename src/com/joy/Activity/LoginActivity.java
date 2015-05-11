@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -28,11 +29,14 @@ import cn.jpush.android.api.TagAliasCallback;
 import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Utils.SharedPreferencesUtils;
+import com.joy.Utils.UpdateManager;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CompAppSet;
 import com.joy.json.model.LoginEntity;
 import com.joy.json.model.UserInfoEntity;
+import com.joy.json.model.VersionEntity;
+import com.joy.json.model.VersionEntity.VersionInfoEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.LoginOp;
 import com.umeng.analytics.MobclickAgent;
@@ -133,6 +137,15 @@ public class LoginActivity extends QActivity {
 		loginentity.setLoginname(loginname);
 		loginentity.setLoginpwd(loginpwd);
 		
+		String currentVersion = "";
+		try {
+			currentVersion = this.getPackageManager().getPackageInfo(
+					this.getPackageName(), 0).versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		String deviceType = "Android";
+		
 		OperationBuilder builder = new OperationBuilder().append(
 				new LoginOp(), loginentity);
 		OnOperationListener listener = new OnOperationListener() {
@@ -159,7 +172,6 @@ public class LoginActivity extends QActivity {
 					et_pwd.setText(loginpwd);
 					return;
 				}
-				
 				JoyApplication.getInstance().setUserinfo(userInfoEntity);
 				SharedPreferencesUtils.setLoginName(self, loginname);
 				SharedPreferencesUtils.setLoginPwd(self, loginpwd);
@@ -174,7 +186,41 @@ public class LoginActivity extends QActivity {
 				e.printStackTrace();
 			}
 		};
+		JsonCommon task = new JsonCommon(self, builder, listener,
+				JsonCommon.PROGRESSLOGIN);
+		task.execute();
+	}
+	
+	private void updateVersion() {
+		OperationBuilder builder = new OperationBuilder().append(
+				new LoginOp(), null);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (self.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					return;
+				}
+				VersionEntity entity = (VersionEntity) resList.get(0);
+				VersionInfoEntity versionInfoEntity = entity.getRetobj();
+				if (versionInfoEntity == null) {
+					Toast.show(self, resources.getString(R.string.toast_login_error));
+					setContentView(R.layout.activity_login);
+					initView();
+					return;
+				}
+				Intent intent = new Intent(self, MainActivity.class);
+				startActivity(intent);
+				finish();
+			}
 
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
 		JsonCommon task = new JsonCommon(self, builder, listener,
 				JsonCommon.PROGRESSLOGIN);
 		task.execute();
@@ -187,10 +233,20 @@ public class LoginActivity extends QActivity {
 			Toast.show(self, resources.getString(R.string.toast_login_empty));
 			return;
 		}
+		String currentVersion = "";
+		try {
+			currentVersion = this.getPackageManager().getPackageInfo(
+					this.getPackageName(), 0).versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		String deviceType = "Android";
 		
 		LoginEntity loginentity = new LoginEntity();
 		loginentity.setLoginname(loginname);
 		loginentity.setLoginpwd(loginpwd);
+		loginentity.setVersionname(currentVersion);
+		loginentity.setDevicetype(deviceType);
 		
 		OperationBuilder builder = new OperationBuilder().append(
 				new LoginOp(), loginentity);

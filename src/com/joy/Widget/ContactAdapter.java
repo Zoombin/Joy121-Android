@@ -40,6 +40,7 @@ public class ContactAdapter extends BaseAdapter {
 	private Resources resources;
 	public String personname;
 	
+	
 	/**
 	 * @param mainActivity
 	 */

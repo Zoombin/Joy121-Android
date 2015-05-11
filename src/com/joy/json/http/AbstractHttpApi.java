@@ -37,6 +37,8 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.joy.json.exception.JsonCredentialsException;
 import com.joy.json.exception.JsonException;
 import com.joy.json.exception.JsonParseException;

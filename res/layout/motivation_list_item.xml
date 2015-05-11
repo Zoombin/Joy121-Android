@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_motivation"
+    android:layout_width="match_parent"
+    android:layout_height="100dip"
+    android:paddingLeft="10dip"
+    android:paddingTop="3dip"
+    android:paddingRight="10dip"
+    android:paddingBottom="3dip" >
+    
+    	<RelativeLayout 
+    		android:layout_width="match_parent"
+    		android:layout_height="match_parent" 
+    		android:background="@drawable/performance_background" >
+    	
+	    	<View
+	    	    android:id="@+id/v_line"
+	        	android:layout_width="5dip"
+	        	android:layout_height="match_parent"
+	        	android:layout_alignParentLeft="true"
+	        	android:background="@drawable/performancehead_background" />
+	    	
+	    	<LinearLayout
+	    	    android:layout_width="match_parent"
+	    	    android:layout_height="wrap_content"
+	    	    android:layout_alignParentLeft="true"
+	    	    android:layout_gravity="bottom"
+		        android:layout_marginBottom="10dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="25dip"
+		        android:orientation="vertical">
+		        
+	    	    <TextView 
+	    	        android:id="@+id/tv_reportname" 
+	    	        android:layout_width="wrap_content"
+	    	    	android:layout_height="wrap_content" />
+	    	    
+	    	    <LinearLayout
+	    	        android:id="@+id/layout_ranking"
+	    	        android:layout_width="wrap_content"
+	    	        android:layout_height="wrap_content"
+	    	        android:gravity="center"
+	    	        android:layout_marginTop="10dip"
+	    	        android:layout_marginBottom="2dip" >
+	    	        
+	    	        <ImageView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginRight="5dip"
+		                android:scaleType="fitXY"
+		                android:src="@drawable/medal" />
+	    	    	
+	    	        <TextView 
+	    	        	android:id="@+id/tv_beforeaward" 
+	    	        	android:layout_width="wrap_content"
+	    	    		android:layout_height="wrap_content"
+	    	    		android:textColor="#808080"
+	    	    		android:textSize="14sp"
+	    	    		android:text="奖励 " />
+	    	    	
+	    	        <TextView 
+	    	        	android:id="@+id/tv_award" 
+	    	        	android:layout_width="wrap_content"
+	    	    		android:layout_height="wrap_content"
+	    	    		android:textColor="#808080"
+	    	    		android:textSize="14sp" />
+	    	        
+	    	        <TextView 
+	    	       	 	android:id="@+id/tv_afteraward" 
+	    	        	android:layout_width="wrap_content"
+	    	    		android:layout_height="wrap_content"
+	    	    		android:textColor="#808080"
+	    	    		android:textSize="14sp"
+	    	    		android:text=" 积分" />
+	    	    </LinearLayout>
+
+	    	    <LinearLayout
+	    	    	android:layout_width="match_parent"
+	    	    	android:layout_height="wrap_content"
+	    	    	android:layout_gravity="bottom"
+	    	    	android:layout_marginLeft="77dip"
+		        	android:progressDrawable="@drawable/barcolor">
+		        
+					<TextView 
+		    	        android:id="@+id/tv_beforescore" 
+		    	        android:layout_width="wrap_content"
+		    	    	android:layout_height="wrap_content"
+		    	    	android:textColor="#808080"
+		    	    	android:textSize="14sp"
+		    	    	android:text="你的得分" />
+					<TextView 
+		    	        android:id="@+id/tv_score" 
+		    	        android:layout_width="wrap_content"
+		    	    	android:layout_height="wrap_content" />
+					<TextView 
+		    	        android:id="@+id/tv_afterscore" 
+		    	        android:layout_width="wrap_content"
+		    	    	android:layout_height="wrap_content"
+		    	    	android:textColor="#808080"
+		    	    	android:textSize="14sp"
+		    	    	android:text="，" />
+					<TextView 
+		    	        android:id="@+id/tv_beforeranking" 
+		    	        android:layout_width="wrap_content"
+		    	    	android:layout_height="wrap_content"
+		    	    	android:textColor="#808080"
+		    	    	android:textSize="14sp"
+		    	    	android:text="排名第" />
+	    	        <TextView 
+		    	        android:id="@+id/tv_ranking" 
+		    	        android:layout_width="wrap_content"
+		    	    	android:layout_height="wrap_content" />
+	    	        <TextView 
+		    	        android:id="@+id/tv_afterranking" 
+		    	        android:layout_width="wrap_content"
+		    	    	android:layout_height="wrap_content"
+		    	    	android:textColor="#808080"
+		    	    	android:textSize="14sp"
+		    	    	android:text="位" />
+	    	      
+	    		</LinearLayout>    	    
+	    	</LinearLayout>
+	    	
+
+		        
+	    </RelativeLayout>
+
+</LinearLayout>

@@ -159,9 +159,9 @@ public class SurveyAdapter extends BaseAdapter {
 		}
 
 		if("2".equals(type)){
-			holder.iv_survey.setImageResource(R.drawable.survey_pass);
+			holder.iv_survey.setImageResource(R.drawable.com_survey_expired);
 		}else{
-			holder.iv_survey.setImageResource(R.drawable.survey);
+			holder.iv_survey.setImageResource(R.drawable.com_survey_now);
 		}
 		holder.tv_surveyname.setText(entity.getTitle());
 		
@@ -188,7 +188,13 @@ public class SurveyAdapter extends BaseAdapter {
 		} else {
 			answer = surveyAns.getAnswers().split("\\^");
 		}
-
+		boolean isAnswered = false;
+		for (int i = 0; i < answer.length; i++) {
+			if (!"0".equals(answer[i])) {
+				isAnswered = true;
+				break;
+			}
+		}
 		List<SurveyRate> surveyratelist = entity.getSurveyRates();
 		for (int j = 0; j < questionlist.length; j++) {
 			final int k = j;
@@ -200,25 +206,19 @@ public class SurveyAdapter extends BaseAdapter {
 			}else{
 				checkbox.setButtonDrawable(R.drawable.checkbox_multiple_style);
 			}
-			if (surveyratelist == null || entity.getSurveyAnswer() == null) {
-				checkbox.setText(question);
-			} else {
-				for (SurveyRate surveyrate : surveyratelist) {
-					int index = surveyrate.getQuestionIndex();
-					if (index == j) {
-						l = j;
+			
+			//fix bug: survey rates can not match survey questions
+			checkbox.setText(question);
+			if (isAnswered && surveyratelist != null) {
+				for (int i = 0; i < surveyratelist.size(); i++) {
+					if (j == surveyratelist.get(i).getQuestionIndex()) {
+						checkbox.setText(Html.fromHtml(question
+								+ "<font color=\"#ff781f\">("
+								+ surveyratelist.get(i).getRate() + "票)</font>"));
 						break;
-					}
-				}
-				if (l == -1 || l >= surveyratelist.size()) {
-					checkbox.setText(question);
-				} else {
-					checkbox.setText(Html.fromHtml(question
-							+ "<font color=\"#ff781f\">("
-							+ surveyratelist.get(l).getRate() + "票)</font>"));
+					} 
 				}
 			}
-
 			checkbox.setChecked(answer[j].equals("0") ? false : true);
 			if("2".equals(type)){
 				checkbox.setClickable(false);

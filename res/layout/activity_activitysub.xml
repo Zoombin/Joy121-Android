@@ -5,10 +5,30 @@
     android:background="#fafafa"
     android:orientation="vertical" >
 
-     <include 
+    <RelativeLayout
+        android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/navigation_layout" />
+        android:background="@color/title_bg" >
+
+        <ImageView
+            android:id="@+id/iv_ret"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/arrow_left" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/WHITE" />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -44,6 +64,12 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:orientation="vertical" >
+                    
+                    <TextView
+                        android:id="@+id/tv_deadline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/BLACK" />
 
                     <TextView
                         android:id="@+id/tv_count"
@@ -52,10 +78,11 @@
                         android:textColor="@color/BLACK" />
 
                     <TextView
-                        android:id="@+id/tv_deadline"
+                        android:id="@+id/tv_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/BLACK" />
+                    
                 </LinearLayout>
 
                 <Button
@@ -67,6 +94,20 @@
                     android:text="@string/btn_actjoin"
                     android:textColor="@color/WHITE" />
             </LinearLayout>
+            
+            <TextView
+                android:id="@+id/tv_acttimetitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/welfare_item_tab_bg"
+                android:text="@string/acttime"
+                android:textColor="@color/menu_text_press" />
+
+            <TextView
+                android:id="@+id/tv_acttime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/BLACK" />
 
             <TextView
                 android:id="@+id/tv_actlocationaddrtitle"

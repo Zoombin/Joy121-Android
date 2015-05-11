@@ -1,6 +1,5 @@
 package com.joy.Activity;
 
-import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.util.List;
@@ -10,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,7 +33,7 @@ import com.umeng.analytics.MobclickAgent;
 public class OrderqueryActivity extends BaseActivity implements OnClickListener {
 	
 	private RelativeLayout layout_title;
-	private TextView tv_ret;
+	private ImageView iv_ret;
 	private TextView tv_title;
 	private ListView list_order;
 	private OrderQueryAdapter adapter;
@@ -59,14 +59,11 @@ public class OrderqueryActivity extends BaseActivity implements OnClickListener 
 
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.SubTitleHeight, 0, 0,
 				0, 0);
 
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(this);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -93,9 +90,9 @@ public class OrderqueryActivity extends BaseActivity implements OnClickListener 
 				}
 				OrderEntity entity = (OrderEntity) resList.get(0);
 				List<UserOrderEntity> userorderlist = entity.getRetobj();
-				if (userorderlist == null) {
+				if (userorderlist == null || userorderlist.size() == 0) {
 					Toast.show(self, getResources().getString(R.string.noorderinfo));
-					finish();
+					//finish();
 					return;
 				}
 				for (UserOrderEntity entity1 : userorderlist) {
@@ -118,7 +115,7 @@ public class OrderqueryActivity extends BaseActivity implements OnClickListener 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			finish();
 			break;
 

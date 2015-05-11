@@ -5,17 +5,13 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.List;
 
 import android.app.ActionBar.LayoutParams;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -29,7 +25,7 @@ import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.RuleCategorys;
 import com.joy.json.model.RuleCategorys.RuleCategory;
 import com.joy.json.model.RuleListEntity;
-import com.joy.json.model.RuleListEntity.RuleEntity;
+import com.joy.json.model.RuleEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.RuleCategoryOp;
 import com.joy.json.operation.impl.RuleListOp;
@@ -44,7 +40,8 @@ public class RuleActivity extends BaseActivity implements OnClickListener {
 	
 	private RelativeLayout layout_title;
 	private LinearLayout layout_category;
-	private TextView tv_ret, tv_title;
+	private ImageView iv_ret;
+	private TextView tv_title;
 	private ListView list_rules;
 	private RuleAdapter adapter;
 
@@ -62,14 +59,11 @@ public class RuleActivity extends BaseActivity implements OnClickListener {
 
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.SubTitleHeight, 0, 0,
 				0, 0);
 
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
-		tv_ret.setOnClickListener(this);
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -226,7 +220,7 @@ public class RuleActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			finish();
 			break;
 		default:

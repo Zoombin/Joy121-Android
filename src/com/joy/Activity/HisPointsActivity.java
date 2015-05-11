@@ -1,6 +1,5 @@
 package com.joy.Activity;
 
-import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.util.List;
@@ -10,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
-import com.joy.Dialog.DialogUtil;
 import com.joy.Utils.Constants;
 import com.joy.Widget.HispointsAdapter;
 import com.joy.json.JsonCommon;
@@ -34,7 +33,7 @@ import com.umeng.analytics.MobclickAgent;
 public class HisPointsActivity extends BaseActivity implements OnClickListener {
 
 	private RelativeLayout layout_title;
-	private TextView tv_ret;
+	private ImageView iv_ret;
 	private TextView tv_title;
 	private ListView list_hispoints;
 	private HispointsAdapter adapter;
@@ -60,14 +59,14 @@ public class HisPointsActivity extends BaseActivity implements OnClickListener {
 
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.SubTitleHeight, 0, 0,
 				0, 0);
 
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(this);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
+		//uiAdapter.setTextSize(iv_ret, Constants.TitleRetSize);
+		//uiAdapter.setMargin(iv_ret, LayoutParams.WRAP_CONTENT,
+		//		LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -96,7 +95,7 @@ public class HisPointsActivity extends BaseActivity implements OnClickListener {
 				List<UserPointsHisEntity> userpointshislist = entity.getRetobj();
 				if (userpointshislist == null || userpointshislist.size() == 0) {
 					Toast.show(self, getResources().getString(R.string.nopointshis));
-					finish();
+					//finish();
 					return;
 				}
 				for (UserPointsHisEntity entity1 : userpointshislist) {
@@ -119,7 +118,7 @@ public class HisPointsActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			finish();
 			break;
 		default:

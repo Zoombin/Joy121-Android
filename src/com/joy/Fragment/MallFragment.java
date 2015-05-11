@@ -1,6 +1,7 @@
 package com.joy.Fragment;
 
 import gejw.android.quickandroid.QFragment;
+import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
 import gejw.android.quickandroid.utils.ResName2ID;
 
@@ -13,23 +14,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
 
 import com.joy.R;
+import com.joy.Activity.MainActivity;
+import com.joy.Fragment.mall.MallGoodsListFragment;
+import com.joy.Fragment.portals.welfare.WelfareFragment;
 import com.joy.Utils.Constants;
+import com.joy.Utils.Utils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
@@ -53,6 +64,7 @@ public class MallFragment extends BaseFragment {
 			"国产水果/进口水果/季节水果/水果礼盒...", "牛羊肉/猪鸡肉/草鸡蛋/青壳蛋/进口肉...",
 			"西北特产/东北特产/西南特产/台湾特产...", "榛子/核桃/松子/腰果/杏仁/开心果/碧...",
 			"进口红酒/进口牛奶/进口巧克力/进口零..." };
+	private final String[] categorylist = {"1","2", "3", "4", "5", "6"};
 
 	/*@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,19 +89,20 @@ public class MallFragment extends BaseFragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		if(appSet != null){
-			int imgid = 0;
+			/*int imgid = 0;
 			try {
 				imgid =	ResName2ID.getDrawableID(mActivity, appSet.getLogo().replaceAll(".png", ""));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 			//if(imgid != 0){
 				//tv_title.setVisibility(View.GONE);
 				//ivLogo.setVisibility(View.VISIBLE);
 				//ivLogo.setImageResource(imgid);
 			tv_title.setVisibility(View.GONE);
-			ImageLoader.getInstance().displayImage(Constants.IMGLOGO + appSet.getLogo(), ivLogo);
+			DisplayImageOptions options = Utils.getImageOptions();
+			ImageLoader.getInstance().displayImage(Constants.IMGLOGO + appSet.getLogo(), ivLogo, options);
 			ivLogo.setScaleType(ScaleType.CENTER);
 			ivLogo.setVisibility(View.VISIBLE);
 			//}
@@ -155,6 +168,7 @@ public class MallFragment extends BaseFragment {
 			entity.setIcon(iconlist[i]);
 			entity.setTitle(titlelist[i]);
 			entity.setContent(contentlist[i]);
+			entity.setCategory(categorylist[i]);
 			data.add(entity);
 		}
 
@@ -167,6 +181,8 @@ public class MallFragment extends BaseFragment {
 		private String title;
 
 		private String content;
+		
+		private String category;
 
 		public int getIcon() {
 			return icon;
@@ -187,10 +203,20 @@ public class MallFragment extends BaseFragment {
 		public String getContent() {
 			return content;
 		}
-
+		
 		public void setContent(String content) {
 			this.content = content;
 		}
+
+		public String getCategory() {
+			return this.category;
+		}
+		
+		public void setCategory(String category) {
+			this.category = category;
+		}
+
+		
 	}
 
 	private class ListMallAdapter extends BaseAdapter {
@@ -226,13 +252,38 @@ public class MallFragment extends BaseFragment {
 		@Override
 		public View getView(final int position, View convertView,
 				ViewGroup parent) {
-			MallEntity entity = data.get(position);
+			final MallEntity entity = data.get(position);
 
 			ViewHolder holder;
 			if (convertView == null) {
 				convertView = LayoutInflater.from(mContext).inflate(
 						R.layout.mall_list_item, parent, false);
 				holder = new ViewHolder();
+				// category row layout
+				holder.layout_category = (LinearLayout) convertView.findViewById(R.id.layout_category);
+				holder.layout_category.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						/*MallGoodsListFragment mallGoodsListFragment = new MallGoodsListFragment();
+						Bundle bundle = new Bundle();
+		                bundle.putSerializable(MallGoodsListFragment.EXTRA_CATEGROY1ID, entity.getCategory());
+		                bundle.putSerializable(MallGoodsListFragment.EXTRA_CATEGROY1NAME, entity.getTitle());
+		                mallGoodsListFragment.setArguments(bundle); 
+		                FragmentManager fragmentManager = getFragmentManager();
+		                FragmentTransaction transaction = fragmentManager.beginTransaction();
+		                transaction.replace(R.id.layout_fragment, mallGoodsListFragment);
+		                transaction.addToBackStack(null);
+		        		transaction.commit();*/
+		        		
+		        		MallGoodsListFragment mallGoodsListFragment = new MallGoodsListFragment();
+		        		Bundle bundle = new Bundle();
+		        		bundle.putSerializable(MallGoodsListFragment.EXTRA_CATEGROY1ID, entity.getCategory());
+		                bundle.putSerializable(MallGoodsListFragment.EXTRA_CATEGROY1NAME, entity.getTitle());
+		                mallGoodsListFragment.setArguments(bundle); 
+		        		MainActivity.mActivity.replaceChildFragment(
+		    					"MallGoodsListFragment", mallGoodsListFragment, true);
+					}
+				});
 
 				// 图片
 				holder.iv_icon = (ImageView) convertView
@@ -276,6 +327,7 @@ public class MallFragment extends BaseFragment {
 		}
 
 		public class ViewHolder {
+			LinearLayout layout_category;
 			ImageView iv_icon;
 			TextView tv_title;
 			TextView tv_content;

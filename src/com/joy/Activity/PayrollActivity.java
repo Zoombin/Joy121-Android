@@ -36,6 +36,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,8 +47,10 @@ public class PayrollActivity extends BaseActivity implements OnClickListener {
 
 
 	private RelativeLayout layout_title;
-	private TextView tv_ret;
+	private ImageView iv_ret;
 	private TextView tv_title;
+	private RelativeLayout layout_prompt;
+	private ImageView iv_prompt;
 	private ListView list_payrolls;
 	private PayrollAdapter adapter;
 	private Resources resources;
@@ -75,8 +78,11 @@ public class PayrollActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			finish();
+			break;
+		case R.id.iv_prompt:
+			layout_prompt.setVisibility(View.GONE);
 			break;
 		default:
 			break;
@@ -86,13 +92,15 @@ public class PayrollActivity extends BaseActivity implements OnClickListener {
 	private void initView() {
 		//设置页眉
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.SubTitleHeight, 0, 0,
 				0, 0);
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
-		tv_ret.setOnClickListener(this);
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
+		
+		layout_prompt = (RelativeLayout) findViewById(R.id.layout_prompt);
+		layout_prompt.setBackgroundColor(Color.parseColor(appSet.getColor2()));
+		iv_prompt = (ImageView) findViewById(R.id.iv_prompt);
+		iv_prompt.setOnClickListener(this);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -135,10 +143,11 @@ public class PayrollActivity extends BaseActivity implements OnClickListener {
 				PayrollListEntity entity = (PayrollListEntity) resList.get(0);
 				List<PayrollBriefEntity> payrollEntityList = entity.getRetobj();
 				if (payrollEntityList == null || payrollEntityList.size() == 0) {
-					Toast.show(self, resources.getString(R.string.nopayroll));
+					layout_prompt.setVisibility(View.VISIBLE);
 					//finish();
 					return;
 				}
+				layout_prompt.setVisibility(View.GONE);
 				int position = 0;
 				for (PayrollBriefEntity entity1 : payrollEntityList) {
 					

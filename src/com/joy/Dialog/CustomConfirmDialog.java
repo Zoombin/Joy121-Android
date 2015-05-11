@@ -6,6 +6,7 @@ import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -71,6 +72,13 @@ public class CustomConfirmDialog extends Dialog {
 	
 	public TextView getButtonNo() {
 		 return buttonNo;
+	}
+	
+	public void setForceUpdate(String forceUpdate) {
+		if (forceUpdate != null && "1".equals(forceUpdate)) {
+			buttonNo.setTextColor(Color.parseColor("#999999"));
+			buttonNo.setOnClickListener(null);	
+		}
 	}
 	
 	public void setONClickButton(final DialogButtonClickCallback callback) {

@@ -19,6 +19,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -47,9 +48,11 @@ import com.joy.Fragment.MallFragment;
 import com.joy.Fragment.PersonalFragment;
 import com.joy.Fragment.ShoppingCarFragment;
 import com.joy.Fragment.PortalsFragment;
+import com.joy.Fragment.TopFragment.TopMallFragment;
 import com.joy.Fragment.TopFragment.TopPortalsFragment;
 import com.joy.Fragment.portals.logostore.LogoStoreFragment;
 import com.joy.Utils.SharedPreferencesUtils;
+import com.joy.Utils.UpdateManager;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CompAppSet;
@@ -68,6 +71,8 @@ public class MainActivity extends QActivity {
 
 	public static MainActivity mActivity = null;
 	private Resources resources;
+	CompAppSet appSet;
+	private final String LOCATION = "main";
 	public static List<ShoppingCarGoods> goods_list = new ArrayList<ShoppingCarGoods>();
 	
 	@Override
@@ -76,18 +81,22 @@ public class MainActivity extends QActivity {
 		setContentView(R.layout.activity_main);
 		mActivity = this;
 		resources = getResources();
+		appSet = JoyApplication.getInstance().getCompAppSet();
+		final UpdateManager updatemanager;
 		
 		if(JoyApplication.getInstance().getUserinfo() == null){
 			login(mActivity);
 		}
 		
 		initTab();
+		updatemanager = new UpdateManager(self, self);
 		
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				checkPush(getIntent());
+				//updatemanager.checkUpdate(LOCATION);
 			}
 		}, 500);
 	}
@@ -199,7 +208,7 @@ public class MainActivity extends QActivity {
 		if(mActivity == null && mTabHost == null){
 			return;
 		}
-		CompAppSet appSet = JoyApplication.getInstance().getCompAppSet();
+		
 		if(appSet != null){
 			
 			int tabColor = 0;
@@ -256,7 +265,7 @@ public class MainActivity extends QActivity {
 	private LayoutInflater layoutInflater;
 	// 定义数组来存放Fragment界面
 	private Class<?> fragmentArray[] = {
-			TopPortalsFragment.class, MallFragment.class,ShoppingCarFragment.class,
+			TopPortalsFragment.class, TopMallFragment.class,ShoppingCarFragment.class,
 			PersonalFragment.class };
 	// 定义数组来存放按钮图片
 	private String mImageViewArray[] = {"menu_welfare",
@@ -276,8 +285,7 @@ public class MainActivity extends QActivity {
 		// 实例化TabHost对象，得到TabHost
 		mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
 		mTabHost.setup(self, getSupportFragmentManager(), R.id.layout_fragment);
-		uiAdapter
-				.setMargin(mTabHost, LayoutParams.MATCH_PARENT, 85, 0, 0, 0, 0);
+		uiAdapter.setMargin(mTabHost, LayoutParams.MATCH_PARENT, 70, 0, 0, 0, 0);
 		uiAdapter.setPadding(mTabHost, 0, 0, 0, 0);
 		/*
 		 * 改用View 的点击 getTabItemView();
@@ -372,7 +380,7 @@ public class MainActivity extends QActivity {
 		imageView.setTag(mImageViewArray[index]);
 		Point bmpSize = BmpUtils.getBmpSizeFromRes(getResources(), iconid);
 		float width = uiAdapter.CalcWidth(40, bmpSize.x, bmpSize.y);
-		uiAdapter.setMargin(imageView, width, 40, 0, 5, 0, 3);
+		uiAdapter.setMargin(imageView, width, 40, 0, 4, 0, 1);
 		
 		// 文字
 		TextView textView = (TextView) view.findViewById(R.id.txt_menu);
@@ -381,6 +389,8 @@ public class MainActivity extends QActivity {
 		
 		if(index == 2){
 			notice = (TextView) view.findViewById(R.id.tx_notice);
+			GradientDrawable shapeDrawable = (GradientDrawable) notice.getBackground();
+			shapeDrawable.setColor(Color.parseColor(appSet.getColor2()));
 			notice.setVisibility(View.VISIBLE);
 			if(goods_list.size() == 0){
 				notice.setVisibility(View.GONE);
@@ -439,6 +449,7 @@ public class MainActivity extends QActivity {
 			PLog.e("%s", e.getMessage());
 		}
 	}
+	
 	/**
 	 * 返回当前的子fragment管理
 	 * 

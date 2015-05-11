@@ -2,7 +2,6 @@ package com.joy.Widget;
 
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -10,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.joy.R;
-import com.joy.Activity.ContactDetailActivity;
-import com.joy.Utils.Constants;
-import com.joy.Widget.PayrollAdapter.ViewHolder;
-import com.joy.json.model.PayrollBriefEntity;
-import com.joy.json.model.CategoriesGoodsDEntity.CategoriesGoods;
-import com.joy.json.model.RuleListEntity.RuleEntity;
+import com.joy.Activity.RuleDetailActivity;
+import com.joy.json.model.RuleEntity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 
@@ -68,6 +62,7 @@ public class RuleAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
+		final RuleEntity data = datas.get(position);
 		if (convertView == null) {
 			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.rule_list_item, parent, false);
@@ -81,7 +76,6 @@ public class RuleAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		final RuleEntity data = (RuleEntity) getItem(position);
 		if (data != null) {
 			holder.tv_title.setText(data.getTitle());
 			//holder.tv_content.setText(data.getContent());
@@ -94,6 +88,10 @@ public class RuleAdapter extends BaseAdapter {
 		holder.layout_rule.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.putExtra(RuleDetailActivity.RuleDetails, data);
+				intent.setClass(mContext, RuleDetailActivity.class);
+				mActivity.startActivity(intent);
 			}
 		});
 		return convertView;

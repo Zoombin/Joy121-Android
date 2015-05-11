@@ -47,13 +47,16 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 
 	public static final String ActivityDetails = "activitydetails";
 	private RelativeLayout layout_title;
-	private TextView tv_ret;
+	private ImageView iv_ret;
 	private TextView tv_title;
 	private TextView tv_actname;
 	private ImageView iv_actpicture;
 	private TextView tv_count;
 	private TextView tv_deadline;
+	private TextView tv_point;
 	private Button btn_actjoin;
+	private TextView tv_acttimetitle;
+	private TextView tv_acttime;
 	private TextView tv_actlocationaddrtitle;
 	private TextView tv_actlocationaddr;
 	private TextView tv_contenttitle;
@@ -95,13 +98,10 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT,
-				Constants.TitleHeight, 0, 0, 0, 0);
+				Constants.SubTitleHeight, 0, 0, 0, 0);
 
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(this);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -117,18 +117,31 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 
 		tv_count = (TextView) findViewById(R.id.tv_count);
 		uiAdapter.setMargin(tv_count, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 15, 5, 0, 5);
-		uiAdapter.setTextSize(tv_count, 20);
+				LayoutParams.WRAP_CONTENT, 10, 0, 0, 0);
+		uiAdapter.setTextSize(tv_count, 18);
 
 		tv_deadline = (TextView) findViewById(R.id.tv_deadline);
 		uiAdapter.setMargin(tv_deadline, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 15, 5, 0, 5);
-		uiAdapter.setTextSize(tv_deadline, 20);
+				LayoutParams.WRAP_CONTENT, 10, 0, 0, 0);
+		uiAdapter.setTextSize(tv_deadline, 18);
+		
+		tv_point = (TextView) findViewById(R.id.tv_point);
+		uiAdapter.setMargin(tv_point, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 10, 0, 0, 0);
+		uiAdapter.setTextSize(tv_point, 18);
 
 		btn_actjoin = (Button) findViewById(R.id.btn_actjoin);
-		uiAdapter.setMargin(btn_actjoin, 120, 50, 0, 10, 30, 10);
+		uiAdapter.setMargin(btn_actjoin, 150, 45, 0, 10, 10, 10);
 		uiAdapter.setTextSize(btn_actjoin, 20);
 		
+		tv_acttimetitle = (TextView) findViewById(R.id.tv_acttimetitle);
+		uiAdapter.setPadding(tv_acttimetitle, 10, 5, 0, 5);
+		uiAdapter.setTextSize(tv_acttimetitle, 20);
+
+		tv_acttime = (TextView) findViewById(R.id.tv_acttime);
+		uiAdapter.setMargin(tv_acttime, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 30, 5, 20, 5);
+		uiAdapter.setTextSize(tv_acttime, 20);
 		
 		tv_actlocationaddrtitle = (TextView) findViewById(R.id.tv_actlocationaddrtitle);
 		uiAdapter.setPadding(tv_actlocationaddrtitle, 10, 5, 0, 5);
@@ -229,9 +242,28 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 		tv_count.setText(resources.getString(R.string.applicants) + entity.getCurrentCount() + "/"
 				+ entity.getLimitCount());
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		tv_deadline.setText(resources.getString(R.string.deadline) + sdf.format(new Date(Long.parseLong(entity
 				.getDeadLine().substring(6, 19)))));
+		
+		tv_point.setText(resources.getString(R.string.actpoint) + entity.getAwardPoint() + "/"
+				+ entity.getPunishPoint());
+		
+		String startTime = sdf.format(new Date(Long.parseLong(entity.getStartTime().substring(6, 19))));
+		String endTime = sdf.format(new Date(Long.parseLong(entity.getEndTime().substring(6, 19))));
+		
+		int actTypeId = entity.getActTypeId();
+		if (actTypeId == 1) {
+			tv_acttimetitle.setText(resources.getString(R.string.acttime));
+			tv_actlocationaddrtitle.setText(resources.getString(R.string.locationaddr));
+			tv_contenttitle.setText(resources.getString(R.string.activity_content));
+		} else if (actTypeId == 2) {
+			tv_acttimetitle.setText(resources.getString(R.string.trainingtime));
+			tv_actlocationaddrtitle.setText(resources.getString(R.string.trainingaddr));
+			tv_contenttitle.setText(resources.getString(R.string.trainingcontent));
+
+		}
+		tv_acttime.setText(startTime + " ~ " + endTime);
 
 		tv_actlocationaddr.setText(entity.getLocationAddr());
 		//html格式显示
@@ -313,7 +345,7 @@ public class ActivitySubActivity extends BaseActivity implements OnClickListener
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			finish();
 			break;
 
