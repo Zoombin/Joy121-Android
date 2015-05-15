@@ -23,7 +23,10 @@ public class UpdateOp implements ITaskOperation {
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
 		String newVersion = in.toString();
+<<<<<<< HEAD
 		Log.d("0", "---newVersion = " + newVersion);
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(
 				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);

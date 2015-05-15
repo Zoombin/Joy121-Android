@@ -31,7 +31,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
+<<<<<<< HEAD
                 android:text="@string/goodsname"
+=======
+                android:text="商品名称"
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
                 android:layout_alignParentTop="true"
                 android:textColor="@color/BLACK"
                 android:textSize="15sp" />
@@ -64,7 +68,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dip"
+<<<<<<< HEAD
                         android:text="@string/goodsquality"
+=======
+                        android:text="属性"
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
                         android:textColor="#a6a6a6"
                         android:textSize="14sp" />
                 </LinearLayout>

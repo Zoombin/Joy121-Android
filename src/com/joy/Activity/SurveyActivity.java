@@ -56,8 +56,10 @@ public class SurveyActivity extends BaseActivity implements OnClickListener {
 	private LinearLayout layout_menu;
 	private LinearLayout layout_useful;
 	private TextView tv_useful;
+	private View line_useful;
 	private LinearLayout layout_expired;
 	private TextView tv_expired;
+	private View line_expired;
 	private Resources resources;
 	CompAppSet appSet;
 	int color;
@@ -132,14 +134,26 @@ public class SurveyActivity extends BaseActivity implements OnClickListener {
 		
 		tv_expired = (TextView) findViewById(R.id.tv_expired);
 		line_expired = (View) findViewById(R.id.line_expired);
+<<<<<<< HEAD
 	
+=======
+		
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 		defaultColor();
 	}
 	
 	private void defaultColor()
 	{
+<<<<<<< HEAD
 		//layout_useful.setBackgroundColor(color);
 		//layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+=======
+		/*layout_useful.setBackgroundColor(color);
+		layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+		tv_useful.setTextColor(resources.getColor(R.color.WHITE));
+		tv_expired.setTextColor(resources.getColor(R.color.WHITE));*/
+		
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 		tv_useful.setTextColor(color);
 		line_useful.setBackgroundColor(color);
 		tv_expired.setTextColor(resources.getColor(R.color.gray));
@@ -195,12 +209,37 @@ public class SurveyActivity extends BaseActivity implements OnClickListener {
 		task.execute();
 	}
 
+<<<<<<< HEAD
 
 	private void showMenu(int layout) {
 		switch (layout) {
 		case R.id.layout_useful:
 			//layout_useful.setBackgroundColor(color);
 			//layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+=======
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.layout_useful:
+		case R.id.layout_expired:
+			showMenu(v.getId());
+			break;
+		case R.id.iv_ret:
+			finish();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private void showMenu(int layout) {
+		switch (layout) {
+		case R.id.layout_useful:
+			/*layout_useful.setBackgroundColor(color);
+			layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+			tv_useful.setTextColor(resources.getColor(R.color.WHITE));
+			tv_expired.setTextColor(resources.getColor(R.color.WHITE));*/
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 			tv_useful.setTextColor(color);
 			line_useful.setBackgroundColor(color);
 			tv_expired.setTextColor(resources.getColor(R.color.gray));
@@ -211,8 +250,15 @@ public class SurveyActivity extends BaseActivity implements OnClickListener {
 			initData("1",true);
 			break;
 		case R.id.layout_expired:
+<<<<<<< HEAD
 			//layout_expired.setBackgroundColor(color);
 			//layout_useful.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+=======
+			/*layout_expired.setBackgroundColor(color);
+			layout_useful.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+			tv_expired.setTextColor(resources.getColor(R.color.WHITE));
+			tv_useful.setTextColor(resources.getColor(R.color.WHITE));*/
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 			tv_useful.setTextColor(resources.getColor(R.color.gray));
 			line_useful.setBackgroundColor(resources.getColor(R.color.WHITE));
 			tv_expired.setTextColor(color);

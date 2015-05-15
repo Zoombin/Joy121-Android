@@ -8,7 +8,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+<<<<<<< HEAD
 import android.util.Log;
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -198,7 +201,14 @@ public class DialogUtil {
 	        }
 	    });
 		customConfrimDialog.setCanceledOnTouchOutside(false);
+<<<<<<< HEAD
 	}
+=======
+		
+		
+	}
+	
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 	public void showSingleChoiceDialog(String title, int incoId, String message, String[] items, String pStr, String nStr, final DialogButtonClickCallback callback) {
 		AlertDialog.Builder builder = new Builder(context);
 		builder.setTitle(title);

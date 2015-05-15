@@ -57,8 +57,13 @@
             android:layout_marginRight="20dip"
             android:layout_marginBottom="30dip"
             android:numColumns="3"
+<<<<<<< HEAD
             android:verticalSpacing="0dip" 
             android:scrollbars="none">
+=======
+            android:verticalSpacing="0dip"
+            android:scrollbars="none" >
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
         </GridView>
     </LinearLayout>
 

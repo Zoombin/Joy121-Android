@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -150,6 +151,15 @@ public class LoginActivity extends QActivity {
 		loginentity.setLoginname(loginname);
 		loginentity.setLoginpwd(loginpwd);
 		
+		String currentVersion = "";
+		try {
+			currentVersion = this.getPackageManager().getPackageInfo(
+					this.getPackageName(), 0).versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		String deviceType = "Android";
+		
 		OperationBuilder builder = new OperationBuilder().append(
 				new LoginOp(), loginentity);
 		OnOperationListener listener = new OnOperationListener() {
@@ -237,10 +247,20 @@ public class LoginActivity extends QActivity {
 			Toast.show(self, resources.getString(R.string.toast_login_empty));
 			return;
 		}
+		String currentVersion = "";
+		try {
+			currentVersion = this.getPackageManager().getPackageInfo(
+					this.getPackageName(), 0).versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		String deviceType = "Android";
 		
 		LoginEntity loginentity = new LoginEntity();
 		loginentity.setLoginname(loginname);
 		loginentity.setLoginpwd(loginpwd);
+		loginentity.setVersionname(currentVersion);
+		loginentity.setDevicetype(deviceType);
 		
 		OperationBuilder builder = new OperationBuilder().append(
 				new LoginOp(), loginentity);

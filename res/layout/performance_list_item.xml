@@ -50,7 +50,11 @@
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textColor="#808080"
 	    	    		android:textSize="14sp"
+<<<<<<< HEAD
 	    	    		android:text="@string/performance_score" />
+=======
+	    	    		android:text="得分 " />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 	    	    	
 	    	        <TextView 
 	    	        	android:id="@+id/tv_score" 

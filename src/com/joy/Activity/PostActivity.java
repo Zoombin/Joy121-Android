@@ -48,7 +48,9 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 	private LinearLayout layout_menu;
 	private LinearLayout layout_useful;
 	private TextView tv_useful;
+	private View line_useful;
 	private LinearLayout layout_expired;
+	private View line_expired;
 	private TextView tv_expired;
 	private Resources resources;
 	CompAppSet appSet;
@@ -138,14 +140,31 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 		
 		tv_expired = (TextView) findViewById(R.id.tv_expired);
 		line_expired = (View) findViewById(R.id.line_expired);
+<<<<<<< HEAD
 	
+=======
+		list_post = (ListView) findViewById(R.id.list_post);
+		uiAdapter.setMargin(list_post, LayoutParams.MATCH_PARENT,
+				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
+		adapter = new PostAdapter(self, self);
+		list_post.setAdapter(adapter);	
+		
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 		defaultColor();
 	}
 	
 	private void defaultColor()
 	{
+<<<<<<< HEAD
 		//layout_useful.setBackgroundColor(color);
 		//layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+=======
+		/*layout_useful.setBackgroundColor(color);
+		layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+		tv_useful.setTextColor(resources.getColor(R.color.WHITE));
+		tv_expired.setTextColor(resources.getColor(R.color.WHITE));*/
+		
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 		tv_useful.setTextColor(color);
 		line_useful.setBackgroundColor(color);
 		tv_expired.setTextColor(resources.getColor(R.color.gray));
@@ -196,28 +215,49 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 	private void showMenu(int layout) {
 		switch (layout) {
 		case R.id.layout_useful:
+<<<<<<< HEAD
 			//layout_useful.setBackgroundColor(color);
 			//layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+=======
+			/*layout_useful.setBackgroundColor(color);
+			layout_expired.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+			tv_useful.setTextColor(resources.getColor(R.color.WHITE));
+			tv_expired.setTextColor(resources.getColor(R.color.WHITE));*/
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 			tv_useful.setTextColor(color);
 			line_useful.setBackgroundColor(color);
 			tv_expired.setTextColor(resources.getColor(R.color.gray));
 			line_expired.setBackgroundColor(resources.getColor(R.color.WHITE));
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
+<<<<<<< HEAD
 			isSelect = "1";
 			initData("1",true);
 			break;
 		case R.id.layout_expired:
 			//layout_expired.setBackgroundColor(color);
 			//layout_useful.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+=======
+			initData("1");
+			break;
+		case R.id.layout_expired:
+			/*layout_expired.setBackgroundColor(color);
+			layout_useful.setBackgroundColor(getResources().getColor(R.color.btn_disable));
+			tv_expired.setTextColor(resources.getColor(R.color.WHITE));
+			tv_useful.setTextColor(resources.getColor(R.color.WHITE));*/
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 			tv_useful.setTextColor(resources.getColor(R.color.gray));
 			line_useful.setBackgroundColor(resources.getColor(R.color.WHITE));
 			tv_expired.setTextColor(color);
 			line_expired.setBackgroundColor(color);
 			adapter.removeAll();
 			adapter.notifyDataSetChanged();
+<<<<<<< HEAD
 			isSelect = "2";
 			initData("2",true);
+=======
+			initData("2");
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 			break;
 		default:
 			break;

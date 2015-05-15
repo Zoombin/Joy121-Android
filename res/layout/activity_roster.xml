@@ -87,7 +87,11 @@
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textColor="#808080"
 	    	    		android:textSize="14sp"
+<<<<<<< HEAD
 	    	    		android:text="@string/reward" />
+=======
+	    	    		android:text="奖励 " />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 	    	    	
 	    	        <TextView 
 	    	        	android:id="@+id/tv_award" 
@@ -102,7 +106,11 @@
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textColor="#808080"
 	    	    		android:textSize="14sp"
+<<<<<<< HEAD
 	    	    		android:text="@string/integral" />
+=======
+	    	    		android:text=" 积分" />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 	    	    </LinearLayout>
 
 	    	    <LinearLayout
@@ -118,7 +126,11 @@
 		    	    	android:layout_height="wrap_content"
 		    	    	android:textColor="#808080"
 		    	    	android:textSize="14sp"
+<<<<<<< HEAD
 		    	    	android:text="@string/yourscore" />
+=======
+		    	    	android:text="你的得分" />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 					<TextView 
 		    	        android:id="@+id/tv_score" 
 		    	        android:layout_width="wrap_content"
@@ -136,7 +148,11 @@
 		    	    	android:layout_height="wrap_content"
 		    	    	android:textColor="#808080"
 		    	    	android:textSize="14sp"
+<<<<<<< HEAD
 		    	    	android:text="@string/ranking" />
+=======
+		    	    	android:text="排名第" />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 	    	        <TextView 
 		    	        android:id="@+id/tv_ranking" 
 		    	        android:layout_width="wrap_content"
@@ -181,7 +197,11 @@
 		    	    	android:layout_height="wrap_content"
 		    	    	android:textColor="#808080"
 		    	    	android:textSize="14sp"
+<<<<<<< HEAD
 		    	    	android:text="@string/forward" />
+=======
+		    	    	android:text="前" />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
 	    			<TextView
 		    	    	android:id="@+id/tv_percent" 
 		    	    	android:layout_width="wrap_content"
