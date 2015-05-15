@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,10 +38,13 @@ import com.umeng.analytics.MobclickAgent;
  */
 public class WelfareFragment extends BaseFragment implements OnClickListener{
 	private RelativeLayout layout_title;
-	private TextView tv_ret;
+	private ImageView iv_ret;
 	private TextView tv_title;
+	private RelativeLayout layout_prompt;
+	private ImageView iv_prompt;
 	private ListView mListView;
 	private WelfareAdapter mAdapter;
+	private 
 	List<CommoditySet> tempList ;
 	
 	/*@Override
@@ -60,20 +64,23 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 	}
 	
 	
-	
+	//显示标题，如果没有内容，显示tips条
 	private void initView(View v) {
 		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
-				0, 0);
+				0, 0);  //标题的位置
 
-		tv_ret = (TextView) v.findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(this);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+		iv_ret = (ImageView) v.findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
 
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+		tv_title.setText(R.string.row_welfare);//显示标题“公司福利”
+		
+		layout_prompt = (RelativeLayout) v.findViewById(R.id.layout_prompt);
+		layout_prompt.setBackgroundColor(Color.parseColor(appSet.getColor2()));//显示tips提示背景
+		iv_prompt = (ImageView) v.findViewById(R.id.iv_prompt);//响应tips的叉号
+		iv_prompt.setOnClickListener(this);
 		
 		mListView = (ListView) v.findViewById(R.id.list_welfare);
 		mAdapter = new WelfareAdapter(mActivity);
@@ -87,10 +94,12 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 	 * 获取接口数据
 	 */
 	private void getWelfareList() {
+		
 		if(tempList != null){
 			setAdapterData(tempList);
 			return;
 		}
+		
 		OperationBuilder builder = new OperationBuilder().append(
 				new Fp_benefitOp(), null);
 		OnOperationListener listener = new OnOperationListener() {
@@ -105,8 +114,8 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 				}
 				WelfareEntity entity = (WelfareEntity) resList.get(0);
 				List<CommoditySet> commoditySetlist = entity.getRetobj();
-				if (commoditySetlist == null) {
-					Toast.show(mActivity, "无法取得数据！");
+				if (commoditySetlist == null || commoditySetlist.size() == 0) {
+					layout_prompt.setVisibility(View.VISIBLE);
 					return;
 				} else {
 					commoditySetlist = getCommoditySetList(commoditySetlist);
@@ -118,13 +127,11 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 					setAdapterData(commoditySetlist);
 				}
 			}
-
 			@Override
 			public void onOperationError(Exception e) {
 				e.printStackTrace();
 			}
 		};
-
 		JsonCommon task = new JsonCommon(mActivity, builder, listener, JsonCommon.PROGRESSQUERY);
 		task.execute();
 	}
@@ -165,10 +172,12 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			MainActivity.mActivity.Back();
 			break;
-
+		case R.id.iv_prompt:
+			layout_prompt.setVisibility(View.GONE);
+			break;
 		default:
 			break;
 		}

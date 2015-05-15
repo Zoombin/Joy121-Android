@@ -27,12 +27,16 @@ import cn.jpush.android.api.TagAliasCallback;
 
 import com.joy.JoyApplication;
 import com.joy.R;
+import com.joy.Utils.MobileCodeManager;
 import com.joy.Utils.SharedPreferencesUtils;
+import com.joy.Utils.UpdateManager;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CompAppSet;
 import com.joy.json.model.LoginEntity;
 import com.joy.json.model.UserInfoEntity;
+import com.joy.json.model.VersionEntity;
+import com.joy.json.model.VersionEntity.VersionInfoEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.LoginOp;
 import com.umeng.analytics.MobclickAgent;
@@ -52,6 +56,7 @@ public class LoginActivity extends QActivity {
 	private EditText et_pwd;
 	private CheckBox ckb_auto;
 	private TextView tv_auto;
+	private TextView tv_forgetpwd;
 	
 	private Button ib_login;
 
@@ -66,12 +71,21 @@ public class LoginActivity extends QActivity {
 
 		String loginname = SharedPreferencesUtils.getLoginName(self);
 		String loginpwd = SharedPreferencesUtils.getLoginPwd(self);
-		
+		final MobileCodeManager smsmager ;
+		smsmager=new MobileCodeManager(self,self);
 		if (!loginpwd.equals("")) {
 			login(loginname, loginpwd);
 			return;
 		}
 		setContentView(R.layout.activity_login);
+		
+		//响应tv_forgetPwd事件
+				tv_forgetpwd=(TextView)findViewById(R.id.tv_forgetpwd);
+				tv_forgetpwd.setOnClickListener(new OnClickListener(){
+					public void onClick(View v)
+					{
+						smsmager.forgetPwd();
+					}});
 		initView();
 	}
 
@@ -104,6 +118,9 @@ public class LoginActivity extends QActivity {
 		
 		tv_auto = (TextView) findViewById(R.id.tv_auto);
 		uiAdapter.setTextSize(tv_auto, 18);
+		
+		tv_forgetpwd = (TextView) findViewById(R.id.tv_forgetpwd);
+		uiAdapter.setTextSize(tv_forgetpwd, 18);
 		
 		ib_login = (Button) findViewById(R.id.ib_login);
 		uiAdapter.setMargin(ib_login, 98,
@@ -159,7 +176,6 @@ public class LoginActivity extends QActivity {
 					et_pwd.setText(loginpwd);
 					return;
 				}
-				
 				JoyApplication.getInstance().setUserinfo(userInfoEntity);
 				SharedPreferencesUtils.setLoginName(self, loginname);
 				SharedPreferencesUtils.setLoginPwd(self, loginpwd);
@@ -174,7 +190,41 @@ public class LoginActivity extends QActivity {
 				e.printStackTrace();
 			}
 		};
+		JsonCommon task = new JsonCommon(self, builder, listener,
+				JsonCommon.PROGRESSLOGIN);
+		task.execute();
+	}
+	
+	private void updateVersion() {
+		OperationBuilder builder = new OperationBuilder().append(
+				new LoginOp(), null);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (self.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					return;
+				}
+				VersionEntity entity = (VersionEntity) resList.get(0);
+				VersionInfoEntity versionInfoEntity = entity.getRetobj();
+				if (versionInfoEntity == null) {
+					Toast.show(self, resources.getString(R.string.toast_login_error));
+					setContentView(R.layout.activity_login);
+					initView();
+					return;
+				}
+				Intent intent = new Intent(self, MainActivity.class);
+				startActivity(intent);
+				finish();
+			}
 
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
 		JsonCommon task = new JsonCommon(self, builder, listener,
 				JsonCommon.PROGRESSLOGIN);
 		task.execute();
@@ -254,6 +304,7 @@ public class LoginActivity extends QActivity {
 			
 			});
 		}
+	
 	
 	public void onResume() {
 		super.onResume();

@@ -40,4 +40,10 @@
 		<item name="android:windowBackground">@drawable/dialog_bg</item>
     	<item name="android:windowNoTitle">true</item>
 	</style>
+	
+    <!--自定义progressbar--> 
+    <style name="CustomConfirmDialog" parent="@style/CustomDialog">
+		<item name="android:windowBackground">@drawable/dialog_background</item>
+    	<item name="android:windowNoTitle">true</item>
+	</style>
 </resources>

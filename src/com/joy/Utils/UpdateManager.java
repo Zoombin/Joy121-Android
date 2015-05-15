@@ -1,5 +1,8 @@
 package com.joy.Utils;
 
+import gejw.android.quickandroid.QActivity;
+import gejw.android.quickandroid.widget.Toast;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,6 +10,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -14,6 +20,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -24,17 +31,28 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.joy.R;
+import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
+import com.joy.json.JsonCommon;
+import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.UpdateEntity;
+import com.joy.json.model.UpdateEntity.Version;
+import com.joy.json.operation.OperationBuilder;
+import com.joy.json.operation.impl.UpdateOp;
 
 public class UpdateManager {
 
 	private Context mContext;
+	private QActivity mActivity;
 
 	//返回的安装包url
-	private String apkUrl = "http://www.joy121.com/sys/app/joy.apk";
+	private String apkUrl = "http://cloud.joy121.com/app/Joy.apk";
 	
 	private Dialog noticeDialog;
 	
 	private Dialog downloadDialog;
+	
+	private DialogUtil dialogUtil;
 	 /* 下载包安装路径 */
     private static final String savePath = Environment.getExternalStorageDirectory().getPath() + "/joy/update/";
 
@@ -73,9 +91,68 @@ public class UpdateManager {
     	};
     };
     
-	public UpdateManager(Context context) {
+	public UpdateManager(Context context, QActivity mActivity) {
 		this.mContext = context;
+		this.mActivity = mActivity;
+		dialogUtil = new DialogUtil(mContext);
 	}
+	
+	public void checkUpdate(final String checkLocation) {
+		String currentVersion = "";
+		try {
+			currentVersion = mContext.getPackageManager().getPackageInfo(
+					mContext.getPackageName(), 0).versionName;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		final String temp = currentVersion;
+		OperationBuilder builder = new OperationBuilder().append(
+				new UpdateOp(), currentVersion);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (mActivity.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					Toast.show(mActivity, "连接超时");
+					return;
+				}
+				UpdateEntity entity = (UpdateEntity) resList.get(0);
+				Version latestVersion = entity.getRetobj();
+				if (latestVersion.getAppversion() != null && !latestVersion.getAppversion().equals(temp)) {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					dialogUtil.showDownloadDialog("提示", "<font color=#4ba2f2>最新版本：</font>" + latestVersion.getAppversion()
+							+ "<br><font color=#4ba2f2>版本大小：</font>" + latestVersion.getVersionSize()
+							+ "<br><font color=#4ba2f2>发布日期：</font>" + sdf.format(new Date(Long.parseLong(latestVersion.getCreateTime().substring(6, 19))))
+							+ "<br>" + latestVersion.getDescription()
+							, "现在升级", "稍后升级",latestVersion.getForceUpdate(), new DialogButtonClickCallback() {
+						@Override
+						public void positiveButtonClick() {
+							showDownloadDialog();
+						}
+						@Override
+						public void negativeButtonClick() {
+						}
+						
+					});
+				} else {
+					if (checkLocation != null && "personal".equalsIgnoreCase(checkLocation)) {
+						Toast.show(mActivity, "软件是最新版本！");
+						
+					}
+				}
+			}
+
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+		JsonCommon task = new JsonCommon(mActivity, builder, listener, null);
+		task.execute();
+	}
+
 	
 	public void showNoticeDialog(){
 		AlertDialog.Builder builder = new Builder(mContext);
@@ -85,7 +162,7 @@ public class UpdateManager {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
-				showDownloadDialog();			
+				showDownloadDialog();
 			}
 		});
 		builder.setNegativeButton("取消", new OnClickListener() {			
@@ -99,7 +176,7 @@ public class UpdateManager {
 		noticeDialog.show();
 	}
 	
-	private void showDownloadDialog(){
+	public void showDownloadDialog(){
 		AlertDialog.Builder builder = new Builder(mContext);
 		builder.setTitle("正在下载。。。");
 		

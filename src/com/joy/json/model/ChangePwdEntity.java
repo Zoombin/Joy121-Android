@@ -1,7 +1,7 @@
 package com.joy.json.model;
 
 /**
- * 修改密码
+ * 修改密码和忘记密码
  * 
  * @author daiye
  * 

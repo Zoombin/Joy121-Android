@@ -255,7 +255,6 @@ public class RentGoodsListFragment extends BaseFragment {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-
 			data = (RentGoodsEntity) getItem(position);
 			if (data != null) {
 				holder.tv_name.setText(data.getName() + "");
@@ -284,6 +283,7 @@ public class RentGoodsListFragment extends BaseFragment {
 								// TODO Auto-generated method stub
 								Log.d("0", "------negativeButtonClick()");
 							}
+							
 						});
 					}
 				});

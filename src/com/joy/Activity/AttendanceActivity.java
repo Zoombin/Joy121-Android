@@ -3,6 +3,7 @@ package com.joy.Activity;
 import java.util.List;
 
 import gejw.android.quickandroid.widget.Toast;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Location;
@@ -37,6 +38,7 @@ import com.joy.Dialog.CustomConfirmDialog;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Utils.Constants;
+import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.Widget.AttendanceAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
@@ -317,11 +319,23 @@ AMapLocationListener, InfoWindowAdapter{
 					
 				}
 			});*/
-			CustomConfirmDialog customConfrimDialog = new CustomConfirmDialog(this, R.style.CustomConfirmDialog); 
-			customConfrimDialog.show();
+			dialogUtil.showDialog("确认要上班打卡吗？", 0, "确定", "取消", new DialogButtonClickCallback() {
+				@Override
+				public void positiveButtonClick() {
+					if (attendanceEntity == null) {
+						Toast.show(self, "您还未定位到当前位置,打卡失败！");
+					} else {
+						attendanceEntity.setPunchType("0");
+						punch(attendanceEntity);
+					}
+				}
+				public void negativeButtonClick() {
+				}
+				
+			});
 			break;
 		case R.id.btn_punchout:
-			dialogUtil.showSingleChoiceDialog("APP考勤", 0, "确认要打卡吗？", new String[]{ "上班", "下班" }, "确定", "取消", new DialogButtonClickCallback() {
+			dialogUtil.showDialog("确认要下班打卡吗？", 0, "确定", "取消", new DialogButtonClickCallback() {
 				@Override
 				public void positiveButtonClick() {
 					if (attendanceEntity == null) {
@@ -331,9 +345,9 @@ AMapLocationListener, InfoWindowAdapter{
 						punch(attendanceEntity);
 					}
 				}
-				@Override
 				public void negativeButtonClick() {
 				}
+				
 			});
 			break;
 		default:

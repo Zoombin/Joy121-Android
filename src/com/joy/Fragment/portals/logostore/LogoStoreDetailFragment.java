@@ -249,9 +249,16 @@ public class LogoStoreDetailFragment extends BaseFragment {
 			ViewPagerAdapter adapter = new ViewPagerAdapter();
 			picViewPager.setAdapter(adapter);
 			String pics = goods.getAppPicture();
+			String[] picUrls;
+			int len;
 			if (pics.contains(";")) {
-				String[] picUrls = pics.split(";");
-				int len = picUrls.length;
+				picUrls = pics.split(";");
+				len = picUrls.length;
+			} else {
+				picUrls = new String[]{pics};
+				len = 1;
+			}
+				
 				if (len > 0) {
 					for (int i = 0; i < len; i++) {
 						Button bt = new Button(mActivity);
@@ -297,7 +304,6 @@ public class LogoStoreDetailFragment extends BaseFragment {
 					}
 					adapter.setViews(views);
 				}
-			}
 		}
 	}
 

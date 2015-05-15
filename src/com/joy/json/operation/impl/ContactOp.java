@@ -42,7 +42,8 @@ public class ContactOp implements ITaskOperation {
 				IP,
 				new BasicNameValuePair("action", "comp_personinfos"),
 				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\",\"qvalue\":\"%s\",\"pagesize\":\"%s\",\"pagenum\":\"%s\"}", "310225198112162465"
+						"{\"loginname\":\"%s\",\"qvalue\":\"%s\",\"pagesize\":\"%s\",\"pagenum\":\"%s\"}", SharedPreferencesUtils
+						.getLoginName(JoyApplication.getSelf())
 						, qvalue.trim(), pageSize, pageNum)),
 								new BasicNameValuePair("token", new MD5()
 								.getMD5ofStr(SharedPreferencesUtils

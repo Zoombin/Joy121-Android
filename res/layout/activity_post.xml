@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fafafa"
+    android:background="@color/bg"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -11,14 +11,15 @@
         android:layout_height="wrap_content"
         android:background="@color/title_bg" >
 
-        <TextView
-            android:id="@+id/tv_ret"
+        <ImageView
+            android:id="@+id/iv_ret"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/ret"
-            android:textColor="@color/WHITE" />
+            android:layout_marginLeft="10dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/arrow_left" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -28,7 +29,6 @@
             android:layout_centerVertical="true"
             android:text="@string/post"
             android:textColor="@color/WHITE" />
-
     </RelativeLayout>
     
       <LinearLayout
@@ -40,28 +40,33 @@
         <LinearLayout
             android:id="@+id/layout_useful"
             android:layout_width="0dp"
-            android:layout_height="35dp"
-            android:layout_margin="1dip"
+            android:layout_height="34dp"
             android:layout_weight="1"
             android:background="@color/WHITE"
             android:gravity="center_horizontal"
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/tv_useful"
+                   android:id="@+id/tv_useful"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="32dip"
                 android:layout_gravity="center_vertical|center"
                 android:gravity="center_vertical|center"
                 android:text="@string/useful"
                 android:textColor="@color/title_bg"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
+            
+              <View
+                android:id="@+id/line_useful"
+                android:layout_width="match_parent"
+                android:layout_height="2dip"
+                android:layout_gravity="bottom" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_expired"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="34dp"
             android:layout_margin="1dip"
             android:layout_weight="1"
             android:background="@color/WHITE"
@@ -71,12 +76,18 @@
             <TextView
                 android:id="@+id/tv_expired"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="32dip"
                 android:layout_gravity="center_vertical|center"
                 android:gravity="center_vertical|center"
                 android:text="@string/isexpired"
                 android:textColor="@color/BLACK"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
+            
+             <View
+                android:id="@+id/line_expired"
+                android:layout_width="match_parent"
+                android:layout_height="2dip"
+                android:layout_gravity="bottom" />
         </LinearLayout>
     </LinearLayout>
     
@@ -85,7 +96,7 @@
         android:id="@+id/list_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@android:color/transparent"
+      
         android:scrollbars="none" />
 
 </LinearLayout>

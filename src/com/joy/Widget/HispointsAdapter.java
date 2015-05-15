@@ -83,20 +83,20 @@ public class HispointsAdapter extends BaseAdapter {
 			// actiontime
 			holder.tv_actiontime = (TextView) convertView
 					.findViewById(R.id.tv_actiontime);
-			uiAdapter.setTextSize(holder.tv_actiontime, 16);
+			uiAdapter.setTextSize(holder.tv_actiontime, 18);
 			uiAdapter.setMargin(holder.tv_actiontime, LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT, 10, 10, 0, 0);
 
 			// points
 			holder.tv_points = (TextView) convertView.findViewById(R.id.tv_points);
-			uiAdapter.setTextSize(holder.tv_points, 16);
+			uiAdapter.setTextSize(holder.tv_points, 18);
 			uiAdapter.setMargin(holder.tv_points, LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT, 10, 11, 10, 0);
 
 			// remark
 			holder.tv_remark = (TextView) convertView
 					.findViewById(R.id.tv_remark);
-			uiAdapter.setTextSize(holder.tv_remark, 14);
+			uiAdapter.setTextSize(holder.tv_remark, 16);
 			uiAdapter.setMargin(holder.tv_remark, LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT, 20, 10, 0, 10);
 

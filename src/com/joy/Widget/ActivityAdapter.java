@@ -124,7 +124,7 @@ public class ActivityAdapter extends BaseAdapter {
 
 			holder.tv_activityname = (TextView) convertView
 					.findViewById(R.id.tv_activityname);
-			uiAdapter.setTextSize(holder.tv_activityname, 20);
+			uiAdapter.setTextSize(holder.tv_activityname, 18);
 			uiAdapter.setMargin(holder.tv_activityname,
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 0,
 					0, 0);
@@ -134,18 +134,42 @@ public class ActivityAdapter extends BaseAdapter {
 
 			holder.iv_actpicture = (ImageView) convertView
 					.findViewById(R.id.iv_actpicture);
-			uiAdapter.setMargin(holder.iv_actpicture, 200, 125, 10, 10, 20, 10);
+			uiAdapter.setMargin(holder.iv_actpicture, 200, 125, 10, 10, 10, 10);
 
-			holder.tv_detail = (TextView) convertView
-					.findViewById(R.id.tv_detail);
-			uiAdapter.setTextSize(holder.tv_detail, 20);
-			uiAdapter.setMargin(holder.tv_detail, LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT, 0, 5, 10, 5);
+			holder.tv_startitme = (TextView) convertView
+					.findViewById(R.id.tv_starttime);
+			uiAdapter.setTextSize(holder.tv_startitme, 18);
+			uiAdapter.setMargin(holder.tv_startitme, LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT, 0, 0, 10, 0);
+			
+			holder.tv_locationaddr = (TextView) convertView
+					.findViewById(R.id.tv_locationaddr);
+			uiAdapter.setTextSize(holder.tv_locationaddr, 18);
+			uiAdapter.setMargin(holder.tv_locationaddr, LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT, 0, 0, 10, 0);
+			
+			holder.tv_deadline = (TextView) convertView
+					.findViewById(R.id.tv_deadline);
+			uiAdapter.setTextSize(holder.tv_deadline, 18);
+			uiAdapter.setMargin(holder.tv_deadline, LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT, 0, 0, 10, 0);
+			
+			holder.tv_count = (TextView) convertView
+					.findViewById(R.id.tv_count);
+			uiAdapter.setTextSize(holder.tv_count, 18);
+			uiAdapter.setMargin(holder.tv_count, LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT, 0, 0, 10, 0);
+			
+			holder.tv_point = (TextView) convertView
+					.findViewById(R.id.tv_point);
+			uiAdapter.setTextSize(holder.tv_point, 18);
+			uiAdapter.setMargin(holder.tv_point, LayoutParams.WRAP_CONTENT,
+					LayoutParams.WRAP_CONTENT, 0, 0, 10, 0);
 
 			holder.btn_actjoin = (Button) convertView
 					.findViewById(R.id.btn_actjoin);
-			uiAdapter.setTextSize(holder.btn_actjoin, 20);
-			uiAdapter.setMargin(holder.btn_actjoin, 120, 35, 0, 0, 10, 5);
+			uiAdapter.setTextSize(holder.btn_actjoin, 18);
+			uiAdapter.setMargin(holder.btn_actjoin, 120, 28, 0, 0, 10, 5);
 
 			convertView.setTag(holder);
 		} else {// 有直接获得ViewHolder
@@ -160,20 +184,27 @@ public class ActivityAdapter extends BaseAdapter {
 							+ entity.getActPicturePath(), holder.iv_actpicture);
 		}
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String content = "活动时间："
-				+ sdf.format(new Date(Long.parseLong(entity.getStartTime()
-						.substring(6, 19))))
-				+ "\n"
-				+ "活动地点："
-				+ entity.getLocationAddr()
-				+ "\n"
-				+ "报名截止："
-				+ sdf.format(new Date(Long.parseLong(entity.getDeadLine()
-						.substring(6, 19)))) + "\n" + "报名人数："
-				+ entity.getCurrentCount() + "/" + entity.getLimitCount();
-		holder.tv_detail.setText(content);
-
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		int actTypeId = entity.getActTypeId();
+		if (actTypeId == 1) {
+			String startTime = sdf.format(new Date(Long.parseLong(entity.getStartTime().substring(6, 19))));
+			holder.tv_startitme.setText("活动时间：" + startTime);
+			String locationAddr = entity.getLocationAddr();
+			holder.tv_locationaddr.setText("活动地点：" + locationAddr);
+		} else if (actTypeId == 2) {
+			String startTime = sdf.format(new Date(Long.parseLong(entity.getStartTime().substring(6, 19))));
+			holder.tv_startitme.setText("培训时间：" + startTime);
+			String locationAddr = entity.getLocationAddr();
+			holder.tv_locationaddr.setText("培训地点：" + locationAddr);
+		}
+		
+		String deadline = sdf.format(new Date(Long.parseLong(entity.getDeadLine().substring(6, 19))));
+		holder.tv_deadline.setText("报名截止：" + deadline);
+		String count = entity.getCurrentCount() + "/" + entity.getLimitCount();
+		holder.tv_count.setText("报名人数：" + count);
+		String point = entity.getAwardPoint() + "/" + entity.getPunishPoint();
+		holder.tv_point.setText("奖惩积分：" + point);
+		
 		holder.layout_activity.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -226,6 +257,8 @@ public class ActivityAdapter extends BaseAdapter {
 						public void negativeButtonClick() {
 							// TODO Auto-generated method stub
 						}
+
+						
 					});
 				}
 			});
@@ -248,9 +281,9 @@ public class ActivityAdapter extends BaseAdapter {
 		}
 		if (entity.getIsexprired()) {
 			holder.iv_activity
-					.setImageResource(R.drawable.activity_expired);
+					.setImageResource(R.drawable.com_activity_expired);
 		} else {
-			holder.iv_activity.setImageResource(R.drawable.activity);
+			holder.iv_activity.setImageResource(R.drawable.com_activity_now);
 		}
 
 		return convertView;
@@ -320,7 +353,11 @@ public class ActivityAdapter extends BaseAdapter {
 		TextView tv_activityname;
 		LinearLayout layout_activity;
 		ImageView iv_actpicture;
-		TextView tv_detail;
+		TextView tv_startitme;
+		TextView tv_locationaddr;
+		TextView tv_deadline;
+		TextView tv_count;
+		TextView tv_point;
 		Button btn_actjoin;
 	}
 }

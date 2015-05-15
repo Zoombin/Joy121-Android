@@ -87,6 +87,23 @@ public class UserInfoEntity extends TResult {
 	private String EmployeeId;
 	
 	private String AppAccessCodes;
+	
+	private int IsMobileBind;//是否绑定手机
+	public int getIsMobileBind() {
+		return IsMobileBind;
+	}
+	public void setIsMobileBind(int isMobileBind) {
+		IsMobileBind = isMobileBind;
+	}
+
+	
+	private String BindMobile;//绑定的手机号码
+	public String getBindMobile() {
+		return BindMobile;
+	}
+	public void setBindMobile(String bindMobile) {
+		BindMobile = bindMobile;
+	}
 
 	public String getLoginName() {
 		return LoginName;

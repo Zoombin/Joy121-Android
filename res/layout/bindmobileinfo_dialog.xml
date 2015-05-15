@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:id="@+id/layout_dialog"    
+    android:orientation="vertical"    
+    android:layout_width="300dip"
+    android:minWidth="300dip" 
+    android:layout_height="match_parent"    
+    android:paddingLeft="0dp" 
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    android:background="@drawable/dialog_background">
+    
+    <TextView 
+        android:id="@+id/tv_title"    
+        android:layout_width="match_parent"    
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="left"
+        android:textColor="#999999" />
+     <LinearLayout
+       android:orientation="horizontal"    
+       android:layout_width="match_parent"     
+       android:layout_height="wrap_content">                                         
+      <TextView 
+        android:id="@+id/tv_msg"    
+        android:layout_width="match_parent"    
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="left"  
+        android:textColor="#000000" /> 
+      </LinearLayout>  
+        <LinearLayout     
+        android:orientation="horizontal"    
+        android:layout_width="match_parent"     
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp" >    
+	   <TextView 
+	        android:id="@+id/tv_yes"    
+	        android:layout_width="0dp"
+	        android:layout_weight="1"   
+	        android:layout_height="wrap_content"    
+	        android:textColor="#4ba2f2"
+	        android:gravity="center"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="10dp" 
+	        android:background="@drawable/dialog_button_right"
+	        android:text="@string/confirm" />
+    </LinearLayout>  
+   
+     
+</LinearLayout>    

@@ -9,8 +9,11 @@ public class Constants {
 	// 标题返回字体大小
 	public static final int TitleRetSize = 20;
 	
-	// title栏高度
-	public static final int TitleHeight = 80;
+	// 主title栏高度
+	public static final int TitleHeight = 70;
+	
+	// 子 title栏高度
+	public static final int SubTitleHeight = 55;
 	
 	// title栏图片长宽
 	public static final int TitleIvWidth = 30;
@@ -27,6 +30,10 @@ public class Constants {
 	//详情页图片路径
 	public static final String IMGDETAIL = "http://cloud.joy121.com/files/activity/";
 	
+	
 	//公告图片路径
 	public static final String IMGPOST = "http://cloud.joy121.com/files/comppost/";
+	
+	//公告图片路径
+	public static final String IMGDEPOT= "http://cloud.joy121.com/files/officedepot/";
 }

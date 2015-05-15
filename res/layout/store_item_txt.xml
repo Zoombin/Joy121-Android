@@ -15,7 +15,7 @@
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
         android:paddingTop="5dip"
-        android:text="颜色"
+        android:text="@string/colour"
         android:textColor="@color/BLACK"
         android:textSize="16sp" />
 

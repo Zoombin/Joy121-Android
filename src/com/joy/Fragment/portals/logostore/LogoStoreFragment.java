@@ -5,10 +5,6 @@ import gejw.android.quickandroid.ui.adapter.UIManager;
 import gejw.android.quickandroid.utils.ResName2ID;
 import gejw.android.quickandroid.widget.HorizontalListView;
 import gejw.android.quickandroid.widget.Toast;
-import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshBase;
-import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshBase.Mode;
-import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshBase.OnRefreshListener;
-import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +56,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public class LogoStoreFragment extends BaseFragment {
 	private RelativeLayout layout_title;
-	private TextView tv_title, tv_ret;
-	private ImageView ivLogo;
+	private TextView tv_title;
+	private ImageView iv_ret;
+	private RelativeLayout layout_prompt;
+	private TextView tv_prompt;
+	private ImageView iv_prompt;
 	private Resources resources;
 	private Activity curActivity;
 	protected UIManager mUiManager;
@@ -70,7 +69,7 @@ public class LogoStoreFragment extends BaseFragment {
 	LinearLayout layout_viewPager;
 
 	// 列表
-	private PullToRefreshListView listView;
+	private ListView listView;
 	private CategoriseAdapter categoriseAdapter;
 	
 	private List<CategoryEntity> tempList;
@@ -103,16 +102,17 @@ public class LogoStoreFragment extends BaseFragment {
 	private void initView(View v) {
 		PLog.e("进入--->%s", "LogoStoreActivity");
 		initTitleLayout(v);
-		listView = (PullToRefreshListView) v.findViewById(R.id.listview);
-		listView.setMode(Mode.PULL_FROM_START);
+		initPromptInfo(v);
+		listView = (ListView) v.findViewById(R.id.listview);
+		//listView.setMode(Mode.PULL_FROM_START);
 		listView.setAdapter(categoriseAdapter = new CategoriseAdapter());
-		listView.setOnRefreshListener(new OnRefreshListener<ListView>() {
+		/*listView.setOnRefreshListener(new OnRefreshListener<ListView>() {
 
 			@Override
 			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
 				getCategories();
 			}
-		});
+		});*/
         if(tempList == null){
         	getCategories();
         }else{
@@ -128,17 +128,27 @@ public class LogoStoreFragment extends BaseFragment {
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 
-		ivLogo = (ImageView) v.findViewById(R.id.iv_logo);
-		tv_ret = (TextView) v.findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(new OnClickListener() {
+		iv_ret = (ImageView) v.findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				MainActivity.mActivity.Back();
 			}
 		});
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+	}
+	
+	private void initPromptInfo(View v) {
+		layout_prompt = (RelativeLayout) v.findViewById(R.id.layout_prompt);
+		layout_prompt.setBackgroundColor(Color.parseColor(appSet.getColor2()));
+		iv_prompt = (ImageView) v.findViewById(R.id.iv_prompt);
+		iv_prompt.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				layout_prompt.setVisibility(View.GONE);
+			}
+		});
 	}
 	
 	private void getCategories() {
@@ -148,7 +158,7 @@ public class LogoStoreFragment extends BaseFragment {
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
 			public void onOperationFinished(List<Object> resList) {
-				listView.onRefreshComplete();
+				//listView.onRefreshComplete();
 				if (curActivity.isFinishing()) {
 					return;
 				}
@@ -158,14 +168,12 @@ public class LogoStoreFragment extends BaseFragment {
 				}
 				CategoryEntity entity = (CategoryEntity) resList.get(0);
 				List<CategoryEntity> surveylist = entity.getRetobj();
-				if (surveylist == null) {
-					Toast.show(curActivity, "没有分类信息！");
+				if (surveylist == null || surveylist.size() == 0) {
+					layout_prompt.setVisibility(View.VISIBLE);
 					//finish();
 					return;
 				}
-				
 				categoriseAdapter.setData(surveylist);
-				
 				tempList = surveylist;
 				orderRequestGoodsData();
 				/*
@@ -178,7 +186,7 @@ public class LogoStoreFragment extends BaseFragment {
 
 			@Override
 			public void onOperationError(Exception e) {
-				listView.onRefreshComplete();
+				//listView.onRefreshComplete();
 				e.printStackTrace();
 			}
 		};

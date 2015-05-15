@@ -11,17 +11,19 @@
     <!-- 用户名密码背景色 -->
     <color name="login_user_pwd">#ff9104</color>
     
-    <color name="menu_text">#5c5c5c</color>
+    <color name="menu_text">#c8c7c7</color>
 	<color name="menu_text_press">#000000</color>
 	<color name="orange_press">#ff781f</color>
 	
 	<color name="welfare_item_tab_bg">#eff3f3</color>
 	<color name="welfare_item_text">#222222</color>
+	<color name="dialog">#4ba2f2</color>
 	
 	<!-- 积分历史偶数list背景 -->
 	<color name="points_list_two">#eeeeee</color>
 	
 	<color name="btn_disable">#D4D4D4</color>
 	<color name="gray">#8E8E8E</color>
+	<color name="black">#000000</color>
 	
 </resources>

@@ -1,7 +1,5 @@
 package com.joy.Activity;
 
-import gejw.android.quickandroid.QActivity;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,7 +22,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class PersonalInfoActivity extends BaseActivity implements OnClickListener {
 
 	private RelativeLayout layout_title;
-	private TextView tv_ret;
+	private ImageView iv_ret;
 	private TextView tv_title;
 	private TextView tv_loginname_title;
 	private TextView tv_loginname;
@@ -81,12 +79,10 @@ public class PersonalInfoActivity extends BaseActivity implements OnClickListene
 	
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.SubTitleHeight, 0, 0, 0, 0);
 
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(this);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
 		
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -119,81 +115,81 @@ public class PersonalInfoActivity extends BaseActivity implements OnClickListene
 				LayoutParams.WRAP_CONTENT, 0, 5, 0, 0);
 		
 		tv_loginname_title = (TextView) findViewById(R.id.tv_loginname_title);
-		uiAdapter.setTextSize(tv_loginname_title, 15);
+		uiAdapter.setTextSize(tv_loginname_title, 18);
 		uiAdapter.setMargin(tv_loginname_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50, 10, 20, 10);
 		
 		tv_loginname = (TextView) findViewById(R.id.tv_loginname);
-		uiAdapter.setTextSize(tv_loginname, 15);
+		uiAdapter.setTextSize(tv_loginname, 18);
 		
 		tv_username_title = (TextView) findViewById(R.id.tv_username_title);
-		uiAdapter.setTextSize(tv_username_title, 15);
+		uiAdapter.setTextSize(tv_username_title, 18);
 		uiAdapter.setMargin(tv_username_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50, 10, 20, 10);
 		
 		tv_username = (TextView) findViewById(R.id.tv_username);
-		uiAdapter.setTextSize(tv_username, 15);
+		uiAdapter.setTextSize(tv_username, 18);
 		
 		tv_idno_title = (TextView) findViewById(R.id.tv_idno_title);
-		uiAdapter.setTextSize(tv_idno_title, 15);
+		uiAdapter.setTextSize(tv_idno_title, 18);
 		uiAdapter.setMargin(tv_idno_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50, 10, 20, 10);
 		
 		tv_idno = (TextView) findViewById(R.id.tv_idno);
-		uiAdapter.setTextSize(tv_idno, 15);
+		uiAdapter.setTextSize(tv_idno, 18);
 		
 		tv_gender_title = (TextView) findViewById(R.id.tv_gender_title);
-		uiAdapter.setTextSize(tv_gender_title, 15);
+		uiAdapter.setTextSize(tv_gender_title, 18);
 		uiAdapter.setMargin(tv_gender_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50, 10, 20, 10);
 		
 		tv_gender = (TextView) findViewById(R.id.tv_gender);
-		uiAdapter.setTextSize(tv_gender, 15);
+		uiAdapter.setTextSize(tv_gender, 18);
 		
 		tv_birthday_title = (TextView) findViewById(R.id.tv_birthday_title);
-		uiAdapter.setTextSize(tv_birthday_title, 15);
+		uiAdapter.setTextSize(tv_birthday_title, 18);
 		uiAdapter.setMargin(tv_birthday_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50, 10, 20, 10);
 		
 		tv_birthday = (TextView) findViewById(R.id.tv_birthday);
-		uiAdapter.setTextSize(tv_birthday, 15);
+		uiAdapter.setTextSize(tv_birthday, 18);
 		
 		tv_companyname_title = (TextView) findViewById(R.id.tv_companyname_title);
-		uiAdapter.setTextSize(tv_companyname_title, 15);
+		uiAdapter.setTextSize(tv_companyname_title, 18);
 		uiAdapter.setMargin(tv_companyname_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50, 10, 20, 10);
 		
 		tv_companyname = (TextView) findViewById(R.id.tv_companyname);
-		uiAdapter.setTextSize(tv_companyname, 15);
+		uiAdapter.setTextSize(tv_companyname, 18);
 		
 		tv_companyaddress_title = (TextView) findViewById(R.id.tv_companyaddress_title);
-		uiAdapter.setTextSize(tv_companyaddress_title, 15);
+		uiAdapter.setTextSize(tv_companyaddress_title, 18);
 		uiAdapter.setMargin(tv_companyaddress_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50, 10, 20, 10);
 		
 		tv_companyaddress = (TextView) findViewById(R.id.tv_companyaddress);
-		uiAdapter.setTextSize(tv_companyaddress, 15);
+		uiAdapter.setTextSize(tv_companyaddress, 18);
 		
 		tv_companyphone_title = (TextView) findViewById(R.id.tv_companyphone_title);
-		uiAdapter.setTextSize(tv_companyphone_title, 15);
+		uiAdapter.setTextSize(tv_companyphone_title, 18);
 		uiAdapter.setMargin(tv_companyphone_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50, 10, 20, 10);
 		
 		tv_companyphone = (TextView) findViewById(R.id.tv_companyphone);
-		uiAdapter.setTextSize(tv_companyphone, 15);
+		uiAdapter.setTextSize(tv_companyphone, 18);
 		
 		tv_mail_title = (TextView) findViewById(R.id.tv_mail_title);
-		uiAdapter.setTextSize(tv_mail_title, 15);
+		uiAdapter.setTextSize(tv_mail_title, 18);
 		uiAdapter.setMargin(tv_mail_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50, 10, 20, 10);
 		
 		tv_mail = (TextView) findViewById(R.id.tv_mail);
-		uiAdapter.setTextSize(tv_mail, 15);
+		uiAdapter.setTextSize(tv_mail, 18);
 		
 		tv_cellnumber_title = (TextView) findViewById(R.id.tv_cellnumber_title);
-		uiAdapter.setTextSize(tv_cellnumber_title, 15);
+		uiAdapter.setTextSize(tv_cellnumber_title, 18);
 		uiAdapter.setMargin(tv_cellnumber_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50, 10, 20, 10);
 		
 		tv_cellnumber = (TextView) findViewById(R.id.tv_cellnumber);
-		uiAdapter.setTextSize(tv_cellnumber, 15);
+		uiAdapter.setTextSize(tv_cellnumber, 18);
 		
 		tv_createtime_title = (TextView) findViewById(R.id.tv_createtime_title);
-		uiAdapter.setTextSize(tv_createtime_title, 15);
+		uiAdapter.setTextSize(tv_createtime_title, 18);
 		uiAdapter.setMargin(tv_createtime_title, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50, 10, 20, 10);
 		
 		tv_createtime = (TextView) findViewById(R.id.tv_createtime);
-		uiAdapter.setTextSize(tv_createtime, 15);
+		uiAdapter.setTextSize(tv_createtime, 18);
 	}
 	
 	private void initData() {
@@ -221,7 +217,7 @@ public class PersonalInfoActivity extends BaseActivity implements OnClickListene
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			finish();
 			break;
 		default:

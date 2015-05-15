@@ -48,6 +48,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  * 
  */
 public class StoreDetailActivity extends BaseActivity {
+
 	private RelativeLayout layout_title;
 	private TextView addToStore, storeNum;
 	private TextView tv_ret, tv_title;
@@ -491,5 +492,6 @@ public class StoreDetailActivity extends BaseActivity {
 		public void destroyItem(View container, int position, Object object) {
 			((ViewPager) container).removeView(views.get(position));
 		}
-	}
+}
+	
 }

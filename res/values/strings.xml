@@ -8,10 +8,32 @@
     <string name="hint_user">请输入用户名</string>
     <string name="hint_pwd">请输入密码</string>
     <string name="atuologin">自动登录</string>
+    <string name="forgetpwd">忘记密码</string>
     <string name="toast_login_empty">请输入用户名和密码！</string>
     <string name="toast_login_error">用户名或密码错误！</string>
     <string name="consult">有疑问请咨询：400-8558-121</string>
+    
+    
+    
+    <string name="logostore">本期的内卖活动已结束，敬请期待下期！</string>
 
+    <string name="performance">暂无绩效考核信息！</string>
+    <string name="performance_score">得分</string>
+    <string name="rentgoods">领 用</string>
+
+
+    <!--attendance-->
+    <string name="start_work">上班</string>
+    <string name="off_work">下班</string>
+    
+    <!-- roster and  motivation_list_item-->
+    <string name="reward">奖励</string>
+    <string name="integral">积分</string>
+    <string name="yourscore">你的得分</string>
+    <string name="ranking">排名第</string>
+    <string name="forward">前</string>
+    
+    
     <!-- main -->
     <string name="menu_home">首页</string>
     <string name="menu_welfare">公司门户</string>
@@ -34,7 +56,9 @@
     <string name="changepwd">修改密码</string>
     <string name="orderquery">我的订单</string>
     <string name="hispoints">积分历史</string>
+    <string name="isMobileBind">手机绑定</string>
     <string name="checkupdate">检查更新</string>
+    <string name="help">帮助信息</string>
     <string name="exit">退出登录</string>
     <string name="points_title">积分：</string>
     <string name="loginname_title">&#160;&#160;&#160;登陆名：</string>
@@ -66,10 +90,14 @@
     <string name="row_itemdraw">物品领用></string>
     <string name="row_groupbuy">限时团购</string>
     <string name="row_train">培训</string>
+    <string name="row_attence">APP考勤</string>
+    <string name="row_rule">规章制度</string>
     <string name="nowelfareinfo">无福利商品数据！</string>
+    <string name="walfarefinish">本期的福利商品选购已结束，敬请期待下期！</string>
     
 
-    <!-- changepwd -->
+    <!-- changepwd 和 忘记密码-->
+    <string name="forget_phone">手机号</string>
     <string name="titlepwd">修改密码</string>
     <string name="currpwd">当前密码</string>
     <string name="newpwd">新密码</string>
@@ -78,6 +106,11 @@
     <string name="diffpwderr">新密码输入与确认密码不同！</string>
     <string name="oldpwderr">旧密码不正确！</string>
     <string name="chgpwdsuccess">"修改密码成功,请重新登录!"</string>
+    <string name="securitycode">验证码</string>
+    <string name="getcode">获取验证码</string>
+    <string name="sendcodesuccess">发送成功</string>
+    <string name="sendcodefail">发送失败</string>
+    
 
     <!-- orderdetail -->
     <string name="addshoppting">加入购物车</string>
@@ -104,6 +137,13 @@
     
     <!-- orderquery -->
     <string name="noorderinfo">没有订单信息！</string>
+    
+    
+    <!--order-->
+    <string name="orderid">订单id</string>
+    <string name="order_integral">积分</string>
+    <string name="order_number">数量</string>
+    <string name="order_pending">待处理</string>
 
     <!-- life -->
     <string name="life">生活</string>
@@ -115,16 +155,19 @@
     <string name="useful">最近发布</string>
 
     <!-- post -->
-    <string name="post">公司公告</string>
+    <string name="post">公告</string>
+    <string name="postdetail">公告详情</string>
     <string name="nopostinfo">没有公告信息！</string>
     
 
     <!-- activity -->
+    <string name="welfaredetail">福利商品详情</string>
     <string name="activitydetail">活动详情</string>
     <string name="trainingdetail">培训详情</string>
     <string name="activity">公司活动</string>
     <string name="activity_sub">公司详情</string>
     <string name="btn_actjoin">报名</string>
+    <string name="acttime">活动时间</string>
     <string name="locationaddr">活动地点</string>
     <string name="activity_content">活动内容</string>
     <string name="noactivityinfo">没有活动信息！</string>
@@ -137,10 +180,15 @@
     <string name="isenrollcancel">确定要取消吗？</string>
     <string name="applicants">已报名人数/报名限制人数：</string>
     <string name="deadline">报名截止时间：</string>
+    <string name="actpoint">奖励积分/惩罚积分：</string>
     <string name="enrollfailed">报名失败</string>
     <string name="cancelfailed">取消失败</string>
     <string name="cancelsuccess">取消成功</string>
     <string name="enrollsuccess">报名成功</string>
+    
+     <string name="trainingtime">培训时间</string>
+    <string name="trainingaddr">培训地点</string>
+    <string name="trainingcontent">培训内容</string>
     
 
     <!-- survey -->
@@ -161,23 +209,141 @@
   	<string name="commitfailed">提交失败</string>
   	<string name="commitfailed2">提交失败 ：</string>
   	
+    <string name="goodsname">商品名称</string>
+    <string name="goodsnumber">数量</string>
+  	<string name="goodsquality">属性</string>
   	
   	
   	<!-- contact -->
     <string name="contact">公司通讯录</string>
     <string name="contactdetail">联系人详情</string>
+    <string name="telephone">电话</string>
+    <string name="cellphone">手机</string>
+    <string name="fax">传真</string>
+    <string name="mailbox">邮箱</string>
+    <string name="work">工作</string>
     <string name="search">搜索</string>
     <string name="nocontact">查无此联系人</string>
     <string name="searchtext_hint">请搜索中文名，英文名，部门</string>
     <string name="addcontact">添加联系人</string>
     
+    <!-- goods -->
+    <string name="goods_detail">商品详情</string>
+    <string name="colour">颜色</string>
+    <string name="size">尺码</string>
+    <string name="stock">库存：</string>
+   
+    
+    <!-- payroll -->
+    <string name="payroll">工资单</string>
+    <string name="nopayroll">无工资单</string>
+    <string name="payrolldetail">工资单详情</string>
+    <string name="totalpay_title">基本薪资</string>
+    <string name="basepay_title">基本工资：</string>
+    <string name="subsidy_title">津贴：</string>
+    <string name="onechildfee_title">独生子女费：</string>
+    
+    <string name="salaryadd_title">薪资增项</string>
+    <string name="overtimesalary_title">加班费：</string>
+    <string name="bonus_title">奖金：</string>
+    <string name="annualbonus_title">年终奖：</string>
+    <string name="addothers_title">其他应发：</string>
+    <string name="others_title">其他：</string>
+    
+    <string name="salarydeduct_title">薪资减项</string>
+    <string name="leavededuction_title">请假扣款合计：</string>
+    <string name="endowmentinsurance_title">个人养老保险：</string>
+    <string name="endowmentinsuranceretroactive_title">个人养老保险补缴：</string>
+    <string name="hospitalizationinsurance_title">个人医疗保险：</string>
+    <string name="hospitalizationinsuranceretroactive_title">个人医疗保险补缴：</string>
+    <string name="unemploymentinsurance_title">个人失业保险：</string>
+    <string name="unemploymentinsuranceretroactive_title">个人失业保险补缴：</string>
+    <string name="reservefund_title">个人公积金：</string>
+    <string name="reservefundretroactive_title">个人公积金补缴：</string>
+    <string name="deductothers_title">其他应扣：</string>
+    
+    <string name="salarytax_title">计税薪资</string>
+    <string name="pretaxwages_title">税前工资：</string>
+    <string name="incometax_title">所得税：</string>
+    <string name="realwages1_title">实发工资：</string>
+    
+    <string name="realwages_title">实发工资</string>
+    <string name="periodmonth_title">薪资发放月份</string>
+    
+    <string name="meritpay_title">绩效工资：</string>
+    <string name="secret_title">特勤工资：</string>
+    <string name="positionsalary_title">岗位工资：</string>
+    <string name="totalallowance_title">补贴小计</string>
+    <string name="housingsubsidy_title">住房补贴：</string>
+    <string name="nopayroll">暂无工资单信息！</string>
+    
+    
+    
+    
+    <!--入职管理基本信息-->
+    <string name="entry_management">入职管理</string>
+    <string name="basic_info">基本信息</string>
+    <string name="name">姓名：</string>
+    <string name="gender">性别：</string>
+    <string name="nation">民族：</string>
+    <string name="marital">婚否：</string>
+    <string name="idno">身份证号：</string>
+    <string name="degreeno">学历证号：</string>
+    <string name="department">应聘部门：</string>
+    <string name="position">应聘职位：</string>
+    <string name="entrydate">入职日期：</string>
+    <string name="entryname">请输入姓名：</string>
+    <string name="entryidno">请输入身份证号</string>
+    <string name="entrydegreeno">请输入学历证号</string>
+    <string name="entrydepartment">请输入应聘部门</string>
+    <string name="entryposition">请输入应聘职位</string>
+    <string name="please_entrydate">请输入入职日期</string>
+    
+    
+    
+    <!-- 入职管理联系方式 -->
+    <string name="contact_way">联系方式:</string>
+    <string name="contact_address">通讯地址:</string>
+    <string name="resident_city">户口所在地 :</string>
+    <string name="emergency_person">紧急联系人 :</string> 
+    <string name="emergency_contact">紧急联系方式 :</string>
+    <string name="entry_contactway">请输入联系方式</string>
+    <string name="entry_contactaddress">请输入通讯地址</string>
+    <string name="notnull">必填</string>
+    
+    <!--footview-->
+    <string name="total_integral">总计：0积分</string>
+    <string name="nogoods">亲，暂时没有商品，选好商品后再回来结算哦！</string>
+    <string name="submit_order">提交订单</string>
+    
+  
+    
+    <!-- APP考勤 -->
+    <string name="attence">APP考勤</string>
+    
+    <!-- 规章制度 -->
+    <string name="ruledetail">规章制度详情</string>
+    
+    <!-- 绩效考核 -->
+    <string name="performance">暂无绩效考核</string>
+    
+    <!-- 员工激励 -->
+    <string name="motivation">员工激励</string>
+    <string name="nomotivation">暂无员工激励信息！</string>
+    <string name="motivationroster">激励排行榜</string>
+    
+    
+    
     <!-- Logo商店 -->
     <string name="toast_nologocommo">没有分类信息！</string>
     <string name="displayall">显示全部</string>
+    <string name="logostore_title">logo商店</string>
     
     <!-- prompt -->
     <string name="timeout">连接超时</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
     <string name="toast_clicktwice">再按一次退出程序</string>
-</resources>
+    <string name="test">this is a test</string>
+  </resources> 
+
