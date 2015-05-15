@@ -143,7 +143,15 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 		layout_useful.setOnClickListener(this);
 		
 		tv_useful = (TextView) findViewById(R.id.tv_useful);
+<<<<<<< HEAD
 	    line_useful = (View) findViewById(R.id.line_useful);
+=======
+<<<<<<< HEAD
+	    line_useful = (View) findViewById(R.id.line_useful);
+=======
+		line_useful = (View) findViewById(R.id.line_useful);
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		
 		layout_expired = (LinearLayout) findViewById(R.id.layout_expired);
 		layout_expired.setOnClickListener(this);

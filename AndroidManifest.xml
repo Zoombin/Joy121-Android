@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.joy"
+<<<<<<< HEAD
     android:versionCode="152"
     android:versionName="1.5.2" >
+=======
+<<<<<<< HEAD
+    android:versionCode="152"
+    android:versionName="1.5.2" >
+=======
+    android:versionCode="151"
+    android:versionName="1.5.1" >
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -127,7 +137,14 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+<<<<<<< HEAD
         
+=======
+<<<<<<< HEAD
+        
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
         <activity
             android:name="com.joy.Activity.ActivityActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -207,6 +224,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
         <activity
             android:name="com.joy.Activity.EntryManagementActiviy"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -214,6 +235,11 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
        
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 
         <meta-data
             android:name="UMENG_APPKEY"

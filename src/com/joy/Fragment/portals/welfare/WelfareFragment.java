@@ -75,11 +75,25 @@ public class WelfareFragment extends BaseFragment implements OnClickListener{
 
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		tv_title.setText(R.string.row_welfare);//显示标题“公司福利”
 		
 		layout_prompt = (RelativeLayout) v.findViewById(R.id.layout_prompt);
 		layout_prompt.setBackgroundColor(Color.parseColor(appSet.getColor2()));//显示tips提示背景
 		iv_prompt = (ImageView) v.findViewById(R.id.iv_prompt);//响应tips的叉号
+<<<<<<< HEAD
+=======
+=======
+		tv_title.setText(R.string.row_welfare);//工资单
+		
+		layout_prompt = (RelativeLayout) v.findViewById(R.id.layout_prompt);
+		layout_prompt.setBackgroundColor(Color.parseColor(appSet.getColor2()));
+		iv_prompt = (ImageView) v.findViewById(R.id.iv_prompt);
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		iv_prompt.setOnClickListener(this);
 		
 		mListView = (ListView) v.findViewById(R.id.list_welfare);

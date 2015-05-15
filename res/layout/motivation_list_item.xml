@@ -56,7 +56,15 @@
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textColor="#808080"
 	    	    		android:textSize="14sp"
+<<<<<<< HEAD
 	    	    		android:text="@string/reward" />
+=======
+<<<<<<< HEAD
+	    	    		android:text="@string/reward" />
+=======
+	    	    		android:text="奖励 " />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 	    	    	
 	    	        <TextView 
 	    	        	android:id="@+id/tv_award" 
@@ -71,14 +79,30 @@
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textColor="#808080"
 	    	    		android:textSize="14sp"
+<<<<<<< HEAD
 	    	    		android:text="@string/integral" />
+=======
+<<<<<<< HEAD
+	    	    		android:text="@string/integral" />
+=======
+	    	    		android:text=" 积分" />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 	    	    </LinearLayout>
 
 	    	    <LinearLayout
 	    	    	android:layout_width="match_parent"
 	    	    	android:layout_height="wrap_content"
 	    	    	android:layout_gravity="bottom"
+<<<<<<< HEAD
 	    	    	android:layout_marginLeft="10dip"
+=======
+<<<<<<< HEAD
+	    	    	android:layout_marginLeft="10dip"
+=======
+	    	    	android:layout_marginLeft="77dip"
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		        	android:progressDrawable="@drawable/barcolor">
 		        
 					<TextView 
@@ -87,7 +111,15 @@
 		    	    	android:layout_height="wrap_content"
 		    	    	android:textColor="#808080"
 		    	    	android:textSize="14sp"
+<<<<<<< HEAD
 		    	    	android:text="@string/yourscore" />
+=======
+<<<<<<< HEAD
+		    	    	android:text="@string/yourscore" />
+=======
+		    	    	android:text="你的得分" />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 					<TextView 
 		    	        android:id="@+id/tv_score" 
 		    	        android:layout_width="wrap_content"
@@ -105,7 +137,15 @@
 		    	    	android:layout_height="wrap_content"
 		    	    	android:textColor="#808080"
 		    	    	android:textSize="14sp"
+<<<<<<< HEAD
 		    	    	android:text="@string/ranking" />
+=======
+<<<<<<< HEAD
+		    	    	android:text="@string/ranking" />
+=======
+		    	    	android:text="排名第" />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 	    	        <TextView 
 		    	        android:id="@+id/tv_ranking" 
 		    	        android:layout_width="wrap_content"
@@ -116,6 +156,10 @@
 		    	    	android:layout_height="wrap_content"
 		    	    	android:textColor="#808080"
 		    	    	android:textSize="14sp"
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		    	    	android:text="" />
 	    	        <TextView 
 		    	        android:id="@+id/tv_symbol" 
@@ -168,6 +212,17 @@
                 android:paddingRight="10dip"
                 android:scaleType="fitXY"
                 android:src="@drawable/arrow_right" />
+<<<<<<< HEAD
+=======
+=======
+		    	    	android:text="位" />
+	    	      
+	    		</LinearLayout>    	    
+	    	</LinearLayout>
+	    	
+
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		        
 	    </RelativeLayout>
 

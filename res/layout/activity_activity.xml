@@ -54,12 +54,27 @@
                 android:text="@string/useful"
                 android:textColor="@color/title_bg"
                 android:textSize="16sp" />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 
             <View
                 android:id="@+id/line_useful"
                 android:layout_width="match_parent"
                 android:layout_height="2dip"
                 android:layout_gravity="bottom" />
+<<<<<<< HEAD
+=======
+=======
+            
+            <View
+	    	    android:id="@+id/line_useful"
+	        	android:layout_width="match_parent"
+	        	android:layout_gravity="bottom"
+	        	android:layout_height="2dip" />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
         </LinearLayout>
 
         <LinearLayout
@@ -81,12 +96,27 @@
                 android:text="@string/isexpired"
                 android:textColor="@color/BLACK"
                 android:textSize="16sp" />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 
             <View
                 android:id="@+id/line_expired"
                 android:layout_width="match_parent"
                 android:layout_height="2dip"
                 android:layout_gravity="bottom" />
+<<<<<<< HEAD
+=======
+=======
+            
+            <View
+	    	    android:id="@+id/line_expired"
+	        	android:layout_width="match_parent"
+	        	android:layout_gravity="bottom"
+	        	android:layout_height="2dip" />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
         </LinearLayout>
     </LinearLayout>
 

@@ -137,6 +137,10 @@ public class MotivationAdapter extends BaseAdapter {
 			uiAdapter.setTextSize(holder.tv_ranking, 20);
 			uiAdapter.setPadding(holder.tv_ranking, 0, 0, 0, 0);
 			
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 			holder.tv_total = (TextView) convertView
 					.findViewById(R.id.tv_total);
 			TextPaint tp_total = holder.tv_total.getPaint(); 
@@ -152,6 +156,11 @@ public class MotivationAdapter extends BaseAdapter {
 			uiAdapter.setTextSize(holder.tv_percent, 20);
 			uiAdapter.setPadding(holder.tv_percent, 5, 0, 0, 0);
 			
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 			
 			//百分比条
 			//holder.progressbar = (CustomProgressBar) convertView
@@ -172,10 +181,23 @@ public class MotivationAdapter extends BaseAdapter {
 			holder.layout_motivation.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 					Intent intent = new Intent();
 					intent.putExtra(RosterActivity.entity, entity);
 					intent.setClass(mContext, RosterActivity.class);
 					mActivity.startActivity(intent);
+<<<<<<< HEAD
+=======
+=======
+					/*Intent intent = new Intent();
+					intent.putExtra(RosterActivity.entity, entity);
+					intent.setClass(mContext, RosterActivity.class);
+					mActivity.startActivity(intent);*/
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 					//Log.d("0", "------entity = " + entity.getPeriod());
 				}
 			});
@@ -187,6 +209,10 @@ public class MotivationAdapter extends BaseAdapter {
 		holder.tv_reportname.setText(entity.getReportName());
 		holder.tv_score.setText(entity.getPerformanceScore());
 		holder.tv_ranking.setText(entity.getPerformanceSeq());
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		holder.tv_total.setText(entity.getTotalNum());
 		holder.tv_award.setText(entity.getPerformancePoints());
 		DecimalFormat df = new DecimalFormat(".00");
@@ -197,6 +223,12 @@ public class MotivationAdapter extends BaseAdapter {
 		//holder.progressbar.setMax(Integer.parseInt(entity.getTotal()));
 		//holder.progressbar.setProgress(Integer.parseInt(entity.getRanking()));
 		holder.tv_percent.setText(String.valueOf(Math.round(percent)) +"%");
+<<<<<<< HEAD
+=======
+=======
+		holder.tv_award.setText(entity.getPerformancePoints());
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		return convertView;
 	}
 
@@ -208,7 +240,14 @@ public class MotivationAdapter extends BaseAdapter {
 		LinearLayout layout_ranking;
 		TextView tv_score;
 		TextView tv_ranking;
+<<<<<<< HEAD
 		TextView tv_total;
+=======
+<<<<<<< HEAD
+		TextView tv_total;
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		TextView tv_award;
 		TextView tv_percent;
 	}

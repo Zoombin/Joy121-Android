@@ -26,7 +26,15 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+<<<<<<< HEAD
             android:text="@string/payroll"
+=======
+<<<<<<< HEAD
+            android:text="@string/payroll"
+=======
+            android:text="@string/personalinfo"
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
             android:textColor="@color/WHITE" />
     </RelativeLayout>
     
@@ -41,7 +49,15 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_centerVertical="true"
+<<<<<<< HEAD
         	android:text="@string/nopayroll"
+=======
+<<<<<<< HEAD
+        	android:text="@string/nopayroll"
+=======
+        	android:text="暂无工资单信息！"
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
         	android:textSize="13sp"
         	android:textColor="@color/WHITE"
         	android:layout_marginLeft="6dip"

@@ -34,8 +34,8 @@ public class LoginOp implements ITaskOperation {
 				IP,
 				new BasicNameValuePair("action", "login"),
 				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\",\"loginpwd\":\"%s\",\"imeino\":\"%s\"}",
-						login.getLoginname(), login.getLoginpwd(), imei)),
+						"{\"loginname\":\"%s\",\"loginpwd\":\"%s\",\"devicetype\":\"%s\",\"versionname\":\"%s\",\"imeino\":\"%s\"}",
+						login.getLoginname(), login.getLoginpwd(), login.getDevicetype(), login.getVersionname(), imei)),
 				new BasicNameValuePair("token", new MD5().getMD5ofStr(login.getLoginname()
 						+ MD5.key)));
 		HttpParams P  = get.getParams();

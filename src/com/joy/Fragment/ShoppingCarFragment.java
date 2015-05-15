@@ -291,7 +291,15 @@ public class ShoppingCarFragment extends BaseFragment {
 				tag.goodsProperty = (TextView) convertView.findViewById(R.id.txt_property);
 				uiAdapter.setPadding(tag.goodsProperty, 0, 0, 0, 5);
 				tag.minus = (ImageView) convertView.findViewById(R.id.img_minus);
+<<<<<<< HEAD
 				uiAdapter.setPadding(tag.minus, 0, 0, 0, 5);
+=======
+<<<<<<< HEAD
+				uiAdapter.setPadding(tag.minus, 0, 0, 0, 5);
+=======
+				uiAdapter.setPadding(tag.minus, 0, 0, 5, 5);
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 				tag.plus = (ImageView) convertView.findViewById(R.id.img_plus);
 				uiAdapter.setPadding(tag.plus, 0, 0, 0, 5);
 				convertView.setTag(tag);

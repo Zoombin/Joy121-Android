@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">我的福利</string>
+    <string name="app_name">福利兔</string>
 
     <!-- login -->
     <string name="login">登录福利平台</string>
@@ -227,6 +227,10 @@
     <string name="searchtext_hint">请搜索中文名，英文名，部门</string>
     <string name="addcontact">添加联系人</string>
     
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
     <!-- goods -->
     <string name="goods_detail">商品详情</string>
     <string name="colour">颜色</string>
@@ -234,6 +238,11 @@
     <string name="stock">库存：</string>
    
     
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
     <!-- payroll -->
     <string name="payroll">工资单</string>
     <string name="nopayroll">无工资单</string>
@@ -275,6 +284,10 @@
     <string name="positionsalary_title">岗位工资：</string>
     <string name="totalallowance_title">补贴小计</string>
     <string name="housingsubsidy_title">住房补贴：</string>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
     <string name="nopayroll">暂无工资单信息！</string>
     
     
@@ -317,6 +330,11 @@
     <string name="submit_order">提交订单</string>
     
   
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
     
     <!-- APP考勤 -->
     <string name="attence">APP考勤</string>
@@ -325,11 +343,24 @@
     <string name="ruledetail">规章制度详情</string>
     
     <!-- 绩效考核 -->
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
     <string name="performance">暂无绩效考核</string>
     
     <!-- 员工激励 -->
     <string name="motivation">员工激励</string>
     <string name="nomotivation">暂无员工激励信息！</string>
+<<<<<<< HEAD
+=======
+=======
+    <string name="performance">绩效考核</string>
+    
+    <!-- 员工激励 -->
+    <string name="motivation">员工激励</string>
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
     <string name="motivationroster">激励排行榜</string>
     
     
@@ -345,5 +376,14 @@
     <string name="cancel">取消</string>
     <string name="toast_clicktwice">再按一次退出程序</string>
     <string name="test">this is a test</string>
+<<<<<<< HEAD
   </resources> 
 
+=======
+<<<<<<< HEAD
+  </resources> 
+
+=======
+</resources>
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226

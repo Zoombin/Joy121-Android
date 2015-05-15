@@ -10,7 +10,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.os.Handler;
+=======
+<<<<<<< HEAD
+import android.os.Handler;
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,13 +47,29 @@ import com.joy.Utils.UpdateManager;
 import com.joy.Utils.Utils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
+<<<<<<< HEAD
 import com.joy.json.model.BindMobileEntity;
+=======
+<<<<<<< HEAD
+import com.joy.json.model.BindMobileEntity;
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 import com.joy.json.model.UserEntity;
 import com.joy.json.model.UserInfoEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.UserinfoOp;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 /**
  * 个人中心
@@ -97,7 +120,14 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 	public static final String EXTRA_USERINFO = "userinfo";
 	private final String LOCATION = "personal";
 	UserInfoEntity userinfo;
+<<<<<<< HEAD
 	BindMobileEntity bindmobileinfo;
+=======
+<<<<<<< HEAD
+	BindMobileEntity bindmobileinfo;
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 	DialogUtil dialogUtil;
 
 	// private LinearLayout layout_personal_info;
@@ -125,6 +155,13 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 	 * 
 	 * initView(v); initData(); return v; }
 	 */
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 	@Override
 	protected View initContentView(LayoutInflater inflater,
 			ViewGroup container, Bundle savedInstanceState) {
@@ -135,6 +172,13 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 		initData();
 		return v;
 	}
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
@@ -304,6 +348,21 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 		img_help_arrow = (ImageView) v.findViewById(R.id.img_help_arrow);
 		uiAdapter.setMargin(img_help_arrow, 12,
 				uiAdapter.CalcHeight(12, 16, 28), 0, 0, 20, 0);
+<<<<<<< HEAD
+=======
+
+		layout_help = (RelativeLayout) v.findViewById(R.id.layout_help);
+		uiAdapter.setMargin(layout_help, LayoutParams.MATCH_PARENT, 54, 0, 0,
+				0, 0);
+		layout_help.setOnClickListener(this);
+		tv_help = (TextView) v.findViewById(R.id.tv_help);
+		uiAdapter.setTextSize(tv_help, 20);
+		uiAdapter.setMargin(tv_help, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 64, 0, 20, 0);
+		img_help_arrow = (ImageView) v.findViewById(R.id.img_help_arrow);
+		uiAdapter.setMargin(img_help_arrow, 12,
+				uiAdapter.CalcHeight(12, 16, 28), 0, 0, 20, 0);
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 
 		// tv_loginname_title = (TextView)
 		// v.findViewById(R.id.tv_loginname_title);
@@ -424,6 +483,10 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 							Constants.IMGLOGO
 									+ userinfo.getCompanyInfo().getCompLogo(),
 							img_company);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 					tv_name.setText(userinfo.getUserName());
 					tv_company.setText(userinfo.getCompanyName());
 					tv_points.setText(userinfo.getPoints() + "");
@@ -442,6 +505,15 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 							}
 						}, 500);
 					}
+<<<<<<< HEAD
+=======
+=======
+
+					tv_name.setText(userinfo.getUserName());
+					tv_company.setText(userinfo.getCompanyName());
+					tv_points.setText(userinfo.getPoints() + "");
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 				}
 			}
 
@@ -508,16 +580,29 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 			UpdateManager updatemanager = new UpdateManager(mActivity,
 					mActivity);
 			updatemanager.checkUpdate(LOCATION);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 			break;
 		case R.id.layout_isMobileBind:
 			//绑定手机
 			String bindInfo=tv_isMobileBindInfo.getText().toString();
 			bindPhone(bindInfo);
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 			break;
 		default:
 			break;
 		}
 	
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 
 	/*
 	 * private void checkUpdate() { String currentVersion = ""; try {
@@ -572,5 +657,47 @@ public class PersonalFragment extends BaseFragment implements OnClickListener {
 		}else{
 			Toast.show(mActivity, "请绑定手机号！");
 		}
+<<<<<<< HEAD
+=======
+=======
+	public void setUpdate(String updateString) {
+		this.tv_checkupdate.setText(updateString);
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 	}
+
+	/*
+	 * private void checkUpdate() { String currentVersion = ""; try {
+	 * currentVersion = mActivity.getPackageManager().getPackageInfo(
+	 * mActivity.getPackageName(), 0).versionName; } catch
+	 * (NameNotFoundException e) { e.printStackTrace(); } final String temp =
+	 * currentVersion; OperationBuilder builder = new OperationBuilder().append(
+	 * new UpdateOp(), currentVersion); OnOperationListener listener = new
+	 * OnOperationListener() {
+	 * 
+	 * @Override public void onOperationFinished(List<Object> resList) { if
+	 * (mActivity.isFinishing()) { return; } if (resList == null) {
+	 * Toast.show(mActivity, "连接超时"); return; } UpdateEntity entity =
+	 * (UpdateEntity) resList.get(0); Version latestVersion =
+	 * entity.getRetobj(); if (latestVersion.getAppversion() != null &&
+	 * !latestVersion.getAppversion().equals(temp)) { SimpleDateFormat sdf = new
+	 * SimpleDateFormat("yyyy-MM-dd"); dialogUtil.showDownloadDialog("提示",
+	 * "<font color=#4ba2f2>最新版本：</font>" + latestVersion.getAppversion() +
+	 * "<br><font color=#4ba2f2>版本大小：</font>" + latestVersion.getVersionSize() +
+	 * "<br><font color=#4ba2f2>发布日期：</font>" + sdf.format(new
+	 * Date(Long.parseLong(latestVersion.getCreateTime().substring(6, 19)))) +
+	 * "<br>" + latestVersion.getDescription() , "现在升级", "稍后升级", new
+	 * DialogButtonClickCallback() {
+	 * 
+	 * @Override public void positiveButtonClick() { UpdateManager updatemanager
+	 * = new UpdateManager(mActivity, mActivity);
+	 * updatemanager.showDownloadDialog(); }
+	 * 
+	 * @Override public void negativeButtonClick() { } }); } else {
+	 * Toast.show(mActivity, "软件是最新版本！"); } }
+	 * 
+	 * @Override public void onOperationError(Exception e) {
+	 * e.printStackTrace(); } }; JsonCommon task = new JsonCommon(mActivity,
+	 * builder, listener, JsonCommon.PROGRESSUPDATE); task.execute(); }
+	 */
 }

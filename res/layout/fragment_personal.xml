@@ -102,8 +102,16 @@
         android:layout_marginRight="15dip"
         android:orientation="vertical"
         android:background="@drawable/personal_background" >
+<<<<<<< HEAD
           
      
+=======
+<<<<<<< HEAD
+          
+     
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 
         <RelativeLayout
             android:id="@+id/layout_personalinfo"
@@ -188,7 +196,15 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="14dip"
                 android:scaleType="fitXY"
+<<<<<<< HEAD
                 android:src="@drawable/orderquery"/>
+=======
+<<<<<<< HEAD
+                android:src="@drawable/orderquery"/>
+=======
+                android:src="@drawable/orderquery" />
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 
             <TextView
                 android:id="@+id/tv_orderquery"
@@ -255,6 +271,10 @@
         android:layout_marginRight="15dip"
         android:orientation="vertical"
         android:background="@drawable/personal_background" >
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
         
       
          <!-- 绑定手机布局 -->
@@ -289,12 +309,26 @@
          
 
        </RelativeLayout>
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 
         <RelativeLayout
             android:id="@+id/layout_checkupdate"
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="wrap_content" 
             android:background="@drawable/tabbar">
+=======
+<<<<<<< HEAD
+            android:layout_height="wrap_content" 
+            android:background="@drawable/tabbar">
+=======
+            android:layout_height="wrap_content" >
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
             
             <ImageView
                 android:id="@+id/img_checkupdate"
@@ -303,7 +337,15 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="14dip"
+<<<<<<< HEAD
                  android:scaleType="fitXY"
+=======
+<<<<<<< HEAD
+                 android:scaleType="fitXY"
+=======
+                android:scaleType="fitXY"
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
                 android:src="@drawable/checkupdate" />
 
             <TextView

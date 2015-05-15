@@ -39,7 +39,15 @@
 		            android:layout_height="wrap_content"
 		            android:layout_marginLeft="20dip"
 		            android:textSize="12sp"
+<<<<<<< HEAD
 		            android:text="@string/yourscore"
+=======
+<<<<<<< HEAD
+		            android:text="@string/yourscore"
+=======
+		            android:text="得分"
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		            android:textColor="#808080"  />
 		        
 		        <TextView
@@ -69,7 +77,15 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:textSize="12sp"
+<<<<<<< HEAD
 	            android:text="@string/integral"
+=======
+<<<<<<< HEAD
+	            android:text="@string/integral"
+=======
+	            android:text="积分"
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 	            android:textColor="#808080" />
 	    
 	    	<TextView

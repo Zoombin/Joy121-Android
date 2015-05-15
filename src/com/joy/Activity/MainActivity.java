@@ -84,6 +84,13 @@ public class MainActivity extends QActivity {
 		resources = getResources();
 		appSet = JoyApplication.getInstance().getCompAppSet();
 		final UpdateManager updatemanager;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		if(JoyApplication.getInstance().getUserinfo() == null){
 			login(mActivity);
 		}
@@ -96,7 +103,15 @@ public class MainActivity extends QActivity {
 			public void run() {
 				// TODO Auto-generated method stub
 				checkPush(getIntent());
+<<<<<<< HEAD
 				updatemanager.checkUpdate(LOCATION);
+=======
+<<<<<<< HEAD
+				updatemanager.checkUpdate(LOCATION);
+=======
+				//updatemanager.checkUpdate(LOCATION);
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 			}
 		}, 500);
 	}

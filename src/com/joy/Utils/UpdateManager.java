@@ -134,7 +134,14 @@ public class UpdateManager {
 						@Override
 						public void negativeButtonClick() {
 						}
+<<<<<<< HEAD
 						
+=======
+<<<<<<< HEAD
+						
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 					});
 				} else {
 					if (checkLocation != null && "personal".equalsIgnoreCase(checkLocation)) {

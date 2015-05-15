@@ -24,6 +24,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Activity.ActivityActivity;
 import com.joy.Activity.AttendanceActivity;
@@ -36,14 +37,33 @@ import com.joy.Activity.PerformanceActivity;
 import com.joy.Activity.PostActivity;
 import com.joy.Activity.RuleActivity;
 import com.joy.Activity.SurveyActivity;
+<<<<<<< HEAD
 import com.joy.Activity.WelfareActivity;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Fragment.portals.logostore.LogoStoreFragment;
 import com.joy.Fragment.rent.RentGoodsListFragment;
 import com.joy.Utils.Constants;
+=======
+<<<<<<< HEAD
+import com.joy.Activity.WelfareActivity;
+import com.joy.Dialog.DialogUtil;
+import com.joy.Fragment.portals.logostore.LogoStoreFragment;
+import com.joy.Fragment.rent.RentGoodsListFragment;
+import com.joy.Utils.Constants;
+=======
+import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
+import com.joy.Fragment.portals.logostore.LogoStoreFragment;
+import com.joy.Fragment.portals.welfare.WelfareFragment;
+import com.joy.Fragment.rent.RentGoodsListFragment;
+import com.joy.Utils.Constants;
+import com.joy.Utils.SharedPreferencesUtils;
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 import com.joy.Utils.Utils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.ActivityDetailEntity;
 import com.joy.json.model.PortalsModule;
 import com.joy.json.model.PortalsModule.Module;
 import com.joy.json.operation.OperationBuilder;
@@ -234,10 +254,21 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 		final Intent intent = new Intent();
 		if(name.contains("公司福利")){
 			//公司福利
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 			//MainActivity.mActivity.replaceChildFragment(
 				//	"WelfareFragment", new WelfareFragment(), true);
 			intent.setClass(mActivity, WelfareActivity.class);
 			startActivity(intent);
+<<<<<<< HEAD
+=======
+=======
+			MainActivity.mActivity.replaceChildFragment(
+					"WelfareFragment", new WelfareFragment(), true);
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		}else if(name.contains("Logo商店")){
 			//Logo商店
 			MainActivity.mActivity.replaceChildFragment(
@@ -313,10 +344,19 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			//员工激励
 			intent.setClass(mActivity, MotivationActivity.class);
 			startActivity(intent);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		}else if(name.contains("入职管理")){
 			//入职管理
 			intent.setClass(mActivity,EntryManagementActiviy.class);
 			startActivity(intent);
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 		}else{
 		}
 	}
@@ -362,8 +402,13 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			
 			uiAdapter.setTextSize(tag.moduleName, TEXTSIZE);
 			uiAdapter.setPadding(tag.moduleName, 0, 0, 0, 25);
+<<<<<<< HEAD
 			
 			
+=======
+			
+			
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 			uiAdapter.setMargin(tag.moduleIcon, IMAGEVIEWWIDTH, IMAGEVIEWHEIGHT, 0, 30, 0, 12);
 			
 			Module data = (Module) getItem(position);
@@ -426,6 +471,10 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 				//v.setBackgroundColor(Color.parseColor("#fe8649"));
 				imageView.setImageResource(R.drawable.com_depot1);
 			}else if(name.contains("APP考勤")){
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 				//app考勤
 				//v.setBackgroundColor(Color.parseColor("#f87474"));
 				imageView.setImageResource(R.drawable.com_attence1);
@@ -460,6 +509,42 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			}else if(name.contains("入职管理")){
 				//入职管理
 				imageView.setImageResource(R.drawable.com_entry_management);
+<<<<<<< HEAD
+=======
+=======
+				//物品领用
+				//v.setBackgroundColor(Color.parseColor("#f87474"));
+				imageView.setImageResource(R.drawable.com_attence1);
+			}else if(name.contains("规章制度")){
+				//物品领用
+				//v.setBackgroundColor(Color.parseColor("#d83333"));
+				imageView.setImageResource(R.drawable.com_rule);
+			}else if(name.contains("销售跟踪")){
+				//物品领用
+				//v.setBackgroundColor(Color.parseColor("#d83333"));
+				imageView.setImageResource(R.drawable.com_sales);
+			}else if(name.contains("内部招聘")){
+				//物品领用
+				//v.setBackgroundColor(Color.parseColor("#d83333"));
+				imageView.setImageResource(R.drawable.com_recruit);
+			}else if(name.contains("福利共享")){
+				//物品领用
+				//v.setBackgroundColor(Color.parseColor("#d83333"));
+				imageView.setImageResource(R.drawable.com_share);
+			}else if(name.contains("我的圈子")){
+				//物品领用
+				//v.setBackgroundColor(Color.parseColor("#d83333"));
+				imageView.setImageResource(R.drawable.com_social);
+			}else if(name.contains("绩效")){
+				//物品领用
+				//v.setBackgroundColor(Color.parseColor("#d83333"));
+				imageView.setImageResource(R.drawable.com_performance1);
+			}else if(name.contains("激励")){
+				//物品领用
+				//v.setBackgroundColor(Color.parseColor("#d83333"));
+				imageView.setImageResource(R.drawable.com_motivation1);
+>>>>>>> 34acdd014449076be19c67258f14caec9568e50d
+>>>>>>> bfc1dd98ae18f2af35989a913a31b9cdaa58e226
 			}else{
 				//v.setBackgroundColor(Color.parseColor("#a2063c"));
 				//imageView.setImageResource(R.drawable.com_businessman);
