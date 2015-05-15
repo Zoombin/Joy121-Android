@@ -110,7 +110,7 @@ public class ResetPasswordDialog extends Dialog {
          et_nloginpwd=(EditText)findViewById(R.id.et_newpwd);
          et_confrimnloginpwd=(EditText)findViewById(R.id.et_comfirmnewpwd);
         //设置hint字体大小
-         SpannableString loginname = new SpannableString("用户名");
+         SpannableString loginname = new SpannableString("登录名");
 		 AbsoluteSizeSpan size = new AbsoluteSizeSpan(15, true);// 新建一个属性对象,设置文字的大小
 		 loginname.setSpan(size, 0, loginname.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // 附加属性到文本
 		 et_forgetloginname.setHint(new SpannedString(loginname)); 

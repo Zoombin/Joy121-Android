@@ -121,7 +121,7 @@ public class MobileCodeManager extends QActivity{
 	{
 		if(TextUtils.isEmpty(loginname))
 		{
-			Toast.show(mActivity,"请输入用户名！");
+			Toast.show(mActivity,"请输入登录名！");
 			return;
 		}
 		BindMobileEntity entity=new BindMobileEntity();

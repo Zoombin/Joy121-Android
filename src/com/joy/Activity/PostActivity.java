@@ -89,7 +89,7 @@ public class PostActivity extends BaseActivity implements OnClickListener {
 		setContentView(v);
 		resources =getResources();
 		initView();
-		initData("1",true);
+	//	initData("1",true);//在这里加回重复加载公告信息
 		return v;
 	}
 	public void onResume() {
