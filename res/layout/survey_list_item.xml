@@ -13,9 +13,9 @@
 
         <ImageView
             android:id="@+id/iv_survey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/survey" />
 
         <TextView

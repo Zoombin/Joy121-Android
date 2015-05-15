@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/tv_orderid"
-            android:text="订单id"
+            android:text="@string/orderid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/tv_points"
-            android:text="积分"
+            android:text="@string/order_integral"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -38,7 +38,7 @@
 
         <TextView
             android:id="@+id/tv_ordernum"
-            android:text="数量"
+            android:text="@string/order_number"
             android:layout_marginLeft="5dip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
 
         <TextView
             android:id="@+id/tv_flag"
-            android:text="待处理"
+            android:text="@string/order_pending"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

@@ -117,8 +117,8 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
 				getCategories();
 			}
-		});
-
+		}
+			);
 		getCategories();
 	}
 
@@ -171,6 +171,7 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 	/***
 	 * 顺序请求goods数据
 	 */
+	
 	private void orderRequestGoodsData(){
 		if(tempList != null && tempList.size()>0){
 			if(index < tempList.size()){
@@ -181,7 +182,6 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 			}
 		}
 	}
-
 	class CategoriseAdapter extends BaseAdapter {
 		private List<CategoryEntity> datas;
 		int i =0;
@@ -193,6 +193,7 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 			datas.add(data);
 			this.notifyDataSetChanged();
 		}
+		
 		
 		public void refrashData(CategoriesGoodsDEntity gDEntity) {
 			if(gDEntity != null){

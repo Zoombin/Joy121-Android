@@ -1,5 +1,6 @@
 package com.joy;
 
+
 import gejw.android.quickandroid.QApplication;
 import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
@@ -30,7 +31,7 @@ public class JoyApplication extends QApplication {
 	 * APP设置
 	 * @return
 	 */
-	public CompAppSet getCompAppSet() {
+public CompAppSet getCompAppSet() {
 		UserInfoEntity userinfo = getUserinfo();
 		String appSet = "";
 		if (userinfo != null) {

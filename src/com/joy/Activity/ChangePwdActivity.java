@@ -34,7 +34,7 @@ import com.umeng.analytics.MobclickAgent;
 public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 
 	private RelativeLayout layout_title;
-	private TextView tv_ret;
+	private ImageView iv_ret;
 	private TextView tv_title;
 	private ImageView iv_currpwd;
 	private EditText et_currpwd;
@@ -112,13 +112,10 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 		setContentView(v);
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT,
-				Constants.TitleHeight, 0, 0, 0, 0);
+				Constants.SubTitleHeight, 0, 0, 0, 0);
 
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(this);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -182,7 +179,7 @@ public class ChangePwdActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			finish();
 			break;
 		case R.id.btn_changepwd:

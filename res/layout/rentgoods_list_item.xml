@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:background="@color/menu_text_press"
-                    android:text="领 用"
+                    android:text="@string/rentgoods"
                     android:textColor="@color/WHITE" />
 		    </LinearLayout>
 		        

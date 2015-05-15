@@ -4,10 +4,57 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
     
-    <include 
+    <RelativeLayout
+        android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/navigation_layout" />
+        android:background="@color/title_bg" >
+
+        <ImageView
+            android:id="@+id/iv_ret"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/arrow_left" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/payroll"
+            android:textColor="@color/WHITE" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/layout_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="32dip"
+        android:layout_marginTop="2dip"
+        android:visibility="gone" >
+        <TextView
+        	android:id="@+id/tv_prompt"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_centerVertical="true"
+        	android:text="@string/nopayroll"
+        	android:textSize="13sp"
+        	android:textColor="@color/WHITE"
+        	android:layout_marginLeft="6dip"
+        	android:layout_alignParentLeft="true" />
+        <ImageView
+        	android:id="@+id/iv_prompt"
+        	android:src="@drawable/exit"
+        	android:layout_width="18dip"
+        	android:layout_height="18dip"
+        	android:layout_centerVertical="true"
+        	android:layout_alignParentRight="true"
+        	android:layout_marginRight="6dip" />   
+    </RelativeLayout>
 
 	<ListView
         android:id="@+id/list_payrolls"

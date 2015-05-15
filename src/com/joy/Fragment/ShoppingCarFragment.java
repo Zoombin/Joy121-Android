@@ -28,6 +28,7 @@ import com.joy.Activity.MainActivity;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Utils.Constants;
+import com.joy.Utils.Utils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CommitResultEntity;
@@ -36,6 +37,7 @@ import com.joy.json.model.CompAppSet;
 import com.joy.json.model.ShoppingCarGoods;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.CommitShopCarOp;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ShoppingCarFragment extends BaseFragment {
@@ -102,7 +104,8 @@ public class ShoppingCarFragment extends BaseFragment {
 			//	ivLogo.setImageResource(imgid);
 			//}
 			tv_title.setVisibility(View.GONE);
-			ImageLoader.getInstance().displayImage(Constants.IMGLOGO + appSet.getLogo(), ivLogo);
+			DisplayImageOptions options = Utils.getImageOptions();
+			ImageLoader.getInstance().displayImage(Constants.IMGLOGO + appSet.getLogo(), ivLogo, options);
 			ivLogo.setScaleType(ScaleType.CENTER_INSIDE);
 			ivLogo.setVisibility(View.VISIBLE);
 		}
@@ -127,6 +130,8 @@ public class ShoppingCarFragment extends BaseFragment {
 		tvInfo = (TextView) footView.findViewById(R.id.tv_info);
 		tvSumPoints = (TextView) footView.findViewById(R.id.sum_points);
 		commitBt = (Button) footView.findViewById(R.id.commit_bt);
+		uiAdapter.setMargin(commitBt, LayoutParams.MATCH_PARENT, 46, 10, 0, 10, 50);
+		uiAdapter.setTextSize(commitBt, 24);
 		commitBt.setBackgroundColor(color);
 		commitBt.setOnClickListener(new OnClickListener() {
 			@Override
@@ -279,10 +284,16 @@ public class ShoppingCarFragment extends BaseFragment {
 				convertView = LayoutInflater.from(context).inflate(R.layout.layout_shoppingcar_item, null);
 				tag.goodsImg = (ImageView) convertView.findViewById(R.id.img_icon);
 				tag.goodsName = (TextView) convertView.findViewById(R.id.txt_goodsname);
+				uiAdapter.setMargin(tag.goodsName, LayoutParams.WRAP_CONTENT,
+						LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
 				tag.goodsNum = (TextView) convertView.findViewById(R.id.txt_num);
+				uiAdapter.setPadding(tag.goodsNum, 0, 0, 0, 5);
 				tag.goodsProperty = (TextView) convertView.findViewById(R.id.txt_property);
+				uiAdapter.setPadding(tag.goodsProperty, 0, 0, 0, 5);
 				tag.minus = (ImageView) convertView.findViewById(R.id.img_minus);
+				uiAdapter.setPadding(tag.minus, 0, 0, 0, 5);
 				tag.plus = (ImageView) convertView.findViewById(R.id.img_plus);
+				uiAdapter.setPadding(tag.plus, 0, 0, 0, 5);
 				convertView.setTag(tag);
 			} else {
 				tag = (Tag) convertView.getTag();
@@ -333,6 +344,7 @@ public class ShoppingCarFragment extends BaseFragment {
 								public void negativeButtonClick() {
 									// TODO Auto-generated method stub
 								}
+								
 							});
 						} else {
 							num--;

@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="45dip"
         android:gravity="center"
-        android:text="总计：0积分"
+        android:text="@string/total_integral"
         android:textColor="@color/BLACK"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -23,7 +23,7 @@
             android:layout_width="fill_parent"
             android:layout_height="45dip"
             android:gravity="center"
-            android:text="亲，暂时没有商品，选好商品后再回来结算哦！"
+            android:text="@string/nogoods"
             android:textColor="@color/BLACK" />
 
         <Button
@@ -31,7 +31,7 @@
             android:layout_width="fill_parent"
             android:layout_height="45dip"
             android:background="#ffa800"
-            android:text="提交订单"
+            android:text="@string/submit_order"
             android:textColor="@color/WHITE"
             android:textSize="20sp" />
     </RelativeLayout>

@@ -40,6 +40,7 @@ public class ContactAdapter extends BaseAdapter {
 	private Resources resources;
 	public String personname;
 	
+	
 	/**
 	 * @param mainActivity
 	 */
@@ -95,7 +96,7 @@ public class ContactAdapter extends BaseAdapter {
 					.findViewById(R.id.tv_personname);
 			uiAdapter.setTextSize(holder.tv_personname, 22);
 			TextPaint tp = holder.tv_personname.getPaint(); 
-			tp.setFakeBoldText(true); 
+			tp.setFakeBoldText(true); //中文粗体
 			uiAdapter.setMargin(holder.tv_personname, LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT, 10, 5, 0, 0);
 

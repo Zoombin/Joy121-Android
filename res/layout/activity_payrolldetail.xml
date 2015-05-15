@@ -5,14 +5,36 @@
     android:background="@color/bg"
     android:orientation="vertical" >
 
-    <include 
+    <RelativeLayout
+        android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/navigation_layout" />
+        android:background="@color/title_bg" >
+
+        <ImageView
+            android:id="@+id/iv_ret"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/arrow_left" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/personalinfo"
+            android:textColor="@color/WHITE" />
+    </RelativeLayout>
     
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
         
         <LinearLayout
             android:id="@+id/layout_payroll_info"
@@ -39,26 +61,34 @@
 			            android:id="@+id/tv_realwages"
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
-			            android:layout_gravity="center"
-			            android:textColor="@color/BLACK" />
+			            android:layout_gravity="center" />
 	                
 	                <TextView
 			            android:id="@+id/tv_peroid_title"
 			            android:layout_width="wrap_content"
 			            android:layout_height="wrap_content"
 			            android:layout_gravity="center"
-			            android:text="@string/periodmonth_title"
-			            android:textColor="@color/BLACK" />
+			            android:text="@string/periodmonth_title" />
 	                
 	            </LinearLayout>
 	        </LinearLayout>
 	        <!-- 基本薪酬 row-->
+	        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical"
+	            android:layout_marginLeft="10dip"
+	            android:layout_marginTop="5dip"
+	            android:layout_marginRight="10dip"
+	            android:layout_marginBottom="5dip"
+	            android:background="@drawable/personal_background" >
             <LinearLayout
                 android:id="@+id/layout_totalpay"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:gravity="left|center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:background="@drawable/payrollhead_background" >
                 <TextView
                     android:id="@+id/tv_totalpay_title"
                     android:layout_width="wrap_content"
@@ -69,7 +99,7 @@
             <LinearLayout
                 android:id="@+id/layout_basepay"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -90,7 +120,7 @@
             <LinearLayout
                 android:id="@+id/layout_meritpay"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -111,7 +141,7 @@
             <LinearLayout
                 android:id="@+id/layout_secret"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -132,7 +162,7 @@
             <LinearLayout
                 android:id="@+id/layout_positionsalary"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -149,15 +179,25 @@
                     android:textColor="@color/BLACK"
                     android:gravity="right" />
             </LinearLayout>
-            
+            </LinearLayout>
             
             <!-- 薪资增项 row-->
             <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical"
+	            android:layout_marginLeft="10dip"
+	            android:layout_marginTop="5dip"
+	            android:layout_marginRight="10dip"
+	            android:layout_marginBottom="5dip"
+	            android:background="@drawable/personal_background" >
+            <LinearLayout
                 android:id="@+id/layout_salaryadd"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="24dp"
                 android:gravity="left|center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:background="@drawable/payrollhead_background" >
                 <TextView
                     android:id="@+id/tv_salaryadd_title"
                     android:layout_width="wrap_content"
@@ -168,7 +208,7 @@
             <LinearLayout
                 android:id="@+id/layout_overtimesalary"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -189,7 +229,7 @@
             <LinearLayout
                 android:id="@+id/layout_subsidy"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -210,7 +250,7 @@
             <LinearLayout
                 android:id="@+id/layout_onechildfee"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -231,7 +271,7 @@
             <LinearLayout
                 android:id="@+id/layout_bonus"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -252,7 +292,7 @@
             <LinearLayout
                 android:id="@+id/layout_annualbonus"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -273,7 +313,7 @@
             <LinearLayout
                 android:id="@+id/layout_addothers"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -294,7 +334,7 @@
             <LinearLayout
                 android:id="@+id/layout_others"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -311,14 +351,25 @@
                     android:textColor="@color/BLACK"
                     android:gravity="right" />
             </LinearLayout>
+            </LinearLayout>
             
             <!-- 薪资减项 row-->
             <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical"
+	            android:layout_marginLeft="10dip"
+	            android:layout_marginTop="5dip"
+	            android:layout_marginRight="10dip"
+	            android:layout_marginBottom="5dip"
+	            android:background="@drawable/personal_background" >
+            <LinearLayout
                 android:id="@+id/layout_totalallowance"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="24dp"
                 android:gravity="left|center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:background="@drawable/payrollhead_background" >
                 <TextView
                     android:id="@+id/tv_salarydeduct_title"
                     android:layout_width="wrap_content"
@@ -329,7 +380,7 @@
             <LinearLayout
                 android:id="@+id/layout_leavededuction"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -350,7 +401,7 @@
             <LinearLayout
                 android:id="@+id/layout_endowmentinsurance"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -371,7 +422,7 @@
             <LinearLayout
                 android:id="@+id/layout_endowmentinsuranceretroactive"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -392,7 +443,7 @@
             <LinearLayout
                 android:id="@+id/layout_hospitalizationinsurance"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -413,7 +464,7 @@
             <LinearLayout
                 android:id="@+id/layout_hospitalizationinsuranceretroactive"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -434,7 +485,7 @@
             <LinearLayout
                 android:id="@+id/layout_unemploymentinsurance"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -455,7 +506,7 @@
             <LinearLayout
                 android:id="@+id/layout_unemploymentinsuranceretroactive"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -476,7 +527,7 @@
             <LinearLayout
                 android:id="@+id/layout_reservefund"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -497,7 +548,7 @@
             <LinearLayout
                 android:id="@+id/layout_reservefundretroactive"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -518,7 +569,7 @@
             <LinearLayout
                 android:id="@+id/layout_deductothers"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -535,13 +586,24 @@
                     android:textColor="@color/BLACK"
                     android:gravity="right" />
             </LinearLayout>
+            </LinearLayout>
             <!--计税薪酬  row-->
+            <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical"
+	            android:layout_marginLeft="10dip"
+	            android:layout_marginTop="5dip"
+	            android:layout_marginRight="10dip"
+	            android:layout_marginBottom="5dip"
+	            android:background="@drawable/personal_background" >
             <LinearLayout
                 android:id="@+id/layout_salarytax"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="24dp"
                 android:gravity="left|center_vertical"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:background="@drawable/payrollhead_background" >
                 <TextView
                     android:id="@+id/tv_salarytax_title"
                     android:layout_width="wrap_content"
@@ -552,7 +614,7 @@
             <LinearLayout
                 android:id="@+id/layout_pretaxwages"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -573,7 +635,7 @@
             <LinearLayout
                 android:id="@+id/layout_incometax"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -595,7 +657,7 @@
             <LinearLayout
                 android:id="@+id/layout_realwages1"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="24dp"
                 android:background="@drawable/tabbar"
                 android:gravity="left|center_vertical"
                 android:orientation="horizontal" >
@@ -611,6 +673,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/BLACK"
                     android:gravity="right" />
+            </LinearLayout>
             </LinearLayout>
         </LinearLayout>
         

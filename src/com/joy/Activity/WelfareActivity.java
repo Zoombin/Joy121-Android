@@ -6,7 +6,10 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,54 +39,63 @@ import com.umeng.analytics.MobclickAgent;
 public class WelfareActivity extends BaseActivity implements OnClickListener {
 
 	private RelativeLayout layout_title;
-	private TextView tv_ret;
+	private ImageView iv_ret;
 	private TextView tv_title;
+	
+	
 	private ListView mListView;
 	private WelfareAdapter mAdapter;
+	List<CommoditySet> tempList ;
 	
-	/*@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_welfare);
-		
-		initView();
-		getWelfareList();
-	}*/
+	
+	private RelativeLayout layout_prompt;
+	private ImageView iv_prompt;
+	private Resources resources;
 	
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View v = inflater.inflate(R.layout.activity_welfare, null);
+		resources = getResources();
 		setContentView(v);
 		initView();
-		getWelfareList();
 		return v;
 	}
 
 	private void initView() {
+		//设置页眉
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
-				0, 0);
-
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(this);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
-
+				0, 0);//标题位置
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
+		
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+		tv_title.setText(R.string.row_welfare);//显示标题“公司福利”
 		
-		mListView = (ListView) findViewById(R.id.list_welfare);
-		mAdapter = new WelfareAdapter(self);
-		
-		mListView.setAdapter(mAdapter);
-	}
+		//显示福利已经完成的标题
+		layout_prompt = (RelativeLayout) findViewById(R.id.layout_prompt);
+		layout_prompt.setBackgroundColor(Color.parseColor(appSet.getColor2()));//显示tips提示背景
+		iv_prompt = (ImageView) findViewById(R.id.iv_prompt);//响应tips的叉号
+		iv_prompt.setOnClickListener(this);
 	
+		mListView = (ListView) findViewById(R.id.list_welfare);
+		mAdapter = new WelfareAdapter(self);	
+		mListView.setAdapter(mAdapter);
+		getWelfareList();
+	}
+
 	/**
 	 * 获取接口数据
 	 */
 	private void getWelfareList() {
+		
+		if(tempList != null){
+			setAdapterData(tempList);
+			return;
+		}
+		
 		OperationBuilder builder = new OperationBuilder().append(
 				new Fp_benefitOp(), null);
 		OnOperationListener listener = new OnOperationListener() {
@@ -93,32 +105,45 @@ public class WelfareActivity extends BaseActivity implements OnClickListener {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, getResources().getString(R.string.timeout));
+					Toast.show(self, "连接超时");
 					return;
 				}
 				WelfareEntity entity = (WelfareEntity) resList.get(0);
 				List<CommoditySet> commoditySetlist = entity.getRetobj();
-				if (commoditySetlist == null) {
-					Toast.show(self, getResources().getString(R.string.nowelfareinfo));
+				if (commoditySetlist == null || commoditySetlist.size() == 0) {
+					layout_prompt.setVisibility(View.VISIBLE);
 					return;
 				} else {
 					commoditySetlist = getCommoditySetList(commoditySetlist);
-					for (CommoditySet commoditySet : commoditySetlist) {
+					/*for (CommoditySet commoditySet : commoditySetlist) {
 						mAdapter.addItem(commoditySet);
 					}
-					mAdapter.notifyDataSetChanged();
+					mAdapter.notifyDataSetChanged();*/
+					tempList = commoditySetlist;
+					setAdapterData(commoditySetlist);
 				}
 			}
-
 			@Override
 			public void onOperationError(Exception e) {
 				e.printStackTrace();
 			}
 		};
-
-		JsonCommon task = new JsonCommon(self, builder, listener,
-				false);
+		JsonCommon task = new JsonCommon(self, builder, listener, JsonCommon.PROGRESSQUERY);
 		task.execute();
+	}
+	
+	private void setAdapterData(List<CommoditySet> list){
+		int color = 0;
+		if(appSet != null){
+			try {
+				color = Color.parseColor(appSet.getColor2());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		mAdapter.setBtColor(color);
+		mAdapter.setData(list);
 	}
 	
 	private List<CommoditySet> getCommoditySetList(List<CommoditySet> commoditySetlist) {
@@ -143,10 +168,12 @@ public class WelfareActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			finish();
 			break;
-
+		case R.id.iv_prompt:
+			layout_prompt.setVisibility(View.GONE);
+			break;
 		default:
 			break;
 		}
@@ -154,11 +181,11 @@ public class WelfareActivity extends BaseActivity implements OnClickListener {
 	
 	public void onResume() {
 		super.onResume();
-		MobclickAgent.onResume(this);
+		///MobclickAgent.onResume(this);
 	}
 
 	public void onPause() {
 		super.onPause();
-		MobclickAgent.onPause(this);
+		///MobclickAgent.onPause(this);
 	}
 }

@@ -6,6 +6,7 @@ import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -73,6 +74,13 @@ public class CustomConfirmDialog extends Dialog {
 		 return buttonNo;
 	}
 	
+	public void setForceUpdate(String forceUpdate) {
+		if (forceUpdate != null && "1".equals(forceUpdate)) {
+			buttonNo.setTextColor(Color.parseColor("#999999"));
+			buttonNo.setOnClickListener(null);	
+		}
+	}
+	
 	public void setONClickButton(final DialogButtonClickCallback callback) {
 		buttonYes.setOnClickListener(new Button.OnClickListener(){    
             public void onClick(View v) {
@@ -106,6 +114,7 @@ public class CustomConfirmDialog extends Dialog {
          tv_title.setText("提示");
          tv_title.setTextSize(18);
          
+         
          tv_msg = (TextView) findViewById(R.id.tv_msg);
          tv_msg.setText("确定参加吗？");
          tv_msg.setTextSize(16);
@@ -121,6 +130,7 @@ public class CustomConfirmDialog extends Dialog {
          buttonYes = (TextView) findViewById(R.id.tv_yes);
          buttonYes.setTextSize(16);
          buttonYes.setSingleLine(true);
+         
      }    
          
      //called when this dialog is dismissed    

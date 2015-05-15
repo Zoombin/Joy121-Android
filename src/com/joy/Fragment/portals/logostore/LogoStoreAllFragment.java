@@ -1,19 +1,10 @@
 package com.joy.Fragment.portals.logostore;
 
-import gejw.android.quickandroid.log.PLog;
 import gejw.android.quickandroid.ui.adapter.UIManager;
-import gejw.android.quickandroid.widget.HorizontalListView;
-import gejw.android.quickandroid.widget.Toast;
-import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshBase;
-import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshBase.Mode;
-import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshBase.OnRefreshListener;
-import gejw.android.quickandroid.widget.PullToRefresh.PullToRefreshListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,26 +17,16 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
 import com.joy.Activity.MainActivity;
-import com.joy.Activity.StoreDetailActivity;
 import com.joy.Fragment.BaseFragment;
-import com.joy.Fragment.TopFragment.TopPortalsFragment;
 import com.joy.Utils.Constants;
-import com.joy.Widget.RectangleTextView;
-import com.joy.json.JsonCommon;
-import com.joy.json.JsonCommon.OnOperationListener;
-import com.joy.json.model.CategoriesGoodsDEntity;
 import com.joy.json.model.CategoriesGoodsDEntity.CategoriesGoods;
 import com.joy.json.model.CategoryEntity;
-import com.joy.json.operation.OperationBuilder;
-import com.joy.json.operation.impl.CategoryGoodsListOp;
-import com.joy.json.operation.impl.CategoryOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /***
@@ -92,26 +73,30 @@ public class LogoStoreAllFragment extends BaseFragment {
 		initView(v);
 		return v;
 	}
-	
+	//logo商店显示全部商品
 	private void initView(View v) {
 		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
+		//单项全部商品显示列表的标题位置
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
 
 		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+		//如果不为空，标题为商品的名称否则标题名称显示全部商品
 		if(data!= null){
 			tv_title.setText(data.getCategoryName());
 		}else{
 			tv_title.setText("全部商品");
 		}
-
+		
 		tv_ret = (TextView) v.findViewById(R.id.tv_ret);
 		tv_ret.setOnClickListener(new OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				MainActivity.mActivity.Back();
 			}
+			
 		});
 		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
 		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);

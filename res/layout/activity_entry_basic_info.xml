@@ -1,0 +1,468 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title_bg" >
+
+        <ImageView
+            android:id="@+id/iv_ret"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/arrow_left" />
+         <TextView
+            android:id="@+id/tv_ret"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:scaleType="fitXY"
+            android:text="上一步"
+            android:textColor="@color/WHITE"/>
+         
+         
+          <TextView
+            android:id="@+id/tv_goback"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:scaleType="fitXY"
+            android:text="上一步"
+            android:textColor="@color/WHITE"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="基本信息"
+            android:textColor="@color/WHITE" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/basic_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/WHITE"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+             <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"    
+                android:hint="@string/notnull"   
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/tv_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"
+                android:textColor="@color/BLACK" />
+            <RadioGroup 
+                android:id="@+id/radiogender"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal" >
+                <RadioButton 
+                   android:id="@+id/male"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:scaleX="0.8"
+                   android:scaleY="0.8"
+                   android:text="男"/>
+                 <RadioButton 
+                   android:id="@+id/female"
+                    android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:scaleX="0.8"
+                   android:scaleY="0.8"
+                   android:text="女"/>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+           <TextView
+                android:id="@+id/tv_nation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nation"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_nation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+        
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/tv_marital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/marital"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_marital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+        
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/tv_basicifoidno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/idno"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_basicicfoidno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:hint="@string/notnull"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+        
+           <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/tv_basicinfodegreeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/degreeno"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_basicinfodegreeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:hint="@string/notnull"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+        
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/tv_department"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/department"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_department"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:hint="@string/notnull"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+           <TextView
+                android:id="@+id/tv_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/position"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:hint="@string/notnull"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+        
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+           <TextView
+                android:id="@+id/tv_entrydate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/entrydate"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_entrydate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:hint="@string/notnull"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+           <Button
+                android:id="@+id/btn_confirmbasicinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/greenbutton"
+                android:text="下一步"
+                android:textColor="@color/WHITE" />
+    </LinearLayout>
+    
+    
+    
+    <!-- 联系方式 -->
+     
+    <LinearLayout
+        android:id="@+id/contact_way"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/WHITE"
+        android:orientation="vertical" >
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+             <TextView
+                android:id="@+id/tv_contactway"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contact_way"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_contactway"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:hint="@string/notnull"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+             <TextView
+                android:id="@+id/tv_contactaddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contact_address"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_contactaddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:hint="@string/notnull"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/tv_residentcity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resident_city"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_residentcity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+        
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/tv_emergencyperson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/emergency_person"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_emergencyperson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout>
+        
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/tv_emergencycontact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/emergency_contact"
+                android:textColor="@color/BLACK" />
+            <EditText
+                android:id="@+id/et_emergencycontact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:singleLine="true"
+                android:textColor="@color/BLACK" />
+        </LinearLayout> 
+          <Button
+                android:id="@+id/btn_confirmcontact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/greenbutton"
+                android:text="下一步"
+                android:textColor="@color/WHITE" />
+    </LinearLayout>
+
+    <!-- 上传附件 -->
+    <LinearLayout
+        android:id="@+id/accessory"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/WHITE"
+        android:orientation="vertical" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+           <TextView
+                android:id="@+id/tv_accessoryidno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="身份证:"
+                android:layout_weight="1"
+                android:textColor="@color/BLACK" />
+          <ImageView
+                android:id="@+id/accessoryimgidno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/BLACK"/>
+          <Button
+                android:id="@+id/btn_accessoryidno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="浏览.."/>
+        </LinearLayout>
+        
+        
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+           <TextView
+                android:id="@+id/tv_accessorydegreeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学历证:"
+                android:textColor="@color/BLACK" />
+          <ImageView
+                android:id="@+id/accessoryimgdegreeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/BLACK"/>
+          <Button
+                android:id="@+id/btn_accessorydegreeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="浏览.."/>
+        </LinearLayout>
+        
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+           <TextView
+                android:id="@+id/tv_checkup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="体检单:"
+                android:textColor="@color/BLACK" />
+          <ImageView
+                android:id="@+id/imgcheckup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/BLACK"
+                android:layout_weight="1"/>
+          <Button
+                android:id="@+id/btn_checkup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="浏览.."/>
+        </LinearLayout>
+         <Button
+                android:id="@+id/btn_confirmaccessory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/greenbutton"
+                android:text="确定"
+                android:textColor="@color/WHITE" />
+    </LinearLayout>
+    
+  
+
+</LinearLayout>

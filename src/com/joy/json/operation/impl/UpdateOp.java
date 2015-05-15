@@ -5,12 +5,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 
+import android.util.Log;
+
 import com.joy.JoyApplication;
 import com.joy.Utils.MD5;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
+import com.joy.json.model.OrderSubmitEntity;
 import com.joy.json.model.UpdateEntity;
 import com.joy.json.operation.ITaskOperation;
 import com.joy.json.parse.UpdateParse;
@@ -19,6 +22,8 @@ public class UpdateOp implements ITaskOperation {
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
+		String newVersion = in.toString();
+		Log.d("0", "---newVersion = " + newVersion);
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(
 				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
@@ -29,8 +34,9 @@ public class UpdateOp implements ITaskOperation {
 				IP,
 				new BasicNameValuePair("action", "app_version"),
 				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\"}", SharedPreferencesUtils
-								.getLoginName(JoyApplication.getSelf()))),
+						"{\"loginname\":\"%s\", \"currentappversion\":\"%s\", \"devicetype\":\"%s\"}", SharedPreferencesUtils
+						.getLoginName(JoyApplication.getSelf())
+							  , newVersion, "android")),
 				new BasicNameValuePair("token", new MD5()
 						.getMD5ofStr(SharedPreferencesUtils
 								.getLoginName(JoyApplication.getSelf())
