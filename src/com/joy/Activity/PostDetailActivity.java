@@ -48,7 +48,7 @@ public class PostDetailActivity extends BaseActivity implements OnClickListener 
 
 	public static final String PostDetails = "postdetails";
 	private RelativeLayout layout_title;
-	private TextView tv_ret;
+	private ImageView iv_ret;
 	private TextView tv_title;
 	private TextView tv_postname;
 	private ImageView iv_postpicture;
@@ -91,13 +91,10 @@ public class PostDetailActivity extends BaseActivity implements OnClickListener 
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT,
-				Constants.TitleHeight, 0, 0, 0, 0);
+				Constants.SubTitleHeight, 0, 0, 0, 0);
 
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(this);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -105,7 +102,12 @@ public class PostDetailActivity extends BaseActivity implements OnClickListener 
 		tv_postname = (TextView) findViewById(R.id.tv_postname);
 		uiAdapter.setTextSize(tv_postname, 24);
 		uiAdapter.setMargin(tv_postname, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 0, 10, 0, 10);
+				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
+		
+		tv_posttime = (TextView) findViewById(R.id.tv_posttime);
+		uiAdapter.setMargin(tv_posttime, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
+		uiAdapter.setTextSize(tv_posttime, 20);
 
 		iv_postpicture = (ImageView) findViewById(R.id.iv_postpicture);
 		uiAdapter.setMargin(iv_postpicture, LayoutParams.MATCH_PARENT,
@@ -116,24 +118,20 @@ public class PostDetailActivity extends BaseActivity implements OnClickListener 
 				LayoutParams.WRAP_CONTENT, 30, 5, 20, 5);
 		uiAdapter.setTextSize(tv_postcontent, 22);
 
-		tv_posttime = (TextView) findViewById(R.id.tv_posttime);
-		uiAdapter.setMargin(tv_posttime, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 30, 5, 20, 5);
-		uiAdapter.setTextSize(tv_posttime, 22);
 	}
 
 	private void initData() {
 		Intent intent = getIntent();
 		PostDetailEntity entity = (PostDetailEntity) intent.getSerializableExtra(PostDetails);
 		tv_postname.setText(entity.getTitle());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		tv_posttime.setText(sdf.format(new Date(Long.parseLong(entity
+				.getPostTime().substring(6, 19)))));
 		if (entity.getPicture() == null || "".equals(entity.getPicture())) {
 			iv_postpicture.setVisibility(View.GONE);
 		} else {
 			ImageLoader.getInstance().displayImage(Constants.IMGPOST+ entity.getPicture(), iv_postpicture);
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		tv_posttime.setText(sdf.format(new Date(Long.parseLong(entity
-				.getPostTime().substring(6, 19)))));
 		tv_postcontent.setText(Html.fromHtml(entity.getContent()));
 
 	}
@@ -141,7 +139,7 @@ public class PostDetailActivity extends BaseActivity implements OnClickListener 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			finish();
 			break;
 

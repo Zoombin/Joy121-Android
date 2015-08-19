@@ -47,6 +47,10 @@ public class ActivityDetailEntity extends TResult {
 	
 	private String Content;
 	
+	private String AwardPoint;
+	
+	private String PunishPoint;
+	
 	private int ActTypeId;
 	
 	private String isexprired;
@@ -54,6 +58,22 @@ public class ActivityDetailEntity extends TResult {
 	private String IsJoin;
 	private boolean actionCancel;//用于是报名还是取消
 	
+	public String getAwardPoint() {
+		return AwardPoint;
+	}
+
+	public void setAwardPoint(String awardPoint) {
+		AwardPoint = awardPoint;
+	}
+
+	public String getPunishPoint() {
+		return PunishPoint;
+	}
+
+	public void setPunishPoint(String punishPoint) {
+		PunishPoint = punishPoint;
+	}
+
 	public Boolean getIsEnabled(String loginname) {
 		if (this.getIsexprired()) {
 			return false;

@@ -21,11 +21,8 @@ public class RentGoodsListParse extends AbstractParser<TResult> {
 	public RentGoodsListEntity parse(JSONObject json) throws JSONException {
 		RentGoodsListEntity entity = new RentGoodsListEntity();
 		if(json!=null){
-			Log.d("0", "------json = " + json.toString());
 			entity = new Gson().fromJson(
 					 json.toString(), RentGoodsListEntity.class);
-		} else {
-			Log.d("0", "------json = null");
 		}
 		return entity;
 	}

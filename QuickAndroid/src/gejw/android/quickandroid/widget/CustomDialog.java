@@ -194,12 +194,12 @@ public class CustomDialog extends Dialog {
 			} else if (contentView != null) {
 				// if no message set
 				// add the contentView to the dialog body
-				((LinearLayout) layout.findViewById(R.id.message))
+				/*((LinearLayout) layout.findViewById(R.id.message))
 						.removeAllViews();
 				((LinearLayout) layout.findViewById(R.id.message)).addView(
 						contentView, new LayoutParams(
 								LayoutParams.WRAP_CONTENT,
-								LayoutParams.WRAP_CONTENT));
+								LayoutParams.WRAP_CONTENT));*/
 			}
 			dialog.setContentView(layout);
 			return dialog;

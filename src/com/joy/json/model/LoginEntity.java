@@ -12,6 +12,10 @@ public class LoginEntity extends TResult {
 	private String loginname;
 	
 	private String loginpwd;
+	
+	private String devicetype;
+	
+	private String versionname;
 
 	private UserInfoEntity retobj;
 	
@@ -33,6 +37,22 @@ public class LoginEntity extends TResult {
 
 	public void setLoginpwd(String loginpwd) {
 		this.loginpwd = loginpwd;
+	}
+
+	public String getDevicetype() {
+		return devicetype;
+	}
+
+	public void setDevicetype(String devicetype) {
+		this.devicetype = devicetype;
+	}
+
+	public String getVersionname() {
+		return versionname;
+	}
+
+	public void setVersionname(String versionname) {
+		this.versionname = versionname;
 	}
 
 	public UserInfoEntity getRetobj() {

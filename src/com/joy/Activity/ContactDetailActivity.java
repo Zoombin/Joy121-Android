@@ -1,56 +1,22 @@
 package com.joy.Activity;
 
-import gejw.android.quickandroid.QActivity;
-import gejw.android.quickandroid.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.ActionBar.LayoutParams;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract.Contacts;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.text.TextPaint;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joy.R;
 import com.joy.Utils.Constants;
-import com.joy.Widget.ContactAdapter;
-import com.joy.json.JsonCommon;
-import com.joy.json.JsonCommon.OnOperationListener;
-import com.joy.json.model.CategoriesGoodsDEntity.CategoriesGoods;
-import com.joy.json.model.ActivityDetailEntity;
 import com.joy.json.model.ContactEntity;
-import com.joy.json.model.StoreDetailEntity;
-import com.joy.json.model.GoodsDetail;
-import com.joy.json.model.SelectionModel;
-import com.joy.json.model.StoreDetailEntity.StoreDetail;
-import com.joy.json.operation.OperationBuilder;
-import com.joy.json.operation.impl.CategoryStoreOp;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /******
  * 通讯录详细页面
@@ -62,7 +28,8 @@ public class ContactDetailActivity extends BaseActivity implements OnClickListen
 	public static final String ContactDetails = "contactdetails";
 	private RelativeLayout layout_title;
 	private ImageView iv_contactpic;
-	private TextView tv_ret, tv_title, tv_personname, tv_englishname, tv_comppos, tv_compdep, tv_company
+	private ImageView iv_ret;
+	private TextView tv_title, tv_personname, tv_englishname, tv_comppos, tv_compdep, tv_company
 	, tv_label_phone, tv_label_mobile, tv_mobile, tv_label_work, tv_work, tv_label_fax, tv_fax, tv_label_mail, tv_label_workmail, tv_workmail;
 	private Button btn_addcontact;
 	private ContactEntity entity;
@@ -107,14 +74,11 @@ public class ContactDetailActivity extends BaseActivity implements OnClickListen
 
 	private void initView() {
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
-		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0,
+		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.SubTitleHeight, 0, 0,
 				0, 0);
 
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
-		tv_ret.setOnClickListener(this);
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -242,7 +206,7 @@ public class ContactDetailActivity extends BaseActivity implements OnClickListen
 		tv_compdep.setText(entity.getComDep()!=null ? entity.getComDep() : "");
 		tv_company.setText(entity.getCompanyName()!=null ? entity.getCompanyName() : "");
 		tv_mobile.setText(entity.getMobile()!=null ? entity.getMobile() : "");
-		tv_work.setText("021-65832286");
+		tv_work.setText(entity.getPhone()!=null ? entity.getPhone() : "");
 		tv_fax.setText(entity.getFax()!=null ? entity.getFax() : "");
 		tv_workmail.setText(entity.getEmail()!=null ? entity.getEmail() : "");
 		
@@ -251,7 +215,7 @@ public class ContactDetailActivity extends BaseActivity implements OnClickListen
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tv_ret:
+		case R.id.iv_ret:
 			finish();
 			break;
 		case R.id.btn_addcontact:
@@ -277,6 +241,7 @@ public class ContactDetailActivity extends BaseActivity implements OnClickListen
 			//emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is email's message");
 			emailIntent.setType("text/plain");
 			startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+			break;
 		default:
 			break;
 		}

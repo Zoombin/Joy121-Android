@@ -5,10 +5,31 @@
     android:background="@color/bg"
     android:orientation="vertical" >
 
-    <include 
+    <RelativeLayout
+        android:id="@+id/layout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/navigation_layout" />
+        android:background="@color/title_bg" >
+
+        <ImageView
+            android:id="@+id/iv_ret"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/arrow_left" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/contactdetail"
+            android:textColor="@color/WHITE" />
+    </RelativeLayout>
     
     <LinearLayout
             android:layout_width="match_parent"
@@ -88,7 +109,7 @@
                     android:id="@+id/tv_label_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="电话"
+                    android:text="@string/telephone"
                     android:textColor="@color/BLACK" />
                 <!-- mobile -->
                 <LinearLayout
@@ -101,7 +122,7 @@
                         android:id="@+id/tv_label_mobile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="手机"
+                        android:text="@string/cellphone"
                         android:textColor="@color/BLACK" />
                     <TextView
                         android:id="@+id/tv_mobile"
@@ -120,7 +141,7 @@
                         android:id="@+id/tv_label_work"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="工作"
+                        android:text="@string/work"
                         android:textColor="@color/BLACK" />
                     <TextView
                         android:id="@+id/tv_work"
@@ -139,7 +160,7 @@
                         android:id="@+id/tv_label_fax"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="传真"
+                        android:text="@string/fax"
                         android:textColor="@color/BLACK" />
                     <TextView
                         android:id="@+id/tv_fax"
@@ -152,7 +173,7 @@
                     android:id="@+id/tv_label_mail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="邮箱"
+                    android:text="@string/mailbox"
                     android:textColor="@color/BLACK" />
                 <!-- mobile -->
                 <LinearLayout
@@ -165,7 +186,7 @@
                         android:id="@+id/tv_label_workmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="工作"
+                        android:text="@string/work"
                         android:textColor="@color/BLACK" />
                     <TextView
                         android:id="@+id/tv_workmail"

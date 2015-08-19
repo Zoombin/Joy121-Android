@@ -19,7 +19,7 @@ public class PayrollParse extends AbstractParser<TResult> {
 	@Override
 	public Payroll parse(JSONObject json) throws JSONException {
 		Payroll entity = new Payroll();
-		if(json!=null){
+		if(json != null){
 			entity = new Gson().fromJson(
 					 json.toString(), Payroll.class);
 		}

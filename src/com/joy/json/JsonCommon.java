@@ -44,11 +44,12 @@ public class JsonCommon extends AsyncTask<Void, Void, List<Object>> {
 	
 	@Override
 	protected void onPreExecute() {
-		if (mDisableprogress&&mContext!=null) {
+		if (mDisableprogress && mContext!=null && mProgresscontent != null) {
 			customProgressDialog = CustomProgressDialog.createDialog(mContext);
 			customProgressDialog.setMessage(mProgresscontent);
 			customProgressDialog.setCanceledOnTouchOutside(false);
 			customProgressDialog.show();
+			
 		}
 		super.onPreExecute();
 	}

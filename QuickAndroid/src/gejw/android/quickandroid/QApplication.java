@@ -1,3 +1,4 @@
+
 package gejw.android.quickandroid;
 
 import android.app.Application;
