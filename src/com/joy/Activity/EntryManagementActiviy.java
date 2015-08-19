@@ -612,22 +612,21 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			String emergencyPerson=et_emergencyPerson.getText().toString();
 			String emergencyContact=et_emergencyContact.getText().toString();
 			String houschold=et_houschold.getText().toString();
-			if (TextUtils.isEmpty(currpwd) || TextUtils.isEmpty(newpwd)
+			/*if (TextUtils.isEmpty(currpwd) || TextUtils.isEmpty(newpwd)
 					|| TextUtils.isEmpty(comfirmnewpwd)) {
 				Toast.show(self, resources.getString(R.string.enterpwd));
-				
 				return;
 			} else if (!newpwd.equals(comfirmnewpwd)) {
 				Toast.show(self, resources.getString(R.string.diffpwderr));
 				return;
-			} else {
+			} else {*/
 			employInfo.setVisibility(View.GONE);
 			papersInfo.setVisibility(View.GONE);
 			myselfInfo.setVisibility(View.VISIBLE);
 		    iv_ret.setVisibility(View.GONE);
 			tv_goBackEmployInfo.setVisibility(View.VISIBLE);
 			tv_title.setText("个人信息");
-			}
+			//}
 			break;
 		
 			//个人信息
