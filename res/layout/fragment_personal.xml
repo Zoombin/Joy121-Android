@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+﻿<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -41,18 +41,19 @@
         android:id="@+id/layout_personinfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:background="#ffffff" >
 
-        <ImageView
-            android:id="@+id/img_company"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:scaleType="fitXY"
-            android:src="@drawable/user" />
-
+	    <com.joy.Utils.RoundedImageView
+	        android:id="@+id/img_company"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="bottom"
+	        android:scaleType="centerCrop"
+	        android:src="@drawable/user" />
+        
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="1"
@@ -94,15 +95,28 @@
     <LinearLayout
         android:id="@+id/layout_personal_base"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginBottom="20dip"
+        android:layout_marginRight="15dip"
+        android:orientation="vertical"
+        android:background="@drawable/personal_background" >
 
         <RelativeLayout
             android:id="@+id/layout_personalinfo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/tabbar" >
+            android:layout_height="wrap_content" >
+            
+            <ImageView
+                android:id="@+id/img_personalinfo"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/personalinfo" />
 
             <TextView
                 android:id="@+id/tv_personalinfo"
@@ -128,6 +142,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/tabbar" >
+            
+            <ImageView
+                android:id="@+id/img_changepwd"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/changepwd" />
 
             <TextView
                 android:id="@+id/tv_changepwd"
@@ -153,6 +177,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/tabbar" >
+            
+            <ImageView
+                android:id="@+id/img_orderquery"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/orderquery"/>
 
             <TextView
                 android:id="@+id/tv_orderquery"
@@ -178,6 +212,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/tabbar" >
+            
+            <ImageView
+                android:id="@+id/img_integrationhistory"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/history" />
 
             <TextView
                 android:id="@+id/tv_integrationhistory"
@@ -197,12 +241,68 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/arrow_right" />
         </RelativeLayout>
+    </LinearLayout>
+        
+    <LinearLayout
+        android:id="@+id/layout_personal_ext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginBottom="20dip"
+        android:layout_marginRight="15dip"
+        android:orientation="vertical"
+        android:background="@drawable/personal_background" >
+       
+      
+         <!-- 绑定手机布局 -->
+          <RelativeLayout
+           android:id="@+id/layout_isMobileBind"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+            <ImageView 
+                android:id="@+id/img_isMobileBind"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/bindphone" />
+            <TextView
+               android:id="@+id/tv_isMobileBind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/isMobileBind"
+                android:textColor="@color/BLACK" />
+             <TextView
+                android:id="@+id/tv_isMobileBindInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"/>
+         
+
+       </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/layout_checkupdate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/tabbar" >
+            android:layout_height="wrap_content" 
+            android:background="@drawable/tabbar">
+            
+            <ImageView
+                android:id="@+id/img_checkupdate"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dip"
+                 android:scaleType="fitXY"
+                android:src="@drawable/checkupdate" />
 
             <TextView
                 android:id="@+id/tv_checkupdate"
@@ -222,13 +322,48 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/arrow_right" />
         </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/layout_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tabbar" >
+            
+            <ImageView
+                android:id="@+id/img_help"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="14dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/help" />
+
+            <TextView
+                android:id="@+id/tv_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="@string/help"
+                android:textColor="@color/BLACK" />
+
+            <ImageView
+                android:id="@+id/img_help_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/arrow_right" />
+        </RelativeLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_loginout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/exitbutton"
+        android:background="@drawable/button_background"
         android:text="@string/exit"
         android:textColor="@color/WHITE" />
 

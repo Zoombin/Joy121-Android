@@ -1,9 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg"
-    android:orientation="vertical" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+     >
+    
 
     <RelativeLayout
         android:id="@+id/layout_title"
@@ -11,14 +12,15 @@
         android:layout_height="wrap_content"
         android:background="@color/title_bg" >
 
-        <TextView
-            android:id="@+id/tv_ret"
+        <ImageView
+            android:id="@+id/iv_ret"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/ret"
-            android:textColor="@color/WHITE" />
+            android:layout_marginLeft="10dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/arrow_left" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -26,8 +28,33 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="公司福利"
             android:textColor="@color/WHITE" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/layout_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="32dip"
+        android:layout_marginTop="2dip"
+        android:visibility="gone" >
+        <TextView
+        	android:id="@+id/tv_prompt"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_centerVertical="true"
+        	android:text="@string/walfarefinish"
+        	android:textSize="13sp"
+        	android:textColor="@color/WHITE"
+        	android:layout_marginLeft="6dip"
+        	android:layout_alignParentLeft="true" />
+        <ImageView
+        	android:id="@+id/iv_prompt"
+        	android:src="@drawable/exit"
+        	android:layout_width="18dip"
+        	android:layout_height="18dip"
+        	android:layout_centerVertical="true"
+        	android:layout_alignParentRight="true"
+        	android:layout_marginRight="6dip" />   
     </RelativeLayout>
 
     <ListView

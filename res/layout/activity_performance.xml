@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/bg" >
     
     <RelativeLayout
         android:id="@+id/layout_title"
@@ -26,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="@string/payroll"
             android:textColor="@color/WHITE" />
     </RelativeLayout>
     
@@ -41,7 +41,7 @@
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
         	android:layout_centerVertical="true"
-        	android:text="@string/nopayroll"
+        	android:text="@string/performance"
         	android:textSize="13sp"
         	android:textColor="@color/WHITE"
         	android:layout_marginLeft="6dip"
@@ -57,11 +57,12 @@
     </RelativeLayout>
 
 	<ListView
-        android:id="@+id/list_payrolls"
+        android:id="@+id/list_performance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/gray"  
-        android:dividerHeight="1dip"
-        android:scrollbars="none" />
+        android:paddingTop="5dip"
+        android:paddingBottom="5dip"
+        android:scrollbars="none"
+        android:divider="@null" />
 	    
 </LinearLayout>
