@@ -8,23 +8,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
-import com.joy.json.model.EntryManageEntity;
+import com.joy.json.model.EntryEntity;
 import com.joy.json.model.TResult;
 
 public class EntryManageParse  extends AbstractParser<TResult>{
 	@Override
-	public EntryManageEntity parse(JSONObject json) throws JSONException {
-		EntryManageEntity entity=new EntryManageEntity();
+	public EntryEntity parse(JSONObject json) throws JSONException {
+		EntryEntity entity=new EntryEntity();
 		if(json!=null)
 		{
 			entity=new Gson().fromJson(
-					 json.toString(), EntryManageEntity.class);
+					 json.toString(), EntryEntity.class);
 		}
 		return entity;
 	}
 
 	@Override
-	public EntryManageEntity parseArray(JSONArray json) throws JSONException {
+	public EntryEntity parseArray(JSONArray json) throws JSONException {
 		// TODO Auto-generated method stub
 		return null;
 	}

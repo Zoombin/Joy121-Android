@@ -1,29 +1,46 @@
 package com.joy.Activity;
 
 
+
+import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.joy.JoyApplication;
 import com.joy.R;
-import com.joy.R.layout;
 import com.joy.Utils.Constants;
 import com.joy.Utils.EntryDate;
+import com.joy.Utils.SharedPreferencesUtils;
+import com.joy.json.JsonCommon;
+import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.ChangePwdEntity;
 import com.joy.json.model.CompAppSet;
+import com.joy.json.model.EntryEntity;
+import com.joy.json.model.EntryManageEntity;
+import com.joy.json.model.UserEntity;
+import com.joy.json.model.UserInfoEntity;
+import com.joy.json.operation.OperationBuilder;
+import com.joy.json.operation.impl.EntryManageOp;
+import com.joy.json.operation.impl.EntryManageSaveOp;
+import com.joy.json.operation.impl.UserinfoOp;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,13 +61,15 @@ import android.widget.TextView;
 public class EntryManagementActiviy extends BaseActivity implements OnClickListener {
 	private Bitmap bmp;
 	private ImageView imgView;   
+	protected QActivity mActivity;
     private static int RESULT_LOAD_IMAGE = 1;
 
     private RelativeLayout layout_title;
     private ImageView iv_ret;
     private TextView  tv_title,tv_goBackEmployInfo,tv_goBackMyselfInfo,tv_goBackPapersInfo,
                       tv_goBackHistory,tv_goBackFamilyInfo;
-  //应聘信息
+    EntryManageEntity entryManageEntity;
+    //应聘信息
     private String initDate="2015年8月14日";
     private List<String> list_department,list_position;
     private ArrayAdapter<String> department_adapter,position_adapter;
@@ -108,6 +127,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			}
 		}
 		View v = inflater.inflate(R.layout.activity_entry_basic_info, null);
+		
 		setContentView(v);
 		initEmployInfo();
 		initViewMyselfInfo();
@@ -115,7 +135,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		initViewHistory();
 		initViewFamilyInfo();
 		initViewHobbies();
-		
+		initData();
 		int color = 0;
 		if (appSet != null) {
 			try {
@@ -604,29 +624,37 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		case R.id.btn_saveEmployInfo:  //保存应聘信息
 			break;
 		case R.id.btn_employInfoNext:  //应聘信息上的下一步进入到个人信息的填写	
-			String department=sp_department.getSelectedItem().toString();
-			String position=sp_position.getSelectedItem().toString();
-			String entryDate=et_entryDate.getText().toString();
 			String nowAddress=et_nowAddress.getText().toString();
 			String contactWay=et_contactWay.getText().toString();
 			String emergencyPerson=et_emergencyPerson.getText().toString();
 			String emergencyContact=et_emergencyContact.getText().toString();
 			String houschold=et_houschold.getText().toString();
-			/*if (TextUtils.isEmpty(currpwd) || TextUtils.isEmpty(newpwd)
-					|| TextUtils.isEmpty(comfirmnewpwd)) {
-				Toast.show(self, resources.getString(R.string.enterpwd));
+			if (TextUtils.isEmpty(nowAddress)) {
+				Toast.show(self, resources.getString(R.string.entryNowAddress));
 				return;
-			} else if (!newpwd.equals(comfirmnewpwd)) {
-				Toast.show(self, resources.getString(R.string.diffpwderr));
+			} else if (TextUtils.isEmpty(contactWay)) {
+				Toast.show(self, resources.getString(R.string.entryPosition));
 				return;
-			} else {*/
-			employInfo.setVisibility(View.GONE);
-			papersInfo.setVisibility(View.GONE);
-			myselfInfo.setVisibility(View.VISIBLE);
-		    iv_ret.setVisibility(View.GONE);
-			tv_goBackEmployInfo.setVisibility(View.VISIBLE);
-			tv_title.setText("个人信息");
-			//}
+			} else if (TextUtils.isEmpty(emergencyPerson)) {
+				Toast.show(self, resources.getString(R.string.entryEmergencyPerson));
+				return;
+			} else if (TextUtils.isEmpty(emergencyContact)) {
+				Toast.show(self, resources.getString(R.string.emergencyContact));
+				return;
+			} else if (TextUtils.isEmpty(houschold)) {
+				Toast.show(self, resources.getString(R.string.entryHouschold));
+				return;
+			} else if (!isMobile(et_contactWay.getText().toString())) {
+				Toast.show(self, resources.getString(R.string.mobileFormat));
+				return;
+			} else {
+				employInfo.setVisibility(View.GONE);
+				papersInfo.setVisibility(View.GONE);
+				myselfInfo.setVisibility(View.VISIBLE);
+			    iv_ret.setVisibility(View.GONE);
+				tv_goBackEmployInfo.setVisibility(View.VISIBLE);
+				tv_title.setText("个人信息");
+			}
 			break;
 		
 			//个人信息
@@ -798,6 +826,87 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	        }
 	  
 	    }  
+	 private void initData()
+	 {
+		 OperationBuilder builder = new OperationBuilder().append(
+					new EntryManageOp(), null);
+			OnOperationListener listener = new OnOperationListener() {
+				@Override
+				public void onOperationFinished(List<Object> resList) {
+					EntryEntity entity = (EntryEntity) resList.get(0);
+					entryManageEntity = entity.getRetObj();
+					if (entryManageEntity != null) {
+//					    sp_department,sp_position
+//					    sp_department(entryManageEntity.getDepartment())
+					    et_entryDate.setText(entryManageEntity.getComEntryDate());
+					    et_nowAddress.setText(entryManageEntity.getRegions());
+					    et_contactWay.setText(entryManageEntity.getMobile());
+					    et_emergencyPerson.setText(entryManageEntity.getUrgentContact());
+					    et_emergencyContact.setText(entryManageEntity.getUrgentMobile());
+					    et_houschold.setText(entryManageEntity.getResidence());
+					}
+				}
+
+				@Override
+				public void onOperationError(Exception e) {
+					e.printStackTrace();
+				}
+			};
+			JsonCommon task = new JsonCommon(mActivity, builder, listener, false);
+			task.execute();
+	 }
+	 /*
+	 private void saveData()
+	 {
+		 OperationBuilder builder = new OperationBuilder().append(
+					new EntryManageSaveOp(), null);
+			OnOperationListener listener = new OnOperationListener() {
+				@Override
+				public void onOperationFinished(List<Object> resList) {
+					if (self.isFinishing()) {
+						return;
+					}
+					if (resList == null) {
+						Toast.show(self, resources.getString(R.string.timeout));
+						return;
+					}
+					EntryEntity entity = (EntryEntity) resList.get(0);
+					//int retobj = entity.isRetobj();
+					if (retobj !=1) {
+						Toast.show(self, resources.getString(R.string.oldpwderr));
+						return;
+					} else {
+						//SharedPreferencesUtils.setLoginPwd(self, nloginpwd);
+						Toast.show(self, resources.getString(R.string.chgpwdsuccess));
+						MainActivity.CleanShopCar(self);
+						SharedPreferencesUtils(self, "");
+						SharedPreferencesUtils.setLoginPwd(self, "");
+						Intent intent = new Intent();
+						intent.setClass(self, LoginActivity.class);
+						startActivity(intent);
+						finish();
+						return;
+					}
+				}
+
+				@Override
+				public void onOperationError(Exception e) {
+					e.printStackTrace();
+				}
+			};
+			JsonCommon task = new JsonCommon(mActivity, builder, listener, false);
+			task.execute();
+	 }
+	 */
+	 /**
+	   * 手机号的形式判断
+	  */
+		public boolean isMobile(String mobile)
+		{
+			Pattern p=Pattern.compile("^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\\d{8}$");//正则表达式验证手机的正确性
+			Matcher m=p.matcher(mobile);
+			return m.matches();
+		}
 	 private void saveEmployInfo(){}
 }  
 

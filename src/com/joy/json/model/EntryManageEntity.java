@@ -9,65 +9,58 @@ public class EntryManageEntity extends TResult{
 	private static final long serialVersionUID = 1L;//为了在反序列化时，确保类版本的兼容性
 	private String department;//应聘部门
 	private String position;//应聘职位
-	private String entryDate;//到岗日期
-	private String nowAddress;//现居地址
-	private String contactWay;//联系方式
-	private String emergencyPerson;//紧急联系人
-	private String emergencyContact;//紧急联系方式
-	private String houschold;//户口所在地
+	private String ComEntryDate;//到岗日期
+	private String Residence;//现居地址
+	private String Mobile;//联系方式
+	private String UrgentContact;//紧急联系人
+	private String UrgentMobile;//紧急联系方式
+	private String Regions;//户口所在地
 	public String getDepartment() {
 		return department;
 	}
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-	
 	public String getPosition() {
 		return position;
 	}
 	public void setPosition(String position) {
 		this.position = position;
 	}
-	
-	public String getEntryDate() {
-		return entryDate;
+	public String getComEntryDate() {
+		return ComEntryDate;
 	}
-	public void setEntryDate(String entryDate) {
-		this.entryDate = entryDate;
+	public void setComEntryDate(String comEntryDate) {
+		ComEntryDate = comEntryDate;
 	}
-	
-	public String getNowAddress() {
-		return nowAddress;
+	public String getResidence() {
+		return Residence;
 	}
-	public void setNowAddress(String nowAddress) {
-		this.nowAddress = nowAddress;
+	public void setResidence(String residence) {
+		Residence = residence;
 	}
-	
-	public String getContactWay() {
-		return contactWay;
+	public String getMobile() {
+		return Mobile;
 	}
-	public void setContactWay(String contactWay) {
-		this.contactWay = contactWay;
+	public void setMobile(String mobile) {
+		Mobile = mobile;
 	}
-	
-	public String getEmergencyPerson() {
-		return emergencyPerson;
+	public String getUrgentContact() {
+		return UrgentContact;
 	}
-	public void setEmergencyPerson(String emergencyPerson) {
-		this.emergencyPerson = emergencyPerson;
+	public void setUrgentContact(String urgentContact) {
+		UrgentContact = urgentContact;
 	}
-	
-	public String getEmergencyContact() {
-		return emergencyContact;
+	public String getUrgentMobile() {
+		return UrgentMobile;
 	}
-	public void setEmergencyContact(String emergencyContact) {
-		this.emergencyContact = emergencyContact;
+	public void setUrgentMobile(String urgentMobile) {
+		UrgentMobile = urgentMobile;
 	}
-	
-	public String getHouschold() {
-		return houschold;
+	public String getRegions() {
+		return Regions;
 	}
-	public void setHouschold(String houschold) {
-		this.houschold = houschold;
+	public void setRegions(String regions) {
+		Regions = regions;
 	}
 }

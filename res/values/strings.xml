@@ -292,10 +292,11 @@
     <string name="entryPosition">请选择应聘职位</string>
     <string name="entryDate1">请选择到岗日期</string>
     <string name="entryNowAddress">请输入现居地址</string>
-    <string name="contactWay">请输入联系方式</string>
-    <string name="emergencyPerson">紧急联系人：</string>
-    <string name="emergencyContact">紧急联系方式：</string>
-    <string name="houschold">户口所在地：</string>
+    <string name="entryContactWay">请输入联系方式</string>
+    <string name="entryEmergencyPerson">请输入紧急联系人</string>
+    <string name="entryEmergencyContact">请输入紧急联系方式</string>
+    <string name="entryHouschold">请输入户口所在地</string>
+    <string name="mobileFormat">请输入正确的手机号码</string>
     
     <!-- 个人信息 -->
     <string name="chineseName">中文名：</string>

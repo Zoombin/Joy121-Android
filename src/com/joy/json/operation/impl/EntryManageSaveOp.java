@@ -14,7 +14,7 @@ import com.joy.json.model.EntryEntity;
 import com.joy.json.operation.ITaskOperation;
 import com.joy.json.parse.EntryManageParse;
 
-public class EntryManageOp implements ITaskOperation {
+public class EntryManageSaveOp implements ITaskOperation {
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
@@ -25,7 +25,7 @@ public class EntryManageOp implements ITaskOperation {
 				TIMEOUT);
 		HttpApi httpApi = new HttpApiWithBasicAuth(httpClient, "testRest");
 		HttpGet get = httpApi.createHttpGet(
-				entryGetInfoIp,
+				entryUpdatePersonInfo,
 				new BasicNameValuePair("loginName", SharedPreferencesUtils
 						.getLoginName(JoyApplication.getSelf()))
 //				new BasicNameValuePair("json", String.format(
