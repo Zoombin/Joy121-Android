@@ -57,9 +57,9 @@ public class EntryManagementDateDialog extends Dialog{
        });
 		buttonYes.setOnClickListener(new Button.OnClickListener(){    
 	           public void onClick(View v) {
-	           	callback.getSingleDialogButtonClickCallback(datePicker.getYear()+"年"+
-	                                                       (datePicker.getMonth()+1)+"月"+
-	           			                                   datePicker.getDayOfMonth()+"日"); 
+	           	callback.getSingleDialogButtonClickCallback(datePicker.getYear()+"-"+
+	                                                       (datePicker.getMonth()+1)+"-"+
+	           			                                   datePicker.getDayOfMonth()); 
                   dismiss();
 	           }    
 	       });

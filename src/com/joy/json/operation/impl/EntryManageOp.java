@@ -5,6 +5,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
 
+import android.util.Log;
+
 import com.joy.JoyApplication;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.http.AbstractHttpApi;

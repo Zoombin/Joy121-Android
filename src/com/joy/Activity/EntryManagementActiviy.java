@@ -5,7 +5,9 @@ package com.joy.Activity;
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,20 +16,17 @@ import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Utils.Constants;
 import com.joy.Utils.EntryDate;
-import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
-import com.joy.json.model.ChangePwdEntity;
 import com.joy.json.model.CompAppSet;
+import com.joy.json.model.EntryDepartmentDetailEntity;
+import com.joy.json.model.EntryDepartmentEntity;
 import com.joy.json.model.EntryEntity;
 import com.joy.json.model.EntryManageEntity;
-import com.joy.json.model.UserEntity;
-import com.joy.json.model.UserInfoEntity;
 import com.joy.json.operation.OperationBuilder;
+import com.joy.json.operation.impl.EntryDepartmentOp;
 import com.joy.json.operation.impl.EntryManageOp;
-import com.joy.json.operation.impl.EntryManageSaveOp;
-import com.joy.json.operation.impl.UserinfoOp;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.joy.json.operation.impl.EntrySaveOp;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -37,10 +36,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,6 +48,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -70,7 +68,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
                       tv_goBackHistory,tv_goBackFamilyInfo;
     EntryManageEntity entryManageEntity;
     //应聘信息
-    private String initDate="2015年8月14日";
+    private String initDate="2015-08-14";
     private List<String> list_department,list_position;
     private ArrayAdapter<String> department_adapter,position_adapter;
     private ImageView iv_department,iv_position,iv_entryDate,iv_nowAddress,iv_contactWay,
@@ -87,6 +85,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     private TextView  tv_chineseName,tv_englishName,tv_gender,tv_birthPlace,
                       tv_idNo,tv_degreeNo,tv_accumulationNo,tv_bankName,tv_bankNo;
     private RadioGroup radiogender;
+    private RadioButton maleButton,femaleButton;
     private EditText  et_chineseName,et_englishName,et_birthPlace,
                       et_idNo,et_degreeNo,et_accumulationNo,et_bankName,et_bankNo;
     private Button btn_saveMyselfInfo,btn_myselfInfoNext;
@@ -130,6 +129,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		
 		setContentView(v);
 		initEmployInfo();
+		bindDepartment();
 		initViewMyselfInfo();
 		initViewPapersInfo();
 		initViewHistory();
@@ -185,6 +185,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     });
 		return v;
 	} 
+	
+	
 	//应聘信息
     private void initEmployInfo()
 		{
@@ -338,6 +340,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		uiAdapter.setTextSize(tv_gender, 18);
 		uiAdapter.setMargin(tv_gender, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
 		radiogender=(RadioGroup)findViewById(R.id.radiogender);
+		maleButton=(RadioButton)findViewById(R.id.male);
+		femaleButton=(RadioButton)findViewById(R.id.female);
 		uiAdapter.setMargin(radiogender, LayoutParams.MATCH_PARENT,40, 5, 20,45, 0);
 		uiAdapter.setPadding(radiogender, 10, 0, 0, 0);
 		//籍贯
@@ -622,6 +626,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			break;
 			//应聘信息
 		case R.id.btn_saveEmployInfo:  //保存应聘信息
+			saveData();
 			break;
 		case R.id.btn_employInfoNext:  //应聘信息上的下一步进入到个人信息的填写	
 			String nowAddress=et_nowAddress.getText().toString();
@@ -647,6 +652,9 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			} else if (!isMobile(et_contactWay.getText().toString())) {
 				Toast.show(self, resources.getString(R.string.mobileFormat));
 				return;
+			} else if (!isMobile(et_emergencyContact.getText().toString())) {
+				Toast.show(self, resources.getString(R.string.mobileFormat));
+				return;
 			} else {
 				employInfo.setVisibility(View.GONE);
 				papersInfo.setVisibility(View.GONE);
@@ -670,12 +678,41 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			
 			break;
 		case R.id.btn_myselfInfoNext:  //个人信息上的下一步进入到证件信息
-			myselfInfo.setVisibility(View.GONE);
-			papersInfo.setVisibility(View.VISIBLE);
-		    iv_ret.setVisibility(View.GONE);
-			tv_goBackEmployInfo.setVisibility(View.GONE);
-			tv_goBackMyselfInfo.setVisibility(View.VISIBLE);
-			tv_title.setText("证件信息");
+			String chineseName=et_chineseName.getText().toString();
+			String birthPlace=et_birthPlace.getText().toString();
+			String idNo=et_idNo.getText().toString();
+			String enducationNo=et_degreeNo.getText().toString();
+			String bankName=et_bankName.getText().toString();
+			String bankNo=et_bankNo.getText().toString();
+			if (TextUtils.isEmpty(chineseName)) {
+				Toast.show(self, resources.getString(R.string.entryChineseName));
+				return;
+			} else if (TextUtils.isEmpty(birthPlace)) {
+				Toast.show(self, resources.getString(R.string.entryBirthPlace));
+				return;
+			} else if (TextUtils.isEmpty(idNo)) {
+				Toast.show(self, resources.getString(R.string.entryidNo));
+				return;
+			} else if (TextUtils.isEmpty(enducationNo)) {
+				Toast.show(self, resources.getString(R.string.entryDegreeNo));
+				return;
+			} else if (TextUtils.isEmpty(bankName)) {
+				Toast.show(self, resources.getString(R.string.entryBankName));
+				return;
+			} else if (TextUtils.isEmpty(bankNo)) {
+				Toast.show(self, resources.getString(R.string.entryBankNo));
+				return;
+			} else if (!isIdNo(et_idNo.getText().toString())) {
+				Toast.show(self, resources.getString(R.string.idNoFormat));
+				return;
+			} else {
+				myselfInfo.setVisibility(View.GONE);
+				papersInfo.setVisibility(View.VISIBLE);
+			    iv_ret.setVisibility(View.GONE);
+				tv_goBackEmployInfo.setVisibility(View.GONE);
+				tv_goBackMyselfInfo.setVisibility(View.VISIBLE);
+				tv_title.setText("证件信息");
+			}
 			break;
 			
 			//证件信息
@@ -836,14 +873,31 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					EntryEntity entity = (EntryEntity) resList.get(0);
 					entryManageEntity = entity.getRetObj();
 					if (entryManageEntity != null) {
+						SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 //					    sp_department,sp_position
 //					    sp_department(entryManageEntity.getDepartment())
-					    et_entryDate.setText(entryManageEntity.getComEntryDate());
+						//sp_department.set
+					    et_entryDate.setText(date.format(new Date(Long.parseLong(entryManageEntity.getComEntryDate().substring(6, 18)))));
 					    et_nowAddress.setText(entryManageEntity.getRegions());
 					    et_contactWay.setText(entryManageEntity.getMobile());
 					    et_emergencyPerson.setText(entryManageEntity.getUrgentContact());
 					    et_emergencyContact.setText(entryManageEntity.getUrgentMobile());
 					    et_houschold.setText(entryManageEntity.getResidence());
+					    et_chineseName.setText(entryManageEntity.getPersonName());
+					    et_englishName.setText(entryManageEntity.getEnglishName());
+//					    String gender=entryManageEntity.getGender().toString();
+//					   // Log.e("ddddddddddddddddddddd",gender);
+//					    if(gender.equals("1")){
+//					    	femaleButton.setChecked(true);
+//					    }else{
+//					    	maleButton.setChecked(true);
+//					    }
+					    et_birthPlace.setText(entryManageEntity.getAddress());
+					    et_idNo.setText(entryManageEntity.getIdNo());
+					    et_degreeNo.setText(entryManageEntity.getEducationNo());
+					    et_bankName.setText(entryManageEntity.getDepositBank());
+					    et_bankNo.setText(entryManageEntity.getDepositCardNo());
+					    et_accumulationNo.setText(entryManageEntity.getDegreeNo());
 					}
 				}
 
@@ -855,49 +909,75 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			JsonCommon task = new JsonCommon(mActivity, builder, listener, false);
 			task.execute();
 	 }
-	 /*
+	 private void bindDepartment(){
+		 OperationBuilder builder = new OperationBuilder().append(
+					new EntryDepartmentOp(), null);
+			OnOperationListener listener = new OnOperationListener() {
+				@Override
+				public void onOperationFinished(List<Object> resList) {
+					EntryDepartmentEntity entity = (EntryDepartmentEntity) resList.get(0);
+					List<EntryDepartmentDetailEntity> departmentlist = entity.getRetobj();
+				}
+
+				@Override
+				public void onOperationError(Exception e) {
+					e.printStackTrace();
+				}
+			};
+			JsonCommon task = new JsonCommon(mActivity, builder, listener, false);
+			task.execute();
+	 }
 	 private void saveData()
 	 {
+//      private String department;//应聘部门
+//     	private String position;//应聘职位
+//     	private String ComEntryDate;//到岗日期
+//     	private String Residence;//现居地址
+//     	private String Mobile;//联系方式
+//     	private String UrgentContact;//紧急联系人
+//     	private String UrgentMobile;//紧急联系方式
+//     	private String Regions;//户口所在地
+//     	private String PersonName;//中文名
+//     	private String EnglishName;//英文名
+//     	private String Gender;//性别
+//     	private String Address;//籍贯
+//     	private String IdNo;//身份证号
+//     	private String EducationNo;//学历证号
+//     	private String DepositBank;//开户银行
+//     	private String DepositCardNo;//银行账号
+//     	private String DegreeNo;//公积金编号
+        // entity.setDepartment(department)
+		 EntryManageEntity entity=new EntryManageEntity();
+		
+		 entity.setComEntryDate(et_entryDate.getText().toString());
+		 entity.setResidence(et_nowAddress.getText().toString());
+		 entity.setMobile(et_contactWay.getText().toString());
+//		 entity.setUrgentContact(et_emergencyPerson.getText().toString());
+//		 entity.setUrgentMobile(et_emergencyContact.getText().toString());
+//		 entity.setRegions(et_houschold.getText().toString());
 		 OperationBuilder builder = new OperationBuilder().append(
-					new EntryManageSaveOp(), null);
-			OnOperationListener listener = new OnOperationListener() {
+					new EntrySaveOp(), entity);
+	    	OnOperationListener listener = new OnOperationListener() {
 				@Override
 				public void onOperationFinished(List<Object> resList) {
 					if (self.isFinishing()) {
 						return;
-					}
-					if (resList == null) {
-						Toast.show(self, resources.getString(R.string.timeout));
+					}else if(resList==null){
+						Toast.show(self,"连接超时");
 						return;
-					}
-					EntryEntity entity = (EntryEntity) resList.get(0);
-					//int retobj = entity.isRetobj();
-					if (retobj !=1) {
-						Toast.show(self, resources.getString(R.string.oldpwderr));
-						return;
-					} else {
-						//SharedPreferencesUtils.setLoginPwd(self, nloginpwd);
-						Toast.show(self, resources.getString(R.string.chgpwdsuccess));
-						MainActivity.CleanShopCar(self);
-						SharedPreferencesUtils(self, "");
-						SharedPreferencesUtils.setLoginPwd(self, "");
-						Intent intent = new Intent();
-						intent.setClass(self, LoginActivity.class);
-						startActivity(intent);
-						finish();
-						return;
+					}else{
+						Toast.show(self,"保存成功");
 					}
 				}
-
 				@Override
 				public void onOperationError(Exception e) {
 					e.printStackTrace();
 				}
-			};
-			JsonCommon task = new JsonCommon(mActivity, builder, listener, false);
+	    	};
+	    	JsonCommon task = new JsonCommon(self, builder, listener,
+					JsonCommon.PROGRESSCOMMIT);
 			task.execute();
 	 }
-	 */
 	 /**
 	   * 手机号的形式判断
 	  */
@@ -907,6 +987,16 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			Matcher m=p.matcher(mobile);
 			return m.matches();
 		}
-	 private void saveEmployInfo(){}
+		 /**
+		   * 身份证号的形式判断
+		  */
+		public boolean isIdNo(String idNo)
+		{
+		     Pattern idNoPattern = Pattern.compile("(\\d{14}[0-9a-zA-Z])|(\\d{17}[0-9a-zA-Z])");  
+	            //通过Pattern获得Matcher  
+	         Matcher idNoMatcher = idNoPattern.matcher(idNo);
+	         return idNoMatcher.matches();
+		}
+
 }  
 

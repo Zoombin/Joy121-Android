@@ -71,12 +71,16 @@ abstract public class AbstractHttpApi implements HttpApi {
             Parser<? extends JsonType> parser) throws JsonCredentialsException,
             JsonParseException, JsonException, IOException {
         if (DEBUG) LOG.log(Level.FINE, "doHttpRequest: " + httpRequest.getURI());
+        Log.d("---------"+Level.FINE, "doHttpRequest: " + httpRequest.getURI());
 
         HttpResponse response = executeHttpRequest(httpRequest);
         if (DEBUG) LOG.log(Level.FINE, "executed HttpRequest for: "
                 + httpRequest.getURI().toString());
+        Log.d("---------"+Level.FINE, "executed HttpRequest for: "
+                + httpRequest.getURI().toString());
         
         int statusCode = response.getStatusLine().getStatusCode();
+        Log.d("---------", statusCode+"");
         switch (statusCode) {
             case 200:
                 String content = EntityUtils.toString(response.getEntity(),HTTP.UTF_8);

@@ -13,8 +13,18 @@ public class EntryEntity extends TResult {
 	private EntryManageEntity RetObj;
 	
 	private int RetCode;
-	
 	private int TotalRecord;
+	private String RetMsg;
+	
+	public String getRetMsg() {
+		return RetMsg;
+	}
+
+	public void setRetMsg(String retMsg) {
+		RetMsg = retMsg;
+	}
+
+	
 
 	public EntryManageEntity getRetObj() {
 		return RetObj;

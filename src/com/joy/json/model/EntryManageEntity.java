@@ -15,6 +15,69 @@ public class EntryManageEntity extends TResult{
 	private String UrgentContact;//紧急联系人
 	private String UrgentMobile;//紧急联系方式
 	private String Regions;//户口所在地
+	private String PersonName;//中文名
+	private String EnglishName;//英文名
+	private String Gender;//性别
+	private String Address;//籍贯
+	private String IdNo;//身份证号
+	private String EducationNo;//学历证号
+	private String DepositBank;//开户银行
+	private String DepositCardNo;//银行账号
+	private String DegreeNo;//公积金编号
+	public String getPersonName() {
+		return PersonName;
+	}
+	public void setPersonName(String personName) {
+		PersonName = personName;
+	}
+	public String getEnglishName() {
+		return EnglishName;
+	}
+	public void setEnglishName(String englishName) {
+		EnglishName = englishName;
+	}
+	public String getGender() {
+		return Gender;
+	}
+	public void setGender(String gender) {
+		Gender = gender;
+	}
+	public String getAddress() {
+		return Address;
+	}
+	public void setAddress(String address) {
+		Address = address;
+	}
+	public String getIdNo() {
+		return IdNo;
+	}
+	public void setIdNo(String idNo) {
+		IdNo = idNo;
+	}
+	public String getEducationNo() {
+		return EducationNo;
+	}
+	public void setEducationNo(String educationNo) {
+		EducationNo = educationNo;
+	}
+	public String getDepositBank() {
+		return DepositBank;
+	}
+	public void setDepositBank(String depositBank) {
+		DepositBank = depositBank;
+	}
+	public String getDepositCardNo() {
+		return DepositCardNo;
+	}
+	public void setDepositCardNo(String depositCardNo) {
+		DepositCardNo = depositCardNo;
+	}
+	public String getDegreeNo() {
+		return DegreeNo;
+	}
+	public void setDegreeNo(String degreeNo) {
+		DegreeNo = degreeNo;
+	}
 	public String getDepartment() {
 		return department;
 	}

@@ -311,12 +311,12 @@
     
     <string name="entryChineseName">请输入中文名</string>
     <string name="entryEnglishName">请输入英文名</string>
-     <string name="entryNative">请输入籍贯</string>
+     <string name="entryBirthPlace">请输入籍贯</string>
     <string name="entryidNo">请输入身份证号</string>
     <string name="entryDegreeNo">请输入学历证号</string>
-    <string name="entryAccumulation">请输入公积金编号</string>
     <string name="entryBankName">请输入开户银行</string>
-    <string name="entryBankNo">请输入银行账号</string>
+    <string name="entryBankNo">请输入银行账号</string> 
+    <string name="idNoFormat">请输入正确的身份证号</string>
     <!-- 证件信息 -->
     <string name="myselfPhoto">个人照片：</string>
     <string name="academicPhoto">学历证书：</string>
