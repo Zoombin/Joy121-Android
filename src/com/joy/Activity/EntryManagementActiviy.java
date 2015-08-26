@@ -75,25 +75,25 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     private String type;
     //应聘信息
     private String initDate="2015-08-14";
-    private List<String> list_department,list_position;
-    private ArrayAdapter<String> department_adapter,position_adapter;
-    private ImageView iv_department,iv_position,iv_entryDate,iv_nowAddress,iv_contactWay,
-                      iv_emergencyPerson,iv_emergencyContact,iv_houschold;
-    private TextView  tv_department,tv_position,tv_entryDate,tv_nowAddress,tv_contactWay,
-                      tv_emergencyPerson,tv_emergencyContact,tv_houschold;
-    private Spinner  sp_department,sp_position;
-    private EditText et_entryDate,et_nowAddress,et_contactWay,et_emergencyPerson,
-                     et_emergencyContact,et_houschold;
+    private List<String> list_comDep,list_comPos;
+    private ArrayAdapter<String> comDep_adapter,comPos_adapter;
+    private ImageView iv_comDep,iv_comPos,iv_comEntryDate,iv_residence,iv_mobile,
+                      iv_urgentContact,iv_urgentMobile,iv_regions;
+    private TextView  tv_comDep,tv_comPos,tv_comEntryDate,tv_residence,tv_mobile,
+                      tv_urgentContact,tv_urgentMobile,tv_regions;
+    private Spinner  sp_comDep,sp_comPos;
+    private EditText et_comEntryDate,et_residence,et_mobile,et_urgentContact,
+                     et_urgentMobile,et_regions;
     private Button btn_saveEmployInfo,btn_employInfoNext;
     //个人信息
-    private ImageView iv_chineseName,iv_englishName,iv_gender,iv_birthPlace,
-                      iv_idNo,iv_degreeNo,iv_accumulationNo,iv_bankName,iv_bankNo;
-    private TextView  tv_chineseName,tv_englishName,tv_gender,tv_birthPlace,
-                      tv_idNo,tv_degreeNo,tv_accumulationNo,tv_bankName,tv_bankNo;
+    private ImageView iv_personName,iv_englishName,iv_gender,iv_address,
+                      iv_idNo,iv_educationNo,iv_accumFund,iv_depositBank,iv_depositCardNo;
+    private TextView  tv_personName,tv_englishName,tv_gender,tv_address,
+                      tv_idNo,tv_educationNo,tv_accumFund,tv_depositBank,tv_depositCardNo;
     private RadioGroup radiogender;
     private RadioButton maleButton,femaleButton;
-    private EditText  et_chineseName,et_englishName,et_birthPlace,
-                      et_idNo,et_degreeNo,et_accumulationNo,et_bankName,et_bankNo;
+    private EditText  et_personName,et_englishName,et_address,
+                      et_idNo,et_educationNo,et_accumFund,et_depositBank,et_depositCardNo;
     private Button btn_saveMyselfInfo,btn_myselfInfoNext;
     //证件信息
     private ImageView iv_myselfPhoto,iv_myselfVideo,iv_academicPhoto,iv_idPhoto,iv_repairOrder,iv_checkupReporting;
@@ -207,79 +207,79 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			tv_title = (TextView) findViewById(R.id.tv_title);
 			uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 			//应聘部门	
-			iv_department=(ImageView)findViewById(R.id.iv_department);
-			uiAdapter.setMargin(iv_department, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
-			tv_department= (TextView) findViewById(R.id.tv_department);
-			uiAdapter.setTextSize(tv_department, 18);
-			uiAdapter.setMargin(tv_department, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-			sp_department = (Spinner) findViewById(R.id.sp_department);
-			uiAdapter.setMargin(sp_department, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+			iv_comDep=(ImageView)findViewById(R.id.iv_comDep);
+			uiAdapter.setMargin(iv_comDep, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+			tv_comDep= (TextView) findViewById(R.id.tv_comDep);
+			uiAdapter.setTextSize(tv_comDep, 18);
+			uiAdapter.setMargin(tv_comDep, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+			sp_comDep = (Spinner) findViewById(R.id.sp_comDep);
+			uiAdapter.setMargin(sp_comDep, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 	        
 			//应聘职位
-	        iv_position=(ImageView)findViewById(R.id.iv_position);
-			uiAdapter.setMargin(iv_position, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
-			tv_position= (TextView) findViewById(R.id.tv_position);
-			uiAdapter.setTextSize(tv_position, 18);
-			uiAdapter.setMargin(tv_position, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,10, 20, 0, 10);
-			sp_position = (Spinner) findViewById(R.id.sp_position);
-			uiAdapter.setMargin(sp_position, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+	        iv_comPos=(ImageView)findViewById(R.id.iv_comPos);
+			uiAdapter.setMargin(iv_comPos, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+			tv_comPos= (TextView) findViewById(R.id.tv_comPos);
+			uiAdapter.setTextSize(tv_comPos, 18);
+			uiAdapter.setMargin(tv_comPos, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,10, 20, 0, 10);
+			sp_comPos = (Spinner) findViewById(R.id.sp_comPos);
+			uiAdapter.setMargin(sp_comPos, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 			//入职日期
-	        iv_entryDate=(ImageView)findViewById(R.id.iv_entryDate);
-			uiAdapter.setMargin(iv_entryDate, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
-			tv_entryDate= (TextView) findViewById(R.id.tv_entryDate);
-			uiAdapter.setTextSize(tv_entryDate, 18);
-			uiAdapter.setMargin(tv_entryDate, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-			et_entryDate = (EditText) findViewById(R.id.et_entryDate);
-			et_entryDate.setText(initDate);
-			uiAdapter.setMargin(et_entryDate, LayoutParams.MATCH_PARENT, 45, 5, 20,	45, 0);
-			et_entryDate.setOnClickListener(new OnClickListener() {
+	        iv_comEntryDate=(ImageView)findViewById(R.id.iv_comEntryDate);
+			uiAdapter.setMargin(iv_comEntryDate, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+			tv_comEntryDate= (TextView) findViewById(R.id.tv_comEntryDate);
+			uiAdapter.setTextSize(tv_comEntryDate, 18);
+			uiAdapter.setMargin(tv_comEntryDate, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+			et_comEntryDate = (EditText) findViewById(R.id.et_comEntryDate);
+			et_comEntryDate.setText(initDate);
+			uiAdapter.setMargin(et_comEntryDate, LayoutParams.MATCH_PARENT, 45, 5, 20,	45, 0);
+			et_comEntryDate.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 					EntryDate dateTimePicKDialog = new EntryDate(
 							EntryManagementActiviy.this, initDate);
-					dateTimePicKDialog.dateTimePicKDialog(et_entryDate);
+					dateTimePicKDialog.dateTimePicKDialog(et_comEntryDate);
 
 				}
 			});
 			//现居地址
-			iv_nowAddress=(ImageView)findViewById(R.id.iv_nowAddress);
-			uiAdapter.setMargin(iv_nowAddress, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
-			tv_nowAddress= (TextView) findViewById(R.id.tv_nowAddress);
-			uiAdapter.setTextSize(tv_nowAddress, 18);
-			uiAdapter.setMargin(tv_nowAddress, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-			et_nowAddress = (EditText) findViewById(R.id.et_nowAddress);
-			uiAdapter.setMargin(et_nowAddress, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+			iv_residence=(ImageView)findViewById(R.id.iv_residence);
+			uiAdapter.setMargin(iv_residence, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
+			tv_residence= (TextView) findViewById(R.id.tv_residence);
+			uiAdapter.setTextSize(tv_residence, 18);
+			uiAdapter.setMargin(tv_residence, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+			et_residence = (EditText) findViewById(R.id.et_residence);
+			uiAdapter.setMargin(et_residence, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 			//联系方式
-			iv_contactWay=(ImageView)findViewById(R.id.iv_contactWay);
-			uiAdapter.setMargin(iv_contactWay, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
-			tv_contactWay= (TextView) findViewById(R.id.tv_contactWay);
-			uiAdapter.setTextSize(tv_contactWay, 18);
-			uiAdapter.setMargin(tv_contactWay, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-			et_contactWay = (EditText) findViewById(R.id.et_contactWay);
-			uiAdapter.setMargin(et_contactWay, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+			iv_mobile=(ImageView)findViewById(R.id.iv_mobile);
+			uiAdapter.setMargin(iv_mobile, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
+			tv_mobile= (TextView) findViewById(R.id.tv_mobile);
+			uiAdapter.setTextSize(tv_mobile, 18);
+			uiAdapter.setMargin(tv_mobile, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+			et_mobile = (EditText) findViewById(R.id.et_mobile);
+			uiAdapter.setMargin(et_mobile, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 			//紧急联系人
-			iv_emergencyPerson=(ImageView)findViewById(R.id.iv_emergencyPerson);
-			uiAdapter.setMargin(iv_emergencyPerson, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
-			tv_emergencyPerson= (TextView) findViewById(R.id.tv_emergencyPerson);
-			uiAdapter.setTextSize(tv_emergencyPerson, 18);
-			uiAdapter.setMargin(tv_emergencyPerson, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-			et_emergencyPerson = (EditText) findViewById(R.id.et_emergencyPerson);
-			uiAdapter.setMargin(et_emergencyPerson, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+			iv_urgentContact=(ImageView)findViewById(R.id.iv_urgentContact);
+			uiAdapter.setMargin(iv_urgentContact, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
+			tv_urgentContact= (TextView) findViewById(R.id.tv_urgentContact);
+			uiAdapter.setTextSize(tv_urgentContact, 18);
+			uiAdapter.setMargin(tv_urgentContact, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+			et_urgentContact = (EditText) findViewById(R.id.et_urgentContact);
+			uiAdapter.setMargin(et_urgentContact, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 			//紧急联系方式
-			iv_emergencyContact=(ImageView)findViewById(R.id.iv_emergencyContact);
-			uiAdapter.setMargin(iv_emergencyContact, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
-			tv_emergencyContact= (TextView) findViewById(R.id.tv_emergencyContact);
-			uiAdapter.setTextSize(tv_emergencyContact, 18);
-			uiAdapter.setMargin(tv_emergencyContact, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-			et_emergencyContact = (EditText) findViewById(R.id.et_emergencyContact);
-			uiAdapter.setMargin(et_emergencyContact, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+			iv_urgentMobile=(ImageView)findViewById(R.id.iv_urgentMobile);
+			uiAdapter.setMargin(iv_urgentMobile, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
+			tv_urgentMobile= (TextView) findViewById(R.id.tv_urgentMobile);
+			uiAdapter.setTextSize(tv_urgentMobile, 18);
+			uiAdapter.setMargin(tv_urgentMobile, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+			et_urgentMobile = (EditText) findViewById(R.id.et_urgentMobile);
+			uiAdapter.setMargin(et_urgentMobile, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 			//户口所在地
-			iv_houschold=(ImageView)findViewById(R.id.iv_houschold);
-			uiAdapter.setMargin(iv_houschold, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
-			tv_houschold= (TextView) findViewById(R.id.tv_houschold);
-			uiAdapter.setTextSize(tv_houschold, 18);
-			uiAdapter.setMargin(tv_houschold, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-			et_houschold = (EditText) findViewById(R.id.et_houschold);
-			uiAdapter.setMargin(et_houschold, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+			iv_regions=(ImageView)findViewById(R.id.iv_regions);
+			uiAdapter.setMargin(iv_regions, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
+			tv_regions= (TextView) findViewById(R.id.tv_regions);
+			uiAdapter.setTextSize(tv_regions, 18);
+			uiAdapter.setMargin(tv_regions, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+			et_regions = (EditText) findViewById(R.id.et_regions);
+			uiAdapter.setMargin(et_regions, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 			//保存
 			btn_saveEmployInfo = (Button) findViewById(R.id.btn_saveEmployInfo);
 			uiAdapter.setMargin(btn_saveEmployInfo, LayoutParams.MATCH_PARENT, 45, 20,20,20,0);
@@ -298,13 +298,13 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		tv_goBackEmployInfo = (TextView) findViewById(R.id.tv_goBackEmployInfo);
 		tv_goBackEmployInfo.setOnClickListener(this);
 		//中文名
-		iv_chineseName=(ImageView)findViewById(R.id.iv_chineseName);
-		uiAdapter.setMargin(iv_chineseName, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
-		tv_chineseName= (TextView) findViewById(R.id.tv_chineseName);
-		uiAdapter.setTextSize(tv_chineseName, 18);
-		uiAdapter.setMargin(tv_chineseName, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-		et_chineseName = (EditText) findViewById(R.id.et_chineseName);
-		uiAdapter.setMargin(et_chineseName, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
+		iv_personName=(ImageView)findViewById(R.id.iv_personName);
+		uiAdapter.setMargin(iv_personName, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+		tv_personName= (TextView) findViewById(R.id.tv_personName);
+		uiAdapter.setTextSize(tv_personName, 18);
+		uiAdapter.setMargin(tv_personName, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+		et_personName = (EditText) findViewById(R.id.et_personName);
+		uiAdapter.setMargin(et_personName, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
 		//英文名
 		iv_englishName=(ImageView)findViewById(R.id.iv_englishName);
 		uiAdapter.setMargin(iv_englishName, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
@@ -326,14 +326,14 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		uiAdapter.setMargin(radiogender, LayoutParams.MATCH_PARENT,40, 5, 20,45, 0);
 		uiAdapter.setPadding(radiogender, 10, 0, 0, 0);
 		//籍贯
-		iv_birthPlace=(ImageView)findViewById(R.id.iv_birthPlace);
-		uiAdapter.setMargin(iv_birthPlace, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
-		tv_birthPlace= (TextView) findViewById(R.id.tv_birthPlace);
-		uiAdapter.setTextSize(tv_birthPlace, 18);
-		uiAdapter.setMargin(tv_birthPlace, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,10, 20, 0, 10);
-		et_birthPlace = (EditText) findViewById(R.id.et_birthPlace);
-		uiAdapter.setMargin(et_birthPlace, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
-		uiAdapter.setPadding(et_birthPlace, 10, 0, 0, 0);
+		iv_address=(ImageView)findViewById(R.id.iv_address);
+		uiAdapter.setMargin(iv_address, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+		tv_address= (TextView) findViewById(R.id.tv_address);
+		uiAdapter.setTextSize(tv_address, 18);
+		uiAdapter.setMargin(tv_address, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,10, 20, 0, 10);
+		et_address = (EditText) findViewById(R.id.et_address);
+		uiAdapter.setMargin(et_address, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
+		uiAdapter.setPadding(et_address, 10, 0, 0, 0);
 		//身份证号
 		iv_idNo=(ImageView)findViewById(R.id.iv_idNo);
 		uiAdapter.setMargin(iv_idNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
@@ -344,42 +344,42 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		uiAdapter.setMargin(et_idNo, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 		uiAdapter.setPadding(et_idNo, 10, 0, 0, 0);
 		//学历号
-		iv_degreeNo=(ImageView)findViewById(R.id.iv_degreeNo);
-		uiAdapter.setMargin(iv_degreeNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
-		tv_degreeNo= (TextView) findViewById(R.id.tv_degreeNo);
-		uiAdapter.setTextSize(tv_degreeNo, 18);
-		uiAdapter.setMargin(tv_degreeNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,10, 20, 0, 10);
-		et_degreeNo = (EditText) findViewById(R.id.et_degreeNo);
-		uiAdapter.setMargin(et_degreeNo, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
-		uiAdapter.setPadding(et_degreeNo, 10, 0, 0, 0);
+		iv_educationNo=(ImageView)findViewById(R.id.iv_educationNo);
+		uiAdapter.setMargin(iv_educationNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+		tv_educationNo= (TextView) findViewById(R.id.tv_educationNo);
+		uiAdapter.setTextSize(tv_educationNo, 18);
+		uiAdapter.setMargin(tv_educationNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,10, 20, 0, 10);
+		et_educationNo = (EditText) findViewById(R.id.et_educationNo);
+		uiAdapter.setMargin(et_educationNo, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
+		uiAdapter.setPadding(et_educationNo, 10, 0, 0, 0);
 		
 		//开户银行
-		iv_bankName=(ImageView)findViewById(R.id.iv_bankName);
-		uiAdapter.setMargin(iv_bankName, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
-		tv_bankName= (TextView) findViewById(R.id.tv_bankName);
-		uiAdapter.setTextSize(tv_bankName, 18);
-		uiAdapter.setMargin(tv_bankName, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,10, 20, 0, 10);
-		et_bankName = (EditText) findViewById(R.id.et_bankName);
-		uiAdapter.setMargin(et_bankName, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
-		uiAdapter.setPadding(et_bankName, 10, 0, 0, 0);
+		iv_depositBank=(ImageView)findViewById(R.id.iv_depositBank);
+		uiAdapter.setMargin(iv_depositBank, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+		tv_depositBank= (TextView) findViewById(R.id.tv_depositBank);
+		uiAdapter.setTextSize(tv_depositBank, 18);
+		uiAdapter.setMargin(tv_depositBank, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,10, 20, 0, 10);
+		et_depositBank = (EditText) findViewById(R.id.et_depositBank);
+		uiAdapter.setMargin(et_depositBank, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
+		uiAdapter.setPadding(et_depositBank, 10, 0, 0, 0);
 		//银行账号
-		iv_bankNo=(ImageView)findViewById(R.id.iv_bankNo);
-		uiAdapter.setMargin(iv_bankNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
-		tv_bankNo= (TextView) findViewById(R.id.tv_bankNo);
-		uiAdapter.setTextSize(tv_bankNo, 18);
-		uiAdapter.setMargin(tv_bankNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-		et_bankNo = (EditText) findViewById(R.id.et_bankNo);
-		uiAdapter.setMargin(et_bankNo, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
-		uiAdapter.setPadding(et_bankNo, 10, 0, 0, 0);
+		iv_depositCardNo=(ImageView)findViewById(R.id.iv_depositCardNo);
+		uiAdapter.setMargin(iv_depositCardNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+		tv_depositCardNo= (TextView) findViewById(R.id.tv_depositCardNo);
+		uiAdapter.setTextSize(tv_depositCardNo, 18);
+		uiAdapter.setMargin(tv_depositCardNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+		et_depositCardNo = (EditText) findViewById(R.id.et_depositCardNo);
+		uiAdapter.setMargin(et_depositCardNo, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+		uiAdapter.setPadding(et_depositCardNo, 10, 0, 0, 0);
 		//社会公积金编号
-		iv_accumulationNo=(ImageView)findViewById(R.id.iv_accumulationNo);
-		uiAdapter.setMargin(iv_accumulationNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
-		tv_accumulationNo= (TextView) findViewById(R.id.tv_accumulationNo);
-		uiAdapter.setTextSize(tv_accumulationNo, 18);
-		uiAdapter.setMargin(tv_accumulationNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-		et_accumulationNo = (EditText) findViewById(R.id.et_accumulationNo);
-		uiAdapter.setMargin(et_accumulationNo, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
-		uiAdapter.setPadding(et_accumulationNo, 10, 0, 0, 0);
+		iv_accumFund=(ImageView)findViewById(R.id.iv_accumFund);
+		uiAdapter.setMargin(iv_accumFund, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+		tv_accumFund= (TextView) findViewById(R.id.tv_accumFund);
+		uiAdapter.setTextSize(tv_accumFund, 18);
+		uiAdapter.setMargin(tv_accumFund, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+		et_accumFund = (EditText) findViewById(R.id.et_accumFund);
+		uiAdapter.setMargin(et_accumFund, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
+		uiAdapter.setPadding(et_accumFund, 10, 0, 0, 0);
 		//保存
 		btn_saveMyselfInfo = (Button) findViewById(R.id.btn_saveMyselfInfo);
 	    uiAdapter.setMargin(btn_saveMyselfInfo, LayoutParams.MATCH_PARENT, 45, 20,20,20,0);
@@ -607,33 +607,33 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			break;
 			//应聘信息
 		case R.id.btn_saveEmployInfo:  //保存应聘信息
-			saveData();
+			saveEmployInfoData();
 			break;
 		case R.id.btn_employInfoNext:  //应聘信息上的下一步进入到个人信息的填写	
-			String nowAddress=et_nowAddress.getText().toString();
-			String contactWay=et_contactWay.getText().toString();
-			String emergencyPerson=et_emergencyPerson.getText().toString();
-			String emergencyContact=et_emergencyContact.getText().toString();
-			String houschold=et_houschold.getText().toString();
-			if (TextUtils.isEmpty(nowAddress)) {
-				Toast.show(self, resources.getString(R.string.entryNowAddress));
+			String residence=et_residence.getText().toString();
+			String mobile=et_mobile.getText().toString();
+			String urgentContact=et_urgentContact.getText().toString();
+			String urgentMobile=et_urgentMobile.getText().toString();
+			String regions=et_regions.getText().toString();
+			if (TextUtils.isEmpty(residence)) {
+				Toast.show(self, resources.getString(R.string.entryResidence));
 				return;
-			} else if (TextUtils.isEmpty(contactWay)) {
-				Toast.show(self, resources.getString(R.string.entryPosition));
+			} else if (TextUtils.isEmpty(mobile)) {
+				Toast.show(self, resources.getString(R.string.entryMobile));
 				return;
-			} else if (TextUtils.isEmpty(emergencyPerson)) {
-				Toast.show(self, resources.getString(R.string.entryEmergencyPerson));
+			} else if (TextUtils.isEmpty(urgentContact)) {
+				Toast.show(self, resources.getString(R.string.entryUrgentContact));
 				return;
-			} else if (TextUtils.isEmpty(emergencyContact)) {
-				Toast.show(self, resources.getString(R.string.emergencyContact));
+			} else if (TextUtils.isEmpty(urgentMobile)) {
+				Toast.show(self, resources.getString(R.string.urgentMobile));
 				return;
-			} else if (TextUtils.isEmpty(houschold)) {
-				Toast.show(self, resources.getString(R.string.entryHouschold));
+			} else if (TextUtils.isEmpty(regions)) {
+				Toast.show(self, resources.getString(R.string.entryRegions));
 				return;
-			} else if (!isMobile(et_contactWay.getText().toString())) {
+			} else if (!isMobile(et_mobile.getText().toString())) {
 				Toast.show(self, resources.getString(R.string.mobileFormat));
 				return;
-			} else if (!isMobile(et_emergencyContact.getText().toString())) {
+			} else if (!isMobile(et_urgentMobile.getText().toString())) {
 				Toast.show(self, resources.getString(R.string.mobileFormat));
 				return;
 			} else {
@@ -659,29 +659,29 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			
 			break;
 		case R.id.btn_myselfInfoNext:  //个人信息上的下一步进入到证件信息
-			String chineseName=et_chineseName.getText().toString();
-			String birthPlace=et_birthPlace.getText().toString();
+			String personName=et_personName.getText().toString();
+			String address=et_address.getText().toString();
 			String idNo=et_idNo.getText().toString();
-			String enducationNo=et_degreeNo.getText().toString();
-			String bankName=et_bankName.getText().toString();
-			String bankNo=et_bankNo.getText().toString();
-			if (TextUtils.isEmpty(chineseName)) {
-				Toast.show(self, resources.getString(R.string.entryChineseName));
+			String enducationNo=et_educationNo.getText().toString();
+			String depositBank=et_depositBank.getText().toString();
+			String depositCardNo=et_depositCardNo.getText().toString();
+			if (TextUtils.isEmpty(personName)) {
+				Toast.show(self, resources.getString(R.string.entryPersonName));
 				return;
-			} else if (TextUtils.isEmpty(birthPlace)) {
-				Toast.show(self, resources.getString(R.string.entryBirthPlace));
+			} else if (TextUtils.isEmpty(address)) {
+				Toast.show(self, resources.getString(R.string.entryAddress));
 				return;
 			} else if (TextUtils.isEmpty(idNo)) {
-				Toast.show(self, resources.getString(R.string.entryidNo));
+				Toast.show(self, resources.getString(R.string.entryIdNo));
 				return;
 			} else if (TextUtils.isEmpty(enducationNo)) {
-				Toast.show(self, resources.getString(R.string.entryDegreeNo));
+				Toast.show(self, resources.getString(R.string.entryEducationNo));
 				return;
-			} else if (TextUtils.isEmpty(bankName)) {
-				Toast.show(self, resources.getString(R.string.entryBankName));
+			} else if (TextUtils.isEmpty(depositBank)) {
+				Toast.show(self, resources.getString(R.string.entryDepositBank));
 				return;
-			} else if (TextUtils.isEmpty(bankNo)) {
-				Toast.show(self, resources.getString(R.string.entryBankNo));
+			} else if (TextUtils.isEmpty(depositCardNo)) {
+				Toast.show(self, resources.getString(R.string.entryDepositCardNo));
 				return;
 			} else if (!isIdNo(et_idNo.getText().toString())) {
 				Toast.show(self, resources.getString(R.string.idNoFormat));
@@ -855,16 +855,13 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					entryManageEntity = entity.getRetObj();
 					if (entryManageEntity != null) {
 						SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-//					    sp_department,sp_position
-//					    sp_department(entryManageEntity.getDepartment())
-						//sp_department.set
-					    et_entryDate.setText(date.format(new Date(Long.parseLong(entryManageEntity.getComEntryDate().substring(6, 18)))));
-					    et_nowAddress.setText(entryManageEntity.getRegions());
-					    et_contactWay.setText(entryManageEntity.getMobile());
-					    et_emergencyPerson.setText(entryManageEntity.getUrgentContact());
-					    et_emergencyContact.setText(entryManageEntity.getUrgentMobile());
-					    et_houschold.setText(entryManageEntity.getResidence());
-					    et_chineseName.setText(entryManageEntity.getPersonName());
+					    et_comEntryDate.setText(date.format(new Date(Long.parseLong(entryManageEntity.getComEntryDate().substring(6, 18)))));
+					    et_residence.setText(entryManageEntity.getRegions());
+					    et_mobile.setText(entryManageEntity.getMobile());
+					    et_urgentContact.setText(entryManageEntity.getUrgentContact());
+					    et_urgentMobile.setText(entryManageEntity.getUrgentMobile());
+					    et_regions.setText(entryManageEntity.getResidence());
+					    et_personName.setText(entryManageEntity.getPersonName());
 					    et_englishName.setText(entryManageEntity.getEnglishName());
 //					    String gender=entryManageEntity.getGender().toString();
 //					   // Log.e("ddddddddddddddddddddd",gender);
@@ -873,12 +870,12 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 //					    }else{
 //					    	maleButton.setChecked(true);
 //					    }
-					    et_birthPlace.setText(entryManageEntity.getAddress());
+					    et_address.setText(entryManageEntity.getAddress());
 					    et_idNo.setText(entryManageEntity.getIdNo());
-					    et_degreeNo.setText(entryManageEntity.getEducationNo());
-					    et_bankName.setText(entryManageEntity.getDepositBank());
-					    et_bankNo.setText(entryManageEntity.getDepositCardNo());
-					    et_accumulationNo.setText(entryManageEntity.getDegreeNo());
+					    et_educationNo.setText(entryManageEntity.getEducationNo());
+					    et_depositBank.setText(entryManageEntity.getDepositBank());
+					    et_depositCardNo.setText(entryManageEntity.getDepositCardNo());
+					    et_accumFund.setText(entryManageEntity.getAccumFund());
 					}
 				}
 
@@ -910,31 +907,31 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					List<EntryDepartmentDetailEntity> departmentList = entity.getRetObj();
 					if(type=="CostCenterno"&&parentId==-1){
 						  //数据
-				        list_department = new ArrayList<String>();
+				        list_comDep = new ArrayList<String>();
 				        for(int i=0;i<departmentList.size();i++)
 				        {
-				        	list_department.add(departmentList.get(i).getSysKeyName());
+				        	list_comDep.add(departmentList.get(i).getSysKeyName());
 				        }
 				        //适配器
-				        department_adapter= new ArrayAdapter<String>(EntryManagementActiviy.this, android.R.layout.simple_spinner_item, list_department);
+				        comDep_adapter= new ArrayAdapter<String>(EntryManagementActiviy.this, android.R.layout.simple_spinner_item, list_comDep);
 				        //设置样式
-				        department_adapter.setDropDownViewResource(android.R.layout.preference_category );
+				        comDep_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
 				        //加载适配器
-				        sp_department.setAdapter(department_adapter);
+				        sp_comDep.setAdapter(comDep_adapter);
 					}else if(type=="comgrade"&&parentId==-1){
 						//数据
-				        list_position = new ArrayList<String>();
+				        list_comPos = new ArrayList<String>();
 				        for(int i=0;i<departmentList.size();i++)
 				        {
-				        	list_position.add(departmentList.get(i).getSysKeyName());
+				        	list_comPos.add(departmentList.get(i).getSysKeyName());
 				        }
 				        
 				        //适配器
-				        position_adapter= new ArrayAdapter<String>(EntryManagementActiviy.this, android.R.layout.simple_spinner_item, list_position);
+				        comPos_adapter= new ArrayAdapter<String>(EntryManagementActiviy.this, android.R.layout.simple_spinner_item, list_comPos);
 				        //设置样式
-				        position_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				        comPos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				        //加载适配器
-				        sp_position.setAdapter(position_adapter);
+				        sp_comPos.setAdapter(comPos_adapter);
 					}
 					
 				}
@@ -947,35 +944,26 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 						JsonCommon.PROGRESSCOMMIT);
 				task.execute();
 	 }
-	 private void saveData()
+	 private void saveEmployInfoData()
 	 {
-//      private String ComDep;//应聘部门
-//		private String ComPos;//应聘职位
-//     	private String ComEntryDate;//到岗日期
-//     	private String Residence;//现居地址
-//     	private String Mobile;//联系方式
-//     	private String UrgentContact;//紧急联系人
-//     	private String UrgentMobile;//紧急联系方式
-//     	private String Regions;//户口所在地
-//     	private String PersonName;//中文名
-//     	private String EnglishName;//英文名
-//     	private String Gender;//性别
-//     	private String Address;//籍贯
-//     	private String IdNo;//身份证号
-//     	private String EducationNo;//学历证号
-//     	private String DepositBank;//开户银行
-//     	private String DepositCardNo;//银行账号
-//     	private String DegreeNo;//公积金编号
-        // entity.setDepartment(department)
 		 EntryManageEntity entity=new EntryManageEntity();
 		 entity.setLoginName(SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()));
-		 //entity.setComDep(comDep)
-		 entity.setComEntryDate(et_entryDate.getText().toString());
-		 entity.setResidence(et_nowAddress.getText().toString());
-		 entity.setMobile(et_contactWay.getText().toString());
-//		 entity.setUrgentContact(et_emergencyPerson.getText().toString());
-//		 entity.setUrgentMobile(et_emergencyContact.getText().toString());
-//		 entity.setRegions(et_houschold.getText().toString());
+		 entity.setComDep((String) sp_comDep.getSelectedItem());
+		 entity.setComPos((String) sp_comPos.getSelectedItem());
+		 entity.setComEntryDate(et_comEntryDate.getText().toString());
+		 entity.setResidence(et_residence.getText().toString());
+		 if (!isMobile(et_mobile.getText().toString())) {
+				Toast.show(self, resources.getString(R.string.mobileFormat));
+				return;
+			} else if (!isMobile(et_urgentMobile.getText().toString())) {
+				Toast.show(self, resources.getString(R.string.mobileFormat));
+				return;
+			} else {
+				entity.setMobile(et_mobile.getText().toString());
+			}
+		 entity.setUrgentContact(et_urgentContact.getText().toString());
+		 entity.setUrgentMobile(et_urgentMobile.getText().toString());
+		 entity.setRegions(et_regions.getText().toString());
 		 OperationBuilder builder = new OperationBuilder().append(
 					new EntrySaveOp(), entity);
 	    	OnOperationListener listener = new OnOperationListener() {

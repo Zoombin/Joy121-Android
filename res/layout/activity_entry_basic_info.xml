@@ -105,18 +105,18 @@
             android:orientation="horizontal" 
             android:layout_marginTop="6dip">
             <ImageView
-            android:id="@+id/iv_department"
+            android:id="@+id/iv_comDep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_department"  />
             <TextView
-                android:id="@+id/tv_department"
+                android:id="@+id/tv_comDep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/department"
+                android:text="@string/comDep"
                 android:textColor="@color/BLACK" />
             <Spinner
-                android:id="@+id/sp_department"
+                android:id="@+id/sp_comDep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -131,25 +131,24 @@
             android:orientation="horizontal"
             android:layout_marginTop="6dip" >
            <ImageView
-            android:id="@+id/iv_position"
+            android:id="@+id/iv_comPos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_position"  />
            <TextView
-                android:id="@+id/tv_position"
+                android:id="@+id/tv_comPos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/position"
+                android:text="@string/comPos"
                 android:textColor="@color/BLACK" />
             <Spinner
-                android:id="@+id/sp_position"
+                android:id="@+id/sp_comPos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
                 android:hint="@string/notNull"
                 android:singleLine="true"
-                android:textColor="@color/BLACK" 
-                android:spinnerMode="dropdown"/>
+                android:textColor="@color/BLACK"/>
         </LinearLayout>
         
          <LinearLayout
@@ -158,18 +157,18 @@
             android:orientation="horizontal" 
             android:layout_marginTop="6dip" >
             <ImageView
-            android:id="@+id/iv_entryDate"
+            android:id="@+id/iv_comEntryDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_date"  />
            <TextView
-                android:id="@+id/tv_entryDate"
+                android:id="@+id/tv_comEntryDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/entryDate"
+                android:text="@string/comEntryDate"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_entryDate"
+                android:id="@+id/et_comEntryDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
@@ -185,18 +184,18 @@
             android:orientation="horizontal"
             android:layout_marginTop="6dip" >
             <ImageView
-            android:id="@+id/iv_nowAddress"
+            android:id="@+id/iv_residence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_nowaddress"  />
            <TextView
-                android:id="@+id/tv_nowAddress"
+                android:id="@+id/tv_residence"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nowAddress"
+                android:text="@string/residence"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_nowAddress"
+                android:id="@+id/et_residence"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -210,18 +209,18 @@
             android:orientation="horizontal" 
             android:layout_marginTop="6dip" >
             <ImageView
-            android:id="@+id/iv_contactWay"
+            android:id="@+id/iv_mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_contactway"  />
            <TextView
-                android:id="@+id/tv_contactWay"
+                android:id="@+id/tv_mobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/contactWay"
+                android:text="@string/mobile"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_contactWay"
+                android:id="@+id/et_mobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -235,18 +234,18 @@
             android:orientation="horizontal"
             android:layout_marginTop="6dip"  >
             <ImageView
-            android:id="@+id/iv_emergencyPerson"
+            android:id="@+id/iv_urgentContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_emergencyperson"  />
            <TextView
-                android:id="@+id/tv_emergencyPerson"
+                android:id="@+id/tv_urgentContact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/emergencyPerson"
+                android:text="@string/urgentContact"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_emergencyPerson"
+                android:id="@+id/et_urgentContact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -260,18 +259,18 @@
             android:orientation="horizontal"
             android:layout_marginTop="6dip"  >
             <ImageView
-            android:id="@+id/iv_emergencyContact"
+            android:id="@+id/iv_urgentMobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_emergencycontact"  />
            <TextView
-                android:id="@+id/tv_emergencyContact"
+                android:id="@+id/tv_urgentMobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/emergencyContact"
+                android:text="@string/urgentMobile"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_emergencyContact"
+                android:id="@+id/et_urgentMobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -285,18 +284,18 @@
             android:orientation="horizontal"
             android:layout_marginTop="6dip"  >
             <ImageView
-            android:id="@+id/iv_houschold"
+            android:id="@+id/iv_regions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_houschold"  />
            <TextView
-                android:id="@+id/tv_houschold"
+                android:id="@+id/tv_regions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/houschold"
+                android:text="@string/regions"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_houschold"
+                android:id="@+id/et_regions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -348,18 +347,18 @@
             android:orientation="horizontal"
             android:layout_marginTop="5dip" >
            <ImageView
-            android:id="@+id/iv_chineseName"
+            android:id="@+id/iv_personName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_chinesename"  />
              <TextView
-                android:id="@+id/tv_chineseName"
+                android:id="@+id/tv_personName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/chineseName"
+                android:text="@string/personName"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_chineseName"
+                android:id="@+id/et_personName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg"  
@@ -438,18 +437,18 @@
             android:orientation="horizontal"
             android:layout_marginTop="-10dip" >
             <ImageView
-            android:id="@+id/iv_birthPlace"
+            android:id="@+id/iv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_birthplace"  />
            <TextView
-                android:id="@+id/tv_birthPlace"
+                android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/birthPlace"
+                android:text="@string/address"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_birthPlace"
+                android:id="@+id/et_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -491,18 +490,18 @@
             android:orientation="horizontal" 
             android:layout_marginTop="5dip">
             <ImageView
-            android:id="@+id/iv_degreeNo"
+            android:id="@+id/iv_educationNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_degreeno"  />
             <TextView
-                android:id="@+id/tv_degreeNo"
+                android:id="@+id/tv_educationNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/degreeNo"
+                android:text="@string/educationNo"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_degreeNo"
+                android:id="@+id/et_educationNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -516,18 +515,18 @@
             android:orientation="horizontal"
             android:layout_marginTop="5dip" >
             <ImageView
-            android:id="@+id/iv_bankName"
+            android:id="@+id/iv_depositBank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_bankname"  />
             <TextView
-                android:id="@+id/tv_bankName"
+                android:id="@+id/tv_depositBank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/bankName"
+                android:text="@string/depositBank"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_bankName"
+                android:id="@+id/et_depositBank"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -541,18 +540,18 @@
             android:orientation="horizontal" 
             android:layout_marginTop="5dip">
             <ImageView
-            android:id="@+id/iv_bankNo"
+            android:id="@+id/iv_depositCardNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_bankno"  />
             <TextView
-                android:id="@+id/tv_bankNo"
+                android:id="@+id/tv_depositCardNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/bankNo"
+                android:text="@string/depositCardNo"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_bankNo"
+                android:id="@+id/et_depositCardNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -566,22 +565,21 @@
             android:orientation="horizontal"
             android:layout_marginTop="5dip" >
             <ImageView
-            android:id="@+id/iv_accumulationNo"
+            android:id="@+id/iv_accumFund"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/entry_accumulationno"  />
             <TextView
-                android:id="@+id/tv_accumulationNo"
+                android:id="@+id/tv_accumFund"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/accumulationNo"
+                android:text="@string/accumFund"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_accumulationNo"
+                android:id="@+id/et_accumFund"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
-                android:hint="@string/notNull"
                 android:singleLine="true"
                 android:textColor="@color/BLACK" />
         </LinearLayout>

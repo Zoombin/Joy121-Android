@@ -30,7 +30,13 @@ public class EntryManageEntity extends TResult{
 	private String EducationNo;//学历证号
 	private String DepositBank;//开户银行
 	private String DepositCardNo;//银行账号
-	private String DegreeNo;//公积金编号
+	private String AccumFund;//公积金编号
+	public String getAccumFund() {
+		return AccumFund;
+	}
+	public void setAccumFund(String accumFund) {
+		AccumFund = accumFund;
+	}
 	public String getPersonName() {
 		return PersonName;
 	}
@@ -78,12 +84,6 @@ public class EntryManageEntity extends TResult{
 	}
 	public void setDepositCardNo(String depositCardNo) {
 		DepositCardNo = depositCardNo;
-	}
-	public String getDegreeNo() {
-		return DegreeNo;
-	}
-	public void setDegreeNo(String degreeNo) {
-		DegreeNo = degreeNo;
 	}
 	public String getComDep() {
 		return ComDep;

@@ -279,43 +279,42 @@
     <string name="basic_info">基本信息</string>
     
     <!--入职管理应聘信息-->
-    <string name="department">应聘部门：</string>
-    <string name="position">应聘职位：</string>
-    <string name="entryDate">到岗日期：</string>
-    <string name="nowAddress">现居地址：</string>
-    <string name="contactWay">联系方式：</string>
-    <string name="emergencyPerson">紧急联系人：</string>
-    <string name="emergencyContact">紧急联系方式：</string>
-    <string name="houschold">户口所在地：</string>
+    <string name="comDep">应聘部门：</string>
+    <string name="comPos">应聘职位：</string>
+    <string name="comEntryDate">到岗日期：</string>
+    <string name="residence">现居地址：</string>
+    <string name="mobile">联系方式：</string>
+    <string name="urgentContact">紧急联系人：</string>
+    <string name="urgentMobile">紧急联系方式：</string>
+    <string name="regions">户口所在地：</string>
     
-    <string name="entryDepartment">请选择应聘部门</string>
-    <string name="entryPosition">请选择应聘职位</string>
-    <string name="entryDate1">请选择到岗日期</string>
-    <string name="entryNowAddress">请输入现居地址</string>
-    <string name="entryContactWay">请输入联系方式</string>
-    <string name="entryEmergencyPerson">请输入紧急联系人</string>
-    <string name="entryEmergencyContact">请输入紧急联系方式</string>
-    <string name="entryHouschold">请输入户口所在地</string>
+    <string name="entryComDep">请选择应聘部门</string>
+    <string name="entryComPos">请选择应聘职位</string>
+    <string name="entryResidence">请输入现居地址</string>
+    <string name="entryMobile">请输入联系方式</string>
+    <string name="entryUrgentContact">请输入紧急联系人</string>
+    <string name="entryUrgentMobile">请输入紧急联系方式</string>
+    <string name="entryRegions">请输入户口所在地</string>
     <string name="mobileFormat">请输入正确的手机号码</string>
     
     <!-- 个人信息 -->
-    <string name="chineseName">中文名：</string>
+    <string name="personName">中文名：</string>
     <string name="englishName">英文名：</string>
     <string name="gender">性别：</string>
-    <string name="birthPlace">籍贯：</string>
+    <string name="address">籍贯：</string>
     <string name="idNo">身份证号：</string>
-    <string name="degreeNo">学历证号：</string>
-    <string name="accumulationNo">公积金编号：</string>
-    <string name="bankName">开户银行：</string>
-    <string name="bankNo">银行账号：</string>
+    <string name="educationNo">学历证号：</string>
+    <string name="accumFund">公积金编号：</string>
+    <string name="depositBank">开户银行：</string>
+    <string name="depositCardNo">银行账号：</string>
     
-    <string name="entryChineseName">请输入中文名</string>
+    <string name="entryPersonName">请输入中文名</string>
     <string name="entryEnglishName">请输入英文名</string>
-     <string name="entryBirthPlace">请输入籍贯</string>
-    <string name="entryidNo">请输入身份证号</string>
-    <string name="entryDegreeNo">请输入学历证号</string>
-    <string name="entryBankName">请输入开户银行</string>
-    <string name="entryBankNo">请输入银行账号</string> 
+     <string name="entryAddress">请输入籍贯</string>
+    <string name="entryIdNo">请输入身份证号</string>
+    <string name="entryEducationNo">请输入学历证号</string>
+    <string name="entryDepositBank">请输入开户银行</string>
+    <string name="entryDepositCardNo">请输入银行账号</string> 
     <string name="idNoFormat">请输入正确的身份证号</string>
     <!-- 证件信息 -->
     <string name="myselfPhoto">个人照片：</string>
