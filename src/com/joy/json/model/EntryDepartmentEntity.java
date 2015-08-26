@@ -8,17 +8,24 @@ public class EntryDepartmentEntity extends TResult{
 	 * rainbow
 	 */
 	private static final long serialVersionUID = 1L;
-    private List<EntryDepartmentDetailEntity> Retobj;
+    private List<EntryDepartmentDetailEntity> RetObj;
     private int CurentPage;
     private int TotalRecord;
     private int TotalPage;
     private int RetCode;
     private String  RetMsg;
-	public List<EntryDepartmentDetailEntity> getRetobj() {
-		return Retobj;
+    public String  type;
+	public String getType() {
+		return type;
 	}
-	public void setRetobj(List<EntryDepartmentDetailEntity> retobj) {
-		Retobj = retobj;
+	public void setType(String type) {
+		this.type = type;
+	}
+	public List<EntryDepartmentDetailEntity> getRetObj() {
+		return RetObj;
+	}
+	public void setRetObj(List<EntryDepartmentDetailEntity> retObj) {
+		RetObj = retObj;
 	}
 	public int getCurentPage() {
 		return CurentPage;

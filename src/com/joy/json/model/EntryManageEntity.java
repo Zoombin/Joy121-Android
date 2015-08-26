@@ -7,8 +7,15 @@ package com.joy.json.model;
  */
 public class EntryManageEntity extends TResult{
 	private static final long serialVersionUID = 1L;//为了在反序列化时，确保类版本的兼容性
-	private String department;//应聘部门
-	private String position;//应聘职位
+	private String LoginName;//登录名
+	public String getLoginName() {
+		return LoginName;
+	}
+	public void setLoginName(String loginName) {
+		LoginName = loginName;
+	}
+	private String ComDep;//应聘部门
+	private String ComPos;//应聘职位
 	private String ComEntryDate;//到岗日期
 	private String Residence;//现居地址
 	private String Mobile;//联系方式
@@ -78,17 +85,17 @@ public class EntryManageEntity extends TResult{
 	public void setDegreeNo(String degreeNo) {
 		DegreeNo = degreeNo;
 	}
-	public String getDepartment() {
-		return department;
+	public String getComDep() {
+		return ComDep;
 	}
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setComDep(String comDep) {
+		ComDep = comDep;
 	}
-	public String getPosition() {
-		return position;
+	public String getComPos() {
+		return ComPos;
 	}
-	public void setPosition(String position) {
-		this.position = position;
+	public void setComPos(String comPos) {
+		ComPos = comPos;
 	}
 	public String getComEntryDate() {
 		return ComEntryDate;

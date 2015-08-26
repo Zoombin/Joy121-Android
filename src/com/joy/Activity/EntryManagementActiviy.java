@@ -16,14 +16,18 @@ import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Utils.Constants;
 import com.joy.Utils.EntryDate;
+import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.ActivityDetailEntity;
+import com.joy.json.model.ActivityEntity;
 import com.joy.json.model.CompAppSet;
 import com.joy.json.model.EntryDepartmentDetailEntity;
 import com.joy.json.model.EntryDepartmentEntity;
 import com.joy.json.model.EntryEntity;
 import com.joy.json.model.EntryManageEntity;
 import com.joy.json.operation.OperationBuilder;
+import com.joy.json.operation.impl.ActivityOp;
 import com.joy.json.operation.impl.EntryDepartmentOp;
 import com.joy.json.operation.impl.EntryManageOp;
 import com.joy.json.operation.impl.EntrySaveOp;
@@ -38,6 +42,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,6 +72,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     private TextView  tv_title,tv_goBackEmployInfo,tv_goBackMyselfInfo,tv_goBackPapersInfo,
                       tv_goBackHistory,tv_goBackFamilyInfo;
     EntryManageEntity entryManageEntity;
+    private String type;
     //应聘信息
     private String initDate="2015-08-14";
     private List<String> list_department,list_position;
@@ -129,7 +135,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		
 		setContentView(v);
 		initEmployInfo();
-		bindDepartment();
+		bindDepartmentOrPos("CostCenterno",-1);
+		bindDepartmentOrPos("comgrade",-1);
 		initViewMyselfInfo();
 		initViewPapersInfo();
 		initViewHistory();
@@ -207,19 +214,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			uiAdapter.setMargin(tv_department, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
 			sp_department = (Spinner) findViewById(R.id.sp_department);
 			uiAdapter.setMargin(sp_department, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
-		    //数据
-	        list_department = new ArrayList<String>();
-	        list_department.add("开发部");
-	        list_department.add("客服部");
-	        list_department.add("软件部");
-	        list_department.add("行政部");
-	        
-	        //适配器
-	        department_adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list_department);
-	        //设置样式
-	        department_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	        //加载适配器
-	        sp_department.setAdapter(department_adapter);
 	        
 			//应聘职位
 	        iv_position=(ImageView)findViewById(R.id.iv_position);
@@ -229,19 +223,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			uiAdapter.setMargin(tv_position, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,10, 20, 0, 10);
 			sp_position = (Spinner) findViewById(R.id.sp_position);
 			uiAdapter.setMargin(sp_position, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
-			//数据
-	        list_position = new ArrayList<String>();
-	        list_position.add("开发");
-	        list_position.add("客服");
-	        list_position.add("软件");
-	        list_position.add("行政");
-	        
-	        //适配器
-	        position_adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list_position);
-	        //设置样式
-	        position_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-	        //加载适配器
-	        sp_position.setAdapter(position_adapter);
 			//入职日期
 	        iv_entryDate=(ImageView)findViewById(R.id.iv_entryDate);
 			uiAdapter.setMargin(iv_entryDate, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
@@ -909,28 +890,67 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			JsonCommon task = new JsonCommon(mActivity, builder, listener, false);
 			task.execute();
 	 }
-	 private void bindDepartment(){
-		 OperationBuilder builder = new OperationBuilder().append(
-					new EntryDepartmentOp(), null);
+	 private void bindDepartmentOrPos(final String type,final int parentId){
+		 EntryDepartmentDetailEntity entry=new EntryDepartmentDetailEntity();
+		 entry.setSysKey(type);
+		 entry.setParentId(parentId);
+			OperationBuilder builder = new OperationBuilder().append(new EntryDepartmentOp(),
+					entry);
 			OnOperationListener listener = new OnOperationListener() {
 				@Override
 				public void onOperationFinished(List<Object> resList) {
+					if (self.isFinishing()) {
+						return;
+					}
+					if (resList == null) {
+						Toast.show(self, resources.getString(R.string.timeout));
+						return;
+					}
 					EntryDepartmentEntity entity = (EntryDepartmentEntity) resList.get(0);
-					List<EntryDepartmentDetailEntity> departmentlist = entity.getRetobj();
+					List<EntryDepartmentDetailEntity> departmentList = entity.getRetObj();
+					if(type=="CostCenterno"&&parentId==-1){
+						  //数据
+				        list_department = new ArrayList<String>();
+				        for(int i=0;i<departmentList.size();i++)
+				        {
+				        	list_department.add(departmentList.get(i).getSysKeyName());
+				        }
+				        //适配器
+				        department_adapter= new ArrayAdapter<String>(EntryManagementActiviy.this, android.R.layout.simple_spinner_item, list_department);
+				        //设置样式
+				        department_adapter.setDropDownViewResource(android.R.layout.preference_category );
+				        //加载适配器
+				        sp_department.setAdapter(department_adapter);
+					}else if(type=="comgrade"&&parentId==-1){
+						//数据
+				        list_position = new ArrayList<String>();
+				        for(int i=0;i<departmentList.size();i++)
+				        {
+				        	list_position.add(departmentList.get(i).getSysKeyName());
+				        }
+				        
+				        //适配器
+				        position_adapter= new ArrayAdapter<String>(EntryManagementActiviy.this, android.R.layout.simple_spinner_item, list_position);
+				        //设置样式
+				        position_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				        //加载适配器
+				        sp_position.setAdapter(position_adapter);
+					}
+					
 				}
-
-				@Override
-				public void onOperationError(Exception e) {
-					e.printStackTrace();
-				}
-			};
-			JsonCommon task = new JsonCommon(mActivity, builder, listener, false);
-			task.execute();
+					@Override
+					public void onOperationError(Exception e) {
+						e.printStackTrace();
+					}
+		    	};
+		    	JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
 	 }
 	 private void saveData()
 	 {
-//      private String department;//应聘部门
-//     	private String position;//应聘职位
+//      private String ComDep;//应聘部门
+//		private String ComPos;//应聘职位
 //     	private String ComEntryDate;//到岗日期
 //     	private String Residence;//现居地址
 //     	private String Mobile;//联系方式
@@ -948,7 +968,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 //     	private String DegreeNo;//公积金编号
         // entity.setDepartment(department)
 		 EntryManageEntity entity=new EntryManageEntity();
-		
+		 entity.setLoginName(SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()));
+		 //entity.setComDep(comDep)
 		 entity.setComEntryDate(et_entryDate.getText().toString());
 		 entity.setResidence(et_nowAddress.getText().toString());
 		 entity.setMobile(et_contactWay.getText().toString());

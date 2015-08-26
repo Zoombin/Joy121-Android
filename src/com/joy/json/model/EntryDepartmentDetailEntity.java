@@ -8,7 +8,7 @@ public class EntryDepartmentDetailEntity extends TResult{
 	private static final long serialVersionUID = 1L;
 	private String Id;
 	private String ComGroup;
-	private String SysKey;
+	public String SysKey;
 	private String SysValue;
 	private String SysKeyName;
 	private int ParentId;

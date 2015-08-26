@@ -2,6 +2,7 @@ package com.joy.json.operation.impl;
 
 
 import org.apache.http.client.methods.HttpPost;
+import com.google.gson.Gson;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
@@ -28,32 +29,26 @@ public class EntrySaveOp implements ITaskOperation {
 		httpClient.getParams().setParameter(HttpConnectionParams.SO_TIMEOUT,
 				TIMEOUT);
 		HttpApi httpApi = new HttpApiWithBasicAuth(httpClient, "testRest");
+		String str = new Gson().toJson(entity);
 		HttpPost post = httpApi.createHttpPost(
-				entryUpdatePersonInfo,
-				new BasicNameValuePair("loginname", SharedPreferencesUtils
-						.getLoginName(JoyApplication.getSelf())),
-				
+				entryUpdatePersonInfo+"?loginname="+SharedPreferencesUtils
+				.getLoginName(JoyApplication.getSelf()),			
 //				private String ComEntryDate;//到岗日期
 //				private String Residence;//现居地址
 //				private String Mobile;//联系方式
 //				private String UrgentContact;//紧急联系人
 //				private String UrgentMobile;//紧急联系方式
 //				private String Regions;//户口所在地
-				new BasicNameValuePair("PersonInfo", String.format(
-						"{\"loginname\":\"%s\",\"ComEntryDate\":\"%s\",\"Residence\":\"%s\",\"Mobile\":\"%s\"}",
-						SharedPreferencesUtils
-						.getLoginName(JoyApplication
-										.getSelf()), entity
-										.getComEntryDate(),entity
-										.getResidence(),entity
-										.getMobile()))
-				);
+				new BasicNameValuePair("PersonInfo",str));
+		String str1 = new Gson().toJson(entity);
+		Log.e("++++++++++++++++++++++++++",str1);
+		
+		
 		Log.e("1", String.format(
 				"{\"ComEntryDate\":\"%s\",\"Residence\":\"%s\",\"Mobile\":\"%s\"}",
 				entity.getComEntryDate(),
 				entity.getResidence(),
 				entity.getMobile()));
-		Log.e("dfdfdsfsdfdfdfdfffffffffff","ddddddddddddddddddddddddd");
 		return (EntryManageEntity) httpApi.doHttpRequest(post, new EntrySaveParse());
 	}
 

@@ -22,7 +22,7 @@ public class EntryDepartmentOp implements ITaskOperation {
 
 	@Override
 	public Object exec(Object in, Object res) throws Exception {
-		EntryDepartmentDetailEntity details=(EntryDepartmentDetailEntity) in;
+		EntryDepartmentDetailEntity entity=(EntryDepartmentDetailEntity) in;
 		DefaultHttpClient httpClient = AbstractHttpApi.createHttpClient();
 		httpClient.getParams().setParameter(
 				HttpConnectionParams.CONNECTION_TIMEOUT, TIMEOUT);
@@ -33,8 +33,8 @@ public class EntryDepartmentOp implements ITaskOperation {
 				getDepartmentData,
 				new BasicNameValuePair("loginName", SharedPreferencesUtils
 						.getLoginName(JoyApplication.getSelf())),
-				new BasicNameValuePair("type", "CostCenterno"),
-				new BasicNameValuePair("parentId","-1")
+				new BasicNameValuePair("type", entity.getSysKey()),
+				new BasicNameValuePair("parentId",Integer.toString(entity.getParentId()))
 				);
 		return (EntryDepartmentEntity) httpApi.doHttpRequest(get, new EntryDepartmentParse());
 	}
