@@ -33,22 +33,15 @@ public class EntrySaveOp implements ITaskOperation {
 		HttpPost post = httpApi.createHttpPost(
 				entryUpdatePersonInfo+"?loginname="+SharedPreferencesUtils
 				.getLoginName(JoyApplication.getSelf()),			
-//				private String ComEntryDate;//到岗日期
-//				private String Residence;//现居地址
-//				private String Mobile;//联系方式
-//				private String UrgentContact;//紧急联系人
-//				private String UrgentMobile;//紧急联系方式
-//				private String Regions;//户口所在地
 				new BasicNameValuePair("PersonInfo",str));
-		String str1 = new Gson().toJson(entity);
-		Log.e("++++++++++++++++++++++++++",str1);
-		
-		
-		Log.e("1", String.format(
-				"{\"ComEntryDate\":\"%s\",\"Residence\":\"%s\",\"Mobile\":\"%s\"}",
-				entity.getComEntryDate(),
-				entity.getResidence(),
-				entity.getMobile()));
+//		String str1 = new Gson().toJson(entity);
+//		Log.e("++++++++++++++++++++++++++",str1);
+//		
+//		Log.e("1", String.format(
+//				"{\"ComEntryDate\":\"%s\",\"Residence\":\"%s\",\"Mobile\":\"%s\"}",
+//				entity.getComEntryDate(),
+//				entity.getResidence(),
+//				entity.getMobile()));
 		return (EntryManageEntity) httpApi.doHttpRequest(post, new EntrySaveParse());
 	}
 

@@ -30,13 +30,6 @@ public class EntryManageOp implements ITaskOperation {
 				entryGetInfoIp,
 				new BasicNameValuePair("loginName", SharedPreferencesUtils
 						.getLoginName(JoyApplication.getSelf()))
-//				new BasicNameValuePair("json", String.format(
-//						"{\"loginname\":\"%s\"}", SharedPreferencesUtils
-//								.getLoginName(JoyApplication.getSelf()))),
-//				new BasicNameValuePair("token", new MD5()
-//						.getMD5ofStr(SharedPreferencesUtils
-//								.getLoginName(JoyApplication.getSelf())
-//								+ MD5.key))
 				);
 		return (EntryEntity) httpApi.doHttpRequest(get, new EntryManageParse());
 	}

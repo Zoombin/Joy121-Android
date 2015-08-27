@@ -557,7 +557,8 @@
                 android:background="@drawable/entry_manage_bg" 
                 android:hint="@string/notNull"
                 android:singleLine="true"
-                android:textColor="@color/BLACK" />
+                android:textColor="@color/BLACK"
+                android:numeric="integer" />
            </LinearLayout>
             <LinearLayout
             android:layout_width="match_parent"

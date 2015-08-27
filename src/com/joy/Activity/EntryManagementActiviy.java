@@ -57,6 +57,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 /**
  * @rainbow  入职管理
@@ -73,6 +74,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
                       tv_goBackHistory,tv_goBackFamilyInfo;
     EntryManageEntity entryManageEntity;
     private String type;
+    private String gender;
     //应聘信息
     private String initDate="2015-08-14";
     private List<String> list_comDep,list_comPos;
@@ -655,8 +657,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			iv_ret.setVisibility(View.VISIBLE);
 			tv_title.setText("应聘信息");
 			break;
-		case R.id.btn_saveMyselfInfo:  //保存应聘信息
-			
+		case R.id.btn_saveMyselfInfo:  //个人信息
+			saveMyselfInfoData();
 			break;
 		case R.id.btn_myselfInfoNext:  //个人信息上的下一步进入到证件信息
 			String personName=et_personName.getText().toString();
@@ -854,22 +856,43 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					EntryEntity entity = (EntryEntity) resList.get(0);
 					entryManageEntity = entity.getRetObj();
 					if (entryManageEntity != null) {
+						//应聘信息					
+					   SpinnerAdapter comDepAdater=sp_comDep.getAdapter();
+					   int comDepCount=comDepAdater.getCount();
+					   for(int i=0;i<comDepCount;i++)
+					    {
+					      if(entryManageEntity.getComDep().equals(comDepAdater.getItem(i).toString()))
+					        {
+					          sp_comDep.setSelection(i,true);
+					    	 }
+					     }
+					   SpinnerAdapter comPosAdater=sp_comPos.getAdapter();
+					   int comPosCount=comPosAdater.getCount();
+					   for(int i=0;i<comPosCount;i++)
+					    {
+					      if(entryManageEntity.getComPos().equals(comPosAdater.getItem(i).toString()))
+					        {
+					          sp_comPos.setSelection(i,true);
+					    	 }
+					     }
+						//entity.setComPos((String) sp_comPos.getSelectedItem());
 						SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-					    et_comEntryDate.setText(date.format(new Date(Long.parseLong(entryManageEntity.getComEntryDate().substring(6, 18)))));
+					    et_comEntryDate.setText(date.format(new Date(Long.parseLong(entryManageEntity.getComEntryDate().substring(6, 19)))));
 					    et_residence.setText(entryManageEntity.getRegions());
 					    et_mobile.setText(entryManageEntity.getMobile());
 					    et_urgentContact.setText(entryManageEntity.getUrgentContact());
 					    et_urgentMobile.setText(entryManageEntity.getUrgentMobile());
 					    et_regions.setText(entryManageEntity.getResidence());
+					    //个人信息
 					    et_personName.setText(entryManageEntity.getPersonName());
 					    et_englishName.setText(entryManageEntity.getEnglishName());
-//					    String gender=entryManageEntity.getGender().toString();
-//					   // Log.e("ddddddddddddddddddddd",gender);
-//					    if(gender.equals("1")){
-//					    	femaleButton.setChecked(true);
-//					    }else{
-//					    	maleButton.setChecked(true);
-//					    }
+					    gender=entryManageEntity.getGender();
+					    Log.e("++++++++++++++++++",gender);
+					    if(gender.equals("1")){
+					    	femaleButton.setChecked(true);
+					    }else{
+					    	maleButton.setChecked(true);
+					    }
 					    et_address.setText(entryManageEntity.getAddress());
 					    et_idNo.setText(entryManageEntity.getIdNo());
 					    et_educationNo.setText(entryManageEntity.getEducationNo());
@@ -918,6 +941,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 				        comDep_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
 				        //加载适配器
 				        sp_comDep.setAdapter(comDep_adapter);
+//				        
 					}else if(type=="comgrade"&&parentId==-1){
 						//数据
 				        list_comPos = new ArrayList<String>();
@@ -964,6 +988,56 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		 entity.setUrgentContact(et_urgentContact.getText().toString());
 		 entity.setUrgentMobile(et_urgentMobile.getText().toString());
 		 entity.setRegions(et_regions.getText().toString());
+		 OperationBuilder builder = new OperationBuilder().append(
+					new EntrySaveOp(), entity);
+	    	OnOperationListener listener = new OnOperationListener() {
+				@Override
+				public void onOperationFinished(List<Object> resList) {
+					if (self.isFinishing()) {
+						return;
+					}else if(resList==null){
+						Toast.show(self,"连接超时");
+						return;
+					}else{
+						Toast.show(self,"保存成功");
+					}
+				}
+				@Override
+				public void onOperationError(Exception e) {
+					e.printStackTrace();
+				}
+	    	};
+	    	JsonCommon task = new JsonCommon(self, builder, listener,
+					JsonCommon.PROGRESSCOMMIT);
+			task.execute();
+	 }
+	 private void saveMyselfInfoData(){
+		 EntryManageEntity entity=new EntryManageEntity();
+		 entity.setLoginName(SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()));
+		 //应聘信息
+		 entity.setComDep((String) sp_comDep.getSelectedItem());
+		 entity.setComPos((String) sp_comPos.getSelectedItem());
+		 entity.setComEntryDate(et_comEntryDate.getText().toString());
+		 entity.setResidence(et_residence.getText().toString());
+		 entity.setMobile(et_mobile.getText().toString());
+		 entity.setUrgentContact(et_urgentContact.getText().toString());
+		 entity.setUrgentMobile(et_urgentMobile.getText().toString());
+		 entity.setRegions(et_regions.getText().toString());
+		 //个人信息
+		 entity.setPersonName(et_personName.getText().toString());
+		 entity.setEnglishName(et_englishName.getText().toString());
+		 if(femaleButton.isChecked())
+		 {
+			 entity.setGender("1");
+		 }else{
+			 entity.setGender("0");
+		 }
+		 entity.setAddress(et_address.getText().toString());
+		 entity.setIdNo(et_idNo.getText().toString());
+		 entity.setEducationNo(et_educationNo.getText().toString());
+		 entity.setAccumFund(et_accumFund.getText().toString());
+		 entity.setDepositBank(et_depositBank.getText().toString());
+		 entity.setDepositCardNo(et_depositCardNo.getText().toString());
 		 OperationBuilder builder = new OperationBuilder().append(
 					new EntrySaveOp(), entity);
 	    	OnOperationListener listener = new OnOperationListener() {
