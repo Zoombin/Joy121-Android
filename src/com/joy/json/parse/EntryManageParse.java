@@ -18,7 +18,7 @@ public class EntryManageParse  extends AbstractParser<TResult>{
 		if(json!=null)
 		{
 			entity=new Gson().fromJson(
-					 json.toString(), EntryEntity.class);
+					 json.toString(), EntryEntity.class);//将josn转为对象
 		}
 		return entity;
 	}

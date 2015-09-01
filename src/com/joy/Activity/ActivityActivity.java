@@ -183,9 +183,6 @@ public class ActivityActivity extends BaseActivity implements OnClickListener {
 				}
 				ActivityEntity entity = (ActivityEntity) resList.get(0);
 				List<ActivityDetailEntity> activitylist = entity.getRetobj();
-				Log.e("-------------------------------------------",Integer.toString(activitylist.size()));
-				Log.e("-------------------------------------------",activitylist.get(0).getActName());
-				
 				if (activitylist == null || activitylist.size() == 0) {
 					if("1".equals(acttype)) {
 						Toast.show(self, resources.getString(R.string.noactivityinfo));

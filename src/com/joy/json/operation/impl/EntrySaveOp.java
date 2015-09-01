@@ -29,9 +29,9 @@ public class EntrySaveOp implements ITaskOperation {
 		httpClient.getParams().setParameter(HttpConnectionParams.SO_TIMEOUT,
 				TIMEOUT);
 		HttpApi httpApi = new HttpApiWithBasicAuth(httpClient, "testRest");
-		String str = new Gson().toJson(entity);
+		String str = new Gson().toJson(entity);//将对象转为josn格式
 		HttpPost post = httpApi.createHttpPost(
-				entryUpdatePersonInfo+"?loginname="+SharedPreferencesUtils
+				entryUpdatePersonInfo+"?loginname="+SharedPreferencesUtils//post要把
 				.getLoginName(JoyApplication.getSelf()),			
 				new BasicNameValuePair("PersonInfo",str));
 //		String str1 = new Gson().toJson(entity);

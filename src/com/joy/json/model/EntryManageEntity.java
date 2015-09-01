@@ -1,4 +1,7 @@
 package com.joy.json.model;
+
+import java.util.List;
+
 /**
  * 
  * @author rainbow 2015/8/19
@@ -31,6 +34,14 @@ public class EntryManageEntity extends TResult{
 	private String DepositBank;//开户银行
 	private String DepositCardNo;//银行账号
 	private String AccumFund;//公积金编号
+	private String Family;//家庭信息
+	
+	public String getFamily() {
+		return Family;
+	}
+	public void setFamily(String family) {
+		Family = family;
+	}
 	public String getAccumFund() {
 		return AccumFund;
 	}

@@ -78,7 +78,7 @@ public class EntryManagementDateDialog extends Dialog{
         
         
         tv_title= (TextView) findViewById(R.id.tv_title);
-        tv_title.setText("请选择到岗日期");
+        tv_title.setText("请选择日期");
         tv_title.setTextSize(18);
         datePicker=(DatePicker)findViewById(R.id.datepicker);
         

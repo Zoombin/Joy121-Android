@@ -2,11 +2,7 @@ package com.joy.Activity;
 
 
 /**
-<<<<<<< HEAD
  * 员工激励
-=======
- * 绩效考核
->>>>>>> origin/master
  * @author ryan zhou 2015-01-12
  *
  */

@@ -324,17 +324,17 @@
     <string name="repairOrder">退工单：</string>
     <string name="checkupReporting">体检报告：</string>
     <!-- 个人经历 -->
-    <string name="education">学习经历</string>
-    <string name="workExperience">工作经历</string>
+    <string name="education">学习经历</string> 
+    <string name="workExperience">工作经验</string>
+    <string name="addEducation">添加经历</string>
+    <string name="addWorkExperience">添加经验</string>
     <!-- 家庭信息-->
-    <string name="childInfo">子女信息</string>
-    <string name="childName">子女姓名：</string>
-    <string name="childBirth">子女生日：</string>
-    <string name="parentInfo">父母信息</string>
-    <string name="fatherName">父亲姓名：</string>
-    <string name="fatherBirth">父亲生日：</string>
-    <string name="motherName">母亲姓名：</string>
-    <string name="motherBirth">母亲生日：</string>
+    <string name="familyInfo">亲属信息</string>
+    <string name="familyName">姓名：</string>
+    <string name="familyBirthday">生日：</string>
+    <string name="familyAddress">住址：</string>
+    <string name="familyRelationShip">关系：</string>
+    <string name="addFamilyInfo">添加亲属信息</string>
     <!--兴趣爱好 -->
     
     <string name="basketball">打篮球</string>
@@ -353,6 +353,12 @@
     <string name="photography">摄影</string>
     
     <string name="notNull">必填</string>
+    
+    
+    <string name="entry_save">保存</string>
+    <string name="entry_next">下一步</string>
+    <string name="entry_upload">上传</string>
+  
     
     <!--footview-->
     <string name="total_integral">总计：0积分</string>
