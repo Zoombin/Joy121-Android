@@ -35,7 +35,14 @@ public class EntryManageEntity extends TResult{
 	private String DepositCardNo;//银行账号
 	private String AccumFund;//公积金编号
 	private String Family;//家庭信息
+	private String Interesting;//兴趣爱好
 	
+	public String getInteresting() {
+		return Interesting;
+	}
+	public void setInteresting(String interesting) {
+		Interesting = interesting;
+	}
 	public String getFamily() {
 		return Family;
 	}

@@ -18,26 +18,18 @@ import com.joy.R;
 import com.joy.Utils.Constants;
 import com.joy.Utils.EntryDate;
 import com.joy.Utils.SharedPreferencesUtils;
-import com.joy.Widget.ActivityAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
-import com.joy.json.model.ActivityDetailEntity;
-import com.joy.json.model.ActivityEntity;
 import com.joy.json.model.CompAppSet;
 import com.joy.json.model.EntryDepartmentDetailEntity;
 import com.joy.json.model.EntryDepartmentEntity;
 import com.joy.json.model.EntryEntity;
 import com.joy.json.model.EntryManageEntity;
 import com.joy.json.model.EntryManageFamilyInfoEntity;
-import com.joy.json.model.PerformanceEntity;
-import com.joy.json.model.PerformanceListEntity;
 import com.joy.json.operation.OperationBuilder;
-import com.joy.json.operation.impl.ActivityOp;
 import com.joy.json.operation.impl.EntryDepartmentOp;
 import com.joy.json.operation.impl.EntryManageOp;
 import com.joy.json.operation.impl.EntrySaveOp;
-import com.joy.json.operation.impl.PerformanceOp;
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -53,9 +45,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.AbsoluteLayout;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -136,6 +126,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     //兴趣爱好
     private CheckBox basketball, football,badminton,table_tennis,mountains,sing,
                      book,cooking,drawing,dance,travel,photography;
+    private List<String> checkBoxHobbiesList = new ArrayList<String>();  
     private Button btn_saveHobbies;
     CompAppSet appSet;
 	int color;
@@ -548,6 +539,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		tv_goBackFamilyInfo.setOnClickListener(this);
 		basketball=(CheckBox)findViewById(R.id.basketball);
 		basketball.setBackgroundResource(R.drawable.check_hobbies);
+//		basketball.setChecked(true);
 		
 		table_tennis=(CheckBox)findViewById(R.id.table_tennis);
 		table_tennis.setBackgroundResource(R.drawable.check_hobbies);
@@ -777,7 +769,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		case R.id.btn_addFamilyInfo:
 			if(index==0)
 			{
-				 layout_familyDetailsInfo.addView(createFamilyView(null,null,null,null), 1);
+				 layout_familyDetailsInfo.addView(createFamilyView(null,null,null,null));
 			     familyName.add(et_familyName.getText().toString());
 			     familyBirthday.add(et_familyBirthday.getText().toString());
 			     familyAddress.add(et_familyAddress.getText().toString());
@@ -787,7 +779,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 				 familyBirthday.add(et_familyBirthday.getText().toString());
 				 familyAddress.add(et_familyAddress.getText().toString());
 			     familyRelationShip.add((String)sp_familyRelationShip.getSelectedItem());
-			     layout_familyDetailsInfo.addView(createFamilyView(null,null,null,null), 1);
+			     layout_familyDetailsInfo.addView(createFamilyView(null,null,null,null));
 			} 
 		    index++;
 			break;
@@ -825,7 +817,9 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			tv_goBackFamilyInfo.setVisibility(View.GONE);
 			tv_title.setText("个人经历");
 			break;
-			
+		case R.id.btn_saveHobbies:
+			saveFamilyHobbies();
+			break;
 		default:
 			break;
 	}
@@ -961,25 +955,66 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 								    	}else if(j%4==2){
 								    		name=arrayFamily[j].replace("\"Name\":\"", "");
 								    		name=name.replace("\"", "");
-								    		familyName.add(name);
+								    		familyName.add(name); 
 								    	}else{
+								    		relationShip=arrayFamily[j].replace("\"RelationShip\":\"", "");
+								    		if(j==(arrayFamily.length-1)){
+								    			relationShip=relationShip.replace("\"}]", "");
+								    		}else{
+								    			relationShip=relationShip.replace("\"}", "");
+								    		}
 								    		
-								    		relationShip=arrayFamily[j].replace("\"RelationShip\"}:\"", "");
-								    		relationShip=relationShip.replace("\"", "");
-								    		familyRelationShip.add(arrayFamily[j]);
-								    	}
-								      }
-								   
+								    		familyRelationShip.add(relationShip);
+								   }
+							 }
 								    layout_familyDetailsInfo.addView(createFamilyView
-							    			(familyName.get(i),familyBirthday.get(i),familyAddress.get(i),familyRelationShip.get(i)),1);
-							    	 familyName.add(et_familyName.getText().toString());
-								     familyBirthday.add(et_familyBirthday.getText().toString());
-								     familyAddress.add(et_familyAddress.getText().toString());
-								     familyRelationShip.add((String)sp_familyRelationShip.getSelectedItem());
+							    			(familyName.get(i),familyBirthday.get(i),familyAddress.get(i),familyRelationShip.get(i)));
 								     index++; 
 					        }	
 					    }
-					    
+					    //兴趣爱好
+					    String getHobbies=entryManageEntity.getInteresting();
+					    String hobbies="";
+					    if(getHobbies!=null){
+					    	String[] arrayHobbies = getHobbies.split(",");
+					    	for(int m=0;m<arrayHobbies.length;m++){
+					    		if(m==0){
+					    			arrayHobbies[m]=arrayHobbies[m].replace("[\"", "");
+						    		hobbies=arrayHobbies[m].replace("\"", "");
+					    		}else if(m==(arrayHobbies.length-1)){
+					    			arrayHobbies[m]=arrayHobbies[m].replace("\"", "");
+						    		hobbies=arrayHobbies[m].replace("\"", "");
+						    		hobbies=hobbies.replace("]", "");
+					    		}else{
+					    			arrayHobbies[m]=arrayHobbies[m].replace("\"", "");
+						    		hobbies=arrayHobbies[m].replace("\"", "");
+					    		}
+					    			if(hobbies.equals("打篮球"))
+					    				 basketball.setChecked(true);
+					    			if(hobbies.equals("踢足球"))
+					    				 football.setChecked(true);
+					    			if(hobbies.equals("打羽毛球"))
+					    				badminton.setChecked(true);
+					    			if(hobbies.equals("打乒乓球"))
+					    				table_tennis.setChecked(true);
+					    			if(hobbies.equals("爬山"))
+					    				mountains.setChecked(true);
+					    			if(hobbies.equals("爱唱歌"))
+					    				sing.setChecked(true);
+					    			if(hobbies.equals("看书"))
+					    				book.setChecked(true);
+					    			if(hobbies.equals("烹饪"))
+					    				cooking.setChecked(true);
+					    			if(hobbies.equals("画画"))
+					    				drawing.setChecked(true);
+					    			if(hobbies.equals("舞蹈"))
+					    				dance.setChecked(true);
+					    			if(hobbies.equals("旅游"))
+					    				travel.setChecked(true);
+					    			if(hobbies.equals("摄影"))
+					    				photography.setChecked(true);
+					    	}
+					    }
 					}
 				}
 				@Override
@@ -1172,7 +1207,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		 EntryManageFamilyInfoEntity familyDetailInfo;
 		 List<EntryManageFamilyInfoEntity> familyInfoList=new ArrayList();
 		 familyName.add(et_familyName.getText().toString());
-		 Log.e("==============================",familyName.get(0));
 		 familyBirthday.add(et_familyBirthday.getText().toString());
 		 familyAddress.add(et_familyAddress.getText().toString());
 	     familyRelationShip.add((String)sp_familyRelationShip.getSelectedItem());
@@ -1215,16 +1249,116 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					JsonCommon.PROGRESSCOMMIT);
 			task.execute();
 	 }
+	 private void saveFamilyHobbies()
+	 {
+		 EntryManageEntity entity=new EntryManageEntity();
+		 entity.setLoginName(SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()));
+		 //应聘信息
+		 entity.setComDep((String) sp_comDep.getSelectedItem());
+		 entity.setComPos((String) sp_comPos.getSelectedItem());
+		 entity.setComEntryDate(et_comEntryDate.getText().toString());
+		 entity.setResidence(et_residence.getText().toString());
+		 entity.setMobile(et_mobile.getText().toString());
+		 entity.setUrgentContact(et_urgentContact.getText().toString());
+		 entity.setUrgentMobile(et_urgentMobile.getText().toString());
+		 entity.setRegions(et_regions.getText().toString());
+		 //个人信息
+		 entity.setPersonName(et_personName.getText().toString());
+		 entity.setEnglishName(et_englishName.getText().toString());
+		 if(femaleButton.isChecked())
+		 {
+			 entity.setGender("1");
+		 }else{
+			 entity.setGender("0");
+		 }
+		 entity.setAddress(et_address.getText().toString());
+		 entity.setIdNo(et_idNo.getText().toString());
+		 entity.setEducationNo(et_educationNo.getText().toString());
+		 entity.setAccumFund(et_accumFund.getText().toString());
+		 entity.setDepositBank(et_depositBank.getText().toString());
+		 entity.setDepositCardNo(et_depositCardNo.getText().toString());
+		 //家庭信息
+		 EntryManageFamilyInfoEntity familyDetailInfo;
+		 List<EntryManageFamilyInfoEntity> familyInfoList=new ArrayList();
+		 familyName.add(et_familyName.getText().toString());
+		 familyBirthday.add(et_familyBirthday.getText().toString());
+		 familyAddress.add(et_familyAddress.getText().toString());
+	     familyRelationShip.add((String)sp_familyRelationShip.getSelectedItem());
+		 
+		 for(int i=0;i<index;i++){
+			 familyDetailInfo=new EntryManageFamilyInfoEntity();
+			 Log.e("55555555555555555555555555555",  Integer.toString(i));
+			 Log.e("66666666666666666666666666666666666",familyName.get(i+1).toString());
+			 Log.e("66666666666666666666666666666666666",familyBirthday.get(i+1).toString());
+			 Log.e("66666666666666666666666666666666666",familyAddress.get(i+1).toString());
+			 Log.e("66666666666666666666666666666666666",familyRelationShip.get(i+1).toString());
+			 familyDetailInfo.setName(familyName.get(i+1).toString());
+			 familyDetailInfo.setBirthday(familyBirthday.get(i+1).toString());
+			 familyDetailInfo.setAddress(familyAddress.get(i+1).toString());
+			 familyDetailInfo.setRelationShip(familyRelationShip.get(i+1).toString());
+			 familyInfoList.add(familyDetailInfo);
+		 }
+		 Log.e("66666666666666666666666666666666666",new Gson().toJson(familyInfoList));
+		 entity.setFamily(new Gson().toJson(familyInfoList));
+		 //兴趣爱好
+		 //判断 是否被选中得到其被选中的值，拼成数组放到后台
+		 if(basketball.isChecked())
+			 checkBoxHobbiesList.add(basketball.getText().toString());
+		if(football.isChecked())
+			 checkBoxHobbiesList.add(football.getText().toString());
+		if(badminton.isChecked())
+			 checkBoxHobbiesList.add(badminton.getText().toString());
+		if(table_tennis.isChecked())
+			 checkBoxHobbiesList.add(table_tennis.getText().toString());
+		if(mountains.isChecked())
+			 checkBoxHobbiesList.add(mountains.getText().toString());
+		if(sing.isChecked())
+			 checkBoxHobbiesList.add(sing.getText().toString());
+		if(book.isChecked())
+			 checkBoxHobbiesList.add(book.getText().toString());
+		if(cooking.isChecked())
+			 checkBoxHobbiesList.add(cooking.getText().toString());
+		if(drawing.isChecked())
+			 checkBoxHobbiesList.add(drawing.getText().toString());
+		if(dance.isChecked())
+			 checkBoxHobbiesList.add(dance.getText().toString());
+		if(travel.isChecked())
+			 checkBoxHobbiesList.add(travel.getText().toString());
+		if(photography.isChecked())
+			 checkBoxHobbiesList.add(photography.getText().toString());
+		 entity.setInteresting(new Gson().toJson(checkBoxHobbiesList));
+		 OperationBuilder builder = new OperationBuilder().append(
+					new EntrySaveOp(), entity);
+	    	OnOperationListener listener = new OnOperationListener() {
+				@Override
+				public void onOperationFinished(List<Object> resList) {
+					if (self.isFinishing()) {
+						return;
+					}else if(resList==null){
+						Toast.show(self,"连接超时");
+						return;
+					}else{
+						Toast.show(self,"保存成功");
+					}
+				}
+				@Override
+				public void onOperationError(Exception e) {
+					e.printStackTrace();
+				}
+	    	};
+	    	JsonCommon task = new JsonCommon(self, builder, listener,
+					JsonCommon.PROGRESSCOMMIT);
+			task.execute();
+	 }
 	 /**
 	   * 手机号的形式判断
 	  */
-		public boolean isMobile(String mobile)
-
-		{
-			Pattern p=Pattern.compile("^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\\d{8}$");//正则表达式验证手机的正确性
-			Matcher m=p.matcher(mobile);
-			return m.matches();
-		}
+	public boolean isMobile(String mobile)
+	{
+		Pattern p=Pattern.compile("^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\\d{8}$");//正则表达式验证手机的正确性
+		Matcher m=p.matcher(mobile);
+		return m.matches();
+	}
 		 /**
 		   * 身份证号的形式判断
 		  */
@@ -1305,9 +1439,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		final LinearLayout layout_familyRelationShip=new LinearLayout(this);
 		TextView tv_familyRelationShip=new TextView(this);
 		tv_familyRelationShip.setText("关系：");
-//        EditText et_familyRelationShip=new EditText(this);
-//        uiAdapter.setMargin(et_familyRelationShip, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
-//        et_familyRelationShip.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
 	    sp_familyRelationShip=new Spinner(this);
 	    sp_familyRelationShip.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
 	    data_list = new ArrayList<String>();
@@ -1321,6 +1452,30 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
         arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //加载适配器
         sp_familyRelationShip.setAdapter(arr_adapter);
+        
+        if (familyRelationShip != null) {
+        	for(int k=0;k<data_list.size();k++)
+		    {
+	    		Log.e("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",familyRelationShip);
+		    	if(familyRelationShip.equals(data_list.get(k))){
+		    	sp_familyRelationShip.setSelection(k,true);
+		    	}
+		    }
+        }
+        
+        if (familyRelationShip != null) {
+			sp_comDep.setSelection(0,true);
+			}else{
+				 SpinnerAdapter comDepAdater=sp_comDep.getAdapter();
+				   int comDepCount=comDepAdater.getCount();
+				   for(int i=0;i<comDepCount;i++)
+				    {
+				      if(entryManageEntity.getComDep().equals(comDepAdater.getItem(i).toString()))
+				        {
+				          sp_comDep.setSelection(i,true);
+				    	 }
+				     }
+			}
 
         layout_familyRelationShip.addView(tv_familyRelationShip);
         layout_familyRelationShip.addView(sp_familyRelationShip); 
