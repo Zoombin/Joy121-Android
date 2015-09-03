@@ -756,6 +756,11 @@
         </LinearLayout>
     </LinearLayout>
      <!-- 个人经历 -->
+      <ScrollView 
+     android:layout_width="match_parent" 
+     android:layout_height="wrap_content" 
+     android:scrollbarStyle="outsideOverlay"
+     android:scrollbars="none"> 
      <LinearLayout
         android:id="@+id/history"
         android:visibility="invisible"
@@ -808,6 +813,28 @@
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
+     <!-- 动态添加布局放在里面 -->
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/WHITE"
+        android:orientation="vertical"
+        android:scrollbars="none">
+          <LinearLayout
+           android:id="@+id/layout_educationDetailInfo"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical" 
+           android:visibility="invisible">
+          </LinearLayout>
+          <LinearLayout
+           android:id="@+id/layout_workExperienceDetailInfo"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical" 
+           android:visibility="invisible">
+          </LinearLayout>
+        </RelativeLayout>
        <RelativeLayout
            android:layout_width="match_parent"     
            android:layout_height="wrap_content"
@@ -866,14 +893,13 @@
 	         android:text="@string/entry_next" />
         </LinearLayout>
     </LinearLayout>
-    
+  </ScrollView>  
       <!-- 家庭信息-->
    <ScrollView 
      android:layout_width="match_parent" 
      android:layout_height="wrap_content" 
      android:scrollbarStyle="outsideOverlay"
-     android:scrollbars="none"
-     > 
+     android:scrollbars="none"> 
      <LinearLayout
         android:id="@+id/layout_familyInfo"
         android:visibility="invisible"
@@ -909,11 +935,6 @@
         android:background="@color/WHITE"
         android:orientation="vertical"
         android:scrollbars="none">
-          <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical" >
-          </LinearLayout>
         </LinearLayout>
         
         

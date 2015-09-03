@@ -8,11 +8,15 @@ import gejw.android.quickandroid.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Utils.Constants;
@@ -24,7 +28,9 @@ import com.joy.json.model.CompAppSet;
 import com.joy.json.model.EntryDepartmentDetailEntity;
 import com.joy.json.model.EntryDepartmentEntity;
 import com.joy.json.model.EntryEntity;
+import com.joy.json.model.EntryManageEducationInfoEntity;
 import com.joy.json.model.EntryManageEntity;
+import com.joy.json.model.EntryManageExperiencesListEntity;
 import com.joy.json.model.EntryManageFamilyInfoEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.EntryDepartmentOp;
@@ -42,6 +48,7 @@ import android.provider.MediaStore;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -104,13 +111,15 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     private Button btn_savePapersInfo,btn_papersInfoNext;
     //个人经历
     private EditText et_educationTime,et_school,et_profession,et_educationHarvest;
+    private EditText et_workExperienceTime,et_workExperienceCopmany,et_workExperienceComPos,et_workExperienceHarvest;
     private LinearLayout layout_menu,layout_education,layout_workExperience;
     private TextView tv_education,tv_workExperience;
+    private LinearLayout layout_educationDetailInfo,layout_workExperienceDetailInfo; 
+    private View v_educationLine;
     private Button btn_addEducation,btn_addWorkExperience,btn_saveHistory,btn_historyNext;
     //家庭信息
     private EditText et_familyName,et_familyBirthday,et_familyAddress;
     private Spinner sp_familyRelationShip;
-//    private  List<String> familyName;
     private List<String> familyName=new ArrayList<String>();
     private List<String> familyBirthday=new ArrayList<String>();
     private List<String> familyAddress=new ArrayList<String>();
@@ -463,7 +472,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		uiAdapter.setMargin(btn_addEducation, LayoutParams.MATCH_PARENT, 45, 10,20,10,0);
 		uiAdapter.setTextSize(btn_addEducation, 20);
 		
-		
+		layout_educationDetailInfo=(LinearLayout) findViewById(R.id.layout_educationDetailInfo);
 	  //工作经历
 	    layout_workExperience = (LinearLayout) findViewById(R.id.layout_workExperience);
 		layout_workExperience.setOnClickListener(this);
@@ -471,6 +480,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		btn_addWorkExperience= (Button) findViewById(R.id.btn_addWorkExperience);
 		uiAdapter.setMargin(btn_addWorkExperience, LayoutParams.MATCH_PARENT, 45, 10,20,10,0);
 		uiAdapter.setTextSize(btn_addWorkExperience, 20);
+		
+		layout_workExperienceDetailInfo=(LinearLayout) findViewById(R.id.layout_workExperienceDetailInfo);
 	    //保存
 		btn_saveHistory = (Button) findViewById(R.id.btn_saveHistory);
 		uiAdapter.setMargin(btn_saveHistory, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
@@ -481,27 +492,28 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		uiAdapter.setMargin(btn_historyNext, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 		uiAdapter.setTextSize(btn_historyNext, 24);
 		uiAdapter.setPadding(btn_historyNext, 10, 0, 0, 0);
-		defaultColor();
+		defaultShow();
 	}
     @SuppressWarnings("deprecation")
-    private void defaultColor()
+    private void defaultShow()
    	{
     	layout_education.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_educationclick));
    		layout_workExperience.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_workexperience));
    		btn_addEducation.setVisibility(View.VISIBLE);
 		btn_addWorkExperience.setVisibility(View.GONE);
+		layout_educationDetailInfo.setVisibility(View.VISIBLE);
+		layout_workExperienceDetailInfo.setVisibility(View.GONE);
    	}
     @SuppressWarnings("deprecation")
     private void showMenu(int layout) {
 		switch (layout) {
 		case R.id.layout_education:
 			layout_education.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_educationclick));
-			layout_workExperience.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_workexperience));
+			layout_workExperience.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_workexperience));	
 			break;
 		case R.id.layout_workExperience:
 			layout_education.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_education));
-			layout_workExperience.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_workexperienceclick));
-		
+			layout_workExperience.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_workexperienceclick));	
 		default:
 			break;
 		}
@@ -739,16 +751,21 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			showMenu(v.getId());
 			btn_addEducation.setVisibility(View.VISIBLE);
 			btn_addWorkExperience.setVisibility(View.GONE);
+			layout_educationDetailInfo.setVisibility(View.VISIBLE);
+			layout_workExperienceDetailInfo.setVisibility(View.GONE);
 			break;
 		case R.id.layout_workExperience:
 			showMenu(v.getId());
 			btn_addWorkExperience.setVisibility(View.VISIBLE);
 			btn_addEducation.setVisibility(View.GONE);
+			layout_educationDetailInfo.setVisibility(View.GONE);
+			layout_workExperienceDetailInfo.setVisibility(View.VISIBLE);
 			break;
 		case R.id.btn_addEducation://添加学习经历
-			history.addView(createEducation(),1);
+			layout_educationDetailInfo.addView(createEducation(null,null,null,null));
 			break;
 		case R.id.btn_addWorkExperience://添加工作经验
+			layout_workExperienceDetailInfo.addView(createworkExperience());
 			break;
 			//家庭信息
 		case R.id.tv_goBackHistory:  //家庭信息中的上一步返回到个人经历
@@ -818,7 +835,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			tv_title.setText("个人经历");
 			break;
 		case R.id.btn_saveHobbies:
-			saveFamilyHobbies();
+			saveHobbies();
 			break;
 		default:
 			break;
@@ -927,50 +944,47 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					    et_depositBank.setText(entryManageEntity.getDepositBank());
 					    et_depositCardNo.setText(entryManageEntity.getDepositCardNo());
 					    et_accumFund.setText(entryManageEntity.getAccumFund());
+					    
+					 
+					    //个人经历
+//					    String experienceInfo=entryManageEntity.getExperiences();
+//					    if(experienceInfo!=null){
+//					    	JsonParser parser = new JsonParser();
+//					    	JsonArray jsonExperienceArray;
+//					    	EntryManageEducationInfoEntity tempExperience;
+//					    	JsonElement experienceJsonElement=parser.parse(experienceInfo);
+//					    	if(experienceJsonElement.isJsonArray()){
+//					    		jsonExperienceArray = experienceJsonElement.getAsJsonArray();
+//					    		Iterator itExperience = jsonExperienceArray.iterator();
+//					    		while(itExperience.hasNext()){
+//					    			JsonElement e = (JsonElement)itExperience.next();
+//						    		//JsonElement转换为JavaBean对象
+//					    			tempExperience = new Gson().fromJson(e, EntryManageEducationInfoEntity.class);
+//					    			layout_educationDetailInfo.addView(createEducation
+//							    			(tempExperience.getDate(),tempExperience.getSchool(),tempExperience.getProfession(),tempExperience.getAchievement()));
+//					    		}
+//					    	}
+//					    }
 					    //家庭信息
 					    String familyDetailsInfo=entryManageEntity.getFamily();
-					    
-					    String address;
-					    String birthday;
-					    String name;
-					    String relationShip;
 					    if(familyDetailsInfo==null){
 					    }else{
-					    	String[] arrayFamily = familyDetailsInfo.split(",");
-					    	for(int i=0;i<arrayFamily.length/4;i++){
-								    for(int j=0;j<arrayFamily.length;j++){
-								    	if(j%4==0)
-								    	{
-								    		if(j==0){
-								    			address = arrayFamily[j].replace( "[{\"Address\":\"", "");
-								    		}else{
-								    			address = arrayFamily[j].replace( "{\"Address\":\"", "");
-								    		}
-								    		address=address.replace("\"", "");
-								    		familyAddress.add(address);
-								    	}else if(j%4==1){
-								    		birthday=arrayFamily[j].replace("\"Birthday\":\"", "");
-								    		birthday=birthday.replace("\"", "");
-								    		familyBirthday.add(birthday);
-								    	}else if(j%4==2){
-								    		name=arrayFamily[j].replace("\"Name\":\"", "");
-								    		name=name.replace("\"", "");
-								    		familyName.add(name); 
-								    	}else{
-								    		relationShip=arrayFamily[j].replace("\"RelationShip\":\"", "");
-								    		if(j==(arrayFamily.length-1)){
-								    			relationShip=relationShip.replace("\"}]", "");
-								    		}else{
-								    			relationShip=relationShip.replace("\"}", "");
-								    		}
-								    		
-								    		familyRelationShip.add(relationShip);
-								   }
-							 }
-								    layout_familyDetailsInfo.addView(createFamilyView
-							    			(familyName.get(i),familyBirthday.get(i),familyAddress.get(i),familyRelationShip.get(i)));
+					    	JsonParser parser = new JsonParser();
+					    	JsonArray jsonArray;
+					    	EntryManageFamilyInfoEntity tempFamily;
+					    	JsonElement jsonElement = parser.parse(familyDetailsInfo);
+					    	if(jsonElement.isJsonArray()){
+					    		jsonArray = jsonElement.getAsJsonArray();
+						    	Iterator it = jsonArray.iterator();
+						    	while(it.hasNext()){
+						    		JsonElement e = (JsonElement)it.next();
+						    		//JsonElement转换为JavaBean对象
+						    		tempFamily = new Gson().fromJson(e, EntryManageFamilyInfoEntity.class);
+						    		layout_familyDetailsInfo.addView(createFamilyView
+							    			(tempFamily.getName(),tempFamily.getBirthday(),tempFamily.getAddress(),tempFamily.getRelationShip()));
 								     index++; 
-					        }	
+						    	}
+					    	}	
 					    }
 					    //兴趣爱好
 					    String getHobbies=entryManageEntity.getInteresting();
@@ -1175,6 +1189,79 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					JsonCommon.PROGRESSCOMMIT);
 			task.execute();
 	 }
+	 private void saveEducation(){
+		 EntryManageEntity entity=new EntryManageEntity();
+		 entity.setLoginName(SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()));
+		 //应聘信息
+		 entity.setComDep((String) sp_comDep.getSelectedItem());
+		 entity.setComPos((String) sp_comPos.getSelectedItem());
+		 entity.setComEntryDate(et_comEntryDate.getText().toString());
+		 entity.setResidence(et_residence.getText().toString());
+		 entity.setMobile(et_mobile.getText().toString());
+		 entity.setUrgentContact(et_urgentContact.getText().toString());
+		 entity.setUrgentMobile(et_urgentMobile.getText().toString());
+		 entity.setRegions(et_regions.getText().toString());
+		 //个人信息
+		 entity.setPersonName(et_personName.getText().toString());
+		 entity.setEnglishName(et_englishName.getText().toString());
+		 if(femaleButton.isChecked())
+		 {
+			 entity.setGender("1");
+		 }else{
+			 entity.setGender("0");
+		 }
+		 entity.setAddress(et_address.getText().toString());
+		 entity.setIdNo(et_idNo.getText().toString());
+		 entity.setEducationNo(et_educationNo.getText().toString());
+		 entity.setAccumFund(et_accumFund.getText().toString());
+		 entity.setDepositBank(et_depositBank.getText().toString());
+		 entity.setDepositCardNo(et_depositCardNo.getText().toString());
+		 //学习经历
+		 EntryManageFamilyInfoEntity familyDetailInfo;
+		 List<EntryManageFamilyInfoEntity> familyInfoList=new ArrayList();
+		 familyName.add(et_familyName.getText().toString());
+		 familyBirthday.add(et_familyBirthday.getText().toString());
+		 familyAddress.add(et_familyAddress.getText().toString());
+	     familyRelationShip.add((String)sp_familyRelationShip.getSelectedItem());
+		 
+		 for(int i=0;i<index;i++){
+			 familyDetailInfo=new EntryManageFamilyInfoEntity();
+			 Log.e("55555555555555555555555555555",  Integer.toString(i));
+			 Log.e("66666666666666666666666666666666666",familyName.get(i).toString());
+			 Log.e("66666666666666666666666666666666666",familyBirthday.get(i).toString());
+			 Log.e("66666666666666666666666666666666666",familyAddress.get(i).toString());
+			 Log.e("66666666666666666666666666666666666",familyRelationShip.get(i).toString());
+			 familyDetailInfo.setName(familyName.get(i).toString());
+			 familyDetailInfo.setBirthday(familyBirthday.get(i).toString());
+			 familyDetailInfo.setAddress(familyAddress.get(i).toString());
+			 familyDetailInfo.setRelationShip(familyRelationShip.get(i).toString());
+			 familyInfoList.add(familyDetailInfo);
+		 }
+		 Log.e("66666666666666666666666666666666666",new Gson().toJson(familyInfoList));
+		 entity.setFamily(new Gson().toJson(familyInfoList));
+		 OperationBuilder builder = new OperationBuilder().append(
+					new EntrySaveOp(), entity);
+	    	OnOperationListener listener = new OnOperationListener() {
+				@Override
+				public void onOperationFinished(List<Object> resList) {
+					if (self.isFinishing()) {
+						return;
+					}else if(resList==null){
+						Toast.show(self,"连接超时");
+						return;
+					}else{
+						Toast.show(self,"保存成功");
+					}
+				}
+				@Override
+				public void onOperationError(Exception e) {
+					e.printStackTrace();
+				}
+	    	};
+	    	JsonCommon task = new JsonCommon(self, builder, listener,
+					JsonCommon.PROGRESSCOMMIT);
+			task.execute();
+	 }
 	 private void saveFamilyInfo()
 	 {
 		 EntryManageEntity entity=new EntryManageEntity();
@@ -1249,7 +1336,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					JsonCommon.PROGRESSCOMMIT);
 			task.execute();
 	 }
-	 private void saveFamilyHobbies()
+	 private void saveHobbies()
 	 {
 		 EntryManageEntity entity=new EntryManageEntity();
 		 entity.setLoginName(SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()));
@@ -1496,58 +1583,122 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	 * 动态新增学习经历布局
 	 */
 	@SuppressWarnings("deprecation")
-	private View createEducation(){
-		RelativeLayout layout_education=new RelativeLayout(this);
-		layout_education.setPadding(100, 10, 100, 5);
-		View v_line=new View(this);
-		v_line.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.performancehead_background));
-		uiAdapter.setMargin(v_line, LayoutParams.MATCH_PARENT, 200,0,0,0,0);
-		final LinearLayout layout1_education=new LinearLayout(this);
-		layout1_education.setOrientation(LinearLayout.VERTICAL); 
+	private View createEducation(String date,String school,String profession,String Harvest){
+		final LinearLayout layout_education=new LinearLayout(this); 
+		layout_education.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
+		layout_education.setOrientation(LinearLayout.VERTICAL); 
+		layout_education.setPadding(100, 5, 100, 5);
+//		View v_line=new View(this);
+//		v_line.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.performancehead_background));
+//		uiAdapter.setMargin(v_line, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
 		//时间
 		final LinearLayout layout_educationTime=new LinearLayout(this);
 		TextView tv_educationTime=new TextView(this);
 		tv_educationTime.setText("时间：");
 		et_educationTime=new EditText(this);
+		et_educationTime.setText(date);
 		uiAdapter.setMargin(et_educationTime, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
 		et_educationTime.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
+		et_educationTime.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
 		layout_educationTime.addView(tv_educationTime);
 		layout_educationTime.addView(et_educationTime);
-		layout1_education.addView(layout_educationTime);
 		//学校
 		final LinearLayout layout_school=new LinearLayout(this);
 		TextView tv_school=new TextView(this);
 		tv_school.setText("学校：");
 		et_school=new EditText(this);
+		et_school.setText(school);
 		uiAdapter.setMargin(et_school, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
 		et_school.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
+		et_school.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
 		layout_school.addView(tv_school);
 		layout_school.addView(et_school);
-		layout1_education.addView(layout_school);
 		//专业
 		final LinearLayout layout_profession=new LinearLayout(this);
 		TextView tv_profession=new TextView(this);
 		tv_profession.setText("专业：");
 		et_profession=new EditText(this);
-		uiAdapter.setMargin(et_profession, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
-		et_profession.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
-		layout_school.addView(tv_profession);
-		layout_school.addView(et_profession);
-		layout1_education.addView(layout_profession);
+		et_profession.setText(profession);
+        uiAdapter.setMargin(et_profession, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
+        et_profession.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
+        et_profession.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+        layout_profession.addView(tv_profession);
+        layout_profession.addView(et_profession);
 		//收获
 		final LinearLayout layout_educationHarvest=new LinearLayout(this);
 		TextView tv_educationHarvest=new TextView(this);
 		tv_educationHarvest.setText("收获：");
 		et_educationHarvest=new EditText(this);
+		et_educationHarvest.setText(Harvest);
 		uiAdapter.setMargin(et_educationHarvest, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
 		et_educationHarvest.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
-		layout_school.addView(tv_educationHarvest);
-		layout_school.addView(et_educationHarvest);
-		layout1_education.addView(layout_educationHarvest);
+		et_educationHarvest.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+		layout_educationHarvest.addView(tv_educationHarvest);
+		layout_educationHarvest.addView(et_educationHarvest);
 		
-		layout_education.addView(v_line);
-		layout_education.addView(layout1_education);
+		//layout_education.addView(v_line);
+		layout_education.addView(layout_educationTime);
+		layout_education.addView(layout_school);
+		layout_education.addView(layout_profession);
+		layout_education.addView(layout_educationHarvest);
 		return layout_education;
+	}
+	/*
+	 * 动态新增工作经验布局
+	 */
+	@SuppressWarnings("deprecation")
+	private View createworkExperience(){
+		final LinearLayout layout_workExperience=new LinearLayout(this); 
+		layout_workExperience.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
+		layout_workExperience.setOrientation(LinearLayout.VERTICAL); 
+		layout_workExperience.setPadding(100, 5, 100, 5);
+		//时间
+		final LinearLayout layout_workExperienceTime=new LinearLayout(this);
+		TextView tv_workExperienceTime=new TextView(this);
+		tv_workExperienceTime.setText("时间：");
+		et_workExperienceTime=new EditText(this);
+		uiAdapter.setMargin(et_workExperienceTime, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
+		et_workExperienceTime.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
+		et_workExperienceTime.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+		layout_workExperienceTime.addView(tv_workExperienceTime);
+		layout_workExperienceTime.addView(et_workExperienceTime);
+		//公司
+		final LinearLayout layout_workExperienceCopmany=new LinearLayout(this);
+		TextView tv_workExperienceCopmany=new TextView(this);
+		tv_workExperienceCopmany.setText("公司：");
+		et_workExperienceCopmany=new EditText(this);
+		uiAdapter.setMargin(et_workExperienceCopmany, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
+		et_workExperienceCopmany.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
+		et_workExperienceCopmany.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+		layout_workExperienceCopmany.addView(tv_workExperienceCopmany);
+		layout_workExperienceCopmany.addView(et_workExperienceCopmany);
+		//职位
+		final LinearLayout layout_workExperienceComPos=new LinearLayout(this);
+		TextView tv_workExperienceComPos=new TextView(this);
+		tv_workExperienceComPos.setText("职位：");
+		et_workExperienceComPos=new EditText(this);
+        uiAdapter.setMargin(et_workExperienceComPos, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
+        et_workExperienceComPos.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
+        et_workExperienceComPos.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+        layout_workExperienceComPos.addView(tv_workExperienceComPos);
+        layout_workExperienceComPos.addView(et_workExperienceComPos);
+		//收获
+		final LinearLayout layout_workExperienceHarvest=new LinearLayout(this);
+		TextView tv_workExperienceHarvest=new TextView(this);
+		tv_workExperienceHarvest.setText("收获：");
+		et_workExperienceHarvest=new EditText(this);
+		uiAdapter.setMargin(et_workExperienceHarvest, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
+		et_workExperienceHarvest.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
+		et_workExperienceHarvest.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+		layout_workExperienceHarvest.addView(tv_workExperienceHarvest);
+		layout_workExperienceHarvest.addView(et_workExperienceHarvest);
+		
+
+		layout_workExperience.addView(layout_workExperienceTime);
+		layout_workExperience.addView(layout_workExperienceCopmany);
+		layout_workExperience.addView(layout_workExperienceComPos);
+		layout_workExperience.addView(layout_workExperienceHarvest);
+		return layout_workExperience;
 	}
 }  
 
