@@ -13,9 +13,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.joy.JoyApplication;
 import com.joy.R;
@@ -111,7 +116,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     private Button btn_savePapersInfo,btn_papersInfoNext;
     //个人经历
     private EditText et_educationTime,et_school,et_profession,et_educationHarvest;
-    private EditText et_workExperienceTime,et_workExperienceCopmany,et_workExperienceComPos,et_workExperienceHarvest;
+    private EditText et_workExperienceTime,et_workExperienceCompany,et_workExperienceComPos,et_workExperienceAchievement;
     private LinearLayout layout_menu,layout_education,layout_workExperience;
     private TextView tv_education,tv_workExperience;
     private LinearLayout layout_educationDetailInfo,layout_workExperienceDetailInfo; 
@@ -765,7 +770,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			layout_educationDetailInfo.addView(createEducation(null,null,null,null));
 			break;
 		case R.id.btn_addWorkExperience://添加工作经验
-			layout_workExperienceDetailInfo.addView(createworkExperience());
+			layout_workExperienceDetailInfo.addView(createworkExperience(null,null,null,null));
 			break;
 			//家庭信息
 		case R.id.tv_goBackHistory:  //家庭信息中的上一步返回到个人经历
@@ -945,46 +950,76 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					    et_depositCardNo.setText(entryManageEntity.getDepositCardNo());
 					    et_accumFund.setText(entryManageEntity.getAccumFund());
 					    
-					 
 					    //个人经历
-//					    String experienceInfo=entryManageEntity.getExperiences();
-//					    if(experienceInfo!=null){
-//					    	JsonParser parser = new JsonParser();
-//					    	JsonArray jsonExperienceArray;
-//					    	EntryManageEducationInfoEntity tempExperience;
-//					    	JsonElement experienceJsonElement=parser.parse(experienceInfo);
-//					    	if(experienceJsonElement.isJsonArray()){
-//					    		jsonExperienceArray = experienceJsonElement.getAsJsonArray();
-//					    		Iterator itExperience = jsonExperienceArray.iterator();
-//					    		while(itExperience.hasNext()){
-//					    			JsonElement e = (JsonElement)itExperience.next();
-//						    		//JsonElement转换为JavaBean对象
-//					    			tempExperience = new Gson().fromJson(e, EntryManageEducationInfoEntity.class);
-//					    			layout_educationDetailInfo.addView(createEducation
-//							    			(tempExperience.getDate(),tempExperience.getSchool(),tempExperience.getProfession(),tempExperience.getAchievement()));
-//					    		}
-//					    	}
-//					    }
+					    String experienceInfo=entryManageEntity.getExperiences();
+					    if(experienceInfo!=null){
+					    	 JSONObject jsonObject;
+							 JSONArray jsonArray;
+							    //加载学习经历
+								try {
+									jsonArray = new JSONArray(String.valueOf(experienceInfo));
+								    jsonObject = (JSONObject)jsonArray.opt(0);
+								    JSONArray jsonArrayLearning = jsonObject.getJSONArray("Learning");
+									 for (int i=0;i<jsonArrayLearning.length();i++)
+								         {
+								          JSONObject jsonObjectSonEducation= (JSONObject)jsonArray.opt(i); 
+								          layout_educationDetailInfo.addView(createEducation
+									    			(jsonObjectSonEducation.getString("Date"),jsonObjectSonEducation.getString("School"),
+									    					jsonObjectSonEducation.getString("Profession"),jsonObjectSonEducation.getString("Achievement")));
+								         }
+								} catch (JSONException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+//								//加载工作经验
+//								try {
+//									jsonArray = jsonObject.getJSONArray("Job");
+//									 for (int i=0;i<jsonArray.length();i++)
+//								         {
+//										 JSONObject jsonObjectSonWork= (JSONObject)jsonArray.opt(i); 
+//								          layout_workExperienceDetailInfo.addView(createworkExperience
+//									    			(jsonObjectSonWork.getString("Date"),jsonObjectSonWork.getString("company"),
+//									    					jsonObjectSonWork.getString("Position"),jsonObjectSonWork.getString("Achievement")));
+//								         }
+//								} catch (JSONException e3) {
+//									// TODO Auto-generated catch block
+//									e3.printStackTrace();
+//								}
+					    }
+					   
+					    
 					    //家庭信息
 					    String familyDetailsInfo=entryManageEntity.getFamily();
 					    if(familyDetailsInfo==null){
 					    }else{
-					    	JsonParser parser = new JsonParser();
-					    	JsonArray jsonArray;
-					    	EntryManageFamilyInfoEntity tempFamily;
-					    	JsonElement jsonElement = parser.parse(familyDetailsInfo);
-					    	if(jsonElement.isJsonArray()){
-					    		jsonArray = jsonElement.getAsJsonArray();
-						    	Iterator it = jsonArray.iterator();
-						    	while(it.hasNext()){
-						    		JsonElement e = (JsonElement)it.next();
-						    		//JsonElement转换为JavaBean对象
-						    		tempFamily = new Gson().fromJson(e, EntryManageFamilyInfoEntity.class);
-						    		layout_familyDetailsInfo.addView(createFamilyView
-							    			(tempFamily.getName(),tempFamily.getBirthday(),tempFamily.getAddress(),tempFamily.getRelationShip()));
-								     index++; 
-						    	}
-					    	}	
+					    	 try {
+					    		  JSONArray jsonArray = new JSONArray(String.valueOf(familyDetailsInfo));
+					    		  for (int i=0;i<jsonArray.length();i++){
+					    		  JSONObject jsonObject2 = (JSONObject)jsonArray.opt(i); 
+								layout_familyDetailsInfo.addView(createFamilyView
+						    			(jsonObject2.getString("Address"),jsonObject2.getString("Birthday"),
+						    					jsonObject2.getString("Name"),jsonObject2.getString("RelationShip")));
+					    		  }
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+//					    	JsonParser parser = new JsonParser();
+//					    	JsonArray jsonArray1;
+//					    	EntryManageFamilyInfoEntity tempFamily;
+//					    	JsonElement jsonElement = parser.parse(familyDetailsInfo);
+//					    	if(jsonElement.isJsonArray()){
+//					    		jsonArray1 = jsonElement.getAsJsonArray();
+//						    	Iterator it = jsonArray1.iterator();
+//						    	while(it.hasNext()){
+//						    		JsonElement e = (JsonElement)it.next();
+//						    		//JsonElement转换为JavaBean对象
+//						    		tempFamily = new Gson().fromJson(e, EntryManageFamilyInfoEntity.class);
+//						    		layout_familyDetailsInfo.addView(createFamilyView
+//							    			(tempFamily.getName(),tempFamily.getBirthday(),tempFamily.getAddress(),tempFamily.getRelationShip()));
+//								     index++; 
+//						    	}
+//					    	}	
 					    }
 					    //兴趣爱好
 					    String getHobbies=entryManageEntity.getInteresting();
@@ -1647,7 +1682,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	 * 动态新增工作经验布局
 	 */
 	@SuppressWarnings("deprecation")
-	private View createworkExperience(){
+	private View createworkExperience(String date,String company,String comPos,String achievement){
 		final LinearLayout layout_workExperience=new LinearLayout(this); 
 		layout_workExperience.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
 		layout_workExperience.setOrientation(LinearLayout.VERTICAL); 
@@ -1660,18 +1695,20 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		uiAdapter.setMargin(et_workExperienceTime, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
 		et_workExperienceTime.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
 		et_workExperienceTime.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+		et_workExperienceTime.setText(date);
 		layout_workExperienceTime.addView(tv_workExperienceTime);
 		layout_workExperienceTime.addView(et_workExperienceTime);
 		//公司
 		final LinearLayout layout_workExperienceCopmany=new LinearLayout(this);
 		TextView tv_workExperienceCopmany=new TextView(this);
 		tv_workExperienceCopmany.setText("公司：");
-		et_workExperienceCopmany=new EditText(this);
-		uiAdapter.setMargin(et_workExperienceCopmany, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
-		et_workExperienceCopmany.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
-		et_workExperienceCopmany.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+		et_workExperienceCompany=new EditText(this);
+		uiAdapter.setMargin(et_workExperienceCompany, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
+		et_workExperienceCompany.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
+		et_workExperienceCompany.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+		et_workExperienceCompany.setText(company);
 		layout_workExperienceCopmany.addView(tv_workExperienceCopmany);
-		layout_workExperienceCopmany.addView(et_workExperienceCopmany);
+		layout_workExperienceCopmany.addView(et_workExperienceCompany);
 		//职位
 		final LinearLayout layout_workExperienceComPos=new LinearLayout(this);
 		TextView tv_workExperienceComPos=new TextView(this);
@@ -1680,18 +1717,20 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
         uiAdapter.setMargin(et_workExperienceComPos, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
         et_workExperienceComPos.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
         et_workExperienceComPos.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+        et_workExperienceComPos.setText(comPos);
         layout_workExperienceComPos.addView(tv_workExperienceComPos);
         layout_workExperienceComPos.addView(et_workExperienceComPos);
 		//收获
 		final LinearLayout layout_workExperienceHarvest=new LinearLayout(this);
 		TextView tv_workExperienceHarvest=new TextView(this);
 		tv_workExperienceHarvest.setText("收获：");
-		et_workExperienceHarvest=new EditText(this);
-		uiAdapter.setMargin(et_workExperienceHarvest, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
-		et_workExperienceHarvest.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
-		et_workExperienceHarvest.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+		et_workExperienceAchievement=new EditText(this);
+		uiAdapter.setMargin(et_workExperienceAchievement, LayoutParams.MATCH_PARENT, 50, 0,0,0, 0);
+		et_workExperienceAchievement.setBackgroundColor(this.getResources().getColor(R.color.WHITE));
+		et_workExperienceAchievement.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_manage_bg));
+		et_workExperienceAchievement.setText(achievement);
 		layout_workExperienceHarvest.addView(tv_workExperienceHarvest);
-		layout_workExperienceHarvest.addView(et_workExperienceHarvest);
+		layout_workExperienceHarvest.addView(et_workExperienceAchievement);
 		
 
 		layout_workExperience.addView(layout_workExperienceTime);
