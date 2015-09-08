@@ -161,7 +161,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			}
 		}
 		View v = inflater.inflate(R.layout.activity_entry_basic_info, null);
-		
 		setContentView(v);
 		initEmployInfo();
 		bindDepartmentOrPos("CostCenterno",-1);//传入-1显示全部部门
@@ -1460,7 +1459,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 						Toast.show(self,"连接超时");
 						return;
 					}else{
-						Toast.show(self,"保存成功");
+						Toast.show(self,"上传成功");
 					}
 				}
 				@Override

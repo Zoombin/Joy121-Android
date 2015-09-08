@@ -318,7 +318,7 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			startActivity(intent);
 		}else if(name.contains("入职管理")){
 			//入职管理
-			intent.setClass(mActivity,EntryManagementActiviy.class);
+			intent.setClass(mActivity, EntryManagementActiviy.class);
 			startActivity(intent);
 		}else{
 		}
