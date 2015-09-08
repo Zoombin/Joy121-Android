@@ -639,12 +639,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/myselfPhoto"
-                android:textColor="@color/BLACK" />
+                android:textColor="@color/BLACK"/>
              <ImageView
-                android:id="@+id/imgView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
+                android:id="@+id/imgViewPhoto"
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginTop="2dip"
                 android:scaleType="center"
                 android:src="@drawable/add_picture" />
         </LinearLayout>
@@ -663,6 +664,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/myselfVideo"
                 android:textColor="@color/BLACK" />
+            <ImageView
+                android:id="@+id/imgViewVideo"
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginTop="2dip"
+                android:scaleType="center"
+                android:src="@drawable/add_video" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -679,6 +688,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/academicPhoto"
                 android:textColor="@color/BLACK" />
+              <ImageView
+                android:id="@+id/imgViewAcademic"
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginTop="2dip"
+                android:scaleType="center"
+                android:src="@drawable/add_picture" />
         </LinearLayout>     
          <LinearLayout
             android:layout_width="match_parent"
@@ -694,6 +711,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/idPhoto"
+                android:textColor="@color/BLACK" />
+             <ImageView
+                android:id="@+id/imgViewIdPhoto1"
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:layout_marginLeft="33dip"
+                android:layout_marginTop="2dip"
+                android:scaleType="center"
+                android:src="@drawable/add_picture"/>
+              <TextView
+                android:id="@+id/tv_idPhoto1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(正面照)"
+                android:textSize="9dip"
+                android:layout_marginTop="50dip"
+                android:textColor="@color/BLACK" />
+             <ImageView
+                android:id="@+id/imgViewIdPhoto2"
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:layout_marginLeft="0dip"
+                android:layout_marginTop="2dip"
+                android:scaleType="center"
+                android:src="@drawable/add_picture" />
+             <TextView
+                android:id="@+id/tv_idPhoto2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(反面照)"
+                android:textSize="9dip"
+                android:layout_marginTop="50dip"
                 android:textColor="@color/BLACK" />
             
         </LinearLayout>
@@ -712,6 +761,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/repairOrder"
                 android:textColor="@color/BLACK" />
+             <ImageView
+                android:id="@+id/imgViewRepairOrder"
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:layout_marginLeft="33dip"
+                android:layout_marginTop="2dip"
+                android:scaleType="center"
+                android:src="@drawable/add_picture" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -728,6 +785,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/checkupReporting"
                 android:textColor="@color/BLACK" />
+            <ImageView
+                android:id="@+id/imgViewCheckupReporting"
+                android:layout_width="80dip"
+                android:layout_height="80dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginTop="2dip"
+                android:scaleType="center"
+                android:src="@drawable/add_picture" />
         </LinearLayout>
           <LinearLayout
            android:orientation="horizontal"    
