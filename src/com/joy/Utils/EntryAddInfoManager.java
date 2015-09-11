@@ -15,13 +15,16 @@ import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.EntryManagementAddEductionInfoDialog;
 import com.joy.Dialog.EntryManagementAddFamilyInfoDialog;
 import com.joy.Dialog.DialogUtil.AddInfoDialogButtonClickCallback;
+import com.joy.Dialog.EntryManagementAddWorkExperienceInfoDialog;
 import com.joy.Widget.EntryEducationDetailAdapter;
 import com.joy.Widget.EntryFamilyDetailAdapter;
+import com.joy.Widget.EntryWrokExperienceDetailAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.EntryManageEducationInfoEntity;
 import com.joy.json.model.EntryManageEntity;
 import com.joy.json.model.EntryManageFamilyInfoEntity;
+import com.joy.json.model.EntryManageWorkExperienceInfoEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.EntrySaveOp;
 
@@ -39,6 +42,7 @@ public class EntryAddInfoManager extends QActivity{
 	EditText et_nloginpwd,et_securitycode,et_comfirmnewpwd;
 	private EntryManagementAddFamilyInfoDialog entryAddFamilyInfo;//声明变量
 	private EntryManagementAddEductionInfoDialog entryAddEducationInfo;
+	private EntryManagementAddWorkExperienceInfoDialog enryAddWorkExperience;
 	
 	
 	public EntryAddInfoManager(Context context, QActivity mActivity) {
@@ -102,6 +106,36 @@ public class EntryAddInfoManager extends QActivity{
 				educationAdapter.addItem(education);
 				educationAdapter.notifyDataSetChanged();	
 				entryAddEducationInfo.dismiss();
+			}
+			
+		});
+	}
+	/**
+	 * 增加工作经验
+	 */
+	public void addWorkExperienceInfo(final EntryWrokExperienceDetailAdapter workExperienceAdapter){
+		enryAddWorkExperience=new EntryManagementAddWorkExperienceInfoDialog(mActivity,R.style.dialog);
+		enryAddWorkExperience.show();
+		enryAddWorkExperience.setTitle("增加工作经验");
+		enryAddWorkExperience.setButtonYes("确定");
+		enryAddWorkExperience.setButtonNo("取消");
+		enryAddWorkExperience.setOnClickButton(new AddInfoDialogButtonClickCallback(){
+
+			@Override
+			public void positiveButtonClick() {}
+			@Override
+			public void negativeButtonClick() {}
+			@Override
+			public void getAddInfoDialogButtonClickCallback(String addInfo1,
+					String addInfo2, String addInfo3, String addInfo4) {
+				EntryManageWorkExperienceInfoEntity workExperience =new EntryManageWorkExperienceInfoEntity();
+				workExperience.setDate(addInfo1);
+				workExperience.setCompany(addInfo2);
+				workExperience.setPosition(addInfo3);
+				workExperience.setAchievement(addInfo4);
+				workExperienceAdapter.addItem(workExperience);
+				workExperienceAdapter.notifyDataSetChanged();	
+				enryAddWorkExperience.dismiss();
 			}
 			
 		});

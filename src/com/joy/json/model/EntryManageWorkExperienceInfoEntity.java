@@ -8,7 +8,13 @@ public class EntryManageWorkExperienceInfoEntity extends TResult{
 	private String Date;//时间
 	private String Company;//公司
 	private String Position;//职位
-	private String Achievenment;//收获
+	private String Achievement;//收获
+	public String getAchievement() {
+		return Achievement;
+	}
+	public void setAchievement(String achievement) {
+		Achievement = achievement;
+	}
 	public String getDate() {
 		return Date;
 	}
@@ -26,11 +32,5 @@ public class EntryManageWorkExperienceInfoEntity extends TResult{
 	}
 	public void setPosition(String position) {
 		Position = position;
-	}
-	public String getAchievenment() {
-		return Achievenment;
-	}
-	public void setAchievenment(String achievenment) {
-		Achievenment = achievenment;
 	}
 }

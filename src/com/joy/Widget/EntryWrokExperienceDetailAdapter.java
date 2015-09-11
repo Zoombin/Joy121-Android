@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.joy.R;
 import com.joy.Dialog.EntryManagementAddFamilyInfoDialog;
+import com.joy.Dialog.EntryManagementAddWorkExperienceInfoDialog;
 import com.joy.json.model.EntryManageEducationInfoEntity;
 import com.joy.json.model.EntryManageWorkExperienceInfoEntity;
 
@@ -22,7 +23,7 @@ import android.widget.TextView;
 
 public class EntryWrokExperienceDetailAdapter extends BaseAdapter{
 	/**
-	 * educationInfo上下文对象
+	 * workExperienceInfo上下文对象
 	 * rainbow 2015-09-11
 	 */
 	private Context mContext = null;
@@ -30,7 +31,7 @@ public class EntryWrokExperienceDetailAdapter extends BaseAdapter{
 	private ArrayList<EntryManageWorkExperienceInfoEntity> data = new ArrayList<EntryManageWorkExperienceInfoEntity>();
 	private UIAdapter uiAdapter;
 	private Resources resources;
-	private EntryManagementAddFamilyInfoDialog entryAddInfo;//声明变量
+	private EntryManagementAddWorkExperienceInfoDialog entryAddInfo;//声明变量
 	
 	/**
 	 * @param mainActivity
@@ -86,21 +87,21 @@ public class EntryWrokExperienceDetailAdapter extends BaseAdapter{
 			//横线
 			holder.v_line = (View) convertView.findViewById(R.id.v_line);
 			//时间
-			holder.layout_educationDate=(LinearLayout) convertView.findViewById(R.id.layout_educationDate);
-			holder.tv_educationDate=(TextView) convertView.findViewById(R.id.tv_educationDate);
-			holder.tv_educationDate1=(TextView) convertView.findViewById(R.id.tv_educationDate1);
+			holder.layout_workDate=(LinearLayout) convertView.findViewById(R.id.layout_workDate);
+			holder.tv_workDate=(TextView) convertView.findViewById(R.id.tv_workDate);
+			holder.tv_workDate1=(TextView) convertView.findViewById(R.id.tv_workDate1);
 			//学校
-			holder.layout_educationSchool=(LinearLayout) convertView.findViewById(R.id.layout_educationSchool);
-			holder.tv_educationSchool=(TextView) convertView.findViewById(R.id.tv_educationSchool);
-			holder.tv_educationSchool1=(TextView) convertView.findViewById(R.id.tv_educationSchool1);
+			holder.layout_workCompany=(LinearLayout) convertView.findViewById(R.id.layout_workCompany);
+			holder.tv_workCompany=(TextView) convertView.findViewById(R.id.tv_workCompany);
+			holder.tv_workCompany1=(TextView) convertView.findViewById(R.id.tv_workCompany1);
 			//专业
-			holder.layout_educationProfession=(LinearLayout) convertView.findViewById(R.id.layout_educationProfession);
-			holder.tv_educationProfession=(TextView) convertView.findViewById(R.id.tv_educationProfession);
-			holder.tv_educationProfession1=(TextView) convertView.findViewById(R.id.tv_educationProfession1);
+			holder.layout_workPosition=(LinearLayout) convertView.findViewById(R.id.layout_workPosition);
+			holder.tv_workPosition=(TextView) convertView.findViewById(R.id.tv_workPosition);
+			holder.tv_workPosition1=(TextView) convertView.findViewById(R.id.tv_workPosition1);
 			//收获
-			holder.layout_educationAchievement=(LinearLayout) convertView.findViewById(R.id.layout_educationAchievement);
-			holder.tv_educationAchievement=(TextView) convertView.findViewById(R.id.tv_educationAchievement);
-			holder.tv_educationAchievement1=(TextView) convertView.findViewById(R.id.tv_educationAchievement1);
+			holder.layout_workAchievement=(LinearLayout) convertView.findViewById(R.id.layout_workAchievement);
+			holder.tv_workAchievement=(TextView) convertView.findViewById(R.id.tv_workAchievement);
+			holder.tv_workAchievement1=(TextView) convertView.findViewById(R.id.tv_workAchievement1);
 			//删除
 			holder.btn_remove=(Button)convertView.findViewById(R.id.btn_remove);
 			//编辑
@@ -109,10 +110,10 @@ public class EntryWrokExperienceDetailAdapter extends BaseAdapter{
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-//		holder.tv_educationDate1.setText(entity.getDate());
-//		holder.tv_educationSchool1.setText(entity.getSchool());
-//		holder.tv_educationProfession1.setText(entity.getProfession());
-//		holder.tv_educationAchievement1.setText(entity.getAchievement());
+		holder.tv_workDate1.setText(entity.getDate());
+		holder.tv_workCompany1.setText(entity.getCompany());
+		holder.tv_workPosition1.setText(entity.getPosition());
+		holder.tv_workAchievement1.setText(entity.getAchievement());
 		//删除
 		holder.btn_remove.setOnClickListener(new OnClickListener(){
 			@Override
@@ -166,27 +167,26 @@ public class EntryWrokExperienceDetailAdapter extends BaseAdapter{
 		return convertView;
 	}
 	public class ViewHolder {
-		LinearLayout layout_educationIfo;
+		LinearLayout layout_workExperienceInfo;
 		View v_line;
-		LinearLayout layout_educationDate;
-		TextView tv_educationDate;
-		TextView tv_educationDate1;
+		LinearLayout layout_workDate;
+		TextView tv_workDate;
+		TextView tv_workDate1;
 		
-		LinearLayout layout_educationSchool;
-		TextView tv_educationSchool;
-		TextView tv_educationSchool1;
+		LinearLayout layout_workCompany;
+		TextView tv_workCompany;
+		TextView tv_workCompany1;
 		
-		LinearLayout layout_educationProfession;
-		TextView tv_educationProfession;
-		TextView tv_educationProfession1;
+		LinearLayout layout_workPosition;
+		TextView tv_workPosition;
+		TextView tv_workPosition1;
 		
-		LinearLayout layout_educationAchievement;
-		TextView tv_educationAchievement;
-		TextView tv_educationAchievement1;
+		LinearLayout layout_workAchievement;
+		TextView tv_workAchievement;
+		TextView tv_workAchievement1;
 		
 		Button btn_remove;
 		Button btn_edit;
-		
 	}
 
-}
+} 

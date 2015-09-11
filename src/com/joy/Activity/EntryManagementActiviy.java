@@ -37,10 +37,13 @@ import com.joy.Utils.MobileCodeManager;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.Widget.EntryEducationDetailAdapter;
 import com.joy.Widget.EntryFamilyDetailAdapter;
+import com.joy.Widget.EntryWrokExperienceDetailAdapter;
 import com.joy.Widget.MotivationAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CompAppSet;
+import com.joy.json.model.ContactEntity;
+import com.joy.json.model.ContactListEntity;
 import com.joy.json.model.EntryDepartmentDetailEntity;
 import com.joy.json.model.EntryDepartmentEntity;
 import com.joy.json.model.EntryEntity;
@@ -138,6 +141,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     private ListView list_educationInfo,list_workExperienceInfo;
     private View v_educationLine;
     private EntryEducationDetailAdapter educationAdapter;
+    private EntryWrokExperienceDetailAdapter workExperienceAdapter;
     private Button btn_addEducation,btn_addWorkExperience,btn_saveHistory,btn_historyNext;
     //家庭信息
     private EditText et_familyName,et_familyBirthday,et_familyAddress;
@@ -529,6 +533,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
    	{
     	layout_education.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_educationclick));
    		layout_workExperience.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.entry_workexperience));
+   		list_educationInfo.setVisibility(View.VISIBLE);
+   		list_workExperienceInfo.setVisibility(View.GONE);
    		btn_addEducation.setVisibility(View.VISIBLE);
 		btn_addWorkExperience.setVisibility(View.GONE);
    	}
@@ -781,11 +787,15 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			break;
 		case R.id.layout_education:
 			showMenu(v.getId());
+			list_educationInfo.setVisibility(View.VISIBLE);
+	   		list_workExperienceInfo.setVisibility(View.GONE);
 			btn_addEducation.setVisibility(View.VISIBLE);
 			btn_addWorkExperience.setVisibility(View.GONE);
 			break;
 		case R.id.layout_workExperience:
 			showMenu(v.getId());
+			list_educationInfo.setVisibility(View.GONE);
+	   		list_workExperienceInfo.setVisibility(View.VISIBLE);
 			btn_addWorkExperience.setVisibility(View.VISIBLE);
 			btn_addEducation.setVisibility(View.GONE);
 			break;
@@ -795,6 +805,9 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			entryAddEducationInfo.addEducationInfo(educationAdapter);
 			break;
 		case R.id.btn_addWorkExperience://添加工作经验
+//			final EntryAddInfoManager entryAddWorkExperienceInfo ;
+//			entryAddWorkExperienceInfo=new EntryAddInfoManager(self,self);
+//			entryAddWorkExperienceInfo.addWorkExperienceInfo(workExperienceAdapter);
 			break;
 			//家庭信息
 		case R.id.tv_goBackHistory:  //家庭信息中的上一步返回到个人经历
@@ -944,41 +957,34 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					    //个人经历
 					    String experienceInfo=entryManageEntity.getExperiences();
 					    if(experienceInfo!=null){
-					    	 JSONObject jsonObject;
-					    	    JSONArray jsonArray;
-							    //加载学习经历
-								try {
-									jsonArray = new JSONArray(String.valueOf(experienceInfo));
-								    jsonObject = (JSONObject)jsonArray.opt(0);
-								    JSONArray jsonArrayLearning = jsonObject.getJSONArray("Learning");
-								    Log.e("000000000000000000000000000",jsonArrayLearning.toString());
-									 for (int i=0;i<jsonArrayLearning.length();i++)
-								         {
-								          JSONObject jsonObjectSonEducation= (JSONObject)jsonArray.opt(i); 
-//								          adapterFamily.addItem(jsonObjectSonEducation);
-//								    	   adapterFamily.notifyDataSetChanged();
-								         }
-								} catch (JSONException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
+					    	try {
+								JSONObject jsonObject2 =new JSONObject(experienceInfo);
+								JSONArray jsonArrayLearning = jsonObject2.getJSONArray("Learning"); 
+								if(jsonArrayLearning.length()!=0){
+								EntryManageEducationInfoEntity tempEducation;
+								JsonParser parser = new JsonParser();
+						    	JsonArray jsonArray1;
+						    	JsonElement jsonElement = parser.parse(jsonArrayLearning.toString());
+						    	if(jsonElement.isJsonArray()){
+						    		jsonArray1 = jsonElement.getAsJsonArray();
+							    	Iterator it = jsonArray1.iterator();
+							    	while(it.hasNext()){
+							    		JsonElement e = (JsonElement)it.next();
+							    		Log.e("----------------------------",e.toString());
+							    		//JsonElement转换为JavaBean对象
+							    		tempEducation = new Gson().fromJson(e, EntryManageEducationInfoEntity.class);
+							    		educationAdapter.addItem(tempEducation);
+							    		educationAdapter.notifyDataSetChanged();
+							    	}
+						    	  }
 								}
-					    }
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					    } 
 					    //家庭信息
-					    String familyDetailsInfo=entryManageEntity.getFamily();
-//					    if(familyDetailsInfo!=null){
-//					    	try {
-//					    		  JSONArray jsonArray = new JSONArray(String.valueOf(familyDetailsInfo));
-//					    		  Log.e("--------------------------",Integer.toString(jsonArray.length()));
-////					    		  for (int i=0;i<jsonArray.length();i++){
-////					    		  JSONObject jsonObjectFamily = (JSONObject)jsonArray.opt(i); 
-////					    		  Log.e("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", new Gson().toJson(jsonObjectFamily));
-//////					    		  adapterFamily.addItem(jsonObjectFamily);
-//////						    	  adapterFamily.notifyDataSetChanged();
-////					    		  }
-//							} catch (JSONException e) {
-//								// TODO Auto-generated catch block
-//								e.printStackTrace();
-//							}	
+					    String familyDetailsInfo=entryManageEntity.getFamily();	
 //					    	EntryManageFamilyInfoEntity tempFamily=new EntryManageFamilyInfoEntity();
 //					    	tempFamily.setName("1");
 //					    	tempFamily.setAddress("2");
