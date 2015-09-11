@@ -824,11 +824,6 @@
         </LinearLayout>
     </LinearLayout>
      <!-- 个人经历 -->
-      <ScrollView 
-     android:layout_width="match_parent" 
-     android:layout_height="wrap_content" 
-     android:scrollbarStyle="outsideOverlay"
-     android:scrollbars="none"> 
      <LinearLayout
         android:id="@+id/history"
         android:visibility="invisible"
@@ -881,28 +876,23 @@
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
-     <!-- 动态添加布局放在里面 -->
-        <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/WHITE"
-        android:orientation="vertical"
-        android:scrollbars="none">
-          <LinearLayout
-           android:id="@+id/layout_educationDetailInfo"
-           android:layout_width="match_parent"
+    <RelativeLayout
+           android:layout_width="match_parent"     
            android:layout_height="wrap_content"
-           android:orientation="vertical" 
-           android:visibility="invisible">
-          </LinearLayout>
-          <LinearLayout
-           android:id="@+id/layout_workExperienceDetailInfo"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:orientation="vertical" 
-           android:visibility="invisible">
-          </LinearLayout>
-        </RelativeLayout>
+           android:layout_marginTop="10dp">
+            <ListView
+              android:id="@+id/list_educationInfo"
+              
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:scrollbars="none" />
+           <ListView
+              android:id="@+id/list_workExperienceInfo"
+              android:visibility="invisible"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:scrollbars="none" />
+      </RelativeLayout>
        <RelativeLayout
            android:layout_width="match_parent"     
            android:layout_height="wrap_content"
@@ -961,13 +951,7 @@
 	         android:text="@string/entry_next" />
         </LinearLayout>
     </LinearLayout>
-  </ScrollView>  
-      <!-- 家庭信息-->
-   <ScrollView 
-     android:layout_width="match_parent" 
-     android:layout_height="wrap_content" 
-     android:scrollbarStyle="outsideOverlay"
-     android:scrollbars="none"> 
+      <!-- 家庭信息--> 
      <LinearLayout
         android:id="@+id/layout_familyInfo"
         android:visibility="invisible"
@@ -995,17 +979,11 @@
             android:layout_marginRight="30dip"
             android:background="@color/line_familycolor" />
         </LinearLayout>
-        <!-- 动态添加布局放在里面 -->
-        <LinearLayout
-        android:id="@+id/layout_familyDetailsInfo"
+        <ListView
+        android:id="@+id/list_familyInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/WHITE"
-        android:orientation="vertical"
-        android:scrollbars="none">
-        </LinearLayout>
-        
-        
+        android:scrollbars="none" />
         <LinearLayout
            android:layout_width="match_parent"     
            android:layout_height="wrap_content"
@@ -1023,6 +1001,17 @@
 	         android:paddingBottom="5dp" 
 	         android:background="@drawable/entry_add"
 	         android:text="@string/addFamilyInfo" />
+           <Button
+             android:id="@+id/btn_removeFamilyInfo"
+             android:layout_width="0dp"
+	         android:layout_weight="1" 
+	         android:layout_height="wrap_content"    
+	         android:textColor="@color/WHITE"
+	         android:gravity="center"
+	         android:paddingTop="5dp"
+	         android:paddingBottom="5dp" 
+	         android:background="@drawable/entry_add"
+	         android:text="删除家庭信息" />
        </LinearLayout>
           <LinearLayout
            android:orientation="horizontal"    
@@ -1053,7 +1042,6 @@
 	         android:text="@string/entry_next" />
         </LinearLayout>
     </LinearLayout>
-    </ScrollView>
      <!--兴趣爱好-->
      <LinearLayout
         android:id="@+id/hobbies"

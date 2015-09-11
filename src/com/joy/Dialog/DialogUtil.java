@@ -294,4 +294,8 @@ public class DialogUtil {
 	public interface SingleDialogButtonClickCallback extends DialogButtonClickCallback{
 		public void getSingleDialogButtonClickCallback(String string);
 	}
+	//入职管理中增加信息
+	public interface AddInfoDialogButtonClickCallback extends DialogButtonClickCallback{
+		public void getAddInfoDialogButtonClickCallback(String addInfo1,String addInfo2,String addInfo3,String addInfo4);
+	}
 }

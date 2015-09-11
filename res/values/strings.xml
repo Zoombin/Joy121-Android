@@ -325,7 +325,15 @@
     <string name="checkupReporting">体检报告：</string>
     <!-- 个人经历 -->
     <string name="education">学习经历</string> 
+    <string name="educationDate">时间：</string>
+    <string name="educationSchool">学校：</string>
+    <string name="educationProfession">专业：</string>
+    <string name="educationAchievement">收获：</string>
     <string name="workExperience">工作经验</string>
+    <string name="workDate">时间：</string>
+    <string name="workCompany">公司：</string>
+    <string name="workPosition">职位：</string>
+    <string name="workAchievement">收获：</string>
     <string name="addEducation">添加经历</string>
     <string name="addWorkExperience">添加经验</string>
     <!-- 家庭信息-->

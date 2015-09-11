@@ -34,6 +34,13 @@ public class EntryManageEntity extends TResult{
 	private String DepositBank;//开户银行
 	private String DepositCardNo;//银行账号
 	private String AccumFund;//公积金编号
+	private String Materials;//证件
+	public String getMaterials() {
+		return Materials;
+	}
+	public void setMaterials(String materials) {
+		Materials = materials;
+	}
 	private String Experiences;//学习经历
 	public String getExperiences() {
 		return Experiences;
