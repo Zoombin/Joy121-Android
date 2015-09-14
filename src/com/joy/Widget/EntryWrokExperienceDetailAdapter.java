@@ -5,13 +5,18 @@ import gejw.android.quickandroid.ui.adapter.UIAdapter;
 import java.util.ArrayList;
 
 import com.joy.R;
-import com.joy.Dialog.EntryManagementAddFamilyInfoDialog;
+import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.EntryManagementAddEductionInfoDialog;
 import com.joy.Dialog.EntryManagementAddWorkExperienceInfoDialog;
+import com.joy.Dialog.DialogUtil.AddInfoDialogButtonClickCallback;
+import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.json.model.EntryManageEducationInfoEntity;
 import com.joy.json.model.EntryManageWorkExperienceInfoEntity;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +91,8 @@ public class EntryWrokExperienceDetailAdapter extends BaseAdapter{
 			holder = new ViewHolder();
 			//横线
 			holder.v_line = (View) convertView.findViewById(R.id.v_line);
+			GradientDrawable shapeDrawable = (GradientDrawable) holder.v_line.getBackground();
+			shapeDrawable.setColor(Color.parseColor("#6f93f4"));
 			//时间
 			holder.layout_workDate=(LinearLayout) convertView.findViewById(R.id.layout_workDate);
 			holder.tv_workDate=(TextView) convertView.findViewById(R.id.tv_workDate);
@@ -119,51 +126,61 @@ public class EntryWrokExperienceDetailAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				removeItem(entity);
-				notifyDataSetChanged();
+				DialogUtil dUtil = new DialogUtil(mActivity);
+				dUtil.showDialog("您确定要删除该条工作经验？", 0, "确定", "取消",
+						new DialogButtonClickCallback() {
+							@Override
+							public void positiveButtonClick() {
+								// TODO Auto-generated method stub
+								removeItem(entity);
+								notifyDataSetChanged();
+							}
+							@Override
+							public void negativeButtonClick() {
+								// TODO Auto-generated method stub
+							}
+						});
 			}
-			
 		});
-		//编辑
-		holder.btn_edit.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-//				entryAddInfo=new EntryManagementAddFamilyInfoDialog(mActivity,R.style.dialog);
-//				entryAddInfo.show();
-//				entryAddInfo.setTitle("修改学习经历");
-//				entryAddInfo.et_familyName.setText(entity.getName());
-//				entryAddInfo.et_familyBirthday.setText(entity.getBirthday());
-//				entryAddInfo.et_familyAddress.setText(entity.getAddress());
-//				entryAddInfo.et_faimlyRelation.setText(entity.getRelationShip());
-//				entryAddInfo.setButtonYes("确定");
-//				entryAddInfo.setButtonNo("取消");
-//				entryAddInfo.setOnClickButton(new AddInfoDialogButtonClickCallback(){
-//
-//					@Override
-//					public void positiveButtonClick() {}
-//					@Override
-//					public void negativeButtonClick() {}
-//					@Override
-//					public void getAddInfoDialogButtonClickCallback(String addInfo1,
-//							String addInfo2, String addInfo3, String addInfo4) {
-//						EntryManageFamilyInfoEntity temp =new EntryManageFamilyInfoEntity();
-//						temp.setName(addInfo1);
-//						temp.setBirthday(addInfo2);
-//						temp.setAddress(addInfo3);
-//						temp.setRelationShip(addInfo4);
-//						for(int i=0;i<getCount();i++){
-//							if(entity==getItem(i)){
-//								updateItem(i,temp);
-//							}
-//						}
-//						
-//						notifyDataSetChanged();	
-//						entryAddInfo.dismiss();
-//					}
-//				});
-			} 
-			
-		});
+				//编辑
+				holder.btn_edit.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v) {
+						entryAddInfo=new EntryManagementAddWorkExperienceInfoDialog(mActivity,R.style.dialog);
+						entryAddInfo.show();
+						entryAddInfo.setTitle("修改工作经验");
+						entryAddInfo.et_workDate.setText(entity.getDate());
+						entryAddInfo.et_workCompany.setText(entity.getCompany());
+						entryAddInfo.et_workPosition.setText(entity.getPosition());
+						entryAddInfo.et_workAchievement.setText(entity.getAchievement());
+						entryAddInfo.setButtonYes("确定");
+						entryAddInfo.setButtonNo("取消");
+						entryAddInfo.setOnClickButton(new AddInfoDialogButtonClickCallback(){
+
+							@Override
+							public void positiveButtonClick() {}
+							@Override
+							public void negativeButtonClick() {}
+							@Override
+							public void getAddInfoDialogButtonClickCallback(String addInfo1,
+									String addInfo2, String addInfo3, String addInfo4) {
+								EntryManageWorkExperienceInfoEntity temp =new EntryManageWorkExperienceInfoEntity();
+								temp.setDate(addInfo1);
+								temp.setCompany(addInfo2);
+								temp.setPosition(addInfo3);
+								temp.setAchievement(addInfo4);
+								for(int i=0;i<getCount();i++){
+									if(entity==getItem(i)){
+										updateItem(i,temp);
+									}
+								}
+								notifyDataSetChanged();	
+								entryAddInfo.dismiss();
+							}
+						});
+					} 
+					
+				});
 		return convertView;
 	}
 	public class ViewHolder {

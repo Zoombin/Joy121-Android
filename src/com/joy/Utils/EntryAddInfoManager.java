@@ -6,11 +6,16 @@ import java.util.List;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.joy.JoyApplication;
 import com.joy.R;
+import com.joy.Activity.EntryManagementActiviy;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.EntryManagementAddEductionInfoDialog;
 import com.joy.Dialog.EntryManagementAddFamilyInfoDialog;

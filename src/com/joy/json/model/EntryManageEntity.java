@@ -1,6 +1,5 @@
 package com.joy.json.model;
 
-import java.util.List;
 
 /**
  * 
@@ -35,22 +34,23 @@ public class EntryManageEntity extends TResult{
 	private String DepositCardNo;//银行账号
 	private String AccumFund;//公积金编号
 	private String Materials;//证件
-	public String getMaterials() {
-		return Materials;
-	}
-	public void setMaterials(String materials) {
-		Materials = materials;
-	}
 	private String Experiences;//学习经历
-	public String getExperiences() {
-		return Experiences;
-	}
-	public void setExperiences(String experiences) {
-		Experiences = experiences;
-	}
 	private String Family;//家庭信息
 	private String Interesting;//兴趣爱好
-	
+	private int Submited;//提交状态位
+	private int CurrentStep;//当前保存到的页面数
+	public int getCurrentStep() {
+		return CurrentStep;
+	}
+	public void setCurrentStep(int currentStep) {
+		CurrentStep = currentStep;
+	}
+	public int getSubmited() {
+		return Submited;
+	}
+	public void setSubmited(int submited) {
+		Submited = submited;
+	}
 	public String getInteresting() {
 		return Interesting;
 	}
@@ -164,5 +164,17 @@ public class EntryManageEntity extends TResult{
 	}
 	public void setRegions(String regions) {
 		Regions = regions;
+	}
+	public String getMaterials() {
+		return Materials;
+	}
+	public void setMaterials(String materials) {
+		Materials = materials;
+	}
+	public String getExperiences() {
+		return Experiences;
+	}
+	public void setExperiences(String experiences) {
+		Experiences = experiences;
 	}
 }

@@ -11,7 +11,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.style.AbsoluteSizeSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +49,6 @@ public class EntryManagementAddWorkExperienceInfoDialog extends Dialog{
 		buttonYes.setOnClickListener(new Button.OnClickListener(){    
 	           public void onClick(View v) {
 	               //dismiss();
-	        	   Log.e("=============",et_workDate.getText().toString());
 	               callback.getAddInfoDialogButtonClickCallback(et_workDate.getText().toString(),
 	            		   et_workCompany.getText().toString(), et_workPosition.getText().toString(), 
 	            		   et_workAchievement.getText().toString()); 

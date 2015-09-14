@@ -5,12 +5,17 @@ import gejw.android.quickandroid.ui.adapter.UIAdapter;
 import java.util.ArrayList;
 
 import com.joy.R;
+import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.EntryManagementAddFamilyInfoDialog;
 import com.joy.Dialog.DialogUtil.AddInfoDialogButtonClickCallback;
+import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
+import com.joy.json.model.EntryManageEducationInfoEntity;
 import com.joy.json.model.EntryManageFamilyInfoEntity;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +59,9 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 	public void addSeparatorItem(EntryManageFamilyInfoEntity entity) {
 		data.add(entity);
 	}
+	public ArrayList<EntryManageFamilyInfoEntity> getData() {
+		return data;
+	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -81,6 +89,8 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 			holder = new ViewHolder();
 			//横线
 			holder.v_line = (View) convertView.findViewById(R.id.v_line);
+			GradientDrawable shapeDrawable = (GradientDrawable) holder.v_line.getBackground();
+			shapeDrawable.setColor(Color.parseColor("#6f93f4"));
 			//姓名
 			holder.layout_familyName=(LinearLayout) convertView.findViewById(R.id.layout_familyName);
 			holder.tv_familyName=(TextView) convertView.findViewById(R.id.tv_familyName);
@@ -114,10 +124,21 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				removeItem(entity);
-				notifyDataSetChanged();
+				DialogUtil dUtil = new DialogUtil(mActivity);
+				dUtil.showDialog("您确定要删除该条家庭信息？", 0, "确定", "取消",
+						new DialogButtonClickCallback() {
+							@Override
+							public void positiveButtonClick() {
+								// TODO Auto-generated method stub
+								removeItem(entity);
+								notifyDataSetChanged();
+							}
+							@Override
+							public void negativeButtonClick() {
+								// TODO Auto-generated method stub
+							}
+						});
 			}
-			
 		});
 		//编辑
 		holder.btn_edit.setOnClickListener(new OnClickListener(){

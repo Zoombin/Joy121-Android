@@ -2,7 +2,7 @@ package com.joy.json.model;
 
 import java.util.List;
 
-public class EntryManageExperiencesListEntity {
+public class EntryManageExperiencesListEntity extends TResult{
 	private static final long serialVersionUID = 1L;
 
 	private List<EntryManageEducationInfoEntity> Learning;//学习经历

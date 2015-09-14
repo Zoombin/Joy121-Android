@@ -3,9 +3,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_educationInfo"
     android:layout_width="match_parent"
-    android:layout_height="150dip"
+    android:layout_height="115dip"
     android:paddingLeft="10dip"
-    android:paddingTop="10dip"
+    android:paddingTop="5dip"
+    android:paddingBottom="5dip"
     android:paddingRight="10dip">
     
     	<RelativeLayout 
@@ -25,8 +26,9 @@
 	    	    android:layout_height="wrap_content"
 	    	    android:layout_alignParentLeft="true"
 	    	    android:layout_gravity="bottom"
-		        android:layout_marginBottom="10dip"
-		        android:layout_marginLeft="12dip"
+		        android:layout_marginBottom="5dip"
+		        android:layout_marginTop="5dip"
+		        android:layout_marginLeft="18dip"
 		        android:layout_marginRight="25dip"
 		        android:orientation="vertical">
 	    	    <LinearLayout
@@ -97,25 +99,26 @@
 	    	        	android:layout_width="wrap_content"
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textSize="16sp" />
-	    	    </LinearLayout>  
-	    	    <LinearLayout
+	    	    </LinearLayout>   
+	    	</LinearLayout>
+	    	 <LinearLayout
 	    	        android:id="@+id/layout_button"
 	    	        android:layout_width="wrap_content"
 	    	        android:layout_height="wrap_content"
-	    	        android:layout_marginTop="2dip" >  
+	    	        android:layout_marginTop="10dip"
+	    	        android:layout_marginLeft="245dip" >  
 	    	         <Button
 	    	          android:id="@+id/btn_edit"
 	    	          android:layout_width="wrap_content"
 	    	          android:layout_height="wrap_content"
-	    	          android:text="编辑"/>
+	    	          android:layout_marginRight="25dip"
+	    	         android:background="@drawable/entry_edit"/>
 	    	        <Button
 	    	          android:id="@+id/btn_remove"
 	    	          android:layout_width="wrap_content"
 	    	          android:layout_height="wrap_content"
-	    	          android:text="删除"/>
-	    	    </LinearLayout> 
-	    	</LinearLayout>
-	    	
+	    	           android:background="@drawable/entry_delete"/>
+	    	    </LinearLayout>
 	    </RelativeLayout>
 
 </LinearLayout>
