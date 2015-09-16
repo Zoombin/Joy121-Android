@@ -26,16 +26,10 @@ public class PortalsModulesOp implements ITaskOperation {
 				TIMEOUT);
 		HttpApi httpApi = new HttpApiWithBasicAuth(httpClient, "testRest");
 		HttpGet get = httpApi.createHttpGet(
-				IP,
-				new BasicNameValuePair("action", "comp_modules"),
-				new BasicNameValuePair("json", String.format(
-						"{\"loginname\":\"%s\",\"company\":\"%s\"}", SharedPreferencesUtils
-								.getLoginName(JoyApplication.getSelf()), SharedPreferencesUtils
-								.getCompany(JoyApplication.getSelf()))),
-								new BasicNameValuePair("token", new MD5()
-								.getMD5ofStr(SharedPreferencesUtils
-										.getLoginName(JoyApplication.getSelf())
-										+ MD5.key)));
+				getModules,
+				new BasicNameValuePair("loginName", SharedPreferencesUtils
+						.getLoginName(JoyApplication.getSelf()))
+				);
 		return (PortalsModule) httpApi.doHttpRequest(get, new ModuleParse());
 	}
 }
