@@ -214,6 +214,8 @@
   	
   	
   	<!-- contact -->
+  	<string name="common">常用联系人</string>
+    <string name="relation">重要联系人</string>
     <string name="contact">公司通讯录</string>
     <string name="contactdetail">联系人详情</string>
     <string name="telephone">电话</string>
@@ -282,7 +284,7 @@
     <string name="comDep">应聘部门：</string>
     <string name="comPos">应聘职位：</string>
     <string name="comEntryDate">到岗日期：</string>
-    <string name="residence">现居地址：</string>
+    <string name="residence">现居地：</string>
     <string name="mobile">联系方式：</string>
     <string name="urgentContact">紧急联系人：</string>
     <string name="urgentMobile">紧急联系方式：</string>

@@ -281,15 +281,14 @@ public class LoginActivity extends QActivity {
 					return;
 				}
 				String s = userInfoEntity.getAppAccessCodes();
-				
 				String[] ss = s.split(",");
 				Set<String> set = new HashSet<String>();
 				
 				for (int i = 0; i < ss.length; i++) {
 					set.add(ss[i]);
+					
 				}
 				setAliasAndTags(null, set);
-				
 				JoyApplication.getInstance().setUserinfo(userInfoEntity);
 				SharedPreferencesUtils.setLoginName(self, loginname);
 				if (ckb_auto.isChecked()) {
