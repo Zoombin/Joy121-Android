@@ -9,6 +9,8 @@ public interface ITaskOperation extends IOperation<Object, Object, Object> {
 	public static final String entryUpdatePersonInfo="http://test.joy121.com:999/api/Entry/PostUpdatePersonInfo";
 	//部门绑定
 	public static final String getDepartmentData="http://cloud.joy121.com:999/api/Entry/GetSysData";
+	//通讯录中的重要联系人
+	public static final String relationContacts="http://cloud.joy121.com:999/api/entry/GetEntryRelation";
 	// 连接超时时间
 	static final int TIMEOUT = 5*1000;
 }

@@ -13,6 +13,7 @@ import gejw.android.quickandroid.widget.Toast;
 import java.util.List;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,20 +24,27 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Utils.Constants;
 import com.joy.Widget.ContactAdapter;
+import com.joy.Widget.RelationContactAdapter;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
+import com.joy.json.model.CompAppSet;
 import com.joy.json.model.ContactEntity;
 import com.joy.json.model.ContactListEntity;
+import com.joy.json.model.RelationContactEntity;
+import com.joy.json.model.RelationContactListEntity;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.ContactOp;
+import com.joy.json.operation.impl.RelationContactOp;
 import com.umeng.analytics.MobclickAgent;
 
 public class ContactActivity extends BaseActivity implements OnClickListener {
@@ -45,9 +53,18 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 	private RelativeLayout layout_title;
 	private ImageView iv_ret;
 	private TextView tv_title;
+	private LinearLayout layout_menu;
+	private LinearLayout layout_common;
+	private TextView tv_common;
+	private View line_common;
+	private LinearLayout layout_relation;
+	private TextView tv_relation;
+	private View line_relation;
 	private EditText tv_search;
 	private ListView list_contacts;
+	private ListView list_relationContacts;
 	private ContactAdapter adapter;
+	private RelationContactAdapter relationAdapter;
 	private Resources resources;
 	
 	private int pageNum = 1;
@@ -55,7 +72,10 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 	
 	private int visibleLastIndex = 0;   //最后的可视项索引  
     private int visibleItemCount1 = 0;       // 当前窗口可见项总数 
-	
+    CompAppSet appSet;
+	int color;
+	private String isSelect;//表示当时选中的时候哪个选项 onResume的时候刷新数据
+	private LinearLayout layout_list_contacts,layout_list_RelationContacts;
 	/*@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,17 +88,59 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		  color = Color.parseColor("#ffa800");
+			appSet = JoyApplication.getInstance().getCompAppSet();
+			
+			if (appSet != null) {
+				try {
+					color = Color.parseColor(appSet.getColor2());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 		View v = inflater.inflate(R.layout.activity_contact, null);
 		resources = getResources();
 		setContentView(v);
 		initView();
-		initData("", pageSize, 1);
+		contactInitData("", pageSize, 1);
+		relationContactInitData();
 		return v;
+	}
+	private void showMenu(int layout) {
+		switch (layout) {
+		case R.id.layout_common:
+			tv_common.setTextColor(color);
+			line_common.setBackgroundColor(color);
+			tv_relation.setTextColor(resources.getColor(R.color.gray));
+			line_relation.setBackgroundColor(resources.getColor(R.color.WHITE));
+			break;
+		case R.id.layout_relation:
+			tv_common.setTextColor(resources.getColor(R.color.gray));
+			line_common.setBackgroundColor(resources.getColor(R.color.WHITE));
+			tv_relation.setTextColor(color);
+			line_relation.setBackgroundColor(color);
+			break;
+		default:
+			break;
+		}
 	}
 	
 	@Override
 	public void onClick(View v) {
+		layout_list_contacts=(LinearLayout) findViewById(R.id.layout_list_contacts);
+		layout_list_RelationContacts=(LinearLayout) findViewById(R.id.layout_list_RelationContacts);
 		switch (v.getId()) {
+		case R.id.layout_common:
+			showMenu(v.getId());
+			layout_list_contacts.setVisibility(View.VISIBLE);
+			layout_list_RelationContacts.setVisibility(View.GONE);
+			break;
+		case R.id.layout_relation:
+			showMenu(v.getId());
+			layout_list_contacts.setVisibility(View.GONE);
+			layout_list_RelationContacts.setVisibility(View.VISIBLE);
+			break;
 		case R.id.iv_ret:
 			finish();
 			break;
@@ -99,6 +161,20 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
 		tv_title.setText(R.string.contact);//通讯录
 		
+        layout_menu = (LinearLayout) findViewById(R.id.layout_menu);
+		
+		layout_common = (LinearLayout) findViewById(R.id.layout_common);
+		layout_common.setOnClickListener(this);
+		
+		tv_common = (TextView) findViewById(R.id.tv_common);
+	    line_common = (View) findViewById(R.id.line_common);
+		
+		layout_relation = (LinearLayout) findViewById(R.id.layout_relation);
+		layout_relation.setOnClickListener(this);
+		
+		tv_relation = (TextView) findViewById(R.id.tv_relation);
+		line_relation = (View) findViewById(R.id.line_relation);
+		
 		tv_search = (EditText) findViewById(R.id.tv_search);
 		uiAdapter.setMargin(tv_search, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT, 10, 10, 10, 0);
@@ -118,7 +194,7 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 		        	//adapter = new ContactAdapter(self, self);
 					//list_contacts.setAdapter(adapter);
 		        	pageNum = pageNum + 1;
-		        	initData(tv_search.getText().toString(), pageSize, pageNum);
+		        	contactInitData(tv_search.getText().toString(), pageSize, pageNum);
 		        }  
 			}
 			
@@ -140,15 +216,31 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 					 adapter = new ContactAdapter(self, self);
 					 list_contacts.setAdapter(adapter);
 					 pageNum = 1;
-					 initData(((EditText) v).getText().toString(), pageSize, pageNum);
+					 contactInitData(((EditText) v).getText().toString(), pageSize, pageNum);
 				 }
 				return false;
 			}
         });
+		
+		list_relationContacts=(ListView)findViewById(R.id.list_relationContacts);
+		uiAdapter.setMargin(list_relationContacts, LayoutParams.MATCH_PARENT,
+				LayoutParams.WRAP_CONTENT, 10, 10, 10, 0);
+		relationAdapter = new RelationContactAdapter(self, self);
+		list_relationContacts.setAdapter(relationAdapter);
+		defaultshow();
 
 	}
-	
-	private void initData(String qvalue, int PageSize, int pageNum) {
+	private void defaultshow()
+	{
+		layout_list_contacts=(LinearLayout) findViewById(R.id.layout_list_contacts);
+		layout_list_RelationContacts=(LinearLayout) findViewById(R.id.layout_list_RelationContacts);
+		tv_common.setTextColor(color);
+		line_common.setBackgroundColor(color);
+		tv_relation.setTextColor(resources.getColor(R.color.gray));
+		layout_list_contacts.setVisibility(View.VISIBLE);
+		layout_list_RelationContacts.setVisibility(View.GONE);
+	}
+	private void contactInitData(String qvalue, int PageSize, int pageNum) {
 		OperationBuilder builder = new OperationBuilder().append(new ContactOp(qvalue, pageSize, pageNum),
 				null);
 		OnOperationListener listener = new OnOperationListener() {
@@ -176,6 +268,43 @@ public class ContactActivity extends BaseActivity implements OnClickListener {
 				adapter.notifyDataSetChanged();
 			}
 
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+		JsonCommon task = new JsonCommon(self, builder, listener,
+				JsonCommon.PROGRESSQUERY);
+		task.execute();
+	}
+	private void relationContactInitData(){
+		
+		OperationBuilder builder = new OperationBuilder().append(new RelationContactOp(),
+				null);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (self.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					Toast.show(self, resources.getString(R.string.timeout));
+					return;
+				}
+				RelationContactListEntity entity = (RelationContactListEntity) resList.get(0);
+				List<RelationContactEntity> relationContactEntityList = entity.getRetObj();
+				if (relationContactEntityList == null || relationContactEntityList.size() == 0) {
+					Toast.show(self, resources.getString(R.string.nocontact));
+					//finish();
+					return;
+				}
+				int position = 0;
+				for (RelationContactEntity entity1 : relationContactEntityList) {
+					relationAdapter.addItem(entity1);
+					position++;
+				}
+				adapter.notifyDataSetChanged();
+			}
 			@Override
 			public void onOperationError(Exception e) {
 				e.printStackTrace();

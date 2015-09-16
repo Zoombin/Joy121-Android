@@ -26,7 +26,7 @@ public class EntryManageEntity extends TResult{
 	private String Regions;//户口所在地
 	private String PersonName;//中文名
 	private String EnglishName;//英文名
-	private String Gender;//性别
+	private int Gender;//性别
 	private String Address;//籍贯
 	private String IdNo;//身份证号
 	private String EducationNo;//学历证号
@@ -81,10 +81,10 @@ public class EntryManageEntity extends TResult{
 	public void setEnglishName(String englishName) {
 		EnglishName = englishName;
 	}
-	public String getGender() {
+	public int getGender() {
 		return Gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(int gender) {
 		Gender = gender;
 	}
 	public String getAddress() {

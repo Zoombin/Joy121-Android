@@ -88,6 +88,10 @@ public class UserInfoEntity extends TResult {
 	
 	private String AppAccessCodes;
 	
+	private int ConfirmEntry;
+
+
+
 	private int IsMobileBind;//是否绑定手机
 	public int getIsMobileBind() {
 		return IsMobileBind;
