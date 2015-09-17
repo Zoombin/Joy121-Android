@@ -165,7 +165,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		setContentView(v);
 		initEmployInfo();
 //		bindDepartmentOrPos("CostCenterno",-1);//传入-1显示全部部门
-//		bindDepartmentOrPos("comgrade",-1);
+//		bindDepartmentOrPos("comgrade",-1);s
 		initViewMyselfInfo();
 		initViewPapersInfo();
 		initViewHistory();
@@ -261,7 +261,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					EntryDate dateTimePicKDialog = new EntryDate(
 							EntryManagementActiviy.this, initDate);
 					dateTimePicKDialog.dateTimePicKDialog(et_comEntryDate);
-
 				}
 			});
 			//现居地址
@@ -1426,7 +1425,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		return m.matches();
 	}
 	/**
-	 * 身份证判断格式
+	 * 身份证判断格式(只能为15位或者18位数字)
 	 * @param idNo
 	 * @return
 	 */

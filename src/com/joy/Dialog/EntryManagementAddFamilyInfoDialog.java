@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.SpannedString;
+import android.text.method.NumberKeyListener;
 import android.text.style.AbsoluteSizeSpan;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -73,14 +75,36 @@ public class EntryManagementAddFamilyInfoDialog extends Dialog{
         et_familyBirthday=(EditText)findViewById(R.id.et_addInfo2);
         et_familyAddress=(EditText)findViewById(R.id.et_addInfo3);
         et_faimlyRelation=(EditText)findViewById(R.id.et_addInfo4);
+        //限制日期只能输入0-9的数字和'-'
+        et_familyBirthday.setKeyListener(new NumberKeyListener(){
+
+			@Override
+			public int getInputType() {
+				// TODO Auto-generated method stub
+			    return android.text.InputType.TYPE_CLASS_PHONE;  
+			}
+
+			@Override
+			protected char[] getAcceptedChars() {
+				// TODO Auto-generated method stub
+				char[] myChar={'-','1','2','3','4','5','6','7','8','9','0'};
+				return myChar;
+			}
+        	
+        });
+        int newHeight = 76;
+        //用ViewGroup还是用LinearLayout或者是FrameLayout，主要是看EditTex控件所在的父控件布局，如果是LinearLayout，那么这里就要改成LinearLayout.LayoutParams
+        ViewGroup.LayoutParams lp = et_faimlyRelation.getLayoutParams();
+        lp.height = newHeight;
+        et_faimlyRelation.setLayoutParams(lp);
        //设置hint字体大小
-          SpannableString familyName = new SpannableString("姓名");
+         SpannableString familyName = new SpannableString("姓名");
 
 		 AbsoluteSizeSpan size = new AbsoluteSizeSpan(15, true);// 新建一个属性对象,设置文字的大小
 		 familyName.setSpan(size, 0, familyName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // 附加属性到文本
 		 et_familyName.setHint(new SpannedString(familyName)); 
 		 
-		 SpannableString familyBirthday = new SpannableString("生日");
+		 SpannableString familyBirthday = new SpannableString("生日(格式：1990-01-01)");
 		 familyBirthday.setSpan(size, 0, familyBirthday.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
 		 et_familyBirthday.setHint(new SpannedString(familyBirthday)); 
 		 

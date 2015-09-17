@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.SpannedString;
+import android.text.method.NumberKeyListener;
 import android.text.style.AbsoluteSizeSpan;
 import android.view.View;
 import android.widget.Button;
@@ -73,8 +74,25 @@ public class EntryManagementAddWorkExperienceInfoDialog extends Dialog{
         et_workCompany=(EditText)findViewById(R.id.et_addInfo2);
         et_workPosition=(EditText)findViewById(R.id.et_addInfo3);
         et_workAchievement=(EditText)findViewById(R.id.et_addInfo4);
+        //限制日期只能输入0-9的数字和'-'
+        et_workDate.setKeyListener(new NumberKeyListener(){
+
+			@Override
+			public int getInputType() {
+				// TODO Auto-generated method stub
+			    return android.text.InputType.TYPE_CLASS_PHONE;  
+			}
+
+			@Override
+			protected char[] getAcceptedChars() {
+				// TODO Auto-generated method stub
+				char[] myChar={'-','1','2','3','4','5','6','7','8','9','0'};
+				return myChar;
+			}
+        	
+        });
        //设置hint字体大小
-          SpannableString workDate = new SpannableString("时间");
+          SpannableString workDate = new SpannableString("时间(格式：2010-01-01)");
        
 		 AbsoluteSizeSpan size = new AbsoluteSizeSpan(15, true);// 新建一个属性对象,设置文字的大小
 		 workDate.setSpan(size, 0, workDate.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // 附加属性到文本

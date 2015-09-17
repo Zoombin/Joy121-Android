@@ -2,6 +2,9 @@ package com.joy.Widget;
 
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
+import gejw.android.quickandroid.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
@@ -22,6 +25,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -171,17 +175,35 @@ public class EntryEducationDetailAdapter extends BaseAdapter{
 					public void getAddInfoDialogButtonClickCallback(String addInfo1,
 							String addInfo2, String addInfo3, String addInfo4) {
 						EntryManageEducationInfoEntity temp =new EntryManageEducationInfoEntity();
-						temp.setDate(addInfo1);
-						temp.setSchool(addInfo2);
-						temp.setProfession(addInfo3);
-						temp.setAchievement(addInfo4);
-						for(int i=0;i<getCount();i++){
-							if(entity==getItem(i)){
-								updateItem(i,temp);
+					    boolean convertSuccess=true;
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");	
+						try {
+							if(TextUtils.isEmpty(addInfo1)){
+							}else{
+								format.setLenient(false);
+								format.parse(addInfo1);
 							}
+						} catch (java.text.ParseException e) {
+							// TODO Auto-generated catch block
+							convertSuccess = false;
+							e.printStackTrace();
 						}
-						notifyDataSetChanged();	
-						entryAddInfo.dismiss();
+						if (convertSuccess == false) {
+							Toast.show(mActivity, "时间格式为：2010-01-01");
+							return;
+						} else {
+							temp.setDate(addInfo1);
+							temp.setSchool(addInfo2);
+							temp.setProfession(addInfo3);
+							temp.setAchievement(addInfo4);
+							for(int i=0;i<getCount();i++){
+								if(entity==getItem(i)){
+									updateItem(i,temp);
+								}
+							}
+							notifyDataSetChanged();	
+							entryAddInfo.dismiss();
+						}
 					}
 				});
 			} 

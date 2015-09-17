@@ -20,7 +20,6 @@
 	        	android:layout_height="match_parent"
 	        	android:layout_alignParentLeft="true"
 	        	android:background="@drawable/performancehead_background" />
-	    	
 	    	<LinearLayout
 	    	    android:layout_width="match_parent"
 	    	    android:layout_height="wrap_content"
@@ -96,8 +95,10 @@
 	    	    		android:text="@string/educationAchievement" />
 	    	        <TextView 
 	    	        	android:id="@+id/tv_educationAchievement1" 
-	    	        	android:layout_width="wrap_content"
-	    	    		android:layout_height="wrap_content"
+	    	        	android:layout_height="wrap_content"
+	    	    		android:layout_width="150dip"
+                        android:ellipsize="end"
+                        android:maxLines="1"
 	    	    		android:textSize="16sp" />
 	    	    </LinearLayout>   
 	    	</LinearLayout>

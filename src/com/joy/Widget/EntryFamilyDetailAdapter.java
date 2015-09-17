@@ -2,6 +2,9 @@ package com.joy.Widget;
 
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.ui.adapter.UIAdapter;
+import gejw.android.quickandroid.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.joy.R;
@@ -16,6 +19,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -163,18 +167,35 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 					public void getAddInfoDialogButtonClickCallback(String addInfo1,
 							String addInfo2, String addInfo3, String addInfo4) {
 						EntryManageFamilyInfoEntity temp =new EntryManageFamilyInfoEntity();
-						temp.setName(addInfo1);
-						temp.setBirthday(addInfo2);
-						temp.setAddress(addInfo3);
-						temp.setRelationShip(addInfo4);
-						for(int i=0;i<getCount();i++){
-							if(entity==getItem(i)){
-								updateItem(i,temp);
+						 boolean convertSuccess=true;
+							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+							try {
+								if(TextUtils.isEmpty(addInfo2)){
+								}else{
+									format.setLenient(false);
+									format.parse(addInfo2);
+								}
+							} catch (java.text.ParseException e) {
+								// TODO Auto-generated catch block
+								convertSuccess = false;
+								e.printStackTrace();
 							}
-						}
-						
-						notifyDataSetChanged();	
-						entryAddInfo.dismiss();
+							if (convertSuccess == false) {
+								Toast.show(mActivity, "生日格式为：1990-01-01");
+								return;
+							} else {
+								temp.setName(addInfo1);
+								temp.setBirthday(addInfo2);
+								temp.setAddress(addInfo3);
+								temp.setRelationShip(addInfo4);
+								for(int i=0;i<getCount();i++){
+									if(entity==getItem(i)){
+										updateItem(i,temp);
+									}
+								}
+								notifyDataSetChanged();	
+								entryAddInfo.dismiss();
+							}
 					}
 				});
 			} 

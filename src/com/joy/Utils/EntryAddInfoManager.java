@@ -1,10 +1,15 @@
 package com.joy.Utils;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.ParseException;
+import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +54,6 @@ public class EntryAddInfoManager extends QActivity{
 	private EntryManagementAddEductionInfoDialog entryAddEducationInfo;
 	private EntryManagementAddWorkExperienceInfoDialog enryAddWorkExperience;
 	
-	
 	public EntryAddInfoManager(Context context, QActivity mActivity) {
 		this.mContext = context;
 		this.mActivity = mActivity;
@@ -74,13 +78,33 @@ public class EntryAddInfoManager extends QActivity{
 			public void getAddInfoDialogButtonClickCallback(String addInfo1,
 					String addInfo2, String addInfo3, String addInfo4) {
 				EntryManageFamilyInfoEntity temp =new EntryManageFamilyInfoEntity();
-				temp.setName(addInfo1);
-				temp.setBirthday(addInfo2);
-				temp.setAddress(addInfo3);
-				temp.setRelationShip(addInfo4);
-				adapterFamily.addItem(temp);
-				adapterFamily.notifyDataSetChanged();	
-				entryAddFamilyInfo.dismiss();
+			    boolean convertSuccess=true;
+			    // 指定日期格式为四位年/两位月份/两位日期，注意yyyy-MM-dd区分大小写；
+		        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		       // 设置lenient为false. 否则SimpleDateFormat会比较宽松地验证日期，比如2007/02/29会被接受，并转换成2007/03/01
+                try {
+                	if(TextUtils.isEmpty(addInfo2)){
+                	}else{
+                		format.setLenient(false);
+    					format.parse(addInfo2);
+                	}
+				} catch (java.text.ParseException e) {
+					// TODO Auto-generated catch block
+					convertSuccess=false;
+					e.printStackTrace();
+				}
+                if(convertSuccess==false){
+                	Toast.show(mActivity, "生日格式为：1990-01-01");
+                	return;
+                }else{
+                	temp.setName(addInfo1);
+    				temp.setBirthday(addInfo2);
+    				temp.setAddress(addInfo3);
+    				temp.setRelationShip(addInfo4);
+    				adapterFamily.addItem(temp);
+    				adapterFamily.notifyDataSetChanged();	
+    				entryAddFamilyInfo.dismiss();
+                }
 			}
 			
 		});
@@ -103,14 +127,32 @@ public class EntryAddInfoManager extends QActivity{
 			@Override
 			public void getAddInfoDialogButtonClickCallback(String addInfo1,
 					String addInfo2, String addInfo3, String addInfo4) {
-				EntryManageEducationInfoEntity education =new EntryManageEducationInfoEntity();
-				education.setDate(addInfo1);
-				education.setSchool(addInfo2);
-				education.setProfession(addInfo3);
-				education.setAchievement(addInfo4);
-				educationAdapter.addItem(education);
-				educationAdapter.notifyDataSetChanged();	
-				entryAddEducationInfo.dismiss();
+						EntryManageEducationInfoEntity education = new EntryManageEducationInfoEntity();
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+						boolean convertSuccess=true;
+						try {
+							if(TextUtils.isEmpty(addInfo1)){
+							}else{
+								format.setLenient(false);
+								format.parse(addInfo1);
+							}
+						} catch (java.text.ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							convertSuccess = false;
+						}
+						if (convertSuccess == false) {
+							Toast.show(mActivity, "时间格式为：2010-01-01");
+							return;
+						} else {
+							education.setDate(addInfo1);
+							education.setSchool(addInfo2);
+							education.setProfession(addInfo3);
+							education.setAchievement(addInfo4);
+							educationAdapter.addItem(education);
+							educationAdapter.notifyDataSetChanged();
+							entryAddEducationInfo.dismiss();
+						}
 			}
 			
 		});
@@ -134,15 +176,32 @@ public class EntryAddInfoManager extends QActivity{
 			public void getAddInfoDialogButtonClickCallback(String addInfo1,
 					String addInfo2, String addInfo3, String addInfo4) {
 				EntryManageWorkExperienceInfoEntity workExperience =new EntryManageWorkExperienceInfoEntity();
-				workExperience.setDate(addInfo1);
-				workExperience.setCompany(addInfo2);
-				workExperience.setPosition(addInfo3);
-				workExperience.setAchievement(addInfo4);
-				workExperienceAdapter.addItem(workExperience);
-				workExperienceAdapter.notifyDataSetChanged();	
-				enryAddWorkExperience.dismiss();
+				 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				 boolean convertSuccess=true;
+						try {
+							if(TextUtils.isEmpty(addInfo1)){
+							}else{
+								format.setLenient(false);
+								format.parse(addInfo1);
+							}
+						} catch (java.text.ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							convertSuccess = false;
+						}
+						if (convertSuccess == false) {
+							Toast.show(mActivity, "时间格式为：2010-01-01");
+							return;
+						} else {
+							workExperience.setDate(addInfo1);
+							workExperience.setCompany(addInfo2);
+							workExperience.setPosition(addInfo3);
+							workExperience.setAchievement(addInfo4);
+							workExperienceAdapter.addItem(workExperience);
+							workExperienceAdapter.notifyDataSetChanged();
+							enryAddWorkExperience.dismiss();
+						}
 			}
-			
 		});
 	}
 }
