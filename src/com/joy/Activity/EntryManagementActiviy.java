@@ -41,6 +41,7 @@ import com.joy.json.model.EntryManageExperiencesListEntity;
 import com.joy.json.model.EntryManageFamilyInfoEntity;
 import com.joy.json.model.EntryManageFamilyListEntity;
 import com.joy.json.model.EntryManageWorkExperienceInfoEntity;
+import com.joy.json.model.SpinnerData;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.EntryDepartmentOp;
 import com.joy.json.operation.impl.EntryManageOp;
@@ -95,14 +96,15 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     private int gender;
     //应聘信息
     private String initDate="2015-08-14";
-    private List<String> list_comDep,list_comPos;
-    private ArrayAdapter<String> comDep_adapter,comPos_adapter;
+    private List<SpinnerData> list_comDep,list_comPos;
+    private ArrayAdapter<SpinnerData> comDep_adapter,comPos_adapter;
     private ImageView iv_comDep,iv_comPos,iv_comEntryDate,iv_residence,iv_mobile,
                       iv_urgentContact,iv_urgentMobile,iv_regions;
     private TextView  tv_comDep,tv_comPos,tv_comEntryDate,tv_residence,tv_mobile,
                       tv_urgentContact,tv_urgentMobile,tv_regions;
-    private EditText et_comDep,et_comPos,et_comEntryDate,et_residence,et_mobile,et_urgentContact,
+    private EditText et_comEntryDate,et_residence,et_mobile,et_urgentContact,
                      et_urgentMobile,et_regions;
+    private Spinner  sp_comDep,sp_comPos;
     private Button btn_saveEmployInfo,btn_employInfoNext;
     //个人信息
     private ImageView iv_personName,iv_englishName,iv_gender,iv_address,
@@ -164,8 +166,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		View v = inflater.inflate(R.layout.activity_entry_basic_info, null);
 		setContentView(v);
 		initEmployInfo();
-//		bindDepartmentOrPos("CostCenterno",-1);//传入-1显示全部部门
-//		bindDepartmentOrPos("comgrade",-1);s
+		bindDepartmentOrPos("CostCenterno",-1);//传入-1显示全部部门
+		bindDepartmentOrPos("comgrade",-1);
 		initViewMyselfInfo();
 		initViewPapersInfo();
 		initViewHistory();
@@ -236,8 +238,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			tv_comDep= (TextView) findViewById(R.id.tv_comDep);
 			uiAdapter.setTextSize(tv_comDep, 18);
 			uiAdapter.setMargin(tv_comDep, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-			et_comDep = (EditText) findViewById(R.id.et_comDep);
-			uiAdapter.setMargin(et_comDep, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+			sp_comDep = (Spinner) findViewById(R.id.sp_comDep);
+			uiAdapter.setMargin(sp_comDep, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 	        
 			//应聘职位
 	        iv_comPos=(ImageView)findViewById(R.id.iv_comPos);
@@ -245,8 +247,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			tv_comPos= (TextView) findViewById(R.id.tv_comPos);
 			uiAdapter.setTextSize(tv_comPos, 18);
 			uiAdapter.setMargin(tv_comPos, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,10, 20, 0, 10);
-			et_comPos = (EditText) findViewById(R.id.et_comPos);
-			uiAdapter.setMargin(et_comPos, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+			sp_comPos = (Spinner) findViewById(R.id.sp_comPos);
+			uiAdapter.setMargin(sp_comPos, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 			//入职日期
 	        iv_comEntryDate=(ImageView)findViewById(R.id.iv_comEntryDate);
 			uiAdapter.setMargin(iv_comEntryDate, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
@@ -767,7 +769,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			tv_goBackEmployInfo.setVisibility(View.GONE);
 			tv_goBackPapersInfo.setVisibility(View.GONE);
 			tv_goBackMyselfInfo.setVisibility(View.VISIBLE);
-			tv_title.setText("证件信息(6/3)");
+			tv_title.setText("证件信息(3/6)");
 			break;
 		case R.id.btn_saveHistory:  //保存经历信息
 			saveAll(0,4,saveSuccess);
@@ -893,9 +895,33 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					//应聘信息			
 					EntryEntity entity = (EntryEntity) resList.get(0);
 					entryManageEntity = entity.getRetObj();
-					et_comDep.setText(entryManageEntity.getComDep());
-					et_comPos.setText(entryManageEntity.getComPos());
 					if (entryManageEntity != null) {
+						if(entryManageEntity.getComDep()==null)
+						{
+							sp_comDep.setSelection(0,true);
+						}else{
+							 ArrayAdapter<SpinnerData> comDep=(ArrayAdapter<SpinnerData>)sp_comDep.getAdapter();
+							   for(int i=0;i<comDep.getCount();i++)
+							    {
+							      if(entryManageEntity.getComDep().equals(comDep.getItem(i).getValue().toString()))
+							        {
+							          sp_comDep.setSelection(i,true);
+							    	 }
+							     }
+						}
+						if(entryManageEntity.getComPos()==null)
+						{
+							sp_comPos.setSelection(0,true);
+						}else{
+							   ArrayAdapter<SpinnerData> comPos=(ArrayAdapter<SpinnerData>)sp_comPos.getAdapter();
+							   for(int i=0;i<comPos.getCount();i++)
+							    {
+							      if(entryManageEntity.getComPos().equals(comPos.getItem(i).getValue().toString()))
+							        {
+							          sp_comPos.setSelection(i,true);
+							    	 }
+							     }
+						}
 						SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 					    et_comEntryDate.setText(date.format(new Date(Long.parseLong(entryManageEntity.getComEntryDate().substring(6, 19)))));
 					    et_residence.setText(entryManageEntity.getResidence());
@@ -908,7 +934,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					    et_englishName.setText(entryManageEntity.getEnglishName());
 					    if((Integer.toString((entryManageEntity.getGender()))).equals(null)){
 					    }else{
-					    	if((Integer.toString((entryManageEntity.getGender()))).equals(1)){
+					    	if((Integer.toString((entryManageEntity.getGender()))).equals("1")){
 						    	femaleButton.setChecked(true);
 						    }else{
 						    	maleButton.setChecked(true);
@@ -1205,7 +1231,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
      * 绑定部门和职位
      * @param type
      * @param parentId
-     
+     */
 	private void bindDepartmentOrPos(final String type,final int parentId){
 		 EntryDepartmentDetailEntity entry=new EntryDepartmentDetailEntity();
 		 entry.setSysKey(type);
@@ -1226,27 +1252,29 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					List<EntryDepartmentDetailEntity> departmentList = entity.getRetObj();
 					if(type=="CostCenterno"&&parentId==-1){
 						  //数据
-				        list_comDep = new ArrayList<String>();
+				        list_comDep = new ArrayList<SpinnerData>();
 				        for(int i=0;i<departmentList.size();i++)
 				        {
-				        	list_comDep.add(departmentList.get(i).getSysKeyName());
+				        	SpinnerData comDep = new SpinnerData(departmentList.get(i).getSysValue(),departmentList.get(i).getSysKeyName());
+				        	list_comDep.add(comDep);
 				        }
 				        //适配器
-				        comDep_adapter= new ArrayAdapter<String>(EntryManagementActiviy.this, android.R.layout.simple_spinner_item, list_comDep);
+				        comDep_adapter= new ArrayAdapter<SpinnerData>(EntryManagementActiviy.this, android.R.layout.simple_spinner_item, list_comDep);
 				        //设置样式
 				        comDep_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
 				        //加载适配器
 				        sp_comDep.setAdapter(comDep_adapter);
 					}else if(type=="comgrade"&&parentId==-1){
 						//数据
-				        list_comPos = new ArrayList<String>();
+				        list_comPos = new ArrayList<SpinnerData>();
 				        for(int i=0;i<departmentList.size();i++)
 				        {
-				        	list_comPos.add(departmentList.get(i).getSysKeyName());
+				        	SpinnerData comPos = new SpinnerData(departmentList.get(i).getSysValue(),departmentList.get(i).getSysKeyName());
+				        	list_comPos.add(comPos);
 				        }
 				        
 				        //适配器
-				        comPos_adapter= new ArrayAdapter<String>(EntryManagementActiviy.this, android.R.layout.simple_spinner_item, list_comPos);
+				        comPos_adapter= new ArrayAdapter<SpinnerData>(EntryManagementActiviy.this, android.R.layout.simple_spinner_item, list_comPos);
 				        //设置样式
 				        comPos_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				        //加载适配器
@@ -1263,7 +1291,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 						JsonCommon.PROGRESSCOMMIT);
 				task.execute();
 	 }
-	*/
 	/**
 	 * 保存证件图片
 	 */
@@ -1307,8 +1334,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		 EntryManageFamilyListEntity family=new EntryManageFamilyListEntity();
 		 entity.setLoginName(SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()));
 		 //应聘信息
-		 entity.setComDep(et_comPos.getText().toString());
-		 entity.setComPos(et_comPos.getText().toString());
+		 entity.setComDep(((SpinnerData)sp_comDep.getSelectedItem()).getValue());
+		 entity.setComPos(((SpinnerData)sp_comPos.getSelectedItem()).getValue());
 		 entity.setComEntryDate(et_comEntryDate.getText().toString());
 		 entity.setResidence(et_residence.getText().toString());
 		 if(TextUtils.isEmpty(et_mobile.getText().toString())) {

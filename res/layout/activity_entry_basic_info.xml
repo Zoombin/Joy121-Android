@@ -116,13 +116,11 @@
                 android:text="@string/comDep"
                 android:textColor="@color/BLACK" />
 
-            <EditText
-                android:id="@+id/et_comDep"
+            <Spinner
+                android:id="@+id/sp_comDep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
-                android:singleLine="true"
-                android:focusable="false"
                 android:textColor="@color/BLACK"/>  
          
         </LinearLayout>
@@ -143,14 +141,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/comPos"
                 android:textColor="@color/BLACK"/>
-           <EditText
-                android:id="@+id/et_comPos"
+           <Spinner
+                android:id="@+id/sp_comPos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:background="@drawable/entry_manage_bg" 
-                android:singleLine="true"
-                android:focusable="false"
-                android:textColor="@color/BLACK"/>  
+                android:textColor="@color/BLACK"/> 
         </LinearLayout>
         
          <LinearLayout
