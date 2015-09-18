@@ -89,9 +89,10 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     
 
     private RelativeLayout layout_title;
-    private ImageView iv_ret;
-    private TextView  tv_title,tv_goBackEmployInfo,tv_goBackMyselfInfo,tv_goBackPapersInfo,
-                      tv_goBackHistory,tv_goBackFamilyInfo;
+    private LinearLayout layout_ret,layout_goBackEmployInfo,layout_goBackMyselfInfo,layout_goBackPapersInfo,
+                         layout_goBackHistory,layout_goBackFamilyInfo;
+    private ImageView iv_step1,iv_step2,iv_step3,iv_step4,iv_step5,iv_step6;
+    private TextView  tv_title;
     EntryManageEntity entryManageEntity;
     private int gender;
     //应聘信息
@@ -129,6 +130,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     private EntryWrokExperienceDetailAdapter workExperienceAdapter;
     private Button btn_addEducation,btn_addWorkExperience,btn_saveHistory,btn_historyNext;
     //家庭信息
+    private TextView tv_familyInfo;
+    private View line_familyInfo;
     private EntryFamilyDetailAdapter adapterFamily;
     private ListView list_familyInfo;
     private Button btn_saveFamilyInfo,btn_familyInfoNext,btn_addFamilyInfo;
@@ -226,9 +229,28 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			layout_title = (RelativeLayout) findViewById(R.id.layout_title);
 			uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT,
 					Constants.SubTitleHeight, 0, 0, 0, 0);
-
-			iv_ret = (ImageView) findViewById(R.id.iv_ret);
-			iv_ret.setOnClickListener(this);
+			layout_ret = (LinearLayout) findViewById(R.id.layout_ret);
+			layout_ret.setOnClickListener(this);
+			layout_goBackEmployInfo=(LinearLayout)findViewById(R.id.layout_goBackEmployInfo);
+			layout_goBackEmployInfo.setOnClickListener(this);
+			layout_goBackMyselfInfo=(LinearLayout)findViewById(R.id.layout_goBackMyselfInfo);
+			layout_goBackMyselfInfo.setOnClickListener(this);
+			
+			layout_goBackPapersInfo=(LinearLayout)findViewById(R.id.layout_goBackPapersInfo);
+			layout_goBackPapersInfo.setOnClickListener(this);
+			
+			layout_goBackHistory=(LinearLayout)findViewById(R.id.layout_goBackHistory);
+			layout_goBackHistory.setOnClickListener(this);
+			
+			layout_goBackFamilyInfo=(LinearLayout)findViewById(R.id.layout_goBackFamilyInfo);
+			layout_goBackFamilyInfo.setOnClickListener(this);
+			iv_step1= (ImageView) findViewById(R.id.iv_step1);
+			iv_step2= (ImageView) findViewById(R.id.iv_step2);
+			iv_step3= (ImageView) findViewById(R.id.iv_step3);
+			iv_step4= (ImageView) findViewById(R.id.iv_step4);
+			iv_step5= (ImageView) findViewById(R.id.iv_step5);
+			iv_step6= (ImageView) findViewById(R.id.iv_step6);
+			
 			
 			tv_title = (TextView) findViewById(R.id.tv_title);
 			uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -322,8 +344,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	 */
 	private void initViewMyselfInfo()
 	{
-		tv_goBackEmployInfo = (TextView) findViewById(R.id.tv_goBackEmployInfo);
-		tv_goBackEmployInfo.setOnClickListener(this);
 		//中文名
 		iv_personName=(ImageView)findViewById(R.id.iv_personName);
 		uiAdapter.setMargin(iv_personName, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
@@ -422,9 +442,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	 * 证件信息
 	 */
 	private void initViewPapersInfo(){
-		tv_goBackMyselfInfo = (TextView) findViewById(R.id.tv_goBackMyselfInfo);
-		tv_goBackMyselfInfo.setOnClickListener(this);
-		
 		imgViewPhoto = (ImageView) findViewById(R.id.imgViewPhoto);
 		imgViewVedio=(ImageView) findViewById(R.id.imgViewVideo);
 		imgViewAcademic=(ImageView) findViewById(R.id.imgViewAcademic);
@@ -484,8 +501,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	 */
     private void initViewHistory()
 	{
-		tv_goBackPapersInfo = (TextView) findViewById(R.id.tv_goBackPapersInfo);
-		tv_goBackPapersInfo.setOnClickListener(this);
         layout_menu = (LinearLayout) findViewById(R.id.layout_menu);
        //学习经历
 		layout_education = (LinearLayout) findViewById(R.id.layout_education);
@@ -553,9 +568,12 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
      */
     private void initViewFamilyInfo()
 	{
-		tv_goBackHistory = (TextView) findViewById(R.id.tv_goBackHistory);
-		tv_goBackHistory.setOnClickListener(this);
-		
+    	//亲属信息
+        tv_familyInfo= (TextView) findViewById(R.id.tv_familyInfo);
+        uiAdapter.setTextSize(tv_familyInfo, 22);
+        uiAdapter.setMargin(tv_familyInfo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 40, 20, 0, 10);
+    	line_familyInfo=(View)findViewById(R.id.line_familyInfo);
+    	
 		list_familyInfo = (ListView) findViewById(R.id.list_familyInfo);
 		uiAdapter.setMargin(list_familyInfo, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
@@ -582,8 +600,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	 */
 	private void initViewHobbies()
 	{
-		tv_goBackFamilyInfo = (TextView) findViewById(R.id.tv_goBackFamilyInfo);
-		tv_goBackFamilyInfo.setOnClickListener(this);
 		basketball=(CheckBox)findViewById(R.id.basketball);
 		basketball.setBackgroundResource(R.drawable.check_hobbies);
 		
@@ -631,6 +647,136 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		uiAdapter.setTextSize(btn_sumbit, 24);
 		uiAdapter.setPadding(btn_sumbit, 10, 0, 0, 0);
 	}
+
+	/**
+	 * 响应按钮显示和隐藏的页面及控件
+	 */
+	private void step1(){
+		employInfo.setVisibility(View.VISIBLE);
+		myselfInfo.setVisibility(View.GONE);
+		papersInfo.setVisibility(View.GONE);
+		history.setVisibility(View.GONE);
+		familyInfo.setVisibility(View.GONE);
+		hobbies.setVisibility(View.GONE);
+		layout_ret.setVisibility(View.VISIBLE);
+		layout_goBackEmployInfo.setVisibility(View.GONE);
+	    layout_goBackMyselfInfo.setVisibility(View.GONE);
+	    layout_goBackPapersInfo.setVisibility(View.GONE);
+	    layout_goBackHistory.setVisibility(View.GONE);
+	    layout_goBackFamilyInfo.setVisibility(View.GONE);
+	    iv_step1.setVisibility(View.VISIBLE);
+	    iv_step2.setVisibility(View.GONE);
+	    iv_step3.setVisibility(View.GONE);
+	    iv_step4.setVisibility(View.GONE);
+	    iv_step5.setVisibility(View.GONE);
+	    iv_step6.setVisibility(View.GONE);
+		tv_title.setText("应聘信息");
+	}
+	private void step2(){
+		employInfo.setVisibility(View.GONE);
+		myselfInfo.setVisibility(View.VISIBLE);
+		papersInfo.setVisibility(View.GONE);
+		history.setVisibility(View.GONE);
+		familyInfo.setVisibility(View.GONE);
+		hobbies.setVisibility(View.GONE);
+		layout_ret.setVisibility(View.GONE);
+		layout_goBackEmployInfo.setVisibility(View.VISIBLE);
+		layout_goBackMyselfInfo.setVisibility(View.GONE);
+		layout_goBackPapersInfo.setVisibility(View.GONE);
+		layout_goBackHistory.setVisibility(View.GONE);
+		layout_goBackFamilyInfo.setVisibility(View.GONE);
+		tv_title.setText("个人信息");
+		iv_step1.setVisibility(View.GONE);
+	    iv_step2.setVisibility(View.VISIBLE);
+		iv_step3.setVisibility(View.GONE);
+		iv_step4.setVisibility(View.GONE);
+		iv_step5.setVisibility(View.GONE);
+		iv_step6.setVisibility(View.GONE);
+	}
+	private void step3(){
+		employInfo.setVisibility(View.GONE);
+		myselfInfo.setVisibility(View.GONE);
+		papersInfo.setVisibility(View.VISIBLE);
+		history.setVisibility(View.GONE);
+		familyInfo.setVisibility(View.GONE);
+		hobbies.setVisibility(View.GONE);
+		layout_ret.setVisibility(View.GONE);
+		layout_goBackEmployInfo.setVisibility(View.GONE);
+		layout_goBackMyselfInfo.setVisibility(View.VISIBLE);
+		layout_goBackPapersInfo.setVisibility(View.GONE);
+		layout_goBackHistory.setVisibility(View.GONE);
+		layout_goBackFamilyInfo.setVisibility(View.GONE);
+		tv_title.setText("证件信息");
+		iv_step1.setVisibility(View.GONE);
+		iv_step2.setVisibility(View.GONE);
+		iv_step3.setVisibility(View.VISIBLE);
+		iv_step4.setVisibility(View.GONE);
+	    iv_step5.setVisibility(View.GONE);
+		iv_step6.setVisibility(View.GONE);
+	}
+	private void step4(){
+		employInfo.setVisibility(View.GONE);
+		myselfInfo.setVisibility(View.GONE);
+		papersInfo.setVisibility(View.GONE);
+		history.setVisibility(View.VISIBLE);
+		familyInfo.setVisibility(View.GONE);
+		hobbies.setVisibility(View.GONE);
+		layout_ret.setVisibility(View.GONE);
+		layout_goBackEmployInfo.setVisibility(View.GONE);
+		layout_goBackMyselfInfo.setVisibility(View.GONE);
+		layout_goBackPapersInfo.setVisibility(View.VISIBLE);
+		layout_goBackHistory.setVisibility(View.GONE);
+		layout_goBackFamilyInfo.setVisibility(View.GONE);
+		tv_title.setText("个人经历");
+	    iv_step1.setVisibility(View.GONE);
+	    iv_step2.setVisibility(View.GONE);
+	    iv_step3.setVisibility(View.GONE);
+	    iv_step4.setVisibility(View.VISIBLE);
+	    iv_step5.setVisibility(View.GONE);
+	    iv_step6.setVisibility(View.GONE);
+	}
+	private void step5(){
+		employInfo.setVisibility(View.GONE);
+		myselfInfo.setVisibility(View.GONE);
+		papersInfo.setVisibility(View.GONE);
+		history.setVisibility(View.GONE);
+		familyInfo.setVisibility(View.VISIBLE);
+		hobbies.setVisibility(View.GONE);
+		layout_ret.setVisibility(View.GONE);
+		layout_goBackEmployInfo.setVisibility(View.GONE);
+		layout_goBackMyselfInfo.setVisibility(View.GONE);
+		layout_goBackPapersInfo.setVisibility(View.GONE);
+		layout_goBackHistory.setVisibility(View.VISIBLE);
+		layout_goBackFamilyInfo.setVisibility(View.GONE);
+		tv_title.setText("家庭信息");
+		iv_step1.setVisibility(View.GONE);
+	    iv_step2.setVisibility(View.GONE);
+	    iv_step3.setVisibility(View.GONE);
+	    iv_step4.setVisibility(View.GONE);
+	    iv_step5.setVisibility(View.VISIBLE);
+	    iv_step6.setVisibility(View.GONE);
+	}
+	private void step6(){
+		employInfo.setVisibility(View.GONE);
+		myselfInfo.setVisibility(View.GONE);
+		papersInfo.setVisibility(View.GONE);
+		history.setVisibility(View.GONE);
+		familyInfo.setVisibility(View.GONE);
+		hobbies.setVisibility(View.VISIBLE);
+		layout_ret.setVisibility(View.GONE);
+		layout_goBackEmployInfo.setVisibility(View.GONE);
+		layout_goBackMyselfInfo.setVisibility(View.GONE);
+		layout_goBackPapersInfo.setVisibility(View.GONE);
+		layout_goBackHistory.setVisibility(View.GONE);
+		layout_goBackFamilyInfo.setVisibility(View.VISIBLE);
+		tv_title.setText("兴趣爱好");
+		iv_step1.setVisibility(View.GONE);
+	    iv_step2.setVisibility(View.GONE);
+	    iv_step3.setVisibility(View.GONE);
+	    iv_step4.setVisibility(View.GONE);
+	    iv_step5.setVisibility(View.GONE);
+	    iv_step6.setVisibility(View.VISIBLE);
+	}
 	@Override
 	public void onClick(View v) {
 		 String saveSuccess="保存成功";
@@ -642,7 +788,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		 familyInfo = (LinearLayout)findViewById(R.id.layout_familyInfo);
 		 hobbies = (LinearLayout)findViewById(R.id.hobbies);
 		switch (v.getId()) {
-		case R.id.iv_ret:
+		case R.id.layout_ret:
 			finish();
 			break;
 			//应聘信息
@@ -677,22 +823,13 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 				Toast.show(self, resources.getString(R.string.mobileFormat));
 				return;  
 			} else {
-				employInfo.setVisibility(View.GONE);
-				papersInfo.setVisibility(View.GONE);
-				myselfInfo.setVisibility(View.VISIBLE);
-			    iv_ret.setVisibility(View.GONE);
-				tv_goBackEmployInfo.setVisibility(View.VISIBLE);
-				tv_title.setText("个人信息(2/6)");
+				step2();
+				
 			}
 			break;
 			//个人信息
-		case R.id.tv_goBackEmployInfo:   //个人信息上的上一步返回到应聘信息页面
-			myselfInfo.setVisibility(View.GONE);
-			papersInfo.setVisibility(View.GONE);
-			employInfo.setVisibility(View.VISIBLE);
-			tv_goBackEmployInfo.setVisibility(View.GONE);
-			iv_ret.setVisibility(View.VISIBLE);
-			tv_title.setText("应聘信息(1/6)");
+		case R.id.layout_goBackEmployInfo:   //个人信息上的上一步返回到应聘信息页面
+			step1();
 			break;
 		case R.id.btn_saveMyselfInfo:  //个人信息
 			saveAll(0,2,saveSuccess);
@@ -726,66 +863,30 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 				Toast.show(self, resources.getString(R.string.idNoFormat));
 				return;
 			} else {
-				myselfInfo.setVisibility(View.GONE);
-				papersInfo.setVisibility(View.VISIBLE);
-			    iv_ret.setVisibility(View.GONE);
-				tv_goBackEmployInfo.setVisibility(View.GONE);
-				tv_goBackMyselfInfo.setVisibility(View.VISIBLE);
-				tv_title.setText("证件信息(3/6)");
+				step3();
 			}
 			break;
 			
 			//证件信息
-		case R.id.tv_goBackMyselfInfo:  //证件信息上的上一步返回到个人信息
-			papersInfo.setVisibility(View.GONE);
-			employInfo.setVisibility(View.GONE);
-			myselfInfo.setVisibility(View.VISIBLE);
-			iv_ret.setVisibility(View.GONE);
-			tv_goBackEmployInfo.setVisibility(View.VISIBLE);
-			tv_goBackMyselfInfo.setVisibility(View.GONE);
-			tv_title.setText("个人信息(2/6)");
+		case R.id.layout_goBackMyselfInfo:  //证件信息上的上一步返回到个人信息
+			step2();
 			break;
 		case R.id.btn_savePapersInfo:  //保存证件信息
 			saveImage();
 			saveAll(0,3,saveSuccess);
 			break;
 		case R.id.btn_papersInfoNext:  //证件信息的下一步进入到个人经历
-			myselfInfo.setVisibility(View.GONE);
-			papersInfo.setVisibility(View.GONE);
-			history.setVisibility(View.VISIBLE);
-		    iv_ret.setVisibility(View.GONE);
-			tv_goBackEmployInfo.setVisibility(View.GONE);
-			tv_goBackMyselfInfo.setVisibility(View.GONE);
-			tv_goBackPapersInfo.setVisibility(View.VISIBLE);
-			tv_title.setText("个人经历(4/6)");
+			step4();
 			break;
 			//个人经历
-		case R.id.tv_goBackPapersInfo:  //个人经历中的上一步返回到证件信息
-			papersInfo.setVisibility(View.VISIBLE);
-			employInfo.setVisibility(View.GONE);
-			myselfInfo.setVisibility(View.GONE);
-			history.setVisibility(View.GONE);
-			iv_ret.setVisibility(View.GONE);
-			tv_goBackEmployInfo.setVisibility(View.GONE);
-			tv_goBackPapersInfo.setVisibility(View.GONE);
-			tv_goBackMyselfInfo.setVisibility(View.VISIBLE);
-			tv_title.setText("证件信息(3/6)");
+		case R.id.layout_goBackPapersInfo:  //个人经历中的上一步返回到证件信息
+			step3();
 			break;
 		case R.id.btn_saveHistory:  //保存经历信息
 			saveAll(0,4,saveSuccess);
 			break;
 		case R.id.btn_historyNext:  //个人经历的下一步进入到家庭信息
-			myselfInfo.setVisibility(View.GONE);
-			papersInfo.setVisibility(View.GONE);
-			history.setVisibility(View.GONE);
-			familyInfo.setVisibility(View.VISIBLE);
-		    iv_ret.setVisibility(View.GONE);
-			tv_goBackEmployInfo.setVisibility(View.GONE);
-			tv_goBackMyselfInfo.setVisibility(View.GONE);
-			tv_goBackPapersInfo.setVisibility(View.GONE);
-			tv_goBackFamilyInfo.setVisibility(View.GONE);
-			tv_goBackHistory.setVisibility(View.VISIBLE);
-			tv_title.setText("家庭信息(5/6)");
+			step5();
 			break;
 		case R.id.layout_education:
 			showMenu(v.getId());
@@ -812,19 +913,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			entryAddWorkExperienceInfo.addWorkExperienceInfo(workExperienceAdapter);
 			break;
 			//家庭信息
-		case R.id.tv_goBackHistory:  //家庭信息中的上一步返回到个人经历
-			papersInfo.setVisibility(View.GONE);
-			employInfo.setVisibility(View.GONE);
-			familyInfo.setVisibility(View.GONE);
-			myselfInfo.setVisibility(View.GONE);
-			history.setVisibility(View.VISIBLE);
-			iv_ret.setVisibility(View.GONE);
-			tv_goBackEmployInfo.setVisibility(View.GONE);
-			tv_goBackMyselfInfo.setVisibility(View.GONE);
-			tv_goBackPapersInfo.setVisibility(View.VISIBLE);
-			tv_goBackHistory.setVisibility(View.GONE);
-			tv_goBackFamilyInfo.setVisibility(View.GONE);
-			tv_title.setText("个人经历(4/6)");
+		case R.id.layout_goBackHistory:  //家庭信息中的上一步返回到个人经历
+			step4();
 			break;
 			//添加亲属信息
 		case R.id.btn_addFamilyInfo:
@@ -836,35 +926,11 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			saveAll(0,5,saveSuccess);
 			break;
 		case R.id.btn_familyInfoNext:  //家庭信息的下一步进入到兴趣爱好
-			employInfo.setVisibility(View.GONE);
-			myselfInfo.setVisibility(View.GONE);
-			papersInfo.setVisibility(View.GONE);
-			history.setVisibility(View.GONE);
-			familyInfo.setVisibility(View.GONE);
-			hobbies.setVisibility(View.VISIBLE);
-		    iv_ret.setVisibility(View.GONE);
-			tv_goBackEmployInfo.setVisibility(View.GONE);
-			tv_goBackMyselfInfo.setVisibility(View.GONE);
-			tv_goBackPapersInfo.setVisibility(View.GONE);
-			tv_goBackHistory.setVisibility(View.GONE);
-			tv_goBackFamilyInfo.setVisibility(View.VISIBLE);
-			tv_title.setText("兴趣爱好(6/6)");
+			step6();
 			break;
 			//兴趣爱好 
-		case R.id.tv_goBackFamilyInfo:  //家庭信息中的上一步返回到个人经历
-			papersInfo.setVisibility(View.GONE);
-			employInfo.setVisibility(View.GONE);
-			familyInfo.setVisibility(View.VISIBLE);
-			myselfInfo.setVisibility(View.GONE);
-			history.setVisibility(View.GONE);
-			hobbies.setVisibility(View.GONE);
-			iv_ret.setVisibility(View.GONE);
-			tv_goBackEmployInfo.setVisibility(View.GONE);
-			tv_goBackMyselfInfo.setVisibility(View.GONE);
-			tv_goBackPapersInfo.setVisibility(View.GONE);
-			tv_goBackHistory.setVisibility(View.VISIBLE);
-			tv_goBackFamilyInfo.setVisibility(View.GONE);
-			tv_title.setText("家庭信息(5/6)");
+		case R.id.layout_goBackFamilyInfo:  //家庭信息中的上一步返回到个人经历
+			step5();
 			break;
 		case R.id.btn_saveHobbies:
 			saveAll(0,6,saveSuccess);
@@ -1118,103 +1184,19 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					    	}
 					    }
 	                      if(entryManageEntity.getCurrentStep()==1){
-					    		employInfo.setVisibility(View.VISIBLE);
-					    		myselfInfo.setVisibility(View.GONE);
-								papersInfo.setVisibility(View.GONE);
-								history.setVisibility(View.GONE);
-								familyInfo.setVisibility(View.GONE);
-								hobbies.setVisibility(View.GONE);
-							    iv_ret.setVisibility(View.VISIBLE);
-							    tv_goBackEmployInfo.setVisibility(View.GONE);
-							    tv_goBackMyselfInfo.setVisibility(View.GONE);
-							    tv_goBackPapersInfo.setVisibility(View.GONE);
-							    tv_goBackHistory.setVisibility(View.GONE);
-							    tv_goBackFamilyInfo.setVisibility(View.GONE);
-								tv_title.setText("应聘信息(1/6)");
+					    		step1();
 					    	}else if(entryManageEntity.getCurrentStep()==2){
-					    		employInfo.setVisibility(View.GONE);
-					    		myselfInfo.setVisibility(View.VISIBLE);
-								papersInfo.setVisibility(View.GONE);
-								history.setVisibility(View.GONE);
-								familyInfo.setVisibility(View.GONE);
-								hobbies.setVisibility(View.GONE);
-							    iv_ret.setVisibility(View.GONE);
-							    tv_goBackEmployInfo.setVisibility(View.VISIBLE);
-							    tv_goBackMyselfInfo.setVisibility(View.GONE);
-							    tv_goBackPapersInfo.setVisibility(View.GONE);
-							    tv_goBackHistory.setVisibility(View.GONE);
-							    tv_goBackFamilyInfo.setVisibility(View.GONE);
-								tv_title.setText("个人信息(2/6)");
+					    		step2();
 					    	}else if(entryManageEntity.getCurrentStep()==3){
-					    		employInfo.setVisibility(View.GONE);
-					    		myselfInfo.setVisibility(View.GONE);
-								papersInfo.setVisibility(View.VISIBLE);
-								history.setVisibility(View.GONE);
-								familyInfo.setVisibility(View.GONE);
-								hobbies.setVisibility(View.GONE);
-							    iv_ret.setVisibility(View.GONE);
-							    tv_goBackEmployInfo.setVisibility(View.GONE);
-							    tv_goBackMyselfInfo.setVisibility(View.VISIBLE);
-							    tv_goBackPapersInfo.setVisibility(View.GONE);
-							    tv_goBackHistory.setVisibility(View.GONE);
-							    tv_goBackFamilyInfo.setVisibility(View.GONE);
-								tv_title.setText("证件信息(3/6)");
+					    		step3();
 					    	}else if(entryManageEntity.getCurrentStep()==4){
-					    		employInfo.setVisibility(View.GONE);
-					    		myselfInfo.setVisibility(View.GONE);
-								papersInfo.setVisibility(View.GONE);
-								history.setVisibility(View.VISIBLE);
-								familyInfo.setVisibility(View.GONE);
-								hobbies.setVisibility(View.GONE);
-							    iv_ret.setVisibility(View.GONE);
-							    tv_goBackEmployInfo.setVisibility(View.GONE);
-							    tv_goBackMyselfInfo.setVisibility(View.GONE);
-							    tv_goBackPapersInfo.setVisibility(View.VISIBLE);
-							    tv_goBackHistory.setVisibility(View.GONE);
-							    tv_goBackFamilyInfo.setVisibility(View.GONE);
-								tv_title.setText("个人经历(4/6)");
+					    		step4();
 					    	}else if(entryManageEntity.getCurrentStep()==5){
-					    		employInfo.setVisibility(View.GONE);
-					    		myselfInfo.setVisibility(View.GONE);
-								papersInfo.setVisibility(View.GONE);
-								history.setVisibility(View.GONE);
-								familyInfo.setVisibility(View.VISIBLE);
-								hobbies.setVisibility(View.GONE);
-							    iv_ret.setVisibility(View.GONE);
-							    tv_goBackEmployInfo.setVisibility(View.GONE);
-							    tv_goBackMyselfInfo.setVisibility(View.GONE);
-							    tv_goBackPapersInfo.setVisibility(View.GONE);
-							    tv_goBackHistory.setVisibility(View.VISIBLE);
-							    tv_goBackFamilyInfo.setVisibility(View.GONE);
-								tv_title.setText("家庭信息(5/6)");
+					    		step5();
 					    	}else if(entryManageEntity.getCurrentStep()==6){
-					    		employInfo.setVisibility(View.GONE);
-					    		myselfInfo.setVisibility(View.GONE);
-								papersInfo.setVisibility(View.GONE);
-								history.setVisibility(View.GONE);
-								familyInfo.setVisibility(View.GONE);
-								hobbies.setVisibility(View.VISIBLE);
-							    iv_ret.setVisibility(View.GONE);
-							    tv_goBackEmployInfo.setVisibility(View.GONE);
-							    tv_goBackMyselfInfo.setVisibility(View.GONE);
-							    tv_goBackPapersInfo.setVisibility(View.GONE);
-							    tv_goBackHistory.setVisibility(View.GONE);
-							    tv_goBackFamilyInfo.setVisibility(View.VISIBLE);
-								tv_title.setText("兴趣爱好(6/6)");
+					    		step6();
 					    	}else{
-					    		employInfo.setVisibility(View.VISIBLE);
-					    		myselfInfo.setVisibility(View.GONE);
-								papersInfo.setVisibility(View.GONE);
-								history.setVisibility(View.GONE);
-								familyInfo.setVisibility(View.GONE);
-								hobbies.setVisibility(View.GONE);
-							    iv_ret.setVisibility(View.VISIBLE);
-							    tv_goBackEmployInfo.setVisibility(View.GONE);
-							    tv_goBackMyselfInfo.setVisibility(View.GONE);
-							    tv_goBackPapersInfo.setVisibility(View.GONE);
-							    tv_goBackHistory.setVisibility(View.GONE);
-							    tv_goBackFamilyInfo.setVisibility(View.GONE);
-								tv_title.setText("应聘信息(1/6)");
+					    		step1();
 					    	}
 					}
 				}
