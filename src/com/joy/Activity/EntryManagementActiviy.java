@@ -331,12 +331,12 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			btn_saveEmployInfo = (Button) findViewById(R.id.btn_saveEmployInfo);
 			uiAdapter.setMargin(btn_saveEmployInfo, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 			uiAdapter.setTextSize(btn_saveEmployInfo, 24);
-			uiAdapter.setPadding(btn_saveEmployInfo, 10, 0, 0, 0);
+			
 			//下一步
 			btn_employInfoNext = (Button) findViewById(R.id.btn_employInfoNext);
 			uiAdapter.setMargin(btn_employInfoNext, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 			uiAdapter.setTextSize(btn_employInfoNext, 24);
-			uiAdapter.setPadding(btn_employInfoNext, 10, 0, 0, 0);
+			
 			
 		}
 	/**
@@ -431,12 +431,10 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		btn_saveMyselfInfo = (Button) findViewById(R.id.btn_saveMyselfInfo);
 	    uiAdapter.setMargin(btn_saveMyselfInfo, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 		uiAdapter.setTextSize(btn_saveMyselfInfo, 24);
-	    uiAdapter.setPadding(btn_saveMyselfInfo, 10, 0, 0, 0);
 		//下一步
 	    btn_myselfInfoNext = (Button) findViewById(R.id.btn_myselfInfoNext);
 		uiAdapter.setMargin(btn_myselfInfoNext, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 		uiAdapter.setTextSize(btn_myselfInfoNext, 24);
-		uiAdapter.setPadding(btn_myselfInfoNext, 10, 0, 0, 0);
 	}
 	/**
 	 * 证件信息
@@ -489,12 +487,10 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		btn_savePapersInfo = (Button) findViewById(R.id.btn_savePapersInfo);
 		uiAdapter.setMargin(btn_savePapersInfo, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 		uiAdapter.setTextSize(btn_savePapersInfo, 24);
-		uiAdapter.setPadding(btn_savePapersInfo, 10, 0, 0, 0);
 		//下一步
 		btn_papersInfoNext = (Button) findViewById(R.id.btn_papersInfoNext);
 		uiAdapter.setMargin(btn_papersInfoNext, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 		uiAdapter.setTextSize(btn_papersInfoNext, 24);
-		uiAdapter.setPadding(btn_papersInfoNext, 10, 0, 0, 0);
 	}
 	/**
 	 * 个人经历
@@ -530,12 +526,10 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		btn_saveHistory = (Button) findViewById(R.id.btn_saveHistory);
 		uiAdapter.setMargin(btn_saveHistory, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 		uiAdapter.setTextSize(btn_saveHistory, 24);
-		uiAdapter.setPadding(btn_saveHistory, 10, 0, 0, 0);
 		//下一步
 		btn_historyNext = (Button) findViewById(R.id.btn_historyNext);
 		uiAdapter.setMargin(btn_historyNext, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 		uiAdapter.setTextSize(btn_historyNext, 24);
-		uiAdapter.setPadding(btn_historyNext, 10, 0, 0, 0);
 		defaultShow();//初始化显示经历的后背景框
 	}
     @SuppressWarnings("deprecation")
@@ -588,12 +582,10 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		btn_saveFamilyInfo = (Button) findViewById(R.id.btn_saveFamilyInfo);
 		uiAdapter.setMargin(btn_saveFamilyInfo, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 		uiAdapter.setTextSize(btn_saveFamilyInfo, 24);
-		uiAdapter.setPadding(btn_saveFamilyInfo, 10, 0, 0, 0);
 		//下一步
 		btn_familyInfoNext = (Button) findViewById(R.id.btn_familyInfoNext);
 		uiAdapter.setMargin(btn_familyInfoNext, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 		uiAdapter.setTextSize(btn_familyInfoNext, 24);
-		uiAdapter.setPadding(btn_familyInfoNext, 10, 0, 0, 0);
 	}
 	/**
 	 * 兴趣爱好
@@ -602,6 +594,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	{
 		basketball=(CheckBox)findViewById(R.id.basketball);
 		basketball.setBackgroundResource(R.drawable.check_hobbies);
+		
 		
 		table_tennis=(CheckBox)findViewById(R.id.table_tennis);
 		table_tennis.setBackgroundResource(R.drawable.check_hobbies);
@@ -640,12 +633,10 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		btn_saveHobbies = (Button) findViewById(R.id.btn_saveHobbies);
 		uiAdapter.setMargin(btn_saveHobbies, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 		uiAdapter.setTextSize(btn_saveHobbies, 24);
-		uiAdapter.setPadding(btn_saveHobbies, 10, 0, 0, 0);
 		//上传
 		btn_sumbit=(Button)findViewById(R.id.btn_sumbit);
 		uiAdapter.setMargin(btn_sumbit, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
 		uiAdapter.setTextSize(btn_sumbit, 24);
-		uiAdapter.setPadding(btn_sumbit, 10, 0, 0, 0);
 	}
 
 	/**
@@ -820,7 +811,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 				Toast.show(self, resources.getString(R.string.mobileFormat));
 				return;
 			} else if (!isMobile(et_urgentMobile.getText().toString())) {
-				Toast.show(self, resources.getString(R.string.mobileFormat));
+				Toast.show(self, resources.getString(R.string.urgentMobileFormat));
 				return;  
 			} else {
 				step2();
@@ -1157,17 +1148,17 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					    			arrayHobbies[m]=arrayHobbies[m].replace("\"", "");
 						    		hobbies1=arrayHobbies[m].replace("\"", "");
 					    		}
-					    			if(hobbies1.equals("打篮球"))
+					    			if(hobbies1.equals("篮球"))
 					    				 basketball.setChecked(true);
-					    			if(hobbies1.equals("踢足球"))
+					    			if(hobbies1.equals("足球"))
 					    				 football.setChecked(true);
-					    			if(hobbies1.equals("打羽毛球"))
+					    			if(hobbies1.equals("羽毛球"))
 					    				badminton.setChecked(true);
-					    			if(hobbies1.equals("打乒乓球"))
+					    			if(hobbies1.equals("乒乓球"))
 					    				table_tennis.setChecked(true);
 					    			if(hobbies1.equals("爬山"))
 					    				mountains.setChecked(true);
-					    			if(hobbies1.equals("爱唱歌"))
+					    			if(hobbies1.equals("唱歌"))
 					    				sing.setChecked(true);
 					    			if(hobbies1.equals("看书"))
 					    				book.setChecked(true);

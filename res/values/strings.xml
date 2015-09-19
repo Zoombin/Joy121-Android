@@ -290,14 +290,13 @@
     <string name="urgentMobile">紧急联系方式：</string>
     <string name="regions">户口所在地：</string>
     
-    <string name="entryComDep">请选择应聘部门</string>
-    <string name="entryComPos">请选择应聘职位</string>
-    <string name="entryResidence">请输入现居地址</string>
-    <string name="entryMobile">请输入联系方式</string>
-    <string name="entryUrgentContact">请输入紧急联系人</string>
-    <string name="entryUrgentMobile">请输入紧急联系方式</string>
-    <string name="entryRegions">请输入户口所在地</string>
-    <string name="mobileFormat">请输入正确的手机号码</string>
+    <string name="entryResidence">请输入“现居地”</string>
+    <string name="entryMobile">请输入“联系方式”</string>
+    <string name="entryUrgentContact">请输入“紧急联系人”</string>
+    <string name="entryUrgentMobile">请输入“紧急联系方式”</string>
+    <string name="entryRegions">请输入“户口所在地”</string>
+    <string name="mobileFormat">请输入“正确联系方式”</string>
+     <string name="urgentMobileFormat">请输入“正确紧急联系方式”</string>
     
     <!-- 个人信息 -->
     <string name="personName">中文名：</string>
@@ -310,14 +309,14 @@
     <string name="depositBank">开户银行：</string>
     <string name="depositCardNo">银行账号：</string>
     
-    <string name="entryPersonName">请输入中文名</string>
-    <string name="entryEnglishName">请输入英文名</string>
-     <string name="entryAddress">请输入籍贯</string>
-    <string name="entryIdNo">请输入身份证号</string>
-    <string name="entryEducationNo">请输入学历证号</string>
-    <string name="entryDepositBank">请输入开户银行</string>
-    <string name="entryDepositCardNo">请输入银行账号</string> 
-    <string name="idNoFormat">请输入正确的身份证号</string>
+    <string name="entryPersonName">请输入“中文名”</string>
+    <string name="entryEnglishName">请输入“英文名”</string>
+     <string name="entryAddress">请输入“籍贯”</string>
+    <string name="entryIdNo">请输入“身份证号”</string>
+    <string name="entryEducationNo">请输入“学历证号”</string>
+    <string name="entryDepositBank">请输入“开户银行”</string>
+    <string name="entryDepositCardNo">请输入“银行账号”</string> 
+    <string name="idNoFormat">请输入“正确的身份证号”</string>
     <!-- 证件信息 -->
     <string name="myselfPhoto">个人照片：</string>
     <string name="academicPhoto">学历证书：</string>
@@ -347,18 +346,18 @@
     <string name="addFamilyInfo">添加亲属信息</string>
     <!--兴趣爱好 -->
     
-    <string name="basketball">打篮球</string>
-    <string name="table_tennis">打乒乓球</string>
+    <string name="basketball">篮球</string>
+    <string name="table_tennis">乒乓球</string>
     <string name="book">看书</string>
     <string name="dance">舞蹈</string>
     
-    <string name="football">踢足球</string>
+    <string name="football">足球</string>
     <string name="mountains">爬山</string>
     <string name="cooking">烹饪</string>
     <string name="travel">旅游</string>
     <string name="chooseInteresting">选择您的兴趣爱好并画上爱心：</string>
-    <string name="badminton">打羽毛球</string>   
-    <string name="sing">爱唱歌</string> 
+    <string name="badminton">羽毛球</string>   
+    <string name="sing">唱歌</string> 
     <string name="drawing">画画</string>
     <string name="photography">摄影</string>
     

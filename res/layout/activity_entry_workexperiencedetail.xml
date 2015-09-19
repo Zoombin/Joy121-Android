@@ -62,8 +62,10 @@
 	    	    		android:text="@string/workCompany" />
 	    	        <TextView 
 	    	        	android:id="@+id/tv_workCompany1" 
-	    	        	android:layout_width="wrap_content"
 	    	    		android:layout_height="wrap_content"
+	    	    		android:layout_width="150dip"
+                        android:ellipsize="end"
+                        android:maxLines="1"
 	    	    		android:textSize="16sp" />
 	    	    </LinearLayout>   
 	    	     <LinearLayout
@@ -79,8 +81,10 @@
 	    	    		android:text="@string/workPosition" />
 	    	        <TextView 
 	    	        	android:id="@+id/tv_workPosition1" 
-	    	        	android:layout_width="wrap_content"
 	    	    		android:layout_height="wrap_content"
+	    	    		android:layout_width="150dip"
+                        android:ellipsize="end"
+                        android:maxLines="1"
 	    	    		android:textSize="16sp" />
 	    	    </LinearLayout>  	
 	    	      <LinearLayout

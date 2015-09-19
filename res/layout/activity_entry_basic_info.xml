@@ -219,12 +219,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/comDep"
                 android:textColor="@color/BLACK" />
-
+<!-- android:clickable="false" 设置出现下拉框-->
             <Spinner
                 android:id="@+id/sp_comDep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
+                android:clickable="false"  
                 android:textColor="@color/BLACK"/>  
          
         </LinearLayout>
@@ -249,7 +250,7 @@
                 android:id="@+id/sp_comPos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:focusableInTouchMode="false"
+                android:clickable="false" 
                 android:background="@drawable/entry_manage_bg" 
                 android:textColor="@color/BLACK"/> 
         </LinearLayout>
@@ -327,6 +328,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
                 android:hint="@string/notNull"
+                android:phoneNumber="true"
                 android:singleLine="true"
                 android:textColor="@color/BLACK" />
         </LinearLayout>
@@ -378,6 +380,7 @@
                 android:background="@drawable/entry_manage_bg" 
                 android:hint="@string/notNull"
                 android:singleLine="true"
+                android:phoneNumber="true"
                 android:textColor="@color/BLACK" />
         </LinearLayout>
         <LinearLayout
@@ -1145,6 +1148,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="@string/chooseInteresting"
+              android:textSize="16sp"
               android:layout_marginLeft="5dip"
               android:layout_marginTop="15dip"/>
           </LinearLayout>
@@ -1166,7 +1170,7 @@
               android:layout_marginRight="10dip"
               android:text="@string/badminton"
               android:textColor="@color/WHITE"
-               android:textScaleX="0.8"
+              android:textScaleX="0.8"
               android:button="@null"/><!-- 去掉checkbox前面的方框 -->
             <CheckBox
               android:id="@+id/football"
