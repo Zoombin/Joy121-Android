@@ -266,17 +266,17 @@ public class MainActivity extends QActivity {
 	private LayoutInflater layoutInflater;
 	// 定义数组来存放Fragment界面
 	private Class<?> fragmentArray[] = {
-			TopPortalsFragment.class, TopMallFragment.class,ShoppingCarFragment.class,
+			TopPortalsFragment.class, ShoppingCarFragment.class,
 			PersonalFragment.class };
 	// 定义数组来存放按钮图片
 	private String mImageViewArray[] = {"menu_welfare",
-			 "menu_store","menu_mall", "menu_personal" };
+			 "menu_store", "menu_personal" };
 //	"menu_life", 生活服务
 //	R.string.menu_life
 //  LifeFragment.class	
 	
 	// Tab选项卡的文字
-	private int mTextviewArray[] = {R.string.menu_welfare, R.string.menu_mall, R.string.menu_buycar, R.string.menu_personal };
+	private int mTextviewArray[] = {R.string.menu_welfare, R.string.menu_buycar, R.string.menu_personal };
 	private HashMap<String, View> tabViewItem = new HashMap<String, View>();
 
 	private void initTab() {
@@ -357,7 +357,7 @@ public class MainActivity extends QActivity {
 	private View getTabItemView(final int index) {
 		View view = layoutInflater
 				.inflate(R.layout.layout_main_menu_item, null);
-		uiAdapter.setMargin(view, 120, LayoutParams.MATCH_PARENT, 0, 0, 0, 0);
+		uiAdapter.setMargin(view, 120, LayoutParams.MATCH_PARENT, 20, 0, 20, 0);
 		
 		LinearLayout tabItem = (LinearLayout) view.findViewById(R.id.tab_item);
 		tabItem.setTag(getString(mTextviewArray[index]));
