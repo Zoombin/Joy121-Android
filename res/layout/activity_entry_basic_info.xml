@@ -488,7 +488,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
-                android:hint="@string/notNull"   
                 android:singleLine="true"
                 android:textColor="@color/BLACK" />
         </LinearLayout>
@@ -1168,6 +1167,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginRight="10dip"
+              android:gravity="center"
               android:text="@string/badminton"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
@@ -1178,6 +1178,7 @@
               android:layout_height="wrap_content"
               android:layout_marginRight="10dip"
               android:text="@string/football"
+              android:gravity="center"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
               android:button="@null"/>
@@ -1186,6 +1187,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="@string/basketball"
+              android:gravity="center"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
               android:button="@null"/>
@@ -1202,6 +1204,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="15dip"
               android:text="@string/table_tennis"
+              android:gravity="center"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
               android:button="@null"/><!-- 去掉checkbox前面的方框 -->
@@ -1211,6 +1214,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="10dip"
               android:text="@string/mountains"
+              android:gravity="center"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
               android:button="@null"/>
@@ -1221,6 +1225,7 @@
               android:layout_marginLeft="10dip"
               android:layout_marginRight="15dip"
               android:text="@string/sing"
+              android:gravity="center"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
               android:button="@null"/>
@@ -1236,6 +1241,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="15dip"
               android:text="@string/book"
+              android:gravity="center"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8" 
               android:button="@null"/><!-- 去掉checkbox前面的方框 -->
@@ -1245,6 +1251,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="10dip"
               android:text="@string/cooking"
+              android:gravity="center"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
               android:button="@null"/>
@@ -1254,6 +1261,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="10dip"
               android:layout_marginRight="15dip"
+              android:gravity="center"
               android:text="@string/drawing"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
@@ -1270,6 +1278,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="15dip"
               android:text="@string/dance"
+              android:gravity="center"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
               android:button="@null"/><!-- 去掉checkbox前面的方框 -->
@@ -1280,6 +1289,7 @@
               android:layout_marginLeft="10dip"
               android:text="@string/travel"
               android:textColor="@color/WHITE"
+              android:gravity="center"
               android:textScaleX="0.8"
               android:button="@null"/>
             <CheckBox
@@ -1289,6 +1299,7 @@
               android:layout_marginLeft="10dip"
               android:layout_marginRight="15dip"
               android:text="@string/photography"
+              android:gravity="center"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
               android:button="@null"/>

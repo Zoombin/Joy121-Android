@@ -170,7 +170,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		setContentView(v);
 		initEmployInfo();
 		bindDepartmentOrPos("CostCenterno",-1);//传入-1显示全部部门
-		bindDepartmentOrPos("comgrade",-1);
+		bindDepartmentOrPos("Compos",-1);
 		initViewMyselfInfo();
 		initViewPapersInfo();
 		initViewHistory();
@@ -1148,13 +1148,13 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					    			arrayHobbies[m]=arrayHobbies[m].replace("\"", "");
 						    		hobbies1=arrayHobbies[m].replace("\"", "");
 					    		}
-					    			if(hobbies1.equals("篮球"))
+					    			if(hobbies1.equals("打篮球"))
 					    				 basketball.setChecked(true);
-					    			if(hobbies1.equals("足球"))
+					    			if(hobbies1.equals("踢足球"))
 					    				 football.setChecked(true);
-					    			if(hobbies1.equals("羽毛球"))
+					    			if(hobbies1.equals("打羽毛球"))
 					    				badminton.setChecked(true);
-					    			if(hobbies1.equals("乒乓球"))
+					    			if(hobbies1.equals("打乒乓球"))
 					    				table_tennis.setChecked(true);
 					    			if(hobbies1.equals("爬山"))
 					    				mountains.setChecked(true);
@@ -1237,7 +1237,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 				        comDep_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item );
 				        //加载适配器
 				        sp_comDep.setAdapter(comDep_adapter);
-					}else if(type=="comgrade"&&parentId==-1){
+					}else if(type=="Compos"&&parentId==-1){
 						//数据
 				        list_comPos = new ArrayList<SpinnerData>();
 				        for(int i=0;i<departmentList.size();i++)

@@ -295,8 +295,8 @@
     <string name="entryUrgentContact">请输入“紧急联系人”</string>
     <string name="entryUrgentMobile">请输入“紧急联系方式”</string>
     <string name="entryRegions">请输入“户口所在地”</string>
-    <string name="mobileFormat">请输入“正确联系方式”</string>
-     <string name="urgentMobileFormat">请输入“正确紧急联系方式”</string>
+    <string name="mobileFormat">请正确输入“联系方式”</string>
+     <string name="urgentMobileFormat">请正确输入“紧急联系方式”</string>
     
     <!-- 个人信息 -->
     <string name="personName">中文名：</string>
@@ -346,17 +346,17 @@
     <string name="addFamilyInfo">添加亲属信息</string>
     <!--兴趣爱好 -->
     
-    <string name="basketball">篮球</string>
-    <string name="table_tennis">乒乓球</string>
+    <string name="basketball">打篮球</string>
+    <string name="table_tennis">打乒乓球</string>
     <string name="book">看书</string>
     <string name="dance">舞蹈</string>
     
-    <string name="football">足球</string>
+    <string name="football">踢足球</string>
     <string name="mountains">爬山</string>
     <string name="cooking">烹饪</string>
     <string name="travel">旅游</string>
     <string name="chooseInteresting">选择您的兴趣爱好并画上爱心：</string>
-    <string name="badminton">羽毛球</string>   
+    <string name="badminton">打羽毛球</string>   
     <string name="sing">唱歌</string> 
     <string name="drawing">画画</string>
     <string name="photography">摄影</string>
