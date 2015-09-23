@@ -25,6 +25,7 @@ import com.joy.R;
 import com.joy.Utils.Constants;
 import com.joy.Utils.EntryAddInfoManager;
 import com.joy.Utils.EntryDate;
+import com.joy.Utils.LoadImageRunnable;
 import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.Widget.EntryEducationDetailAdapter;
 import com.joy.Widget.EntryFamilyDetailAdapter;
@@ -56,6 +57,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -151,6 +154,13 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	private LinearLayout history;
 	private LinearLayout familyInfo;
 	private LinearLayout hobbies;
+	//创建线程显示图片
+	private static final int THREAD_Photo = 1;  
+    private static final int THREAD_Academic = 2;  
+    private static final int THREAD_IdPhoto1 = 3;  
+    private static final int THREAD_IdPhoto2 = 4;  
+    private static final int THREAD_RepairOrder = 5;  
+    private static final int THREAD_CheckupReporting = 6; 
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
 
@@ -999,21 +1009,43 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					    et_depositCardNo.setText(entryManageEntity.getDepositCardNo());
 					    et_accumFund.setText(entryManageEntity.getAccumFund());
 					    //证件信息
-					    //个人照片
-//					    String fileName = "/storage/sdcard0/DCIM/Screenshots/aa.png";
 					    String materials=entryManageEntity.getMaterials();
 					    if(materials!=null){
 					        try {
 								JSONObject jsonObjectMaterials =new JSONObject(materials);
-								 new DownImgAsyncTask().execute(jsonObjectMaterials.getString("Certificates"));
-								 Log.e("+++++++++++++++++++++++=", jsonObjectMaterials.getString("Certificates"));
-						         imgViewPhoto.setMaxHeight(200);  
-						         imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-						         new DownImgAsyncTask().execute(jsonObjectMaterials.getString("LearningCertificate"));
-						         Log.e("===========================", jsonObjectMaterials.getString("LearningCertificate"));
-						         imgViewAcademic.setMaxHeight(200);  
-						         imgViewAcademic.setScaleType(ImageView.ScaleType.CENTER_CROP);
-						         
+								String positive="";
+								String reverse="";
+								if(jsonObjectMaterials.getString("IDImage")!=null){
+									JSONObject jsonObjectIDImage=new JSONObject(jsonObjectMaterials.getString("IDImage"));
+									positive=jsonObjectIDImage.getString("Positive");
+									reverse=jsonObjectIDImage.getString("REVERSE");	
+								}
+								String[] urls =  new String[] {  
+										jsonObjectMaterials.getString("Certificates"),  
+										jsonObjectMaterials.getString("LearningCertificate"),
+										positive,
+										reverse,
+										jsonObjectMaterials.getString("Retirement"),
+										jsonObjectMaterials.getString("Physical")
+										};  
+								if(urls[0]!=null){
+									 new Thread(new LoadImageRunnable(mHandler,THREAD_Photo,urls[0])).start();  
+								}
+								if(urls[1]!=null){
+									 new Thread(new LoadImageRunnable(mHandler,THREAD_Academic,urls[1])).start(); 
+								}
+								if(urls[2]!=null){
+									 new Thread(new LoadImageRunnable(mHandler,THREAD_IdPhoto1,urls[2])).start(); 
+								}
+								if(urls[3]!=null){
+									new Thread(new LoadImageRunnable(mHandler,THREAD_IdPhoto2,urls[3])).start(); 
+								}
+								if(urls[4]!=null){
+									new Thread(new LoadImageRunnable(mHandler,THREAD_RepairOrder,urls[4])).start(); 
+								}
+								if(urls[5]!=null){
+									 new Thread(new LoadImageRunnable(mHandler,THREAD_CheckupReporting,urls[5])).start();
+								} 
 							} catch (JSONException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -1195,6 +1227,42 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					JsonCommon.PROGRESSLOADING);
 			task.execute();
 	 }
+    private Handler mHandler = new Handler()  
+    {  
+          
+        // 利用handleMessage更新UI  
+        public void handleMessage (Message msg)  
+        {  
+            switch(msg.what)  
+            {  
+                case EntryManagementActiviy.THREAD_Photo:  
+                	imgViewPhoto.setImageBitmap((Bitmap)msg.obj);   
+                    break;  
+                case EntryManagementActiviy.THREAD_Academic:  
+                	imgViewAcademic.setImageBitmap((Bitmap)msg.obj);  
+                	break;
+                case EntryManagementActiviy.THREAD_IdPhoto1:  
+                	imgViewIdPhoto1.setImageBitmap((Bitmap)msg.obj);   
+                    break;  
+                case EntryManagementActiviy.THREAD_IdPhoto2:  
+                	imgViewIdPhoto2.setImageBitmap((Bitmap)msg.obj);  
+                	break;
+                case EntryManagementActiviy.THREAD_RepairOrder:  
+                	imgViewRepairOrder.setImageBitmap((Bitmap)msg.obj);   
+                    break;  
+                case EntryManagementActiviy.THREAD_CheckupReporting:  
+                	imgViewCheckupReporting.setImageBitmap((Bitmap)msg.obj);  
+                	break;
+                // 如有异常会有提示  
+                default:  
+//                    String info = "第"+msg.what%10+"个线程"+"出现异常";  
+//                    Toast.show(self, info);
+                    break;  
+              
+            }  
+              
+        }  
+    };  
     /**
      * 绑定部门和职位
      * @param type
@@ -1564,81 +1632,34 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	     Matcher idNoMatcher = idNoPattern.matcher(idNo);
 	     return idNoMatcher.matches();
     }
-	 /**
-	 * 从指定URL获取图片
-	 * @param url
-	 * @return
-	 */
-    private Bitmap getImageBitmap(String url){
-		URL imgUrl = null;
-		Bitmap bitmap = null;
-		try {
-			imgUrl = new URL(url);
-			HttpURLConnection conn = (HttpURLConnection)imgUrl.openConnection();
-			conn.setDoInput(true);
-			conn.connect();
-			InputStream is = conn.getInputStream();
-			bitmap = BitmapFactory.decodeStream(is);
-			is.close();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch(IOException e){
-			e.printStackTrace();
-		}
-		return bitmap;
-	}
-    class DownImgAsyncTask extends AsyncTask<String, Void, Bitmap>{
-		@Override
-		protected void onPreExecute() {
-			// TODO Auto-generated method stub
-			super.onPreExecute();
-			imgViewPhoto.setImageBitmap(null);
-			imgViewAcademic.setImageBitmap(null);
-		}
-		@Override
-		protected Bitmap doInBackground(String... params) {
-			// TODO Auto-generated method stub
-			Bitmap b = getImageBitmap(params[0]);
-			return b;
-		}
-		@Override
-		protected void onPostExecute(Bitmap result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			if(result!=null){
-				imgViewPhoto.setImageBitmap(result);
-				imgViewAcademic.setImageBitmap(result);
-			}
-		}
-	}
-	 @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	   super.onActivityResult(requestCode, resultCode, data);
-	   if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-	         Uri selectedImage = data.getData();
-	         String[] filePathColumn = { MediaStore.Images.Media.DATA };
-	         Cursor cursor = getContentResolver().query(selectedImage,
-	                  filePathColumn, null, null, null);
-	         cursor.moveToFirst();
-	         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-	         picturePath = cursor.getString(columnIndex);
-	         cursor.close();	          
-	         BitmapFactory.Options options = new BitmapFactory.Options();  
-	         // options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片  
-	         options.inJustDecodeBounds = true;  
-	         Bitmap bitmap = BitmapFactory.decodeFile(picturePath, options);  
-	         int scale = (int)( options.outWidth / (float)100);  
-	         if(scale <= 0)  
-	            scale = 1;  
-	         options.inSampleSize= scale; 
-	         options.inJustDecodeBounds = false;  
-	         bitmap = BitmapFactory.decodeFile(picturePath, options); 
-	         Log.e("图片路径图片路径图片路径图片路径图片路径", picturePath);
-	         imgViewPhoto.setImageBitmap(bitmap);  
-	         imgViewPhoto.setMaxHeight(200);  
-	         imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-	        }
-	    }  
+//	 @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//	   super.onActivityResult(requestCode, resultCode, data);
+//	   if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+//	         Uri selectedImage = data.getData();
+//	         String[] filePathColumn = { MediaStore.Images.Media.DATA };
+//	         Cursor cursor = getContentResolver().query(selectedImage,
+//	                  filePathColumn, null, null, null);
+//	         cursor.moveToFirst();
+//	         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//	         picturePath = cursor.getString(columnIndex);
+//	         cursor.close();	          
+//	         BitmapFactory.Options options = new BitmapFactory.Options();  
+//	         // options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片  
+//	         options.inJustDecodeBounds = true;  
+//	         Bitmap bitmap = BitmapFactory.decodeFile(picturePath, options);  
+//	         int scale = (int)( options.outWidth / (float)100);  
+//	         if(scale <= 0)  
+//	            scale = 1;  
+//	         options.inSampleSize= scale; 
+//	         options.inJustDecodeBounds = false;  
+//	         bitmap = BitmapFactory.decodeFile(picturePath, options); 
+//	         Log.e("图片路径图片路径图片路径图片路径图片路径", picturePath);
+//	         imgViewPhoto.setImageBitmap(bitmap);  
+//	         imgViewPhoto.setMaxHeight(200);  
+//	         imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//	        }
+//	    }  
+	     
 }  
 
