@@ -7,26 +7,19 @@ import gejw.android.quickandroid.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
 import com.joy.R;
-import com.joy.Activity.LoginActivity;
-import com.joy.Activity.MainActivity;
+
 import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.DialogUtil.AddExperienceInfoDialogButtonClickCallback;
 import com.joy.Dialog.EntryManagementAddEductionInfoDialog;
-import com.joy.Dialog.EntryManagementAddFamilyInfoDialog;
-import com.joy.Dialog.DialogUtil.AddInfoDialogButtonClickCallback;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
-import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.json.model.EntryManageEducationInfoEntity;
-import com.joy.json.model.EntryManageFamilyInfoEntity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,10 +96,14 @@ public class EntryEducationDetailAdapter extends BaseAdapter{
 			holder.v_line = (View) convertView.findViewById(R.id.v_line);
 			GradientDrawable shapeDrawable = (GradientDrawable) holder.v_line.getBackground();
 			shapeDrawable.setColor(Color.parseColor("#6f93f4"));
-			//时间
-			holder.layout_educationDate=(LinearLayout) convertView.findViewById(R.id.layout_educationDate);
-			holder.tv_educationDate=(TextView) convertView.findViewById(R.id.tv_educationDate);
-			holder.tv_educationDate1=(TextView) convertView.findViewById(R.id.tv_educationDate1);
+			//开始时间
+			holder.layout_educationSDate=(LinearLayout) convertView.findViewById(R.id.layout_educationSDate);
+			holder.tv_educationSDate=(TextView) convertView.findViewById(R.id.tv_educationSDate);
+			holder.tv_educationSDate1=(TextView) convertView.findViewById(R.id.tv_educationSDate1);
+			//结束时间
+			holder.layout_educationEDate=(LinearLayout) convertView.findViewById(R.id.layout_educationEDate);
+			holder.tv_educationEDate=(TextView) convertView.findViewById(R.id.tv_educationEDate);
+			holder.tv_educationEDate1=(TextView) convertView.findViewById(R.id.tv_educationEDate1);
 			//学校
 			holder.layout_educationSchool=(LinearLayout) convertView.findViewById(R.id.layout_educationSchool);
 			holder.tv_educationSchool=(TextView) convertView.findViewById(R.id.tv_educationSchool);
@@ -127,7 +124,8 @@ public class EntryEducationDetailAdapter extends BaseAdapter{
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.tv_educationDate1.setText(entity.getDate());
+		holder.tv_educationSDate1.setText(entity.getSDate());
+		holder.tv_educationEDate1.setText(entity.getEDate());
 		holder.tv_educationSchool1.setText(entity.getSchool());
 		holder.tv_educationProfession1.setText(entity.getProfession());
 		holder.tv_educationAchievement1.setText(entity.getAchievement());
@@ -159,43 +157,61 @@ public class EntryEducationDetailAdapter extends BaseAdapter{
 				entryAddInfo=new EntryManagementAddEductionInfoDialog(mActivity,R.style.dialog);
 				entryAddInfo.show();
 				entryAddInfo.setTitle("修改学习经历");
-				entryAddInfo.et_date.setText(entity.getDate());
+				entryAddInfo.et_sDate.setText(entity.getSDate());
+				entryAddInfo.et_eDate.setText(entity.getEDate());
 				entryAddInfo.et_school.setText(entity.getSchool());
 				entryAddInfo.et_profession.setText(entity.getProfession());
 				entryAddInfo.et_achievement.setText(entity.getAchievement());
 				entryAddInfo.setButtonYes("确定");
 				entryAddInfo.setButtonNo("取消");
-				entryAddInfo.setOnClickButton(new AddInfoDialogButtonClickCallback(){
+				entryAddInfo.setOnClickButton(new AddExperienceInfoDialogButtonClickCallback(){
 
 					@Override
 					public void positiveButtonClick() {}
 					@Override
 					public void negativeButtonClick() {}
 					@Override
-					public void getAddInfoDialogButtonClickCallback(String addInfo1,
-							String addInfo2, String addInfo3, String addInfo4) {
+					public void getAddExperienceInfoDialogButtonClickCallback(
+							String addSDate, String addEDate, String addInfo1,
+							String addInfo2, String addAchievement) {
 						EntryManageEducationInfoEntity temp =new EntryManageEducationInfoEntity();
 					    boolean convertSuccess=true;
+					    boolean convertSuccess1=true;
 						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");	
 						try {
-							if(TextUtils.isEmpty(addInfo1)){
+							if(TextUtils.isEmpty(addSDate)){
 							}else{
 								format.setLenient(false);
-								format.parse(addInfo1);
+								format.parse(addSDate);
 							}
 						} catch (java.text.ParseException e) {
 							// TODO Auto-generated catch block
 							convertSuccess = false;
 							e.printStackTrace();
 						}
+						try {
+							if(TextUtils.isEmpty(addEDate)){
+							}else{
+								format.setLenient(false);
+								format.parse(addEDate);
+							}
+						} catch (java.text.ParseException e) {
+							// TODO Auto-generated catch block
+							convertSuccess1 = false;
+							e.printStackTrace();
+						}
 						if (convertSuccess == false) {
-							Toast.show(mActivity, "时间格式为：2010-01-01");
-							return;
-						} else {
-							temp.setDate(addInfo1);
-							temp.setSchool(addInfo2);
-							temp.setProfession(addInfo3);
-							temp.setAchievement(addInfo4);
+							Toast.show(mActivity, "开始时间格式为：2010-01-01");
+							return;	
+						} else if(convertSuccess1 == false){
+							Toast.show(mActivity, "结束时间格式为：2010-01-01");
+							return;	
+						}else{
+							temp.setSDate(addSDate);
+							temp.setEDate(addEDate);
+							temp.setSchool(addInfo1);
+							temp.setProfession(addInfo2);
+							temp.setAchievement(addAchievement);
 							for(int i=0;i<getCount();i++){
 								if(entity==getItem(i)){
 									updateItem(i,temp);
@@ -214,9 +230,13 @@ public class EntryEducationDetailAdapter extends BaseAdapter{
 	public class ViewHolder {
 		LinearLayout layout_educationIfo;
 		View v_line;
-		LinearLayout layout_educationDate;
-		TextView tv_educationDate;
-		TextView tv_educationDate1;
+		LinearLayout layout_educationSDate;
+		TextView tv_educationSDate;
+		TextView tv_educationSDate1;
+		
+		LinearLayout layout_educationEDate;
+		TextView tv_educationEDate;
+		TextView tv_educationEDate1;
 		
 		LinearLayout layout_educationSchool;
 		TextView tv_educationSchool;

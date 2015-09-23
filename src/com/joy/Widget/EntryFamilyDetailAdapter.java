@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import com.joy.R;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.EntryManagementAddFamilyInfoDialog;
-import com.joy.Dialog.DialogUtil.AddInfoDialogButtonClickCallback;
+import com.joy.Dialog.DialogUtil.AddFamilyInfoDialogButtonClickCallback;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.json.model.EntryManageEducationInfoEntity;
 import com.joy.json.model.EntryManageFamilyInfoEntity;
@@ -157,23 +157,24 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 				entryAddInfo.et_faimlyRelation.setText(entity.getRelationShip());
 				entryAddInfo.setButtonYes("确定");
 				entryAddInfo.setButtonNo("取消");
-				entryAddInfo.setOnClickButton(new AddInfoDialogButtonClickCallback(){
+				entryAddInfo.setOnClickButton(new AddFamilyInfoDialogButtonClickCallback(){
 
 					@Override
 					public void positiveButtonClick() {}
 					@Override
 					public void negativeButtonClick() {}
 					@Override
-					public void getAddInfoDialogButtonClickCallback(String addInfo1,
-							String addInfo2, String addInfo3, String addInfo4) {
+					public void getAddFamilyInfoDialogButtonClickCallback(
+							String addName, String addBirthday,
+							String addAddress, String addRelationShip) {
 						EntryManageFamilyInfoEntity temp =new EntryManageFamilyInfoEntity();
 						 boolean convertSuccess=true;
 							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 							try {
-								if(TextUtils.isEmpty(addInfo2)){
+								if(TextUtils.isEmpty(addBirthday)){
 								}else{
 									format.setLenient(false);
-									format.parse(addInfo2);
+									format.parse(addBirthday);
 								}
 							} catch (java.text.ParseException e) {
 								// TODO Auto-generated catch block
@@ -184,10 +185,10 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 								Toast.show(mActivity, "生日格式为：1990-01-01");
 								return;
 							} else {
-								temp.setName(addInfo1);
-								temp.setBirthday(addInfo2);
-								temp.setAddress(addInfo3);
-								temp.setRelationShip(addInfo4);
+								temp.setName(addName);
+								temp.setBirthday(addBirthday);
+								temp.setAddress(addAddress);
+								temp.setRelationShip(addRelationShip);
 								for(int i=0;i<getCount();i++){
 									if(entity==getItem(i)){
 										updateItem(i,temp);

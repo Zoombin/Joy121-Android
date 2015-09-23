@@ -3,7 +3,7 @@ package com.joy.Dialog;
  * rainbow 2015/9/11
  * */
 import com.joy.R;
-import com.joy.Dialog.DialogUtil.AddInfoDialogButtonClickCallback;
+import com.joy.Dialog.DialogUtil.AddFamilyInfoDialogButtonClickCallback;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -47,11 +47,11 @@ public class EntryManagementAddFamilyInfoDialog extends Dialog{
 		 return buttonNo;
 	}
 	//按钮响应事件
-	public void setOnClickButton(final AddInfoDialogButtonClickCallback callback){//增加信息提交按钮
+	public void setOnClickButton(final AddFamilyInfoDialogButtonClickCallback callback){//增加信息提交按钮
 		buttonYes.setOnClickListener(new Button.OnClickListener(){    
 	           public void onClick(View v) {
 	               //dismiss();
-	               callback.getAddInfoDialogButtonClickCallback(et_familyName.getText().toString(),
+	               callback.getAddFamilyInfoDialogButtonClickCallback(et_familyName.getText().toString(),
 	            		   et_familyBirthday.getText().toString(), et_familyAddress.getText().toString(), 
 	            		   et_faimlyRelation.getText().toString()); 
 	           }    
@@ -66,15 +66,15 @@ public class EntryManagementAddFamilyInfoDialog extends Dialog{
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_entry_addinfo);
+		setContentView(R.layout.activity_entry_addfamilyinfo);
 		tv_title= (TextView) findViewById(R.id.tv_title);
         tv_title.setText("增加家庭信息");
         tv_title.setTextSize(18);
         
-        et_familyName=(EditText)findViewById(R.id.et_addInfo1);
-        et_familyBirthday=(EditText)findViewById(R.id.et_addInfo2);
-        et_familyAddress=(EditText)findViewById(R.id.et_addInfo3);
-        et_faimlyRelation=(EditText)findViewById(R.id.et_addInfo4);
+        et_familyName=(EditText)findViewById(R.id.et_addName);
+        et_familyBirthday=(EditText)findViewById(R.id.et_addBirthday);
+        et_familyAddress=(EditText)findViewById(R.id.et_addAddress);
+        et_faimlyRelation=(EditText)findViewById(R.id.et_addRelationShip);
         //限制日期只能输入0-9的数字和'-'
         et_familyBirthday.setKeyListener(new NumberKeyListener(){
 

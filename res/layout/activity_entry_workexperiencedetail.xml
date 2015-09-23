@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_educationInfo"
     android:layout_width="match_parent"
-    android:layout_height="115dip"
+    android:layout_height="140dip"
     android:paddingLeft="10dip"
     android:paddingTop="5dip"
     android:paddingBottom="5dip"
@@ -32,18 +32,35 @@
 		        android:layout_marginRight="25dip"
 		        android:orientation="vertical">
 	    	    <LinearLayout
-	    	        android:id="@+id/layout_workDate"
+	    	        android:id="@+id/layout_workSDate"
 	    	        android:layout_width="wrap_content"
 	    	        android:layout_height="wrap_content"
 	    	        android:layout_marginBottom="2dip" >   	    	
 	    	        <TextView 
-	    	        	android:id="@+id/tv_workDate" 
+	    	        	android:id="@+id/tv_workSDate" 
 	    	        	android:layout_width="wrap_content"
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textSize="16sp"
-	    	    		android:text="@string/workDate" />
+	    	    		android:text="@string/sDate" />
 	    	        <TextView 
-	    	        	android:id="@+id/tv_workDate1" 
+	    	        	android:id="@+id/tv_workSDate1" 
+	    	        	android:layout_width="wrap_content"
+	    	    		android:layout_height="wrap_content"
+	    	    		android:textSize="16sp" />
+	    	    </LinearLayout>
+	    	    <LinearLayout
+	    	        android:id="@+id/layout_workEDate"
+	    	        android:layout_width="wrap_content"
+	    	        android:layout_height="wrap_content"
+	    	        android:layout_marginBottom="2dip" >   	    	
+	    	        <TextView 
+	    	        	android:id="@+id/tv_workEDate" 
+	    	        	android:layout_width="wrap_content"
+	    	    		android:layout_height="wrap_content"
+	    	    		android:textSize="16sp"
+	    	    		android:text="@string/eDate" />
+	    	        <TextView 
+	    	        	android:id="@+id/tv_workEDate1" 
 	    	        	android:layout_width="wrap_content"
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textSize="16sp" />

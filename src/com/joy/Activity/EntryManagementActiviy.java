@@ -138,7 +138,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     //兴趣爱好
     private CheckBox basketball, football,badminton,table_tennis,mountains,sing,
                      book,cooking,drawing,dance,travel,photography;
-    private List<String> checkBoxHobbiesList = new ArrayList<String>();  
+    private List<String> checkBoxHobbiesList;  
     private Button btn_saveHobbies;
     private Button btn_sumbit;
     CompAppSet appSet;
@@ -293,8 +293,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			tv_residence= (TextView) findViewById(R.id.tv_residence);
 			uiAdapter.setTextSize(tv_residence, 18);
 			uiAdapter.setMargin(tv_residence, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-			et_residence = (EditText) findViewById(R.id.et_residence);
-			uiAdapter.setMargin(et_residence, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+			et_address = (EditText) findViewById(R.id.et_address);
+			uiAdapter.setMargin(et_address, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 			//联系方式
 			iv_mobile=(ImageView)findViewById(R.id.iv_mobile);
 			uiAdapter.setMargin(iv_mobile, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
@@ -325,8 +325,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			tv_regions= (TextView) findViewById(R.id.tv_regions);
 			uiAdapter.setTextSize(tv_regions, 18);
 			uiAdapter.setMargin(tv_regions, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-			et_regions = (EditText) findViewById(R.id.et_regions);
-			uiAdapter.setMargin(et_regions, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
+			et_residence = (EditText) findViewById(R.id.et_residence);
+			uiAdapter.setMargin(et_residence, LayoutParams.MATCH_PARENT, 45, 5, 20,45, 0);
 			//保存
 			btn_saveEmployInfo = (Button) findViewById(R.id.btn_saveEmployInfo);
 			uiAdapter.setMargin(btn_saveEmployInfo, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
@@ -378,9 +378,9 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		tv_address= (TextView) findViewById(R.id.tv_address);
 		uiAdapter.setTextSize(tv_address, 18);
 		uiAdapter.setMargin(tv_address, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,10, 20, 0, 10);
-		et_address = (EditText) findViewById(R.id.et_address);
-		uiAdapter.setMargin(et_address, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
-		uiAdapter.setPadding(et_address, 10, 0, 0, 0);
+		et_regions = (EditText) findViewById(R.id.et_regions);
+		uiAdapter.setMargin(et_regions, LayoutParams.MATCH_PARENT,45, 5, 20,45, 0);
+		uiAdapter.setPadding(et_regions, 10, 0, 0, 0);
 		//身份证号
 		iv_idNo=(ImageView)findViewById(R.id.iv_idNo);
 		uiAdapter.setMargin(iv_idNo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
@@ -563,11 +563,6 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
     private void initViewFamilyInfo()
 	{
     	//亲属信息
-        tv_familyInfo= (TextView) findViewById(R.id.tv_familyInfo);
-        uiAdapter.setTextSize(tv_familyInfo, 22);
-        uiAdapter.setMargin(tv_familyInfo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 40, 20, 0, 10);
-    	line_familyInfo=(View)findViewById(R.id.line_familyInfo);
-    	
 		list_familyInfo = (ListView) findViewById(R.id.list_familyInfo);
 		uiAdapter.setMargin(list_familyInfo, LayoutParams.MATCH_PARENT,
 				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
@@ -784,15 +779,15 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			break;
 			//应聘信息
 		case R.id.btn_saveEmployInfo:  //保存应聘信息
-			saveAll(0,1,saveSuccess);
+			saveAll(1,saveSuccess);
 			break;
 		case R.id.btn_employInfoNext:  //应聘信息上的下一步进入到个人信息的填写	
-			String residence=et_residence.getText().toString();
+			String address=et_address.getText().toString();
 			String mobile=et_mobile.getText().toString();
 			String urgentContact=et_urgentContact.getText().toString();
 			String urgentMobile=et_urgentMobile.getText().toString();
-			String regions=et_regions.getText().toString();
-			if (TextUtils.isEmpty(residence)) {
+			String residence=et_residence.getText().toString();
+			if (TextUtils.isEmpty(address)) {
 				Toast.show(self, resources.getString(R.string.entryResidence));
 				return;
 			} else if (TextUtils.isEmpty(mobile)) {
@@ -804,7 +799,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			} else if (TextUtils.isEmpty(urgentMobile)) {
 				Toast.show(self, resources.getString(R.string.urgentMobile));
 				return;
-			} else if (TextUtils.isEmpty(regions)) {
+			} else if (TextUtils.isEmpty(residence)) {
 				Toast.show(self, resources.getString(R.string.entryRegions));
 				return;
 			} else if (!isMobile(et_mobile.getText().toString())) {
@@ -823,11 +818,11 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			step1();
 			break;
 		case R.id.btn_saveMyselfInfo:  //个人信息
-			saveAll(0,2,saveSuccess);
+			saveAll(2,saveSuccess);
 			break;
 		case R.id.btn_myselfInfoNext:  //个人信息上的下一步进入到证件信息
 			String personName=et_personName.getText().toString();
-			String address=et_address.getText().toString();
+			String regions=et_regions.getText().toString();
 			String idNo=et_idNo.getText().toString();
 			String enducationNo=et_educationNo.getText().toString();
 			String depositBank=et_depositBank.getText().toString();
@@ -835,7 +830,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			if (TextUtils.isEmpty(personName)) {
 				Toast.show(self, resources.getString(R.string.entryPersonName));
 				return;
-			} else if (TextUtils.isEmpty(address)) {
+			} else if (TextUtils.isEmpty(regions)) {
 				Toast.show(self, resources.getString(R.string.entryAddress));
 				return;
 			} else if (TextUtils.isEmpty(idNo)) {
@@ -864,7 +859,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			break;
 		case R.id.btn_savePapersInfo:  //保存证件信息
 			saveImage();
-			saveAll(0,3,saveSuccess);
+			saveAll(3,saveSuccess);
 			break;
 		case R.id.btn_papersInfoNext:  //证件信息的下一步进入到个人经历
 			step4();
@@ -874,7 +869,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			step3();
 			break;
 		case R.id.btn_saveHistory:  //保存经历信息
-			saveAll(0,4,saveSuccess);
+			saveAll(4,saveSuccess);
 			break;
 		case R.id.btn_historyNext:  //个人经历的下一步进入到家庭信息
 			step5();
@@ -914,7 +909,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			entryAddFamilyInfo.addFamilyInfo(adapterFamily);
 			break;
 		case R.id.btn_saveFamilyInfo:  //保存证件信息
-			saveAll(0,5,saveSuccess);
+			saveAll(5,saveSuccess);
 			break;
 		case R.id.btn_familyInfoNext:  //家庭信息的下一步进入到兴趣爱好
 			step6();
@@ -924,11 +919,11 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			step5();
 			break;
 		case R.id.btn_saveHobbies:
-			saveAll(0,6,saveSuccess);
+			saveAll(6,saveSuccess);
 			break;
 			//提交改变状态位
 		case R.id.btn_sumbit:
-			saveAll(1,1,upLoadSuccess);
+			submited(1,upLoadSuccess);
 			break;
 		default:
 			break;
@@ -1300,9 +1295,140 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	 * @param currentStep当前第几步
 	 * @param retMessage 返回的是否保存成功还是上传成功
 	 */
-	private void saveAll(int submited,int currentStep,final String retMessage)
+	private void saveAll(final int currentStep,final String retMessage)
 	 {
-		EntryManageEntity entity=new EntryManageEntity();
+		OperationBuilder builder = new OperationBuilder().append(new EntryManageOp(), null);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {	
+				EntryEntity entity = (EntryEntity) resList.get(0);
+				 entryManageEntity = entity.getRetObj();
+				 EntryManageEntity entity1=new EntryManageEntity();
+				 EntryManageExperiencesListEntity experience=new EntryManageExperiencesListEntity();
+				 EntryManageFamilyListEntity family=new EntryManageFamilyListEntity();
+				 entity1.setLoginName(SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()));
+				 //应聘信息
+				 entity1.setComDep(((SpinnerData)sp_comDep.getSelectedItem()).getValue());
+				 entity1.setComPos(((SpinnerData)sp_comPos.getSelectedItem()).getValue());
+				 entity1.setComEntryDate(et_comEntryDate.getText().toString());
+				 entity1.setResidence(et_residence.getText().toString());
+				 if(TextUtils.isEmpty(et_mobile.getText().toString())) {
+					}else{
+						if(!isMobile(et_mobile.getText().toString())){
+							Toast.show(self, resources.getString(R.string.mobileFormat));
+							return;
+						 }else{
+							 entity1.setMobile(et_mobile.getText().toString());
+						 }
+					} 
+				 if(TextUtils.isEmpty(et_urgentMobile.getText().toString())) {
+					}else{
+						if(!isMobile(et_urgentMobile.getText().toString())){
+							Toast.show(self, resources.getString(R.string.mobileFormat));
+							return;
+						 }else{
+							 entity1.setUrgentMobile(et_urgentMobile.getText().toString());
+						 }
+					} 
+				 entity1.setUrgentContact(et_urgentContact.getText().toString());
+				 entity1.setRegions(et_regions.getText().toString());
+				 //个人信息
+				 entity1.setPersonName(et_personName.getText().toString());
+				 entity1.setEnglishName(et_englishName.getText().toString());
+				 if(femaleButton.isChecked())
+				 {
+					 entity1.setGender(1);
+				 }else{
+					 entity1.setGender(0);
+				 }
+				 entity1.setAddress(et_address.getText().toString());
+				 if(TextUtils.isEmpty(et_idNo.getText().toString())) {
+					}else{
+						if(!isIdNo(et_idNo.getText().toString())){
+							Toast.show(self, resources.getString(R.string.idNoFormat));
+							return;
+						 }else{
+							 entity1.setIdNo(et_idNo.getText().toString());
+						 }
+					} 
+				 entity1.setEducationNo(et_educationNo.getText().toString());
+				 entity1.setAccumFund(et_accumFund.getText().toString());
+				 entity1.setDepositBank(et_depositBank.getText().toString());
+				 entity1.setDepositCardNo(et_depositCardNo.getText().toString());
+				 //个人经历
+				 experience.setLearning(educationAdapter.getData());//学习经历的数据
+				 experience.setJob(workExperienceAdapter.getData());//工作经历的数据
+				 entity1.setExperiences(new Gson().toJson(experience));
+				 //家庭信息
+				 family.setRelatives(adapterFamily.getData());
+				 entity1.setFamily(new Gson().toJson(family));
+				 //兴趣爱好
+				 //判断 是否被选中得到其被选中的值，拼成数组放到后台
+				 checkBoxHobbiesList = new ArrayList<String>();
+				 if(basketball.isChecked())
+					 checkBoxHobbiesList.add(basketball.getText().toString());
+				if(football.isChecked())
+					 checkBoxHobbiesList.add(football.getText().toString());
+				if(badminton.isChecked())
+					 checkBoxHobbiesList.add(badminton.getText().toString());
+				if(table_tennis.isChecked())
+					 checkBoxHobbiesList.add(table_tennis.getText().toString());
+				if(mountains.isChecked())
+					 checkBoxHobbiesList.add(mountains.getText().toString());
+				if(sing.isChecked())
+					 checkBoxHobbiesList.add(sing.getText().toString());
+				if(book.isChecked())
+					 checkBoxHobbiesList.add(book.getText().toString());
+				if(cooking.isChecked())
+					 checkBoxHobbiesList.add(cooking.getText().toString());
+				if(drawing.isChecked())
+					 checkBoxHobbiesList.add(drawing.getText().toString());
+				if(dance.isChecked())
+					 checkBoxHobbiesList.add(dance.getText().toString());
+				if(travel.isChecked())
+					 checkBoxHobbiesList.add(travel.getText().toString());
+				if(photography.isChecked())
+					 checkBoxHobbiesList.add(photography.getText().toString());
+				 entity1.setInteresting(new Gson().toJson(checkBoxHobbiesList));
+				 entity1.setCurrentStep(currentStep);
+				 if(entryManageEntity.getSubmited()==1){
+					 entity1.setSubmited(1);
+				 }else{
+					 entity1.setSubmited(0);
+				 }
+				 OperationBuilder builder1 = new OperationBuilder().append(
+							new EntrySaveOp(), entity1);
+			    	OnOperationListener listener1 = new OnOperationListener() {
+						@Override
+						public void onOperationFinished(List<Object> resList) {
+							if (self.isFinishing()) {
+								return;
+							}else if(resList==null){
+								Toast.show(self,"连接超时");
+								return;
+							}else{
+								Toast.show(self,retMessage);
+							}
+						}
+						@Override
+						public void onOperationError(Exception e) {
+							e.printStackTrace();
+						}
+			    	};
+			    	JsonCommon task1 = new JsonCommon(self, builder1, listener1,
+							JsonCommon.PROGRESSCOMMIT);
+					task1.execute();
+			}
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+		JsonCommon task = new JsonCommon(self, builder, listener,null);
+		task.execute();
+	 }
+	private void submited(int currentStep,final String retMessage){
+		 EntryManageEntity entity=new EntryManageEntity();
 		 EntryManageExperiencesListEntity experience=new EntryManageExperiencesListEntity();
 		 EntryManageFamilyListEntity family=new EntryManageFamilyListEntity();
 		 entity.setLoginName(SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()));
@@ -1363,6 +1489,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		 entity.setFamily(new Gson().toJson(family));
 		 //兴趣爱好
 		 //判断 是否被选中得到其被选中的值，拼成数组放到后台
+		 checkBoxHobbiesList = new ArrayList<String>();
 		 if(basketball.isChecked())
 			 checkBoxHobbiesList.add(basketball.getText().toString());
 		if(football.isChecked())
@@ -1389,7 +1516,8 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 			 checkBoxHobbiesList.add(photography.getText().toString());
 		 entity.setInteresting(new Gson().toJson(checkBoxHobbiesList));
 		 entity.setCurrentStep(currentStep);
-		 entity.setSubmited(submited);//上传状态位
+		 entity.setSubmited(1);//上传状态位
+		 entity.setCurrentStep(6);
 		 OperationBuilder builder = new OperationBuilder().append(
 					new EntrySaveOp(), entity);
 	    	OnOperationListener listener = new OnOperationListener() {
@@ -1412,7 +1540,7 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	    	JsonCommon task = new JsonCommon(self, builder, listener,
 					JsonCommon.PROGRESSCOMMIT);
 			task.execute();
-	 }
+	}
 	/**
 	 * 手机格式
 	 * @param mobile

@@ -19,15 +19,15 @@ public class EntryManageEntity extends TResult{
 	private String ComDep;//应聘部门
 	private String ComPos;//应聘职位
 	private String ComEntryDate;//到岗日期
-	private String Residence;//现居地址
+	private String Residence;//户口所在地
 	private String Mobile;//联系方式
 	private String UrgentContact;//紧急联系人
 	private String UrgentMobile;//紧急联系方式
-	private String Regions;//户口所在地
+	private String Regions;//籍贯
 	private String PersonName;//中文名
 	private String EnglishName;//英文名
 	private int Gender;//性别
-	private String Address;//籍贯
+	private String Address;//现居地
 	private String IdNo;//身份证号
 	private String EducationNo;//学历证号
 	private String DepositBank;//开户银行

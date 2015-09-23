@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_educationInfo"
     android:layout_width="match_parent"
-    android:layout_height="115dip"
+    android:layout_height="140dip"
     android:paddingLeft="10dip"
     android:paddingTop="5dip"
     android:paddingBottom="5dip"
@@ -31,23 +31,39 @@
 		        android:layout_marginRight="25dip"
 		        android:orientation="vertical">
 	    	    <LinearLayout
-	    	        android:id="@+id/layout_educationDate"
+	    	        android:id="@+id/layout_educationSDate"
 	    	        android:layout_width="wrap_content"
 	    	        android:layout_height="wrap_content"
 	    	        android:layout_marginBottom="2dip" >   	    	
 	    	        <TextView 
-	    	        	android:id="@+id/tv_educationDate" 
+	    	        	android:id="@+id/tv_educationSDate" 
 	    	        	android:layout_width="wrap_content"
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textSize="16sp"
-	    	    		android:text="@string/educationDate" />
+	    	    		android:text="@string/sDate" />
 	    	        <TextView 
-	    	        	android:id="@+id/tv_educationDate1" 
+	    	        	android:id="@+id/tv_educationSDate1" 
 	    	        	android:layout_width="wrap_content"
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textSize="16sp" />
 	    	    </LinearLayout>
-
+                 <LinearLayout
+	    	        android:id="@+id/layout_educationEDate"
+	    	        android:layout_width="wrap_content"
+	    	        android:layout_height="wrap_content"
+	    	        android:layout_marginBottom="2dip" >   	    	
+	    	        <TextView 
+	    	        	android:id="@+id/tv_educationEDate" 
+	    	        	android:layout_width="wrap_content"
+	    	    		android:layout_height="wrap_content"
+	    	    		android:textSize="16sp"
+	    	    		android:text="@string/eDate" />
+	    	        <TextView 
+	    	        	android:id="@+id/tv_educationEDate1" 
+	    	        	android:layout_width="wrap_content"
+	    	    		android:layout_height="wrap_content"
+	    	    		android:textSize="16sp" />
+	    	      </LinearLayout>
 	    	       <LinearLayout
 	    	        android:id="@+id/layout_educationSchool"
 	    	        android:layout_width="wrap_content"

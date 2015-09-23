@@ -3,7 +3,7 @@ package com.joy.Dialog;
  * rainbow 2015/9/11
  * */
 import com.joy.R;
-import com.joy.Dialog.DialogUtil.AddInfoDialogButtonClickCallback;
+import com.joy.Dialog.DialogUtil.AddExperienceInfoDialogButtonClickCallback;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 public class EntryManagementAddWorkExperienceInfoDialog extends Dialog{
 	TextView tv_title;
-    public 	EditText et_workDate,et_workCompany,et_workPosition,et_workAchievement;
+    public 	EditText et_sDate,et_eDate,et_workCompany,et_workPosition,et_workAchievement;
 	Button buttonYes,buttonNo;
 	public EntryManagementAddWorkExperienceInfoDialog(Context context) {
 		super(context);
@@ -46,13 +46,13 @@ public class EntryManagementAddWorkExperienceInfoDialog extends Dialog{
 		 return buttonNo;
 	}
 	//按钮响应事件
-	public void setOnClickButton(final AddInfoDialogButtonClickCallback callback){//增加信息提交按钮
+	public void setOnClickButton(final AddExperienceInfoDialogButtonClickCallback callback){//增加信息提交按钮
 		buttonYes.setOnClickListener(new Button.OnClickListener(){    
 	           public void onClick(View v) {
 	               //dismiss();
-	               callback.getAddInfoDialogButtonClickCallback(et_workDate.getText().toString(),
-	            		   et_workCompany.getText().toString(), et_workPosition.getText().toString(), 
-	            		   et_workAchievement.getText().toString()); 
+	               callback.getAddExperienceInfoDialogButtonClickCallback(et_sDate.getText().toString(),
+	            		   et_eDate.getText().toString(),et_workCompany.getText().toString(), 
+	            		   et_workPosition.getText().toString(), et_workAchievement.getText().toString()); 
 	           }    
 	       });
 			buttonNo.setOnClickListener(new Button.OnClickListener(){    
@@ -65,17 +65,18 @@ public class EntryManagementAddWorkExperienceInfoDialog extends Dialog{
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_entry_addinfo);
+		setContentView(R.layout.activity_entry_addexperienceinfo);
 		tv_title= (TextView) findViewById(R.id.tv_title);
         tv_title.setText("增加工作经验");
         tv_title.setTextSize(18);
-
-        et_workDate=(EditText)findViewById(R.id.et_addInfo1);
-        et_workCompany=(EditText)findViewById(R.id.et_addInfo2);
-        et_workPosition=(EditText)findViewById(R.id.et_addInfo3);
-        et_workAchievement=(EditText)findViewById(R.id.et_addInfo4);
+      
+        et_sDate=(EditText)findViewById(R.id.et_addSDate);
+        et_eDate=(EditText)findViewById(R.id.et_addEDate);
+        et_workCompany=(EditText)findViewById(R.id.et_addInfo1);
+        et_workPosition=(EditText)findViewById(R.id.et_addInfo2);
+        et_workAchievement=(EditText)findViewById(R.id.et_addAchievement);
         //限制日期只能输入0-9的数字和'-'
-        et_workDate.setKeyListener(new NumberKeyListener(){
+        et_sDate.setKeyListener(new NumberKeyListener(){
 
 			@Override
 			public int getInputType() {
@@ -91,12 +92,33 @@ public class EntryManagementAddWorkExperienceInfoDialog extends Dialog{
 			}
         	
         });
+        et_eDate.setKeyListener(new NumberKeyListener(){
+
+			@Override
+			public int getInputType() {
+				// TODO Auto-generated method stub
+			    return android.text.InputType.TYPE_CLASS_PHONE;  
+			}
+			@Override
+			protected char[] getAcceptedChars() {
+				// TODO Auto-generated method stub
+				char[] myChar={'-','1','2','3','4','5','6','7','8','9','0'};
+				return myChar;
+			}
+        	
+        });
        //设置hint字体大小
-          SpannableString workDate = new SpannableString("时间(格式：2010-01-01)");
-       
+        SpannableString sDate = new SpannableString("开始时间(格式：2010-01-01)");
+
 		 AbsoluteSizeSpan size = new AbsoluteSizeSpan(15, true);// 新建一个属性对象,设置文字的大小
-		 workDate.setSpan(size, 0, workDate.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // 附加属性到文本
-		 et_workDate.setHint(new SpannedString(workDate)); 
+		 sDate.setSpan(size, 0, sDate.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // 附加属性到文本
+		 et_sDate.setHint(new SpannedString(sDate)); 
+		 
+		 SpannableString eDate = new SpannableString("结束时间(格式：2010-01-01)");
+		 AbsoluteSizeSpan size1 = new AbsoluteSizeSpan(15, true);// 新建一个属性对象,设置文字的大小
+		 eDate.setSpan(size, 0, eDate.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // 附加属性到文本
+		 et_eDate.setHint(new SpannedString(eDate)); 
+		 
 		 
 		 SpannableString workCompany = new SpannableString("公司");
 		 workCompany.setSpan(size, 0, workCompany.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 

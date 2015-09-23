@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 import com.joy.R;
 import com.joy.Dialog.DialogUtil;
+import com.joy.Dialog.DialogUtil.AddExperienceInfoDialogButtonClickCallback;
 import com.joy.Dialog.EntryManagementAddEductionInfoDialog;
 import com.joy.Dialog.EntryManagementAddWorkExperienceInfoDialog;
-import com.joy.Dialog.DialogUtil.AddInfoDialogButtonClickCallback;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.json.model.EntryManageEducationInfoEntity;
 import com.joy.json.model.EntryManageWorkExperienceInfoEntity;
@@ -97,10 +97,14 @@ public class EntryWrokExperienceDetailAdapter extends BaseAdapter{
 			holder.v_line = (View) convertView.findViewById(R.id.v_line);
 			GradientDrawable shapeDrawable = (GradientDrawable) holder.v_line.getBackground();
 			shapeDrawable.setColor(Color.parseColor("#6f93f4"));
-			//时间
-			holder.layout_workDate=(LinearLayout) convertView.findViewById(R.id.layout_workDate);
-			holder.tv_workDate=(TextView) convertView.findViewById(R.id.tv_workDate);
-			holder.tv_workDate1=(TextView) convertView.findViewById(R.id.tv_workDate1);
+			//开始时间
+			holder.layout_workSDate=(LinearLayout) convertView.findViewById(R.id.layout_workSDate);
+			holder.tv_workSDate=(TextView) convertView.findViewById(R.id.tv_workSDate);
+			holder.tv_workSDate1=(TextView) convertView.findViewById(R.id.tv_workSDate1);
+			//结束时间
+			holder.layout_workEDate=(LinearLayout) convertView.findViewById(R.id.layout_workEDate);
+			holder.tv_workEDate=(TextView) convertView.findViewById(R.id.tv_workEDate);
+			holder.tv_workEDate1=(TextView) convertView.findViewById(R.id.tv_workEDate1);
 			//学校
 			holder.layout_workCompany=(LinearLayout) convertView.findViewById(R.id.layout_workCompany);
 			holder.tv_workCompany=(TextView) convertView.findViewById(R.id.tv_workCompany);
@@ -121,7 +125,8 @@ public class EntryWrokExperienceDetailAdapter extends BaseAdapter{
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.tv_workDate1.setText(entity.getDate());
+		holder.tv_workSDate1.setText(entity.getSDate());
+		holder.tv_workEDate1.setText(entity.getEDate());
 		holder.tv_workCompany1.setText(entity.getCompany());
 		holder.tv_workPosition1.setText(entity.getPosition());
 		holder.tv_workAchievement1.setText(entity.getAchievement());
@@ -153,43 +158,60 @@ public class EntryWrokExperienceDetailAdapter extends BaseAdapter{
 						entryAddInfo=new EntryManagementAddWorkExperienceInfoDialog(mActivity,R.style.dialog);
 						entryAddInfo.show();
 						entryAddInfo.setTitle("修改工作经验");
-						entryAddInfo.et_workDate.setText(entity.getDate());
+						entryAddInfo.et_sDate.setText(entity.getSDate());
+						entryAddInfo.et_eDate.setText(entity.getEDate());
 						entryAddInfo.et_workCompany.setText(entity.getCompany());
 						entryAddInfo.et_workPosition.setText(entity.getPosition());
 						entryAddInfo.et_workAchievement.setText(entity.getAchievement());
 						entryAddInfo.setButtonYes("确定");
 						entryAddInfo.setButtonNo("取消");
-						entryAddInfo.setOnClickButton(new AddInfoDialogButtonClickCallback(){
+						entryAddInfo.setOnClickButton(new AddExperienceInfoDialogButtonClickCallback(){
 
 							@Override
 							public void positiveButtonClick() {}
 							@Override
 							public void negativeButtonClick() {}
 							@Override
-							public void getAddInfoDialogButtonClickCallback(String addInfo1,
-									String addInfo2, String addInfo3, String addInfo4) {
+							public void getAddExperienceInfoDialogButtonClickCallback(String addSDate, String addEDate,
+									String addInfo1, String addInfo2,String addAchievement) {
 								EntryManageWorkExperienceInfoEntity temp =new EntryManageWorkExperienceInfoEntity();
 								 boolean convertSuccess=true;
+								 boolean convertSuccess1=true;
 									SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 									try {
-										if(TextUtils.isEmpty(addInfo1)){											
+										if(TextUtils.isEmpty(addSDate)){											
 										}else{
 											format.setLenient(false);
-											format.parse(addInfo1);
+											format.parse(addSDate);
 										}
 									} catch (java.text.ParseException e) {
 										// TODO Auto-generated catch block
 										convertSuccess = false;
 										e.printStackTrace();
 									}
+									try {
+										if(TextUtils.isEmpty(addEDate)){											
+										}else{
+											format.setLenient(false);
+											format.parse(addEDate);
+										}
+									} catch (java.text.ParseException e) {
+										// TODO Auto-generated catch block
+										convertSuccess1 = false;
+										e.printStackTrace();
+									}
 									if (convertSuccess == false) {
-										Toast.show(mActivity, "时间格式为：2010-01-01");
+										Toast.show(mActivity, "开始时间格式为：2010-01-01");
 										return;
-									} else {
-										temp.setDate(addInfo1);
-										temp.setCompany(addInfo2);
-										temp.setPosition(addInfo3);
-										temp.setAchievement(addInfo4);
+									} else if(convertSuccess1 == false){
+										Toast.show(mActivity, "结束时间格式为：2010-01-01");
+										return;
+									}else{
+										temp.setSDate(addSDate);
+										temp.setEDate(addEDate);
+										temp.setCompany(addInfo1);
+										temp.setPosition(addInfo2);
+										temp.setAchievement(addAchievement);
 										for(int i=0;i<getCount();i++){
 											if(entity==getItem(i)){
 												updateItem(i,temp);
@@ -208,9 +230,13 @@ public class EntryWrokExperienceDetailAdapter extends BaseAdapter{
 	public class ViewHolder {
 		LinearLayout layout_workExperienceInfo;
 		View v_line;
-		LinearLayout layout_workDate;
-		TextView tv_workDate;
-		TextView tv_workDate1;
+		LinearLayout layout_workSDate;
+		TextView tv_workSDate;
+		TextView tv_workSDate1;
+		
+		LinearLayout layout_workEDate;
+		TextView tv_workEDate;
+		TextView tv_workEDate1;
 		
 		LinearLayout layout_workCompany;
 		TextView tv_workCompany;

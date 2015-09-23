@@ -294,8 +294,12 @@ public class DialogUtil {
 	public interface SingleDialogButtonClickCallback extends DialogButtonClickCallback{
 		public void getSingleDialogButtonClickCallback(String string);
 	}
-	//入职管理中增加信息
-	public interface AddInfoDialogButtonClickCallback extends DialogButtonClickCallback{
-		public void getAddInfoDialogButtonClickCallback(String addInfo1,String addInfo2,String addInfo3,String addInfo4);
+	//入职管理中增加家庭信息
+	public interface AddFamilyInfoDialogButtonClickCallback extends DialogButtonClickCallback{
+		public void getAddFamilyInfoDialogButtonClickCallback(String addName,String addBirthday,String addAddress,String addRelationShip);
+	}
+	//入职管理中增加个人经历
+	public interface AddExperienceInfoDialogButtonClickCallback extends DialogButtonClickCallback{
+		public void getAddExperienceInfoDialogButtonClickCallback(String addSDate,String addEDate,String addInfo1,String addInfo2,String addAchievement);
 	}
 }

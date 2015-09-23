@@ -298,7 +298,7 @@
                 android:text="@string/residence"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_residence"
+                android:id="@+id/et_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -400,7 +400,7 @@
                 android:text="@string/regions"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_regions"
+                android:id="@+id/et_residence"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -548,7 +548,7 @@
                 android:text="@string/address"
                 android:textColor="@color/BLACK" />
             <EditText
-                android:id="@+id/et_address"
+                android:id="@+id/et_regions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/entry_manage_bg" 
@@ -1059,25 +1059,6 @@
         android:background="@color/WHITE"
         android:orientation="vertical"
         android:scrollbars="none">
-          <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-             <TextView
-                android:id="@+id/tv_familyInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/familyInfo"
-                android:textColor="@color/BLACK" />
-             <View
-                android:id="@+id/line_familyInfo"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dip"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="30dip"
-                android:layout_marginRight="30dip"
-                android:background="@color/line_familycolor" />
-        </LinearLayout>
        <LinearLayout 
          android:layout_width="match_parent"     
          android:layout_height="350dip"
@@ -1088,12 +1069,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@null"
-        android:scrollbars="none" />
+        android:scrollbars="none"/>
         </LinearLayout>
         <LinearLayout
            android:layout_width="match_parent"     
            android:layout_height="wrap_content"
-           android:layout_marginTop="19dip"
+           android:layout_marginTop="66dip"
            android:layout_marginLeft="95dip"
            android:layout_marginRight="95dip">
            <Button

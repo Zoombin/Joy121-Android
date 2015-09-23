@@ -316,7 +316,7 @@
     <string name="entryEducationNo">请输入“学历证号”</string>
     <string name="entryDepositBank">请输入“开户银行”</string>
     <string name="entryDepositCardNo">请输入“银行账号”</string> 
-    <string name="idNoFormat">请输入“正确的身份证号”</string>
+    <string name="idNoFormat">请正确输入“身份证号”</string>
     <!-- 证件信息 -->
     <string name="myselfPhoto">个人照片：</string>
     <string name="academicPhoto">学历证书：</string>
@@ -326,12 +326,12 @@
     <string name="checkupReporting">体检报告：</string>
     <!-- 个人经历 -->
     <string name="education">学习经历</string> 
-    <string name="educationDate">时间：</string>
     <string name="educationSchool">学校：</string>
     <string name="educationProfession">专业：</string>
     <string name="educationAchievement">收获：</string>
     <string name="workExperience">工作经验</string>
-    <string name="workDate">时间：</string>
+    <string name="sDate">开始时间：</string>
+    <string name="eDate">结束时间：</string>
     <string name="workCompany">公司：</string>
     <string name="workPosition">职位：</string>
     <string name="workAchievement">收获：</string>
