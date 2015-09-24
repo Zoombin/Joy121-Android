@@ -459,40 +459,40 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 		imgViewCheckupReporting= (ImageView) findViewById(R.id.imgViewCheckupReporting);
 		//个人照片
 		iv_myselfPhoto=(ImageView)findViewById(R.id.iv_myselfPhoto);
-		uiAdapter.setMargin(iv_myselfPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 40, 0, 10);
+		uiAdapter.setMargin(iv_myselfPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
 		tv_myselfPhoto= (TextView) findViewById(R.id.tv_myselfPhoto);
 		uiAdapter.setTextSize(tv_myselfPhoto, 18);
-		uiAdapter.setMargin(tv_myselfPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 40, 0, 10);
+		uiAdapter.setMargin(tv_myselfPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
 		//个人视频
 		iv_myselfVideo=(ImageView)findViewById(R.id.iv_myselfVideo);
-		uiAdapter.setMargin(iv_myselfVideo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 40, 0, 10);
+		uiAdapter.setMargin(iv_myselfVideo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
 		tv_myselfVideo= (TextView) findViewById(R.id.tv_myselfVideo);
 		uiAdapter.setTextSize(tv_myselfVideo, 18);
-		uiAdapter.setMargin(tv_myselfVideo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 40, 0, 10);
+		uiAdapter.setMargin(tv_myselfVideo, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
 		//学历证书
 		iv_academicPhoto=(ImageView)findViewById(R.id.iv_academicPhoto);
-		uiAdapter.setMargin(iv_academicPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 40, 0, 10);
+		uiAdapter.setMargin(iv_academicPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
 		tv_academicPhoto= (TextView) findViewById(R.id.tv_academicPhoto);
 		uiAdapter.setTextSize(tv_academicPhoto, 18);
-		uiAdapter.setMargin(tv_academicPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 40, 0, 10);
+		uiAdapter.setMargin(tv_academicPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
 		//身份证
 		iv_idPhoto=(ImageView)findViewById(R.id.iv_idPhoto);
-		uiAdapter.setMargin(iv_idPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 40, 0, 10);
+		uiAdapter.setMargin(iv_idPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
 		tv_idPhoto= (TextView) findViewById(R.id.tv_idPhoto);
 		uiAdapter.setTextSize(tv_idPhoto, 18);
-		uiAdapter.setMargin(tv_idPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 40, 0, 10);
+		uiAdapter.setMargin(tv_idPhoto, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
 		//退工单
 		iv_repairOrder=(ImageView)findViewById(R.id.iv_repairOrder);
-		uiAdapter.setMargin(iv_repairOrder, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 40, 0, 10);
+		uiAdapter.setMargin(iv_repairOrder, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
 		tv_repairOrder= (TextView) findViewById(R.id.tv_repairOrder);
 		uiAdapter.setTextSize(tv_repairOrder, 18);
-		uiAdapter.setMargin(tv_repairOrder, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 40, 0, 10);
+		uiAdapter.setMargin(tv_repairOrder, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
 		//体检报告
 		iv_checkupReporting=(ImageView)findViewById(R.id.iv_checkupReporting);
-		uiAdapter.setMargin(iv_checkupReporting, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 40, 0, 10);
+		uiAdapter.setMargin(iv_checkupReporting, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
 		tv_checkupReporting= (TextView) findViewById(R.id.tv_checkupReporting);
 		uiAdapter.setTextSize(tv_checkupReporting, 18);
-		uiAdapter.setMargin(tv_checkupReporting, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 40, 0, 10);
+		uiAdapter.setMargin(tv_checkupReporting, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
 		//保存
 		btn_savePapersInfo = (Button) findViewById(R.id.btn_savePapersInfo);
 		uiAdapter.setMargin(btn_savePapersInfo, LayoutParams.MATCH_PARENT, 45, 30,20,30,0);
@@ -1013,39 +1013,27 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 					    if(materials!=null){
 					        try {
 								JSONObject jsonObjectMaterials =new JSONObject(materials);
+								JSONObject jsonObjectIDImage=new JSONObject(jsonObjectMaterials.getString("IDImage"));
 								String positive="";
 								String reverse="";
 								if(jsonObjectMaterials.getString("IDImage")!=null){
-									JSONObject jsonObjectIDImage=new JSONObject(jsonObjectMaterials.getString("IDImage"));
-									positive=jsonObjectIDImage.getString("Positive");
-									reverse=jsonObjectIDImage.getString("REVERSE");	
+								positive=jsonObjectIDImage.getString("Positive");
+							    reverse=jsonObjectIDImage.getString("Reverse");
 								}
 								String[] urls =  new String[] {  
-										jsonObjectMaterials.getString("Certificates"),  
+										jsonObjectMaterials.getString("Certificates"),
 										jsonObjectMaterials.getString("LearningCertificate"),
 										positive,
 										reverse,
 										jsonObjectMaterials.getString("Retirement"),
 										jsonObjectMaterials.getString("Physical")
-										};  
-								if(urls[0]!=null){
-									 new Thread(new LoadImageRunnable(mHandler,THREAD_Photo,urls[0])).start();  
-								}
-								if(urls[1]!=null){
-									 new Thread(new LoadImageRunnable(mHandler,THREAD_Academic,urls[1])).start(); 
-								}
-								if(urls[2]!=null){
-									 new Thread(new LoadImageRunnable(mHandler,THREAD_IdPhoto1,urls[2])).start(); 
-								}
-								if(urls[3]!=null){
-									new Thread(new LoadImageRunnable(mHandler,THREAD_IdPhoto2,urls[3])).start(); 
-								}
-								if(urls[4]!=null){
-									new Thread(new LoadImageRunnable(mHandler,THREAD_RepairOrder,urls[4])).start(); 
-								}
-								if(urls[5]!=null){
-									 new Thread(new LoadImageRunnable(mHandler,THREAD_CheckupReporting,urls[5])).start();
-								} 
+										};
+								new Thread(new LoadImageRunnable(mHandler,THREAD_Photo,urls[0])).start(); 	
+							    new Thread(new LoadImageRunnable(mHandler,THREAD_Academic,urls[1])).start(); 
+								new Thread(new LoadImageRunnable(mHandler,THREAD_IdPhoto1,urls[2])).start();
+								new Thread(new LoadImageRunnable(mHandler,THREAD_IdPhoto2,urls[3])).start(); 
+								new Thread(new LoadImageRunnable(mHandler,THREAD_RepairOrder,urls[4])).start();
+			                    new Thread(new LoadImageRunnable(mHandler,THREAD_CheckupReporting,urls[5])).start();
 							} catch (JSONException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -1234,9 +1222,9 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
         public void handleMessage (Message msg)  
         {  
             switch(msg.what)  
-            {  
+            { 
                 case EntryManagementActiviy.THREAD_Photo:  
-                	imgViewPhoto.setImageBitmap((Bitmap)msg.obj);   
+                	imgViewPhoto.setImageBitmap((Bitmap)msg.obj);  
                     break;  
                 case EntryManagementActiviy.THREAD_Academic:  
                 	imgViewAcademic.setImageBitmap((Bitmap)msg.obj);  
@@ -1255,8 +1243,39 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
                 	break;
                 // 如有异常会有提示  
                 default:  
-//                    String info = "第"+msg.what%10+"个线程"+"出现异常";  
-//                    Toast.show(self, info);
+                    String info = "第"+msg.what%10+"个线程"+"出现异常";  
+                    Toast.show(self, info);
+                    if(msg.what%10==1){
+                    	imgViewPhoto.setBackgroundDrawable(getResources().getDrawable(R.drawable.add_picture));
+                    	uiAdapter.setMargin(imgViewPhoto, LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT, 45, 0, 0, 0);
+                    }
+                    if(msg.what%10==2){
+                    	imgViewAcademic.setBackgroundDrawable(getResources().getDrawable(R.drawable.add_picture));
+                    	uiAdapter.setMargin(imgViewAcademic, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 45,0, 0, 0);
+                    	imgViewAcademic.setMaxHeight(80);
+                    	imgViewAcademic.setMaxWidth(80);
+                    	imgViewAcademic.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    }
+                    if(msg.what%10==3){
+                    	imgViewIdPhoto1.setBackgroundDrawable(getResources().getDrawable(R.drawable.add_picture));
+                    	uiAdapter.setMargin(imgViewIdPhoto1, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 45,0, 0, 0);
+                    	imgViewIdPhoto1.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    }
+                    if(msg.what%10==4){
+                    	imgViewIdPhoto2.setBackgroundDrawable(getResources().getDrawable(R.drawable.add_picture));
+                    	uiAdapter.setMargin(imgViewIdPhoto2, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0,0, 0, 0);
+                    	imgViewIdPhoto2.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    }
+                    if(msg.what%10==5){
+                    	imgViewRepairOrder.setBackgroundDrawable(getResources().getDrawable(R.drawable.add_picture));
+                    	uiAdapter.setMargin(imgViewRepairOrder, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 65,0, 0, 0);
+                    	imgViewRepairOrder.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    }
+                    if(msg.what%10==6){
+                    	imgViewCheckupReporting.setBackgroundDrawable(getResources().getDrawable(R.drawable.add_picture));
+                    	uiAdapter.setMargin(imgViewCheckupReporting, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 50,10, 0, 0);
+                    	imgViewCheckupReporting.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    }
                     break;  
               
             }  
@@ -1632,34 +1651,35 @@ public class EntryManagementActiviy extends BaseActivity implements OnClickListe
 	     Matcher idNoMatcher = idNoPattern.matcher(idNo);
 	     return idNoMatcher.matches();
     }
-//	 @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//	   super.onActivityResult(requestCode, resultCode, data);
-//	   if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-//	         Uri selectedImage = data.getData();
-//	         String[] filePathColumn = { MediaStore.Images.Media.DATA };
-//	         Cursor cursor = getContentResolver().query(selectedImage,
-//	                  filePathColumn, null, null, null);
-//	         cursor.moveToFirst();
-//	         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//	         picturePath = cursor.getString(columnIndex);
-//	         cursor.close();	          
-//	         BitmapFactory.Options options = new BitmapFactory.Options();  
-//	         // options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片  
-//	         options.inJustDecodeBounds = true;  
-//	         Bitmap bitmap = BitmapFactory.decodeFile(picturePath, options);  
-//	         int scale = (int)( options.outWidth / (float)100);  
-//	         if(scale <= 0)  
-//	            scale = 1;  
-//	         options.inSampleSize= scale; 
-//	         options.inJustDecodeBounds = false;  
-//	         bitmap = BitmapFactory.decodeFile(picturePath, options); 
-//	         Log.e("图片路径图片路径图片路径图片路径图片路径", picturePath);
-//	         imgViewPhoto.setImageBitmap(bitmap);  
-//	         imgViewPhoto.setMaxHeight(200);  
-//	         imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//	        }
-//	    }  
+	 @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	   super.onActivityResult(requestCode, resultCode, data);
+	   if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+	         Uri selectedImage = data.getData();
+	         Log.e("fffffffffffffffffffffffff",selectedImage.toString());
+	         String[] filePathColumn = { MediaStore.Images.Media.DATA };
+	         Cursor cursor = getContentResolver().query(selectedImage,
+	                  filePathColumn, null, null, null);
+	         cursor.moveToFirst();
+	         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+	         picturePath = cursor.getString(columnIndex);
+	         cursor.close();	          
+	         BitmapFactory.Options options = new BitmapFactory.Options();  
+	         // options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片  
+	         options.inJustDecodeBounds = true;  
+	         Bitmap bitmap = BitmapFactory.decodeFile(picturePath, options);  
+	         int scale = (int)( options.outWidth / (float)100);  
+	         if(scale <= 0)  
+	            scale = 1;  
+	         options.inSampleSize= scale; 
+	         options.inJustDecodeBounds = false;  
+	         bitmap = BitmapFactory.decodeFile(picturePath, options); 
+	         Log.e("图片路径图片路径图片路径图片路径图片路径", picturePath);
+	         imgViewPhoto.setImageBitmap(bitmap);  
+	         imgViewPhoto.setMaxHeight(200);  
+	         imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+	        }
+	    }  
 	     
 }  
 

@@ -270,7 +270,7 @@ public class MainActivity extends QActivity {
 			PersonalFragment.class };
 	// 定义数组来存放按钮图片
 	private String mImageViewArray[] = {"menu_welfare",
-			 "menu_store", "menu_personal" };
+			 "menu_mall", "menu_personal" };
 //	"menu_life", 生活服务
 //	R.string.menu_life
 //  LifeFragment.class	
@@ -388,7 +388,7 @@ public class MainActivity extends QActivity {
 		textView.setText(mTextviewArray[index]);
 		uiAdapter.setTextSize(textView, 16);
 		
-		if(index == 2){
+		if(index == 1){//根据mImageViewArray数组下标定位右上角的图标(购物车上显示数量的的图标)
 			notice = (TextView) view.findViewById(R.id.tx_notice);
 			GradientDrawable shapeDrawable = (GradientDrawable) notice.getBackground();
 			shapeDrawable.setColor(Color.parseColor(appSet.getColor2()));

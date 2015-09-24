@@ -720,7 +720,8 @@
         
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dip"
+            android:layout_marginTop="4dip"
             android:orientation="horizontal" >
            <ImageView
             android:id="@+id/iv_myselfPhoto"
@@ -738,13 +739,13 @@
                 android:layout_width="80dip"
                 android:layout_height="80dip"
                 android:layout_marginLeft="20dip"
-                android:layout_marginTop="2dip"
                 android:scaleType="center"
                 android:src="@drawable/add_picture" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dip"
+            android:layout_marginTop="4dip"
             android:orientation="horizontal" >
             <ImageView
             android:id="@+id/iv_myselfVideo"
@@ -762,13 +763,13 @@
                 android:layout_width="80dip"
                 android:layout_height="80dip"
                 android:layout_marginLeft="20dip"
-                android:layout_marginTop="2dip"
                 android:scaleType="center"
                 android:src="@drawable/add_video" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dip"
+           android:layout_marginTop="4dip"
             android:orientation="horizontal" >
            <ImageView
             android:id="@+id/iv_academicPhoto"
@@ -786,13 +787,13 @@
                 android:layout_width="80dip"
                 android:layout_height="80dip"
                 android:layout_marginLeft="20dip"
-                android:layout_marginTop="2dip"
                 android:scaleType="center"
                 android:src="@drawable/add_picture" />
         </LinearLayout>     
          <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dip"
+           android:layout_marginTop="4dip"
             android:orientation="horizontal" >
            <ImageView
             android:id="@+id/iv_idPhoto"
@@ -809,8 +810,7 @@
                 android:id="@+id/imgViewIdPhoto1"
                 android:layout_width="80dip"
                 android:layout_height="80dip"
-                android:layout_marginLeft="31dip"
-                android:layout_marginTop="2dip"
+                android:layout_marginLeft="33dip"
                 android:scaleType="center"
                 android:src="@drawable/add_picture"/>
               <TextView
@@ -826,7 +826,6 @@
                 android:layout_width="80dip"
                 android:layout_height="80dip"
                 android:layout_marginLeft="0dip"
-                android:layout_marginTop="2dip"
                 android:scaleType="center"
                 android:src="@drawable/add_picture" />
              <TextView
@@ -841,7 +840,8 @@
         </LinearLayout>
          <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dip"
+           android:layout_marginTop="4dip"
             android:orientation="horizontal" >
             <ImageView
             android:id="@+id/iv_repairOrder"
@@ -859,13 +859,13 @@
                 android:layout_width="80dip"
                 android:layout_height="80dip"
                 android:layout_marginLeft="33dip"
-                android:layout_marginTop="2dip"
                 android:scaleType="center"
                 android:src="@drawable/add_picture" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dip"
+            android:layout_marginTop="4dip"
             android:orientation="horizontal" >
             <ImageView
             android:id="@+id/iv_checkupReporting"
@@ -883,15 +883,15 @@
                 android:layout_width="80dip"
                 android:layout_height="80dip"
                 android:layout_marginLeft="20dip"
-                android:layout_marginTop="2dip"
                 android:scaleType="center"
                 android:src="@drawable/add_picture" />
         </LinearLayout>
           <LinearLayout
            android:orientation="horizontal"    
            android:layout_width="match_parent"     
-           android:layout_height="wrap_content"
-           android:layout_marginTop="16dp" >  
+           android:layout_height="80dip"
+           android:layout_marginTop="4dip"
+           >  
            <Button
              android:id="@+id/btn_savePapersInfo"
              android:layout_width="0dp"
@@ -1143,16 +1143,16 @@
             android:layout_marginLeft="15dip"
             android:layout_marginRight="15dip"
             android:orientation="horizontal">
-             <CheckBox
-              android:id="@+id/badminton"
+           <CheckBox
+              android:id="@+id/basketball"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginRight="10dip"
+              android:text="@string/basketball"
               android:gravity="center"
-              android:text="@string/badminton"
               android:textColor="@color/WHITE"
+              android:layout_marginRight="10dip"
               android:textScaleX="0.8"
-              android:button="@null"/><!-- 去掉checkbox前面的方框 -->
+              android:button="@null"/>
             <CheckBox
               android:id="@+id/football"
               android:layout_width="wrap_content"
@@ -1163,15 +1163,16 @@
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
               android:button="@null"/>
-            <CheckBox
-              android:id="@+id/basketball"
+             <CheckBox
+              android:id="@+id/badminton"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="@string/basketball"
+              
               android:gravity="center"
+              android:text="@string/badminton"
               android:textColor="@color/WHITE"
               android:textScaleX="0.8"
-              android:button="@null"/>
+              android:button="@null"/><!-- 去掉checkbox前面的方框 -->
             
         </LinearLayout>
             <LinearLayout
