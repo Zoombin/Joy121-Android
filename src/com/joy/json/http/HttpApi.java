@@ -10,6 +10,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.entity.mime.MultipartEntity;
 import org.json.JSONObject;
 
 import com.joy.json.exception.JsonCredentialsException;
@@ -32,6 +33,8 @@ public interface HttpApi {
     abstract public HttpGet createHttpGet(String url, NameValuePair... nameValuePairs);
 
     abstract public HttpPost createHttpPost(String url,NameValuePair... nameValuePairs);
+    
+    abstract public HttpPost createHttpPost(String url, MultipartEntity mutiEntity);
     
     abstract public HttpPut createHttpPut(String url,JSONObject jsonObject);
     

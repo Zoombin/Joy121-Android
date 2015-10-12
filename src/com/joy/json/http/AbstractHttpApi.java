@@ -27,6 +27,7 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.scheme.SocketFactory;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicHeader;
@@ -183,15 +184,26 @@ abstract public class AbstractHttpApi implements HttpApi {
 
     public HttpPost createHttpPost(String url, NameValuePair... nameValuePairs) {
         if (DEBUG) LOG.log(Level.FINE, "creating HttpPost for: " + url);
-        UrlEncodedFormEntity endity=null ;
+        UrlEncodedFormEntity urlEncodedEntity=null ;
         try {
-			 endity = new UrlEncodedFormEntity(stripNulls(nameValuePairs), "UTF-8");
+        	urlEncodedEntity = new UrlEncodedFormEntity(stripNulls(nameValuePairs), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         HttpPost httpPost = new HttpPost(url);
-        httpPost.setEntity(endity);
+        httpPost.setEntity(urlEncodedEntity);
+        httpPost.addHeader(CLIENT_VERSION_HEADER, mClientVersion);
+        httpPost.setHeader("ccept-Encoding","UTF-8");
+       
+        if (DEBUG) LOG.log(Level.FINE, "Created: " + httpPost);
+        return httpPost;
+    }
+    
+    public HttpPost createHttpPost(String url, MultipartEntity mutiEntity) {
+        if (DEBUG) LOG.log(Level.FINE, "creating HttpPost for: " + url);
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setEntity(mutiEntity);
         httpPost.addHeader(CLIENT_VERSION_HEADER, mClientVersion);
         httpPost.setHeader("ccept-Encoding","UTF-8");
        

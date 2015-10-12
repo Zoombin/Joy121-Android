@@ -13,6 +13,8 @@ public interface ITaskOperation extends IOperation<Object, Object, Object> {
 	public static final String relationContacts="http://cloud.joy121.com:999/api/entry/GetEntryRelation";
 	//得到的模块
 	public static final String getModules="http://cloud.joy121.com:999/api/SysData/GetModulesByCompany";
+	//上传图片
+	public static final String uploadImg="http://test.joy121.com:999/api/UpFile/PostFile";
 	// 连接超时时间
 	static final int TIMEOUT = 5*1000;
 }
