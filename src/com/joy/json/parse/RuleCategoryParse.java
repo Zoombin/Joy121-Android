@@ -30,4 +30,5 @@ public class RuleCategoryParse extends AbstractParser<TResult> {
 	public RuleCategorys parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

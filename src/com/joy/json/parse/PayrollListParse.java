@@ -30,4 +30,5 @@ public class PayrollListParse extends AbstractParser<TResult> {
 	public PayrollListEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

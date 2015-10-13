@@ -27,4 +27,5 @@ public class UpdateParse extends AbstractParser<TResult> {
 	public UpdateEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

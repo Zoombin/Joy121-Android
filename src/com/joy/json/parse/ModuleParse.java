@@ -32,4 +32,5 @@ public class ModuleParse extends AbstractParser<TResult> {
 	public PortalsModule parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

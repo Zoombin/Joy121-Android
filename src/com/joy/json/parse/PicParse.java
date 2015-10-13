@@ -24,4 +24,5 @@ public class PicParse extends AbstractParser<TResult> {
 	public PicEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

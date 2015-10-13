@@ -31,4 +31,6 @@ public class PostParse extends AbstractParser<TResult> {
 	public PostEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
+
 }

@@ -25,4 +25,6 @@ public class CategoryParse extends AbstractParser<TResult> {
 	public ActivityEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
+
 }

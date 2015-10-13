@@ -24,4 +24,6 @@ public class OrderDetailParse extends AbstractParser<TResult> {
 	public OrderDetailEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
+
 }

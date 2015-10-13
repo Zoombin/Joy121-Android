@@ -31,4 +31,5 @@ public class RentGoodsListParse extends AbstractParser<TResult> {
 	public RentGoodsListEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

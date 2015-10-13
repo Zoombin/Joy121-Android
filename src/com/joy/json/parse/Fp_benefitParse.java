@@ -27,4 +27,5 @@ public class Fp_benefitParse extends AbstractParser<TResult> {
 	public WelfareEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

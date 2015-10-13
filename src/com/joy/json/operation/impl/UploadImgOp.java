@@ -8,6 +8,7 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -20,8 +21,9 @@ import com.joy.json.http.AbstractHttpApi;
 import com.joy.json.http.HttpApi;
 import com.joy.json.http.HttpApiWithBasicAuth;
 import com.joy.json.model.EntryManageEntity;
+import com.joy.json.model.EntryUploadImageEntity;
 import com.joy.json.operation.ITaskOperation;
-import com.joy.json.parse.EntrySaveParse;
+import com.joy.json.parse.EntryUploadImageParse;
 
 public class UploadImgOp implements ITaskOperation {
 
@@ -39,7 +41,6 @@ public class UploadImgOp implements ITaskOperation {
 		HttpPost post = httpApi.createHttpPost(
 				uploadImg+"?fileType=image&activityName=avatar&loginname="+SharedPreferencesUtils//post要把
 				.getLoginName(JoyApplication.getSelf()), mutiEntity);
-		
 		//FileBody fileBody = new FileBody(file);
 		
 //		String str1 = new Gson().toJson(entity);
@@ -50,7 +51,7 @@ public class UploadImgOp implements ITaskOperation {
 //				entity.getComEntryDate(),
 //				entity.getResidence(),
 //				entity.getMobile()));
-		return (EntryManageEntity) httpApi.doHttpRequest(post, new EntrySaveParse());
+		return (EntryUploadImageEntity) httpApi.doHttpRequest(post, new EntryUploadImageParse());
 	}
 
 }

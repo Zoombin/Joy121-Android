@@ -31,4 +31,5 @@ public class PerformanceListParse extends AbstractParser<TResult> {
 	public PerformanceListEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

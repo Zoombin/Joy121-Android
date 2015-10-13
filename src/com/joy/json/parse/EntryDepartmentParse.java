@@ -29,4 +29,5 @@ public class EntryDepartmentParse  extends AbstractParser<TResult>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

@@ -28,4 +28,5 @@ public class ContactListParse extends AbstractParser<TResult> {
 	public ContactListEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

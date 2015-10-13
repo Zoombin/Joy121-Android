@@ -26,4 +26,5 @@ public class ChangePwdParse extends AbstractParser<TResult> {
 	public ChangePwdEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

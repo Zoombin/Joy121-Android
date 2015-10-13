@@ -34,4 +34,5 @@ public class AttendanceParse extends AbstractParser<TResult> {
 	public ActjoinEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

@@ -24,4 +24,5 @@ public class UserinfoParse extends AbstractParser<TResult> {
 	public UserEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

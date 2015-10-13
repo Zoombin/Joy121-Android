@@ -30,4 +30,5 @@ public class RuleListParse extends AbstractParser<TResult> {
 	public RuleListEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

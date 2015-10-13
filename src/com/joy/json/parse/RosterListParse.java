@@ -33,4 +33,6 @@ public class RosterListParse extends AbstractParser<TResult> {
 	public RosterListEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
+
 }

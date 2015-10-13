@@ -8,8 +8,14 @@ public class EntryManageImageEntity extends TResult{
     private String Certificates;//证件照
     private String Video;//我的视频
     private String LearningCertificate;//学习证书
-    private EntryManageIDImageEntity IDImage ;//身份证
-    private String Retirement;//退工单
+    private String IDImage ;//身份证
+    public String getIDImage() {
+		return IDImage;
+	}
+	public void setIDImage(String iDImage) {
+		IDImage = iDImage;
+	}
+	private String Retirement;//退工单
     private String Physical;//体检报告
 	public String getCertificates() {
 		return Certificates;
@@ -28,12 +34,6 @@ public class EntryManageImageEntity extends TResult{
 	}
 	public void setLearningCertificate(String learningCertificate) {
 		LearningCertificate = learningCertificate;
-	}
-	public EntryManageIDImageEntity getIDImage() {
-		return IDImage;
-	}
-	public void setIDImage(EntryManageIDImageEntity iDImage) {
-		IDImage = iDImage;
 	}
 	public String getRetirement() {
 		return Retirement;

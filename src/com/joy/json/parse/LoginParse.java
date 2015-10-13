@@ -24,4 +24,5 @@ public class LoginParse extends AbstractParser<TResult> {
 	public LoginEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

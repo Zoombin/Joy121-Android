@@ -24,4 +24,5 @@ public class PointParse extends AbstractParser<TResult> {
 	public PointEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
 }

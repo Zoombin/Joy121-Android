@@ -32,4 +32,6 @@ public class SurveyParse extends AbstractParser<TResult> {
 	public SurveyEntity parseArray(JSONArray json) throws JSONException {
 		return null;
 	}
+
+
 }
