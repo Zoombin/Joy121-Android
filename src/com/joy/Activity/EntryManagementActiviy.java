@@ -3,7 +3,9 @@ package com.joy.Activity;
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +32,7 @@ import com.joy.Utils.SharedPreferencesUtils;
 import com.joy.Widget.EntryEducationDetailAdapter;
 import com.joy.Widget.EntryFamilyDetailAdapter;
 import com.joy.Widget.EntryWrokExperienceDetailAdapter;
+import com.joy.Widget.ActivityAdapter.ViewHolder;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CompAppSet;
@@ -51,6 +54,7 @@ import com.joy.json.operation.impl.EntryDepartmentOp;
 import com.joy.json.operation.impl.EntryManageOp;
 import com.joy.json.operation.impl.EntrySaveOp;
 import com.joy.json.operation.impl.UploadImgOp;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 
 import android.app.AlertDialog;
@@ -180,6 +184,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 	private static final int THREAD_RepairOrder = 5;
 	private static final int THREAD_CheckupReporting = 6;
 	Window window;
+	 Bitmap bitmap;
 
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
@@ -1199,33 +1204,29 @@ public class EntryManagementActiviy extends BaseActivity implements
 									jsonObjectMaterials.getString("Physical") };
 							if(urls[0].equals("")){
 							}else{
-								new Thread(new LoadImageRunnable(mHandler,
-										THREAD_Photo, urls[0])).start();
+								ImageLoader.getInstance().displayImage(urls[0], imgViewPhoto);
 							}
 							if(urls[1].equals("")){
 							}else{
-								new Thread(new LoadImageRunnable(mHandler,
-										THREAD_Academic, urls[1])).start();
+//								new Thread(new LoadImageRunnable(mHandler,
+//										THREAD_Academic, urls[1])).start();
+								ImageLoader.getInstance().displayImage(urls[1], imgViewAcademic);
 							}
                             if(urls[2].equals("")){	
 							}else{
-								new Thread(new LoadImageRunnable(mHandler,
-										THREAD_IdPhoto1, urls[2])).start();
+								ImageLoader.getInstance().displayImage(urls[2], imgViewIdPhoto1);
 							}
                             if(urls[3].equals("")){	
 							}else{
-								new Thread(new LoadImageRunnable(mHandler,
-										THREAD_IdPhoto2, urls[3])).start();
+								ImageLoader.getInstance().displayImage(urls[3], imgViewIdPhoto2);
 							}
                             if(urls[4].equals("")){
 							}else{
-								new Thread(new LoadImageRunnable(mHandler,
-										THREAD_RepairOrder, urls[4])).start();
+								ImageLoader.getInstance().displayImage(urls[4], imgViewRepairOrder);
 							}
                             if(urls[5].equals("")){	
-							}else{
-								new Thread(new LoadImageRunnable(mHandler,
-										THREAD_CheckupReporting, urls[5])).start();
+							}else{	
+								ImageLoader.getInstance().displayImage(urls[5], imgViewCheckupReporting);
 							}
                             certificates=urls[0];
                             learningCertificate=urls[1];
@@ -1438,7 +1439,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+/**
 	private Handler mHandler = new Handler() {
 
 		// 利用handleMessage更新UI
@@ -1446,7 +1447,20 @@ public class EntryManagementActiviy extends BaseActivity implements
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case EntryManagementActiviy.THREAD_Photo:
-				imgViewPhoto.setImageBitmap((Bitmap) msg.obj);
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
+				options.inJustDecodeBounds = true;
+				
+				int scale = (int) (options.outWidth / (float) 100);
+				if (scale <= 0)
+					scale = 2;
+				options.inSampleSize = scale;
+				options.inJustDecodeBounds = false;
+				Object m=msg.obj;
+				Log.e("img=============================", m.toString());
+//				bitmap = BitmapFactory.decodeFile(retirement, options);
+//				bitmap = BitmapFactory.decodeFile( msg.obj, options); 
+				imgViewPhoto.setImageBitmap((Bitmap)msg.obj);
 				imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
 				break;
 			case EntryManagementActiviy.THREAD_Academic:
@@ -1471,62 +1485,12 @@ public class EntryManagementActiviy extends BaseActivity implements
 				break;
 			// 如有异常会有提示
 			default:
-//				String info = "第" + msg.what % 10 + "个线程" + "出现异常";
-//				Toast.show(self, info);
-//				if (msg.what % 10 == 1) {
-//					imgViewPhoto.setBackgroundDrawable(getResources()
-//							.getDrawable(R.drawable.add_picture));
-////					uiAdapter.setMargin(imgViewPhoto,
-////							LayoutParams.WRAP_CONTENT,
-////							LayoutParams.WRAP_CONTENT, 45, 0, 0, 0);
-//					imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//				}
-//				if (msg.what % 10 == 2) {
-//					imgViewAcademic.setBackgroundDrawable(getResources()
-//							.getDrawable(R.drawable.add_picture));
-////					uiAdapter.setMargin(imgViewAcademic,
-////							LayoutParams.WRAP_CONTENT,
-////							LayoutParams.WRAP_CONTENT, 45, 0, 0, 0);
-////					imgViewAcademic.setMaxHeight(80);
-////					imgViewAcademic.setMaxWidth(80);
-//					imgViewAcademic.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//				}
-//				if (msg.what % 10 == 3) {
-//					imgViewIdPhoto1.setBackgroundDrawable(getResources()
-//							.getDrawable(R.drawable.add_picture));
-////					uiAdapter.setMargin(imgViewIdPhoto1,
-////							LayoutParams.WRAP_CONTENT,
-////							LayoutParams.WRAP_CONTENT, 45, 0, 0, 0);
-////					imgViewIdPhoto1.setImageBitmap((Bitmap) msg.obj);
-//					imgViewIdPhoto1.setScaleType(ImageView.ScaleType.CENTER_CROP);				}
-//				if (msg.what % 10 == 4) {
-//					imgViewIdPhoto2.setBackgroundDrawable(getResources().getDrawable(R.drawable.add_picture));
-//					imgViewIdPhoto2.setScaleType(ImageView.ScaleType.CENTER_CROP);	
-////					uiAdapter.setMargin(imgViewIdPhoto2,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
-//				}
-//				if (msg.what % 10 == 5) {
-//					imgViewRepairOrder.setBackgroundDrawable(getResources()
-//							.getDrawable(R.drawable.add_picture));
-//					uiAdapter.setMargin(imgViewRepairOrder,
-//							20,
-//							20, 65, 0, 0, 0);
-//					imgViewRepairOrder.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//				}
-//				if (msg.what % 10 == 6) {
-//					imgViewCheckupReporting
-//							.setBackgroundDrawable(getResources().getDrawable(
-//									R.drawable.add_picture));
-////					uiAdapter.setMargin(imgViewCheckupReporting,
-////							LayoutParams.WRAP_CONTENT,
-////							LayoutParams.WRAP_CONTENT, 50, 10, 0, 0);
-//					imgViewCheckupReporting
-//							.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//				}
 				break;
 			}
 
 		}
 	};
+	*/
 	/**
 	 * 绑定部门和职位
 	 * 
@@ -1773,6 +1737,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 	private void submited(int currentStep, final String retMessage) {
 		EntryManageEntity entity = new EntryManageEntity();
 		EntryManageExperiencesListEntity experience = new EntryManageExperiencesListEntity();
+		EntryManageImageEntity image=new EntryManageImageEntity();
 		EntryManageFamilyListEntity family = new EntryManageFamilyListEntity();
 		entity.setLoginName(SharedPreferencesUtils.getLoginName(JoyApplication
 				.getSelf()));
@@ -1823,6 +1788,19 @@ public class EntryManagementActiviy extends BaseActivity implements
 		entity.setAccumFund(et_accumFund.getText().toString());
 		entity.setDepositBank(et_depositBank.getText().toString());
 		entity.setDepositCardNo(et_depositCardNo.getText().toString());
+		//个人证件
+		//避免解析的时候解析掉等于号
+		GsonBuilder gb =new GsonBuilder();
+		gb.disableHtmlEscaping();
+		EntryManageIDImageEntity idImage=new EntryManageIDImageEntity();
+		image.setCertificates(certificates);
+		image.setLearningCertificate(learningCertificate);
+		idImage.setPositive(positive);
+		idImage.setReverse(reverse);
+		image.setIDImage(gb.create().toJson(idImage));
+		image.setRetirement(retirement);
+		image.setPhysical(physical);
+		entity.setMaterials(gb.create().toJson(image));
 		// 个人经历
 		experience.setLearning(educationAdapter.getData());// 学习经历的数据
 		experience.setJob(workExperienceAdapter.getData());// 工作经历的数据
@@ -1942,6 +1920,24 @@ public class EntryManagementActiviy extends BaseActivity implements
 				JsonCommon.PROGRESSCOMMIT);
 		task.execute();
 	}
+	public static void compressBmpToFile(Bitmap bmp,File file){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int options = 90;
+        bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
+        while (baos.toByteArray().length / 1024 > 100) { 
+                baos.reset();
+                options -= 10;
+                bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
+        }
+        try {
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(baos.toByteArray());
+                fos.flush();
+                fos.close();
+        } catch (Exception e) {
+                e.printStackTrace();
+        }
+}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -1957,18 +1953,18 @@ public class EntryManagementActiviy extends BaseActivity implements
 			
 			int scale = (int) (options.outWidth / (float) 100);
 			if (scale <= 0)
-				scale = 1;
+				scale = 2;
 			options.inSampleSize = scale;
 			options.inJustDecodeBounds = false;
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-			final Bitmap bitmap;
+			
 			File file;
 			if (requestCode == 0) {
 				certificates = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(certificates, options); 
-				Log.e("urlurl--------------------",certificates.toString());
 				file = new File(certificates);
+				
 				OperationBuilder builder = new OperationBuilder().append(
 						new UploadImgOp(), file);
 				OnOperationListener listener = new OnOperationListener() {
@@ -1982,10 +1978,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 							Toast.show(self, "连接超时");
 							return;
 						} else {
-							Toast.show(self, "上传成功");
+//							ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
 							imgViewPhoto.setImageBitmap(bitmap);
 							imgViewPhoto.setMaxHeight(200);
 							imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP); 
+							Toast.show(self, "上传成功");
 						}
 					}
 					@Override
@@ -2006,7 +2003,6 @@ public class EntryManagementActiviy extends BaseActivity implements
 			}else if(requestCode == 1){
 				learningCertificate = cursor.getString(columnIndex);
 				cursor.close();
-			
 				bitmap = BitmapFactory.decodeFile(learningCertificate, options);
 				file = new File(learningCertificate);
 				OperationBuilder builder = new OperationBuilder().append(
@@ -2022,11 +2018,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 							Toast.show(self, "连接超时");
 							return;
 						} else {
-							Toast.show(self, "上传成功");
-						
 							imgViewAcademic.setImageBitmap(bitmap);
 							imgViewAcademic.setMaxHeight(200);
 							imgViewAcademic.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+							
 						}
 					}
 					@Override
@@ -2055,10 +2051,10 @@ public class EntryManagementActiviy extends BaseActivity implements
 							Toast.show(self, "连接超时");
 							return;
 						} else {
-							Toast.show(self, "上传成功");
 							imgViewIdPhoto1.setImageBitmap(bitmap);
 							imgViewIdPhoto1.setMaxHeight(200);
 							imgViewIdPhoto1.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
 						}
 					}
 					@Override
@@ -2087,10 +2083,10 @@ public class EntryManagementActiviy extends BaseActivity implements
 							Toast.show(self, "连接超时");
 							return;
 						} else {
-							Toast.show(self, "上传成功");
 							imgViewIdPhoto2.setImageBitmap(bitmap);
 							imgViewIdPhoto2.setMaxHeight(200);
 							imgViewIdPhoto2.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
 						}
 					}
 					@Override
@@ -2119,10 +2115,10 @@ public class EntryManagementActiviy extends BaseActivity implements
 							Toast.show(self, "连接超时");
 							return;
 						} else {
-							Toast.show(self, "上传成功");
 							imgViewRepairOrder.setImageBitmap(bitmap);
 							imgViewRepairOrder.setMaxHeight(200);
 							imgViewRepairOrder.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
 						}
 					}
 					@Override
@@ -2151,10 +2147,10 @@ public class EntryManagementActiviy extends BaseActivity implements
 							Toast.show(self, "连接超时");
 							return;
 						} else {
-							Toast.show(self, "上传成功");
 							imgViewCheckupReporting.setImageBitmap(bitmap);
 							imgViewCheckupReporting.setMaxHeight(200);
 							imgViewCheckupReporting.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
 						}
 					}
 					@Override
@@ -2168,4 +2164,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 			}
 		}
 		}
+	//在退出Activity时，将bitmap回收
+	@Override
+    protected void onDestroy() {
+        if (bitmap != null && !bitmap.isRecycled())
+            bitmap.recycle();
+        super.onDestroy();
+    }
 }
