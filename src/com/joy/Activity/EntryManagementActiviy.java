@@ -53,6 +53,10 @@ import com.joy.json.operation.impl.EntrySaveOp;
 import com.joy.json.operation.impl.UploadImgOp;
 import com.umeng.analytics.MobclickAgent;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -65,6 +69,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -235,61 +240,60 @@ public class EntryManagementActiviy extends BaseActivity implements
 		imgViewPhoto.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				intent.setType("image/*");
-				intent.putExtra("crop", true);
-				intent.putExtra("return-data", true);
-				startActivityForResult(intent, 0);
+//				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//				intent.setType("image/*");
+//				intent.putExtra("crop", true);
+//				intent.putExtra("return-data", true);
+//				startActivityForResult(intent, 0);
+				 Intent i = new Intent(
+		                    Intent.ACTION_PICK,
+		                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		            startActivityForResult(i, 0);
 			}
 		});
 		imgViewAcademic.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				intent.setType("image/*");
-				intent.putExtra("crop", true);
-				intent.putExtra("return-data", true);
-				startActivityForResult(intent, 1);
+				Intent i = new Intent(
+	                    Intent.ACTION_PICK,
+	                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+	            startActivityForResult(i, 1);
 			}
 		});
 		imgViewIdPhoto1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				intent.setType("image/*");
-				intent.putExtra("crop", true);
-				intent.putExtra("return-data", true);
-				startActivityForResult(intent, 2);
+				Intent i = new Intent(
+	                    Intent.ACTION_PICK,
+	                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+	            startActivityForResult(i, 2);
 			}
 		});
 		imgViewIdPhoto2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				intent.setType("image/*");
-				intent.putExtra("crop", true);
-				intent.putExtra("return-data", true);
-				startActivityForResult(intent, 3);
+				Intent i = new Intent(
+	                    Intent.ACTION_PICK,
+	                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+	            startActivityForResult(i, 3);
 			}
 		});
 		imgViewRepairOrder.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				intent.setType("image/*");
-				intent.putExtra("crop", true);
-				intent.putExtra("return-data", true);
-				startActivityForResult(intent, 4);
+				Intent i = new Intent(
+	                    Intent.ACTION_PICK,
+	                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+	            startActivityForResult(i, 4);
 			}
 		});
 		imgViewCheckupReporting.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-				intent.setType("image/*");
-				intent.putExtra("crop", true);
-				intent.putExtra("return-data", true);
-				startActivityForResult(intent, 5);
+				Intent i = new Intent(
+	                    Intent.ACTION_PICK,
+	                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+	            startActivityForResult(i, 5);
 			}
 		});
 		return v;
@@ -1963,6 +1967,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				certificates = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(certificates, options); 
+				Log.e("urlurl--------------------",certificates.toString());
 				file = new File(certificates);
 				OperationBuilder builder = new OperationBuilder().append(
 						new UploadImgOp(), file);
@@ -2161,16 +2166,6 @@ public class EntryManagementActiviy extends BaseActivity implements
 						JsonCommon.PROGRESSCOMMIT);
 				task.execute();
 			}
-
 		}
-	}
-	public void onResume() {
-		super.onResume();
-		MobclickAgent.onResume(this);
-	}
-
-	public void onPause() {
-		super.onPause();
-		MobclickAgent.onPause(this);
-	}
+		}
 }
