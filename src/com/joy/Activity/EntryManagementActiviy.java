@@ -5,7 +5,10 @@ import gejw.android.quickandroid.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,6 +60,7 @@ import com.joy.json.operation.impl.UploadImgOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.analytics.MobclickAgent;
 
+import android.R.integer;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -177,12 +181,12 @@ public class EntryManagementActiviy extends BaseActivity implements
 	private LinearLayout familyInfo;
 	private LinearLayout hobbies;
 	// 创建线程显示图片
-	private static final int THREAD_Photo = 1;
-	private static final int THREAD_Academic = 2;
-	private static final int THREAD_IdPhoto1 = 3;
-	private static final int THREAD_IdPhoto2 = 4;
-	private static final int THREAD_RepairOrder = 5;
-	private static final int THREAD_CheckupReporting = 6;
+//	private static final int THREAD_Photo = 1;
+//	private static final int THREAD_Academic = 2;
+//	private static final int THREAD_IdPhoto1 = 3;
+//	private static final int THREAD_IdPhoto2 = 4;
+//	private static final int THREAD_RepairOrder = 5;
+//	private static final int THREAD_CheckupReporting = 6;
 	Window window;
 	 Bitmap bitmap;
 
@@ -190,10 +194,10 @@ public class EntryManagementActiviy extends BaseActivity implements
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
 		// 隐藏虚拟按键实现全屏
 
-		window = getWindow();
-		WindowManager.LayoutParams params = window.getAttributes();
-		params.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE;
-		window.setAttributes(params);
+//		View decorView = getWindow().getDecorView();
+//		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//		              | View.SYSTEM_UI_FLAG_FULLSCREEN;
+//		decorView.setSystemUiVisibility(uiOptions);
 
 		resources = getResources();
 		color = Color.parseColor("#ffa800");
@@ -209,6 +213,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 		int id;
 		View v = inflater.inflate(R.layout.activity_entry_basic_info, null);
 		setContentView(v);
+//		View v = getLayoutInflater().from(this).inflate(R.layout.activity_entry_basic_info, null);  
+//		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+//        v.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);  
+//        v.setOnClickListener(this);  
+        setContentView(v); 
 		initEmployInfo();
 		bindDepartmentOrPos("CostCenterno", -1);// 传入-1显示全部部门
 		bindDepartmentOrPos("Compos", -1);
@@ -303,7 +312,6 @@ public class EntryManagementActiviy extends BaseActivity implements
 		});
 		return v;
 	}
-
 	/**
 	 * 应聘信息
 	 */
@@ -826,6 +834,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 	}
 
 	private void step2() {
+
 		employInfo.setVisibility(View.GONE);
 		myselfInfo.setVisibility(View.VISIBLE);
 		papersInfo.setVisibility(View.GONE);
@@ -937,6 +946,14 @@ public class EntryManagementActiviy extends BaseActivity implements
 
 	@Override
 	public void onClick(View v) {
+//		int i = v.getSystemUiVisibility();  
+//        if (i == View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) {  
+//            v.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);  
+//        } else if (i == View.SYSTEM_UI_FLAG_VISIBLE){  
+//            v.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);  
+//        } else if (i == View.SYSTEM_UI_FLAG_LOW_PROFILE) {  
+//            v.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);  
+//        }  
 		String saveSuccess = "保存成功";
 		String upLoadSuccess = "提交成功";
 		employInfo = (LinearLayout) findViewById(R.id.employInfo);
@@ -1891,53 +1908,6 @@ public class EntryManagementActiviy extends BaseActivity implements
 		Matcher idNoMatcher = idNoPattern.matcher(idNo);
 		return idNoMatcher.matches();
 	}
-	public void selectImage(File file,final Bitmap bitmap,final ImageView img) {
-		OperationBuilder builder = new OperationBuilder().append(
-				new UploadImgOp(), file);
-		OnOperationListener listener = new OnOperationListener() {
-			@Override
-			public void onOperationFinished(List<Object> resList) {
-				EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-				certificates=uploadImgEntity.getRetFilePath();
-				if (self.isFinishing()) {
-					return;
-				} else if (resList == null) {
-					Toast.show(self, "连接超时");
-					return;
-				} else {
-					Toast.show(self, "上传成功");
-					img.setImageBitmap(bitmap);
-					img.setMaxHeight(200);
-					img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				}
-			}
-			@Override
-			public void onOperationError(Exception e) {
-				e.printStackTrace();
-			}
-		};
-		JsonCommon task = new JsonCommon(self, builder, listener,
-				JsonCommon.PROGRESSCOMMIT);
-		task.execute();
-	}
-	public static void compressBmpToFile(Bitmap bmp,File file){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        int options = 90;
-        bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
-        while (baos.toByteArray().length / 1024 > 100) { 
-                baos.reset();
-                options -= 10;
-                bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
-        }
-        try {
-                FileOutputStream fos = new FileOutputStream(file);
-                fos.write(baos.toByteArray());
-                fos.flush();
-                fos.close();
-        } catch (Exception e) {
-                e.printStackTrace();
-        }
-}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -1959,208 +1929,232 @@ public class EntryManagementActiviy extends BaseActivity implements
 			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			
 			File file;
+			long size;
 			if (requestCode == 0) {
 				certificates = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(certificates, options); 
 				file = new File(certificates);
-				
-				OperationBuilder builder = new OperationBuilder().append(
-						new UploadImgOp(), file);
-				OnOperationListener listener = new OnOperationListener() {
-					@Override
-					public void onOperationFinished(List<Object> resList) {
-						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-						certificates=uploadImgEntity.getRetFilePath();
-						if (self.isFinishing()) {
-							return;
-						} else if (resList == null) {
-							Toast.show(self, "连接超时");
-							return;
-						} else {
-//							ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
-							imgViewPhoto.setImageBitmap(bitmap);
-							imgViewPhoto.setMaxHeight(200);
-							imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP); 
-							Toast.show(self, "上传成功");
+			    size =   file.length();
+				if(size>2097152){
+					Toast.show(self, "上传失败，请选择小于2M的图片");
+				}else{
+					OperationBuilder builder = new OperationBuilder().append(
+							new UploadImgOp(), file);
+					OnOperationListener listener = new OnOperationListener() {
+						@Override
+						public void onOperationFinished(List<Object> resList) {
+							EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+							certificates=uploadImgEntity.getRetFilePath();
+							if (self.isFinishing()) {
+								return;
+							} else if (resList == null) {
+								Toast.show(self, "连接超时");
+								return;
+							} else {
+//								ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
+								imgViewPhoto.setImageBitmap(bitmap);
+								imgViewPhoto.setMaxHeight(200);
+								imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP); 
+								Toast.show(self, "上传成功");
+							}
 						}
-					}
-					@Override
-					public void onOperationError(Exception e) {
-						e.printStackTrace();
-					}
-				};
-				JsonCommon task = new JsonCommon(self, builder, listener,
-						JsonCommon.PROGRESSCOMMIT);
-				task.execute();
-//				if(bmp.isRecycled() == false)  
-//				{  
-//				    bmp.recycle();  
-//				    bmp = null;  
-//				    System.gc();  
-//				}  
-				
+						@Override
+						public void onOperationError(Exception e) {
+							e.printStackTrace();
+						}
+					};
+					JsonCommon task = new JsonCommon(self, builder, listener,
+							JsonCommon.PROGRESSCOMMIT);
+					task.execute();
+				}
 			}else if(requestCode == 1){
 				learningCertificate = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(learningCertificate, options);
 				file = new File(learningCertificate);
-				OperationBuilder builder = new OperationBuilder().append(
-						new UploadImgOp(), file);
-				OnOperationListener listener = new OnOperationListener() {
-					@Override
-					public void onOperationFinished(List<Object> resList) {
-						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-						learningCertificate=uploadImgEntity.getRetFilePath();
-						if (self.isFinishing()) {
-							return;
-						} else if (resList == null) {
-							Toast.show(self, "连接超时");
-							return;
-						} else {
-							imgViewAcademic.setImageBitmap(bitmap);
-							imgViewAcademic.setMaxHeight(200);
-							imgViewAcademic.setScaleType(ImageView.ScaleType.CENTER_CROP);
-							Toast.show(self, "上传成功");
-							
-						}
+				 size =   file.length();
+					if(size>2097152){
+						Toast.show(self, "上传失败，请选择小于2M的图片");
+					}else{
+						OperationBuilder builder = new OperationBuilder().append(
+								new UploadImgOp(), file);
+						OnOperationListener listener = new OnOperationListener() {
+							@Override
+							public void onOperationFinished(List<Object> resList) {
+								EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+								learningCertificate=uploadImgEntity.getRetFilePath();
+								if (self.isFinishing()) {
+									return;
+								} else if (resList == null) {
+									Toast.show(self, "连接超时");
+									return;
+								} else {
+									imgViewAcademic.setImageBitmap(bitmap);
+									imgViewAcademic.setMaxHeight(200);
+									imgViewAcademic.setScaleType(ImageView.ScaleType.CENTER_CROP);
+									Toast.show(self, "上传成功");
+									
+								}
+							}
+							@Override
+							public void onOperationError(Exception e) {
+								e.printStackTrace();
+							}
+						};
+						JsonCommon task = new JsonCommon(self, builder, listener,
+								JsonCommon.PROGRESSCOMMIT);
+						task.execute();
 					}
-					@Override
-					public void onOperationError(Exception e) {
-						e.printStackTrace();
-					}
-				};
-				JsonCommon task = new JsonCommon(self, builder, listener,
-						JsonCommon.PROGRESSCOMMIT);
-				task.execute();
 			}else if(requestCode == 2){
 				positive = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(positive, options);
 				file = new File(positive);
-				OperationBuilder builder = new OperationBuilder().append(
-						new UploadImgOp(), file);
-				OnOperationListener listener = new OnOperationListener() {
-					@Override
-					public void onOperationFinished(List<Object> resList) {
-						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-						positive=uploadImgEntity.getRetFilePath();
-						if (self.isFinishing()) {
-							return;
-						} else if (resList == null) {
-							Toast.show(self, "连接超时");
-							return;
-						} else {
-							imgViewIdPhoto1.setImageBitmap(bitmap);
-							imgViewIdPhoto1.setMaxHeight(200);
-							imgViewIdPhoto1.setScaleType(ImageView.ScaleType.CENTER_CROP);
-							Toast.show(self, "上传成功");
-						}
+				 size =   file.length();
+					if(size>2097152){
+						Toast.show(self, "上传失败，请选择小于2M的图片");
+					}else{
+						OperationBuilder builder = new OperationBuilder().append(
+								new UploadImgOp(), file);
+						OnOperationListener listener = new OnOperationListener() {
+							@Override
+							public void onOperationFinished(List<Object> resList) {
+								EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+								positive=uploadImgEntity.getRetFilePath();
+								if (self.isFinishing()) {
+									return;
+								} else if (resList == null) {
+									Toast.show(self, "连接超时");
+									return;
+								} else {
+									imgViewIdPhoto1.setImageBitmap(bitmap);
+									imgViewIdPhoto1.setMaxHeight(200);
+									imgViewIdPhoto1.setScaleType(ImageView.ScaleType.CENTER_CROP);
+									Toast.show(self, "上传成功");
+								}
+							}
+							@Override
+							public void onOperationError(Exception e) {
+								e.printStackTrace();
+							}
+						};
+						JsonCommon task = new JsonCommon(self, builder, listener,
+								JsonCommon.PROGRESSCOMMIT);
+						task.execute();
 					}
-					@Override
-					public void onOperationError(Exception e) {
-						e.printStackTrace();
-					}
-				};
-				JsonCommon task = new JsonCommon(self, builder, listener,
-						JsonCommon.PROGRESSCOMMIT);
-				task.execute();
+				
 			}else if(requestCode == 3){
 				reverse = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(reverse, options);
 				file = new File(reverse);
-				OperationBuilder builder = new OperationBuilder().append(
-						new UploadImgOp(), file);
-				OnOperationListener listener = new OnOperationListener() {
-					@Override
-					public void onOperationFinished(List<Object> resList) {
-						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-						reverse=uploadImgEntity.getRetFilePath();
-						if (self.isFinishing()) {
-							return;
-						} else if (resList == null) {
-							Toast.show(self, "连接超时");
-							return;
-						} else {
-							imgViewIdPhoto2.setImageBitmap(bitmap);
-							imgViewIdPhoto2.setMaxHeight(200);
-							imgViewIdPhoto2.setScaleType(ImageView.ScaleType.CENTER_CROP);
-							Toast.show(self, "上传成功");
-						}
+				 size =   file.length();
+					if(size>2097152){
+						Toast.show(self, "上传失败，请选择小于2M的图片");
+					}else{
+						OperationBuilder builder = new OperationBuilder().append(
+								new UploadImgOp(), file);
+						OnOperationListener listener = new OnOperationListener() {
+							@Override
+							public void onOperationFinished(List<Object> resList) {
+								EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+								reverse=uploadImgEntity.getRetFilePath();
+								if (self.isFinishing()) {
+									return;
+								} else if (resList == null) {
+									Toast.show(self, "连接超时");
+									return;
+								} else {
+									imgViewIdPhoto2.setImageBitmap(bitmap);
+									imgViewIdPhoto2.setMaxHeight(200);
+									imgViewIdPhoto2.setScaleType(ImageView.ScaleType.CENTER_CROP);
+									Toast.show(self, "上传成功");
+								}
+							}
+							@Override
+							public void onOperationError(Exception e) {
+								e.printStackTrace();
+							}
+						};
+						JsonCommon task = new JsonCommon(self, builder, listener,
+								JsonCommon.PROGRESSCOMMIT);
+						task.execute();
 					}
-					@Override
-					public void onOperationError(Exception e) {
-						e.printStackTrace();
-					}
-				};
-				JsonCommon task = new JsonCommon(self, builder, listener,
-						JsonCommon.PROGRESSCOMMIT);
-				task.execute();
 			}else if(requestCode == 4){
 				retirement = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(retirement, options);
 				file = new File(retirement);
-				OperationBuilder builder = new OperationBuilder().append(
-						new UploadImgOp(), file);
-				OnOperationListener listener = new OnOperationListener() {
-					@Override
-					public void onOperationFinished(List<Object> resList) {
-						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-						retirement=uploadImgEntity.getRetFilePath();
-						if (self.isFinishing()) {
-							return;
-						} else if (resList == null) {
-							Toast.show(self, "连接超时");
-							return;
-						} else {
-							imgViewRepairOrder.setImageBitmap(bitmap);
-							imgViewRepairOrder.setMaxHeight(200);
-							imgViewRepairOrder.setScaleType(ImageView.ScaleType.CENTER_CROP);
-							Toast.show(self, "上传成功");
+				size =   file.length();
+				if(size>2097152){
+					Toast.show(self, "上传失败，请选择小于2M的图片");
+				}else{
+					OperationBuilder builder = new OperationBuilder().append(
+							new UploadImgOp(), file);
+					OnOperationListener listener = new OnOperationListener() {
+						@Override
+						public void onOperationFinished(List<Object> resList) {
+							EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+							retirement=uploadImgEntity.getRetFilePath();
+							if (self.isFinishing()) {
+								return;
+							} else if (resList == null) {
+								Toast.show(self, "连接超时");
+								return;
+							} else {
+								imgViewRepairOrder.setImageBitmap(bitmap);
+								imgViewRepairOrder.setMaxHeight(200);
+								imgViewRepairOrder.setScaleType(ImageView.ScaleType.CENTER_CROP);
+								Toast.show(self, "上传成功");
+							}
 						}
-					}
-					@Override
-					public void onOperationError(Exception e) {
-						e.printStackTrace();
-					}
-				};
-				JsonCommon task = new JsonCommon(self, builder, listener,
-						JsonCommon.PROGRESSCOMMIT);
-				task.execute();
+						@Override
+						public void onOperationError(Exception e) {
+							e.printStackTrace();
+						}
+					};
+					JsonCommon task = new JsonCommon(self, builder, listener,
+							JsonCommon.PROGRESSCOMMIT);
+					task.execute();
+				}	
 			}else if(requestCode == 5){
 				physical = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(physical, options);
 				file = new File(physical);
-				OperationBuilder builder = new OperationBuilder().append(
-						new UploadImgOp(), file);
-				OnOperationListener listener = new OnOperationListener() {
-					@Override
-					public void onOperationFinished(List<Object> resList) {
-						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-						physical=uploadImgEntity.getRetFilePath();
-						if (self.isFinishing()) {
-							return;
-						} else if (resList == null) {
-							Toast.show(self, "连接超时");
-							return;
-						} else {
-							imgViewCheckupReporting.setImageBitmap(bitmap);
-							imgViewCheckupReporting.setMaxHeight(200);
-							imgViewCheckupReporting.setScaleType(ImageView.ScaleType.CENTER_CROP);
-							Toast.show(self, "上传成功");
+				size =   file.length();
+				if(size>2097152){
+					Toast.show(self, "上传失败，请选择小于2M的图片");
+				}else{
+					OperationBuilder builder = new OperationBuilder().append(
+							new UploadImgOp(), file);
+					OnOperationListener listener = new OnOperationListener() {
+						@Override
+						public void onOperationFinished(List<Object> resList) {
+							EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+							physical=uploadImgEntity.getRetFilePath();
+							if (self.isFinishing()) {
+								return;
+							} else if (resList == null) {
+								Toast.show(self, "连接超时");
+								return;
+							} else {
+								imgViewCheckupReporting.setImageBitmap(bitmap);
+								imgViewCheckupReporting.setMaxHeight(200);
+								imgViewCheckupReporting.setScaleType(ImageView.ScaleType.CENTER_CROP);
+								Toast.show(self, "上传成功");
+							}
 						}
-					}
-					@Override
-					public void onOperationError(Exception e) {
-						e.printStackTrace();
-					}
-				};
-				JsonCommon task = new JsonCommon(self, builder, listener,
-						JsonCommon.PROGRESSCOMMIT);
-				task.execute();
+						@Override
+						public void onOperationError(Exception e) {
+							e.printStackTrace();
+						}
+					};
+					JsonCommon task = new JsonCommon(self, builder, listener,
+							JsonCommon.PROGRESSCOMMIT);
+					task.execute();
+				}
 			}
 		}
 		}
