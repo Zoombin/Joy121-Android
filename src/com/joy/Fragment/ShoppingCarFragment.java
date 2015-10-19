@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -225,7 +226,10 @@ public class ShoppingCarFragment extends BaseFragment {
 				sum+= carGoods.getCount()*carGoods.getPoints();
 			}
 		}
-		shoppingCarFragment.tvSumPoints.setText(String.format(shoppingCarFragment.getActivity().getString(R.string.format_sum_points), sum));
+		Log.e("33333333333333333333333333333333333333333",(shoppingCarFragment.getActivity()==null)+"");
+//		shoppingCarFragment.tvSumPoints.setText(String.format(shoppingCarFragment.getActivity().getString(R.string.format_sum_points), sum));
+		shoppingCarFragment.tvSumPoints.setText(String.format("总计：%1$s积分", sum));
+		
 	}
 
 	/***

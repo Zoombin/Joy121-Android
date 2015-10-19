@@ -79,11 +79,11 @@ public class DialogUtil {
 	 *            回调
 	 */
 	public void showDialog(String message, final DialogButtonClickCallback callback) {
-		showDialog("提示", R.drawable.app_icon, message, "确定", "取消", callback);
+		showDialog("提示", R.drawable.app_icon1, message, "确定", "取消", callback);
 	}
 
 	public void showDialog(String message, String pStr, String nStr, final DialogButtonClickCallback callback) {
-		showDialog("提示", R.drawable.app_icon, message, pStr, nStr, callback);
+		showDialog("提示", R.drawable.app_icon1, message, pStr, nStr, callback);
 	}
 	
 	public void showDialog(String message, int icon ,String pStr, String nStr, final DialogButtonClickCallback callback) {
@@ -91,7 +91,7 @@ public class DialogUtil {
 	}
 
 	public void showDialog(String title, String message, String pStr, String nStr, final DialogButtonClickCallback callback) {
-		showDialog(title, R.drawable.app_icon, message, pStr, nStr, callback);
+		showDialog(title, R.drawable.app_icon1, message, pStr, nStr, callback);
 	}
 
 	public void showDialog(String title, int incoId, String message, String pStr, String nStr, final DialogButtonClickCallback callback) {

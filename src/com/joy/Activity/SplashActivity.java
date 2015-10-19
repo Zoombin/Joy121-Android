@@ -64,7 +64,7 @@ public class SplashActivity extends QActivity {
 			shortcutIntent.addCategory(Intent.CATEGORY_LAUNCHER); 
 			shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
 			// 快捷方式的图标
-			ShortcutIconResource iconRes = Intent.ShortcutIconResource.fromContext(this, R.drawable.app_icon);
+			ShortcutIconResource iconRes = Intent.ShortcutIconResource.fromContext(this, R.drawable.app_icon1);
 			shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes);
 			// 发出广播
 			sendBroadcast(shortcut);

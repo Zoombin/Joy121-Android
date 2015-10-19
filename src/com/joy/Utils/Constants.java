@@ -19,21 +19,21 @@ public class Constants {
 	public static final int TitleIvWidth = 30;
 	
 	// 图片路径（大图）
-	public static final String IMGURL = "http://cloud.joy121.com/Files/img/";
+	public static final String IMGURL = "http://cloud.joy121.com:99/Files/img/";
 	
 	// 图片路径（小图）
-	public static final String IMGSURL = "http://cloud.joy121.com/Files/img/s_";
+	public static final String IMGSURL = "http://cloud.joy121.com:99/Files/img/s_";
 	
 	// 图片logo
-	public static final String IMGLOGO = "http://cloud.joy121.com/files/logo/";
+	public static final String IMGLOGO = "http://cloud.joy121.com:99/files/logo/";
 	
 	//详情页图片路径
-	public static final String IMGDETAIL = "http://cloud.joy121.com/files/activity/";
+	public static final String IMGDETAIL = "http://cloud.joy121.com:99/files/activity/";
 	
 	
 	//公告图片路径
-	public static final String IMGPOST = "http://cloud.joy121.com/files/comppost/";
+	public static final String IMGPOST = "http://cloud.joy121.com:99/files/comppost/";
 	
 	//公告图片路径
-	public static final String IMGDEPOT= "http://cloud.joy121.com/files/officedepot/";
+	public static final String IMGDEPOT= "http://cloud.joy121.com:99/files/officedepot/";
 }

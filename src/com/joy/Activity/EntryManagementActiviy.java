@@ -946,14 +946,6 @@ public class EntryManagementActiviy extends BaseActivity implements
 
 	@Override
 	public void onClick(View v) {
-//		int i = v.getSystemUiVisibility();  
-//        if (i == View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) {  
-//            v.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);  
-//        } else if (i == View.SYSTEM_UI_FLAG_VISIBLE){  
-//            v.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);  
-//        } else if (i == View.SYSTEM_UI_FLAG_LOW_PROFILE) {  
-//            v.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);  
-//        }  
 		String saveSuccess = "保存成功";
 		String upLoadSuccess = "提交成功";
 		employInfo = (LinearLayout) findViewById(R.id.employInfo);
@@ -1044,7 +1036,6 @@ public class EntryManagementActiviy extends BaseActivity implements
 				step3();
 			}
 			break;
-
 		// 证件信息
 		case R.id.layout_goBackMyselfInfo: // 证件信息上的上一步返回到个人信息
 			step2();
@@ -1053,7 +1044,21 @@ public class EntryManagementActiviy extends BaseActivity implements
 			saveAll(3, saveSuccess);
 			break;
 		case R.id.btn_papersInfoNext: // 证件信息的下一步进入到个人经历
-			step4();
+			if(certificates.equals("")){
+				Toast.show(self, "请添加个人照片");
+				return;
+			}else if(positive.equals("")){
+				Toast.show(self, "请添加身份证正面照");
+				return;
+			}else if(reverse.equals("")){
+				Toast.show(self, "请添加身份证反面照");
+				return;
+			}else if(physical.equals("")){
+				Toast.show(self, "请添加体检报告");
+				return;
+			}else{
+				step4();
+			}
 			break;
 		// 个人经历
 		case R.id.layout_goBackPapersInfo: // 个人经历中的上一步返回到证件信息
