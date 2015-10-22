@@ -16,8 +16,10 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,7 +34,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.joy.R;
+import com.joy.Fragment.portals.logostore.LogoStoreAllFragment;
 import com.joy.Utils.Constants;
 import com.joy.Widget.RectangleTextView;
 import com.joy.json.JsonCommon;
@@ -53,16 +57,20 @@ import com.nostra13.universalimageloader.core.ImageLoader;
  */
 public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 	private RelativeLayout layout_title;
-	private TextView tv_title, tv_ret;
+	private TextView tv_title;
+	private ImageView iv_ret;
+	private RelativeLayout layout_prompt;
+	private TextView tv_prompt;
+	private ImageView iv_prompt;
 	private Resources resources;
-	private Activity mActivity;
+//	private Activity curActivity;
 	protected UIManager mUiManager;
 
 	// 滚动view
 	LinearLayout layout_viewPager;
 
 	// 列表
-	private PullToRefreshListView listView;
+	private ListView listView;
 	private CategoriseAdapter categoriseAdapter;
 	
 	private List<CategoryEntity> tempList;
@@ -82,46 +90,47 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View v = inflater.inflate(R.layout.activity_logostore, null);
-		setContentView(v);
 		resources = this.getResources();
-		mActivity = this;
 		mUiManager = new UIManager(self);
+		setContentView(v);
 		initView();
 		return v;
 	}
 
 	private void initView() {
 		PLog.e("进入--->%s", "LogoStoreActivity");
-		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
+		initTitleLayout();
+		initPromptInfo();
+		listView = (ListView)findViewById(R.id.listview);
+		listView.setAdapter(categoriseAdapter = new CategoriseAdapter());
+        if(tempList == null){
+        	getCategories();
+        }else{
+        	categoriseAdapter.setData(tempList);
+        }
+	}
+	private void initTitleLayout(){
+		layout_title = (RelativeLayout)findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
 
-		tv_title = (TextView) findViewById(R.id.tv_title);
+		tv_title = (TextView)findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
+		iv_ret = (ImageView) findViewById(R.id.iv_ret);
+		iv_ret.setOnClickListener(this);
+	}
 
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
-		tv_ret.setOnClickListener(new OnClickListener() {
+	private void initPromptInfo() {
+		layout_prompt = (RelativeLayout)findViewById(R.id.layout_prompt);
+		layout_prompt.setBackgroundColor(Color.parseColor(appSet.getColor2()));
+		iv_prompt = (ImageView)findViewById(R.id.iv_prompt);
+		iv_prompt.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				finish();
+				layout_prompt.setVisibility(View.GONE);
 			}
 		});
-		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
-		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
-		listView = (PullToRefreshListView) findViewById(R.id.listview);
-		listView.setMode(Mode.PULL_FROM_START);
-		listView.setAdapter(categoriseAdapter = new CategoriseAdapter());
-		listView.setOnRefreshListener(new OnRefreshListener<ListView>() {
-
-			@Override
-			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-				getCategories();
-			}
-		}
-			);
-		getCategories();
 	}
-
 	private void getCategories() {
 		CategoryEntity sur = new CategoryEntity();
 
@@ -129,24 +138,22 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 		OnOperationListener listener = new OnOperationListener() {
 			@Override
 			public void onOperationFinished(List<Object> resList) {
-				listView.onRefreshComplete();
+				//listView.onRefreshComplete();
 				if (self.isFinishing()) {
 					return;
 				}
 				if (resList == null) {
-					Toast.show(self, resources.getString(R.string.timeout));
+					Toast.show(self, "连接超时");
 					return;
 				}
 				CategoryEntity entity = (CategoryEntity) resList.get(0);
 				List<CategoryEntity> surveylist = entity.getRetobj();
 				if (surveylist == null || surveylist.size() == 0) {
-					Toast.show(self, resources.getString(R.string.toast_nologocommo));
+					layout_prompt.setVisibility(View.VISIBLE);
 					//finish();
 					return;
 				}
-
 				categoriseAdapter.setData(surveylist);
-				
 				tempList = surveylist;
 				orderRequestGoodsData();
 				/*
@@ -159,7 +166,7 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 
 			@Override
 			public void onOperationError(Exception e) {
-				listView.onRefreshComplete();
+				//listView.onRefreshComplete();
 				e.printStackTrace();
 			}
 		};
@@ -234,7 +241,7 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 			ViewHolder holder = null;
 			if (convertView == null) {
 				holder = new ViewHolder();
-				convertView = LayoutInflater.from(mActivity).inflate(R.layout.layout_categories_item, null);
+				convertView = LayoutInflater.from(self).inflate(R.layout.layout_categories_item, null);
 				//mUiManager.matchingUIAllFromJson(convertView);
 
 				holder.txt_categoriesName = (RectangleTextView) convertView.findViewById(R.id.txt_categoriesName);
@@ -252,11 +259,25 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 
 				holder.txt_showall.setText(resources.getString(R.string.displayall) + " >");
 				holder.txt_showall.setTag(data);
-
 				List<CategoriesGoods> goodsList = data.getGoodsList();
 				HorizontalCategoriseAdapter hAdapter = new HorizontalCategoriseAdapter();
 				holder.horizontalListView.setAdapter(hAdapter);
 				if(goodsList != null && goodsList.size()>0){
+					//传递数据
+					holder.txt_showall.setTag(data);
+					holder.txt_showall.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							CategoryEntity data =  (CategoryEntity) v.getTag();
+							Intent intent = new Intent();
+							intent.setClass(self, LogoStoreAllActivity.class);
+							Bundle bundle = new Bundle();
+							bundle.putSerializable("data", data);
+							intent.putExtras(bundle);
+							startActivity(intent);
+						}
+					});
 					hAdapter.setData(data.getGoodsList());
 					holder.horizontalListView.setOnItemClickListener(new OnItemClickListener() {
 						@Override
@@ -264,7 +285,7 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 							// TODO Auto-generated method stub
 							CategoriesGoods goods = (CategoriesGoods) parent.getAdapter().getItem(position);
 							Intent intent = new Intent();
-							intent.setClass(mActivity, StoreDetailActivity.class);
+							intent.setClass(self, StoreDetailActivity.class);
 							Bundle bundle = new Bundle();
 							bundle.putSerializable("detail", goods);
 							intent.putExtras(bundle);
@@ -355,7 +376,7 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 			ViewHolder holder = null;
 			if (convertView == null) {
 				holder = new ViewHolder();
-				convertView = LayoutInflater.from(mActivity).inflate(R.layout.logo_categories_goods_item, null);
+				convertView = LayoutInflater.from(self).inflate(R.layout.logo_categories_goods_item, null);
 				//mUiManager.matchingUIAllFromJson(convertView);
 				convertView.setTag(holder);
 
@@ -386,10 +407,27 @@ public class LogoStoreActivity extends BaseActivity implements OnClickListener {
 			TextView txt_goodsname;
 		}
 	}
-
 	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.iv_ret:
+			finish();
+			break;
+		case R.id.iv_prompt:
+			layout_prompt.setVisibility(View.GONE);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void onResume() {
+		super.onResume();
+		///MobclickAgent.onResume(this);
+	}
 
+	public void onPause() {
+		super.onPause();
+		///MobclickAgent.onPause(this);
 	}
 }

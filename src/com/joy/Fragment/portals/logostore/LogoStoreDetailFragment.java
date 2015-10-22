@@ -12,6 +12,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.joy.R;
 import com.joy.Activity.MainActivity;
 import com.joy.Dialog.DialogUtil;
@@ -204,6 +206,7 @@ public class LogoStoreDetailFragment extends BaseFragment {
 				detail.setColor(colorSelect);
 				detail.setSize_cloth(sizeSelect);
 				detail.setIsLogoStore(true);
+				Log.e("111111111111111111111111",new Gson().toJson(detail));
 				MainActivity.Add2ShopCar(mActivity, detail, goodsNum);
 				Toast.show(mActivity, "商品已加入购物车");
 				

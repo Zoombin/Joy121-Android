@@ -30,16 +30,19 @@ import com.joy.Activity.ActivityActivity;
 import com.joy.Activity.AttendanceActivity;
 import com.joy.Activity.ContactActivity;
 import com.joy.Activity.EntryManagementActiviy;
+import com.joy.Activity.LogoStoreActivity;
 import com.joy.Activity.MainActivity;
 import com.joy.Activity.MotivationActivity;
 import com.joy.Activity.PayrollActivity;
 import com.joy.Activity.PerformanceActivity;
+import com.joy.Activity.PhysicalActivity;
 import com.joy.Activity.PostActivity;
 import com.joy.Activity.RuleActivity;
 import com.joy.Activity.SurveyActivity;
 import com.joy.Activity.WelfareActivity;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Fragment.portals.logostore.LogoStoreFragment;
+import com.joy.Fragment.portals.welfare.WelfareFragment;
 import com.joy.Fragment.rent.RentGoodsListFragment;
 import com.joy.Utils.Constants;
 import com.joy.Utils.Utils;
@@ -236,15 +239,18 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 		final Intent intent = new Intent();
 		if(name.contains("公司福利")){
 			//公司福利
-			//MainActivity.mActivity.replaceChildFragment(
-				//	"WelfareFragment", new WelfareFragment(), true);
+//			MainActivity.mActivity.replaceChildFragment(
+//					"WelfareFragment", new WelfareFragment(), true);
 			intent.setClass(mActivity, WelfareActivity.class);
 			startActivity(intent);
 
 		}else if(name.contains("Logo商店")){
 			//Logo商店
-			MainActivity.mActivity.replaceChildFragment(
-					"LogoStoreFragment", new LogoStoreFragment(), true);
+//			MainActivity.mActivity.replaceChildFragment(
+//					"LogoStoreFragment", new LogoStoreFragment(), true);
+			intent.setClass(mActivity, LogoStoreActivity.class);
+			startActivity(intent);
+			
 		}else if(name.contains("活动")){
 			//活动
 			intent.setClass(mActivity, ActivityActivity.class);
@@ -319,6 +325,10 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 		}else if(name.contains("入职管理")){
 			//入职管理
 			intent.setClass(mActivity, EntryManagementActiviy.class);
+			startActivity(intent);
+		}else if(name.contains("体检")){
+			//体检
+			intent.setClass(mActivity, PhysicalActivity.class);
 			startActivity(intent);
 		}else{
 		}
@@ -461,6 +471,9 @@ public class PortalsFragment extends BaseFragment implements OnClickListener {
 			}else if(name.contains("入职管理")){
 				//入职管理
 				imageView.setImageResource(R.drawable.com_entry_management);
+			}else if(name.contains("体检")){
+				//体检
+				imageView.setImageResource(R.drawable.com_entry_physical);
 			}else{
 				//v.setBackgroundColor(Color.parseColor("#a2063c"));
 				//imageView.setImageResource(R.drawable.com_businessman);

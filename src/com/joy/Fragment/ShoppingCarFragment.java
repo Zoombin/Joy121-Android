@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ImageView.ScaleType;
 
+import com.google.gson.Gson;
 import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Activity.MainActivity;
@@ -151,6 +152,7 @@ public class ShoppingCarFragment extends BaseFragment {
 		carList.setAdapter(adapter);
 		refreshView();
 		adapter.setData(MainActivity.goods_list);
+		Log.e("2222222222222222222222222222",new Gson().toJson(MainActivity.goods_list));
 	}
 
 	private void commitShoppingCar(List<ShoppingCarGoods> carGoods) {
@@ -166,6 +168,7 @@ public class ShoppingCarFragment extends BaseFragment {
 					return;
 				}
 				CommitResultEntity entity = (CommitResultEntity) resList.get(0);
+				
 				CommitResult result = entity.getRetobj();
 				if (result == null) {
 					Toast.show(mActivity, getResources().getString(R.string.commitfailed));
@@ -226,7 +229,6 @@ public class ShoppingCarFragment extends BaseFragment {
 				sum+= carGoods.getCount()*carGoods.getPoints();
 			}
 		}
-		Log.e("33333333333333333333333333333333333333333",(shoppingCarFragment.getActivity()==null)+"");
 //		shoppingCarFragment.tvSumPoints.setText(String.format(shoppingCarFragment.getActivity().getString(R.string.format_sum_points), sum));
 		shoppingCarFragment.tvSumPoints.setText(String.format("总计：%1$s积分", sum));
 		

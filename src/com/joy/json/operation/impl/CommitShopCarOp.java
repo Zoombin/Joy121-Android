@@ -39,6 +39,11 @@ public class CommitShopCarOp implements ITaskOperation {
 										SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()), getJsonStr(carGoods),"","","")),
 						new BasicNameValuePair("token", new MD5().getMD5ofStr(SharedPreferencesUtils
 								.getLoginName(JoyApplication.getSelf()) + MD5.key)));
+		
+		
+		Log.e("333333333333333333333",String.format(
+				"{\"loginname\":\"%s\",\"cartlist\":\"%s\",\"receiver\":\"%s\",\"recadd\":\"%s\",\"recphone\":\"%s\"}",
+				SharedPreferencesUtils.getLoginName(JoyApplication.getSelf()), getJsonStr(carGoods),"","",""));
 		return (CommitResultEntity) httpApi.doHttpRequest(get, new CommitCarShppParse());
 	}
 

@@ -1,53 +1,56 @@
 package com.joy.Activity;
 
-import gejw.android.quickandroid.QActivity;
+import gejw.android.quickandroid.widget.HorizontalListView;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.joy.R;
+import com.joy.Activity.MainActivity;
+import com.joy.Dialog.DialogUtil;
 import com.joy.Utils.Constants;
 import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CategoriesGoodsDEntity.CategoriesGoods;
-import com.joy.json.model.StoreDetailEntity;
 import com.joy.json.model.GoodsDetail;
 import com.joy.json.model.SelectionModel;
+import com.joy.json.model.StoreDetailEntity;
 import com.joy.json.model.StoreDetailEntity.StoreDetail;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.CategoryStoreOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-/******
- * 商品详情
- * 
- * @author ADMIN
- * 
+/****
+ * 商店详情
+ * @author lsd
+ *
  */
-public class StoreDetailActivity extends BaseActivity {
+public class StoreDetailActivity extends BaseActivity { 
 
 	private RelativeLayout layout_title;
 	private TextView addToStore, storeNum;
@@ -55,33 +58,21 @@ public class StoreDetailActivity extends BaseActivity {
 	private ViewPager picViewPager;
 	private LinearLayout colorLayout, sizeLayout;
 	private CategoriesGoods goods;
-	private List<StoreDetail> templist;
-	private List<SelectionModel> tempColor;
-	private List<SelectionModel> tempSize;
-	private String colorSelect;
-	private String sizeSelect;
-/*
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_goods);
-
-		Intent intent = getIntent();
-		if (intent.hasExtra("detail")) {
-			goods = (CategoriesGoods) intent.getSerializableExtra("detail");
-			//Log.e("LSD", goods.getAppPicture());
-		}
-		templist = new ArrayList<StoreDetail>();
-		tempColor = new ArrayList<SelectionModel>();
-		tempSize = new ArrayList<SelectionModel>();
-
-		initViews();
-		initViewPager();
-		if (goods != null) {
-			getCategorieStore(goods.getId());
-		}
-	}*/
+	private List<StoreDetail> templist;//临时保存数据
 	
+	private List<SelectionModel> tempColor;//临时保存所有的颜色属性
+	private List<SelectionModel> tempSize;//临时保存所有的尺寸属性
+	private String colorSelect;//当前选择的颜色
+	private String sizeSelect;//当前保存的尺寸
+	
+	private LinearLayout ll_pager_num;
+	private ImageView ivAdd,ivSub;
+	private TextView tvGoodNum;
+	int color2 ;
+	DialogUtil dUtil;
+	int goodsNum =1;//商品选择的个数
+	
+
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -96,41 +87,103 @@ public class StoreDetailActivity extends BaseActivity {
 		tempColor = new ArrayList<SelectionModel>();
 		tempSize = new ArrayList<SelectionModel>();
 
-		initViews();
+		initViews(v);
 		initViewPager();
 		if (goods != null) {
 			getCategorieStore(goods.getId());
 		}
 		return v;
 	}
-
-	private void initViews() {
-		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
+	private void initViews(View v) {
+		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
-		tv_title = (TextView) findViewById(R.id.tv_title);
+		tv_title = (TextView) v.findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
-		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
+		
+		layout_title = (RelativeLayout) v.findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT, Constants.TitleHeight, 0, 0, 0, 0);
-		tv_ret = (TextView) findViewById(R.id.tv_ret);
+		
+		tv_ret = (TextView) v.findViewById(R.id.tv_ret);
+		ll_pager_num = (LinearLayout) v.findViewById(R.id.ll_pager_num);
+		
+		tvGoodNum = (TextView) v.findViewById(R.id.txt_num);
+		uiAdapter.setTextSize(tvGoodNum, 23);
+		uiAdapter.setMargin(tvGoodNum, -2, 48, 5, 0, 5, 0);
+		uiAdapter.setPadding(tvGoodNum, 20, 5, 20, 5);
+		tvGoodNum.setText(goodsNum+"");
+		
+		
+		ivAdd = (ImageView) v.findViewById(R.id.img_plus);
+		uiAdapter.setMargin(ivAdd, 60, 60, 0, 0, 0, 0);
+		ivAdd.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				goodsNum++;
+				tvGoodNum.setText(goodsNum+"");
+			}
+		});
+		
+		ivSub = (ImageView) v.findViewById(R.id.img_minus);
+		uiAdapter.setMargin(ivSub, 60, 60, 0, 0, 0, 0);
+		ivSub.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				goodsNum--;
+				if(goodsNum <=1){
+					goodsNum =1;
+				}
+				tvGoodNum.setText(goodsNum+"");
+			}
+		});
+		
 		tv_ret.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				// finish();
 				finish();
 			}
 		});
 		uiAdapter.setTextSize(tv_ret, Constants.TitleRetSize);
 		uiAdapter.setMargin(tv_ret, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 20, 0, 0, 0);
 
-		storeNum = (TextView) findViewById(R.id.store_num);
-		addToStore = (TextView) findViewById(R.id.add_to_store);
+		if (appSet != null) {
+			try {
+				color2 = Color.parseColor(appSet.getColor2());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		storeNum = (TextView) v.findViewById(R.id.store_num);
+		
+		addToStore = (TextView) v.findViewById(R.id.add_to_store);
+		uiAdapter.setMargin(addToStore, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0, 5, 0, 0);
+		uiAdapter.setPadding(addToStore, 30, 6, 30, 6);
+		
+		if (color2 != 0) {
+			// 设置颜色
+			addToStore.setBackgroundColor(color2);
+		}
 		addToStore.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(tempColor.size()>0 && TextUtils.isEmpty(colorSelect)){
+					Toast.show(self, "请选择商品属性");
+					return;
+				}
+				if(tempSize.size()>0 && TextUtils.isEmpty(sizeSelect)){
+					Toast.show(self, "请选择商品属性");
+					return;
+				}
+				
 				String numStr = storeNum.getText().toString();
 				int num = Integer.parseInt(numStr);
-				if (num == 0) {
+				if (num == 0 || goodsNum>num) {
 					Toast.show(self, "库存不足");
 					return;
 				}
@@ -142,14 +195,44 @@ public class StoreDetailActivity extends BaseActivity {
 				detail.setColor(colorSelect);
 				detail.setSize_cloth(sizeSelect);
 				detail.setIsLogoStore(true);
-				MainActivity.Add2ShopCar(self, detail, 1);
+				MainActivity.Add2ShopCar(self, detail, goodsNum);
 				Toast.show(self, "商品已加入购物车");
-				StoreDetailActivity.this.finish();
+				
+				/*dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {
+					@Override
+					public void positiveButtonClick() {
+						// TODO Auto-generated method stub
+						GoodsDetail detail = new GoodsDetail();
+						detail.setGoods_id(goods.getId() + "");
+						detail.setGoods_img(goods.getPicture());
+						detail.setGoods_name(goods.getComName());
+						detail.setColor(colorSelect);
+						detail.setSize_cloth(sizeSelect);
+						detail.setIsLogoStore(true);
+						MainActivity.Add2ShopCar(mActivity, detail, goodsNum);
+						Toast.show(mActivity, "商品已加入购物车");
+						// StoreDetailActivity.this.finish();
+					}
+					@Override
+					public void negativeButtonClick() {
+						// TODO Auto-generated method stub
+					}
+				});*/
 			}
 		});
-		picViewPager = (ViewPager) findViewById(R.id.pic_viewpager);
-		colorLayout = (LinearLayout) findViewById(R.id.color_layout);
-		sizeLayout = (LinearLayout) findViewById(R.id.size_layout);
+		picViewPager = (ViewPager) v.findViewById(R.id.pic_viewpager);
+		colorLayout = (LinearLayout) v.findViewById(R.id.color_layout);
+		sizeLayout = (LinearLayout) v.findViewById(R.id.size_layout);
+		
+		initViewPager();
+		if(goods != null){
+			if(templist.size() ==0){
+				getCategorieStore(goods.getId());
+			}else{
+				setColorAndSzieToView();
+				calculateStore();
+			}
+		}
 	}
 
 	private void initViewPager() {
@@ -157,20 +240,61 @@ public class StoreDetailActivity extends BaseActivity {
 			ViewPagerAdapter adapter = new ViewPagerAdapter();
 			picViewPager.setAdapter(adapter);
 			String pics = goods.getAppPicture();
+			String[] picUrls;
+			int len;
 			if (pics.contains(";")) {
-				String[] picUrls = pics.split(";");
-				int len = picUrls.length;
+				picUrls = pics.split(";");
+				len = picUrls.length;
+			} else {
+				picUrls = new String[]{pics};
+				len = 1;
+			}
+				
 				if (len > 0) {
+					for (int i = 0; i < len; i++) {
+						Button bt = new Button(self);
+						LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(uiAdapter.CalcWidth(10), uiAdapter.CalcWidth(10));
+						params.setMargins(5, 0, 5, 0);
+						bt.setLayoutParams(params);
+						bt.setBackgroundResource(R.drawable.point_press);
+						if(i == 0){
+							//设置第一个
+							if(color2 != 0){
+								bt.setBackgroundColor(color2);
+							}
+						}
+						ll_pager_num.addView(bt);
+					}
+					picViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+						@Override
+						public void onPageSelected(int position) {
+							int count = ll_pager_num.getChildCount();
+							for(int i=0;i<count;i++){
+								Button bt = (Button) ll_pager_num.getChildAt(i);
+								bt.setBackgroundResource(R.drawable.point_press);
+							}
+							//选中的
+							Button currentBt = (Button) ll_pager_num.getChildAt(position);
+							if(color2 != 0){
+								currentBt.setBackgroundColor(color2);
+							}
+						}
+						@Override
+						public void onPageScrolled(int arg0, float arg1, int arg2) {
+						}
+						@Override
+						public void onPageScrollStateChanged(int arg0) {
+						}
+					});
+					
 					List<View> views = new ArrayList<View>();
 					for (int i = 0; i < len; i++) {
-						View view = LayoutInflater.from(StoreDetailActivity.this).inflate(R.layout.store_item_image,
-								null);
+						View view = LayoutInflater.from(self).inflate(R.layout.store_item_image, null);
 						view.setTag(picUrls[i]);
 						views.add(view);
 					}
 					adapter.setViews(views);
 				}
-			}
 		}
 	}
 
@@ -212,6 +336,7 @@ public class StoreDetailActivity extends BaseActivity {
 	 * @param storelist
 	 */
 	private void setData(List<StoreDetail> storelist) {
+		Log.e("----------------",new Gson().toJson(storelist));
 		if (storelist != null && storelist.size() > 0) {
 			// 查找存在的颜色和尺寸
 			for (StoreDetail store : storelist) {
@@ -219,8 +344,7 @@ public class StoreDetailActivity extends BaseActivity {
 				if (CAndS.contains(";")) {
 					String[] sp = CAndS.split(";");
 					if (sp.length == 2) {
-						addColorAndSize(sp[0].substring(sp[0].indexOf(":") + 1),
-								sp[1].substring(sp[1].indexOf(":") + 1));
+						addColorAndSize(sp[0].substring(sp[0].indexOf(":") + 1), sp[1].substring(sp[1].indexOf(":") + 1));
 						store.setColor(sp[0].substring(sp[0].indexOf(":") + 1));
 						store.setSize(sp[1].substring(sp[1].indexOf(":") + 1));
 					}
@@ -284,14 +408,12 @@ public class StoreDetailActivity extends BaseActivity {
 	 */
 	private void setColorAndSzieToView() {
 		if (tempColor.size() > 0) {
-			GridView colorGridView = new GridView(self);
-			colorGridView.setNumColumns(tempColor.size());
-			colorGridView.setHorizontalSpacing(10);
-			colorGridView.setCacheColorHint(Color.parseColor("#00000000"));
-			colorGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-			colorGridView.setVerticalScrollBarEnabled(false);
-			colorGridView.setHorizontalFadingEdgeEnabled(false);
-			colorGridView.setOnItemClickListener(new OnItemClickListener() {
+			HorizontalListView hColorListView = new HorizontalListView(self, null);
+			hColorListView.setHorizontalScrollBarEnabled(false);
+			hColorListView.setDivider(null);
+			hColorListView.setDividerWidth(15);
+			uiAdapter.setMargin(hColorListView, LayoutParams.MATCH_PARENT, 80, 0, 5, 0, 5);
+			hColorListView.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					// TODO Auto-generated method stub
@@ -311,19 +433,19 @@ public class StoreDetailActivity extends BaseActivity {
 			});
 
 			GridAdapter colorAdapter = new GridAdapter();
-			colorGridView.setAdapter(colorAdapter);
+			hColorListView.setAdapter(colorAdapter);
 			colorAdapter.setData(tempColor);
-			colorLayout.addView(colorGridView);
+			colorLayout.setGravity(Gravity.CENTER_VERTICAL);
+			uiAdapter.setMargin(colorLayout, LayoutParams.MATCH_PARENT, 84, 0, 2, 0, 2);
+			colorLayout.addView(hColorListView);
 		}
 		if (tempSize.size() > 0) {
-			GridView sizeGridView = new GridView(self);
-			sizeGridView.setNumColumns(tempSize.size());
-			sizeGridView.setHorizontalSpacing(10);
-			sizeGridView.setCacheColorHint(Color.parseColor("#00000000"));
-			sizeGridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-			sizeGridView.setVerticalScrollBarEnabled(false);
-			sizeGridView.setHorizontalFadingEdgeEnabled(false);
-			sizeGridView.setOnItemClickListener(new OnItemClickListener() {
+			HorizontalListView hSizeListView = new HorizontalListView(self, null);
+			hSizeListView.setHorizontalScrollBarEnabled(false);
+			hSizeListView.setDivider(null);
+			hSizeListView.setDividerWidth(15);
+			uiAdapter.setMargin(hSizeListView, LayoutParams.MATCH_PARENT, 80, 0, 2, 0, 2);
+			hSizeListView.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					// TODO Auto-generated method stub
@@ -343,9 +465,11 @@ public class StoreDetailActivity extends BaseActivity {
 			});
 
 			GridAdapter sizeAdapter = new GridAdapter();
-			sizeGridView.setAdapter(sizeAdapter);
+			hSizeListView.setAdapter(sizeAdapter);
 			sizeAdapter.setData(tempSize);
-			sizeLayout.addView(sizeGridView);
+			sizeLayout.setGravity(Gravity.CENTER_VERTICAL);
+			uiAdapter.setMargin(sizeLayout, LayoutParams.MATCH_PARENT, 84, 0, 2, 0, 2);
+			sizeLayout.addView(hSizeListView);
 		}
 	}
 
@@ -354,10 +478,15 @@ public class StoreDetailActivity extends BaseActivity {
 	 */
 	private void calculateStore() {
 		if (!TextUtils.isEmpty(colorSelect) && !TextUtils.isEmpty(sizeSelect)) {
+			boolean find = false;
 			for (StoreDetail cStore : templist) {
 				if (colorSelect.equals(cStore.getColor()) && sizeSelect.equals(cStore.getSize())) {
+					find = true;
 					storeNum.setText(cStore.getAmount() + "");
 				}
+			}
+			if(!find){
+				storeNum.setText(0 + "");
 			}
 		} else if (!TextUtils.isEmpty(colorSelect) && TextUtils.isEmpty(sizeSelect)) {
 			for (StoreDetail cStore : templist) {
@@ -492,6 +621,6 @@ public class StoreDetailActivity extends BaseActivity {
 		public void destroyItem(View container, int position, Object object) {
 			((ViewPager) container).removeView(views.get(position));
 		}
-}
-	
+	}
+
 }

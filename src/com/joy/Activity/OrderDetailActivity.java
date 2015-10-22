@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.joy.JoyApplication;
 import com.joy.R;
 import com.joy.Dialog.DialogUtil;
@@ -259,7 +261,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			}
 		});
 	}
-	
+	//福利商品中的添加购物车
 	@Override
 	public void onClick(final View v) {
 		switch (v.getId()) {
@@ -277,6 +279,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			    detail.setPoints(entity.getPoints());
 				detail.setIsLogoStore(false);
 				detail.setGoods_id(String.format("%d", entity.getId()));
+				Log.e("++++++++++",new Gson().toJson(detail));
 				MainActivity.Add2ShopCar(OrderDetailActivity.this, detail, goodsNum);
 				Toast.show(OrderDetailActivity.this, getResources().getString(R.string.shopptingadded));
 			}
