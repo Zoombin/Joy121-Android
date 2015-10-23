@@ -31,7 +31,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,21 +59,67 @@
                     android:layout_marginBottom="5dip"
                     android:orientation="horizontal" />
             </RelativeLayout>
+ <!-- 商品名称和描述 -->
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:orientation="vertical" >
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <TextView  
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="名称："
+                         android:textColor="@color/BLACK" />
+                     <TextView  
+                         android:id="@+id/tv_comName"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="10dip"
+                         android:textColor="@color/BLACK" />
+                </LinearLayout>
+                  <LinearLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dip">
+                    <TextView  
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="描述："
+                         android:textColor="@color/BLACK" />
+                    <TextView
+                         android:id="@+id/tv_comDesc"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="10dip"
+                         android:textColor="@color/BLACK" />
+                </LinearLayout>
+          
 
+       
+
+            </LinearLayout>
+            
             <!-- 颜色选择 -->
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
                 android:orientation="vertical" >
-
-                <TextView
+                <View
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dip"
-                    android:text="@string/colour"
-                    android:textColor="@color/BLACK"
-                    android:textSize="14sp" />
+                    android:layout_height="1px"
+                    android:background="#c4c4c4" />
+                 <Spinner
+                        android:id="@+id/sp_colorProperty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/WHITE"
+                        android:clickable="false"
+                        android:textColor="@color/BLACK" />
 
                 <View
                     android:layout_width="fill_parent"
@@ -101,13 +148,13 @@
                 android:layout_marginTop="5dip"
                 android:orientation="vertical" >
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dip"
-                    android:text="@string/size"
-                    android:textColor="@color/BLACK"
-                    android:textSize="14sp" />
+                <Spinner
+                        android:id="@+id/sp_sizeProperty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/WHITE"
+                        android:clickable="false"
+                        android:textColor="@color/BLACK" />
 
                 <View
                     android:layout_width="fill_parent"

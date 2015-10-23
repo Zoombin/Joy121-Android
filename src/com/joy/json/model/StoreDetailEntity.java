@@ -12,6 +12,7 @@ public class StoreDetailEntity extends TResult {
 	int flag;
 	String msg;
 	List<StoreDetail> retobj;
+	
 
 	public int getFlag() {
 		return flag;
@@ -44,7 +45,21 @@ public class StoreDetailEntity extends TResult {
 		int StatusFlag;
 		String color;
 		String size;
-		public int getCommodityId() {
+		String ComDesc;
+		String ComName;
+		public String getComDesc() {
+			return ComDesc;
+		}
+		public void setComDesc(String comDesc) {
+			ComDesc = comDesc;
+		}
+		public String getComName() {
+			return ComName;
+		}
+		public void setComName(String comName) {
+			ComName = comName;
+		}
+				public int getCommodityId() {
 			return CommodityId;
 		}
 		public void setCommodityId(int commodityId) {
@@ -80,6 +95,7 @@ public class StoreDetailEntity extends TResult {
 		public void setSize(String size) {
 			this.size = size;
 		}
+		
 	}
 
 }

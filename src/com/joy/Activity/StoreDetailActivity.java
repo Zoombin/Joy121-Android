@@ -4,9 +4,12 @@ import gejw.android.quickandroid.widget.HorizontalListView;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -22,11 +25,13 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -38,11 +43,15 @@ import com.joy.json.JsonCommon;
 import com.joy.json.JsonCommon.OnOperationListener;
 import com.joy.json.model.CategoriesGoodsDEntity.CategoriesGoods;
 import com.joy.json.model.GoodsDetail;
+import com.joy.json.model.LogoStorePropertyDataDetailEntity;
+import com.joy.json.model.LogoStorePropertyDataEntity;
 import com.joy.json.model.SelectionModel;
+import com.joy.json.model.SpinnerData;
 import com.joy.json.model.StoreDetailEntity;
 import com.joy.json.model.StoreDetailEntity.StoreDetail;
 import com.joy.json.operation.OperationBuilder;
 import com.joy.json.operation.impl.CategoryStoreOp;
+import com.joy.json.operation.impl.LogoStrorePropertyDataOp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /****
@@ -71,6 +80,12 @@ public class StoreDetailActivity extends BaseActivity {
 	int color2 ;
 	DialogUtil dUtil;
 	int goodsNum =1;//商品选择的个数
+	private Spinner sp_colorProperty,sp_sizeProperty;
+	private Resources resources;
+	private List<SpinnerData> list_colorProperty,list_sizeProperty;
+	private ArrayAdapter<SpinnerData> colorProperty_adapter,sizeProperty_adapter;
+	private String colorProperty="",sizeProperty="";
+	private TextView tv_comName,tv_comDesc;
 	
 
 	@Override
@@ -92,6 +107,7 @@ public class StoreDetailActivity extends BaseActivity {
 		if (goods != null) {
 			getCategorieStore(goods.getId());
 		}
+		bindStorePropertyData();
 		return v;
 	}
 	private void initViews(View v) {
@@ -105,13 +121,15 @@ public class StoreDetailActivity extends BaseActivity {
 		
 		tv_ret = (TextView) v.findViewById(R.id.tv_ret);
 		ll_pager_num = (LinearLayout) v.findViewById(R.id.ll_pager_num);
-		
+		tv_comName = (TextView) v.findViewById(R.id.tv_comName);
+		tv_comDesc = (TextView) v.findViewById(R.id.tv_comDesc);
 		tvGoodNum = (TextView) v.findViewById(R.id.txt_num);
 		uiAdapter.setTextSize(tvGoodNum, 23);
 		uiAdapter.setMargin(tvGoodNum, -2, 48, 5, 0, 5, 0);
 		uiAdapter.setPadding(tvGoodNum, 20, 5, 20, 5);
 		tvGoodNum.setText(goodsNum+"");
-		
+		sp_colorProperty = (Spinner) findViewById(R.id.sp_colorProperty);
+		sp_sizeProperty = (Spinner) findViewById(R.id.sp_sizeProperty);
 		
 		ivAdd = (ImageView) v.findViewById(R.id.img_plus);
 		uiAdapter.setMargin(ivAdd, 60, 60, 0, 0, 0, 0);
@@ -187,14 +205,21 @@ public class StoreDetailActivity extends BaseActivity {
 					Toast.show(self, "库存不足");
 					return;
 				}
-
 				GoodsDetail detail = new GoodsDetail();
+//				Map<String,String> map=new HashMap<String,String>();
+//				map.put("goods_id",goods.getId() + "");
+//				map.put("goods_img",goods.getPicture());
+//				map.put("goods_name",goods.getComName());
+//				map.put(colorProperty,colorSelect);
+//				map.put(sizeProperty,sizeSelect);
 				detail.setGoods_id(goods.getId() + "");
 				detail.setGoods_img(goods.getPicture());
 				detail.setGoods_name(goods.getComName());
 				detail.setColor(colorSelect);
 				detail.setSize_cloth(sizeSelect);
+				
 				detail.setIsLogoStore(true);
+				Log.e("33333333333333333333333", new Gson().toJson(detail));
 				MainActivity.Add2ShopCar(self, detail, goodsNum);
 				Toast.show(self, "商品已加入购物车");
 				
@@ -245,6 +270,7 @@ public class StoreDetailActivity extends BaseActivity {
 			if (pics.contains(";")) {
 				picUrls = pics.split(";");
 				len = picUrls.length;
+				
 			} else {
 				picUrls = new String[]{pics};
 				len = 1;
@@ -262,8 +288,8 @@ public class StoreDetailActivity extends BaseActivity {
 							if(color2 != 0){
 								bt.setBackgroundColor(color2);
 							}
+							ll_pager_num.addView(bt);
 						}
-						ll_pager_num.addView(bt);
 					}
 					picViewPager.setOnPageChangeListener(new OnPageChangeListener() {
 						@Override
@@ -329,6 +355,85 @@ public class StoreDetailActivity extends BaseActivity {
 		JsonCommon task = new JsonCommon(self, builder, listener, JsonCommon.PROGRESSQUERY);
 		task.execute();
 	}
+	private void bindStorePropertyData() {
+		LogoStorePropertyDataDetailEntity entity = new LogoStorePropertyDataDetailEntity();
+		OperationBuilder builder = new OperationBuilder().append(
+				new LogoStrorePropertyDataOp(), entity);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (self.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					Toast.show(self, resources.getString(R.string.timeout));
+					return;
+				}
+				LogoStorePropertyDataEntity entity = (LogoStorePropertyDataEntity) resList
+						.get(0);
+				List<LogoStorePropertyDataDetailEntity> propertyList = entity.getRetobj();
+					// 数据
+				list_colorProperty = new ArrayList<SpinnerData>();
+					for (int i = 0; i < propertyList.size(); i++) {
+						SpinnerData color = new SpinnerData(propertyList
+								.get(i).getPropertyMetaId(), propertyList.get(i).getPropertyMetaDispName());
+						list_colorProperty.add(color);
+					}
+					// 适配器
+					colorProperty_adapter = new ArrayAdapter<SpinnerData>(
+							StoreDetailActivity.this,
+							android.R.layout.simple_spinner_item, list_colorProperty);
+					// 设置样式
+					colorProperty_adapter
+							.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					// 加载适配器
+					sp_colorProperty.setAdapter(colorProperty_adapter);
+					
+					
+					@SuppressWarnings("unchecked")
+					ArrayAdapter<SpinnerData> color1 = (ArrayAdapter<SpinnerData>) sp_colorProperty.getAdapter();
+					for (int i = 0; i < color1.getCount(); i++) {
+						if (colorProperty.equals(color1.getItem(i).getValue().toString())) {
+							sp_colorProperty.setSelection(i, true);
+						}else{
+							sp_sizeProperty.setTag(colorProperty);
+						}
+					}
+					// 数据
+					list_sizeProperty = new ArrayList<SpinnerData>();
+						for (int i = 0; i < propertyList.size(); i++) {
+							SpinnerData size = new SpinnerData(propertyList
+									.get(i).getPropertyMetaId(), propertyList.get(i).getPropertyMetaDispName());
+							list_sizeProperty.add(size);
+						}
+						// 适配器
+						sizeProperty_adapter = new ArrayAdapter<SpinnerData>(
+								StoreDetailActivity.this,
+								android.R.layout.simple_spinner_item, list_sizeProperty);
+						// 设置样式
+						sizeProperty_adapter
+								.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+						// 加载适配器
+						sp_sizeProperty.setAdapter(sizeProperty_adapter);
+					    //根据得到的值显示属性
+						ArrayAdapter<SpinnerData> size1 = (ArrayAdapter<SpinnerData>) sp_sizeProperty.getAdapter();
+						for (int i = 0; i < size1.getCount(); i++) {
+							if (sizeProperty.equals(size1.getItem(i).getValue().toString())) {
+								sp_sizeProperty.setSelection(i, true);
+							}else{
+								sp_sizeProperty.setTag(sizeProperty);
+							}
+						}
+			}
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+		JsonCommon task = new JsonCommon(self, builder, listener,
+				JsonCommon.PROGRESSCOMMIT);
+		task.execute();
+	}
 
 	/*****
 	 * 设置数据
@@ -336,18 +441,24 @@ public class StoreDetailActivity extends BaseActivity {
 	 * @param storelist
 	 */
 	private void setData(List<StoreDetail> storelist) {
-		Log.e("----------------",new Gson().toJson(storelist));
 		if (storelist != null && storelist.size() > 0) {
+			
 			// 查找存在的颜色和尺寸
 			for (StoreDetail store : storelist) {
+				tv_comName.setText(store.getComName());
+				tv_comDesc.setText(store.getComDesc());
 				String CAndS = store.getPropertyValues();
 				if (CAndS.contains(";")) {
 					String[] sp = CAndS.split(";");
-					if (sp.length == 2) {
+//					if (sp.length == 2) {
 						addColorAndSize(sp[0].substring(sp[0].indexOf(":") + 1), sp[1].substring(sp[1].indexOf(":") + 1));
+						String [] colorArray=sp[0].split(":");
+						String [] sizeArray=sp[1].split(":");
+						colorProperty=colorArray[0];
+						sizeProperty=sizeArray[0];
 						store.setColor(sp[0].substring(sp[0].indexOf(":") + 1));
 						store.setSize(sp[1].substring(sp[1].indexOf(":") + 1));
-					}
+//					}
 					templist.add(store);
 				} else {
 					if (CAndS.contains("color")) {
@@ -365,7 +476,6 @@ public class StoreDetailActivity extends BaseActivity {
 			setColorAndSzieToView();
 		}
 	}
-
 	/*****
 	 * 保存临时的颜色和尺寸
 	 * 
