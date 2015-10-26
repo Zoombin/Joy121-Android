@@ -83,7 +83,7 @@ public class OrderConfirmActivity extends BaseActivity implements OnClickListene
 		View v = inflater.inflate(R.layout.activity_orderconfirm, null);
 		setContentView(v);
 		Intent intent = getIntent();
-		commoditySet = (CommoditySet) intent.getSerializableExtra(OrderDetailActivity.EXTRA_COMMODITYSET);
+		commoditySet = (CommoditySet) intent.getSerializableExtra(WelfareDetailActivity.EXTRA_COMMODITYSET);
 		userinfo = JoyApplication.getInstance().getUserinfo();
 		
 		initView();

@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joy.R;
-import com.joy.Activity.OrderDetailActivity;
+import com.joy.Activity.WelfareDetailActivity;
 import com.joy.Utils.Constants;
 import com.joy.json.model.CommoditySet;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -122,8 +122,8 @@ public class OrderGridViewAdapter extends BaseAdapter {
 			switch (v.getId()) {
 			case R.id.img_icon:
 				Intent intent = new Intent();
-				intent.putExtra(OrderDetailActivity.EXTRA_COMMSETID, (Integer) v.getTag());
-				intent.setClass(mContext, OrderDetailActivity.class);
+				intent.putExtra(WelfareDetailActivity.EXTRA_COMMSETID, (Integer) v.getTag());
+				intent.setClass(mContext, WelfareDetailActivity.class);
 				mContext.startActivity(intent);
 				break;
 			default:

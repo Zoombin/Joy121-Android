@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 import com.joy.R;
 import com.joy.Activity.MainActivity;
-import com.joy.Activity.OrderDetailActivity;
+import com.joy.Activity.WelfareDetailActivity;
 import com.joy.Dialog.DialogUtil;
 import com.joy.Dialog.DialogUtil.DialogButtonClickCallback;
 import com.joy.Utils.Constants;
@@ -169,9 +169,9 @@ public class WelfareAdapter extends BaseAdapter {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent();
-					intent.putExtra(OrderDetailActivity.EXTRA_COMMSETID,
+					intent.putExtra(WelfareDetailActivity.EXTRA_COMMSETID,
 							entity.getId());
-					intent.setClass(mContext, OrderDetailActivity.class);
+					intent.setClass(mContext, WelfareDetailActivity.class);
 					mContext.startActivity(intent);
 				}
 			});

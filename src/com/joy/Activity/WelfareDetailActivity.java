@@ -45,11 +45,11 @@ import com.joy.json.operation.impl.OrderDetailOp;
 import com.umeng.analytics.MobclickAgent;
 
 /**
- * 订单详情
+ * 福利订单详情
  * @author daiye
  *
  */
-public class OrderDetailActivity extends BaseActivity implements OnClickListener {
+public class WelfareDetailActivity extends BaseActivity implements OnClickListener {
 	
 	private int commsetid;
 	public static final String EXTRA_COMMSETID = "commsetid";
@@ -85,7 +85,7 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		dUtil = new DialogUtil(OrderDetailActivity.this);
+		dUtil = new DialogUtil(WelfareDetailActivity.this);
 		super.onCreate(savedInstanceState);
 	}
 	
@@ -279,9 +279,8 @@ public class OrderDetailActivity extends BaseActivity implements OnClickListener
 			    detail.setPoints(entity.getPoints());
 				detail.setIsLogoStore(false);
 				detail.setGoods_id(String.format("%d", entity.getId()));
-				Log.e("++++++++++",new Gson().toJson(detail));
-				MainActivity.Add2ShopCar(OrderDetailActivity.this, detail, goodsNum);
-				Toast.show(OrderDetailActivity.this, getResources().getString(R.string.shopptingadded));
+				MainActivity.Add2ShopCar(WelfareDetailActivity.this, detail, goodsNum);
+				Toast.show(WelfareDetailActivity.this, getResources().getString(R.string.shopptingadded));
 			}
 			
 			/*dUtil.showDialog("加入购物车？", 0, "确定", "取消", new DialogButtonClickCallback() {

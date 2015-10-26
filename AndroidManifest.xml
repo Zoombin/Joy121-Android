@@ -91,7 +91,7 @@
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
-            android:name="com.joy.Activity.OrderDetailActivity"
+            android:name="com.joy.Activity.WelfareDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >

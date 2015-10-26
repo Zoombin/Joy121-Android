@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.joy.R;
-import com.joy.Activity.OrderDetailActivity;
+import com.joy.Activity.WelfareDetailActivity;
 import com.joy.Utils.Constants;
 import com.joy.json.model.CommoditySet;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -75,8 +75,8 @@ public class HomeWelfareGridViewAdapter extends BaseAdapter {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent();
-					intent.putExtra(OrderDetailActivity.EXTRA_COMMSETID, entity.getId());
-					intent.setClass(mContext, OrderDetailActivity.class);
+					intent.putExtra(WelfareDetailActivity.EXTRA_COMMSETID, entity.getId());
+					intent.setClass(mContext, WelfareDetailActivity.class);
 					mContext.startActivity(intent);
 				}
 			});

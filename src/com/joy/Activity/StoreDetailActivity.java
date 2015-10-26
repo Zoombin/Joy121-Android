@@ -56,7 +56,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 /****
  * 商店详情
- * @author lsd
  *
  */
 public class StoreDetailActivity extends BaseActivity { 
@@ -212,12 +211,12 @@ public class StoreDetailActivity extends BaseActivity {
 //				map.put("goods_name",goods.getComName());
 //				map.put(colorProperty,colorSelect);
 //				map.put(sizeProperty,sizeSelect);
+				
 				detail.setGoods_id(goods.getId() + "");
 				detail.setGoods_img(goods.getPicture());
 				detail.setGoods_name(goods.getComName());
 				detail.setColor(colorSelect);
 				detail.setSize_cloth(sizeSelect);
-				
 				detail.setIsLogoStore(true);
 				Log.e("33333333333333333333333", new Gson().toJson(detail));
 				MainActivity.Add2ShopCar(self, detail, goodsNum);

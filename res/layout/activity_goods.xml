@@ -1,16 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/layout_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/title_bg" >
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
 
-        <TextView
+	    <RelativeLayout
+	        android:id="@+id/layout_title"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@color/title_bg" >
+
+	        <TextView
             android:id="@+id/tv_ret"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,8 +23,7 @@
             android:layout_centerVertical="true"
             android:text="@string/ret"
             android:textColor="@color/WHITE" />
-
-        <TextView
+	        <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,25 +31,15 @@
             android:layout_centerVertical="true"
             android:text="@string/goods_detail"
             android:textColor="@color/WHITE" />
-    </RelativeLayout>
+    	</RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <RelativeLayout
+	     <RelativeLayout
                 android:id="@+id/layout_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="160dip"
                 android:background="@color/WHITE" >
 
-                <com.joy.Widget.ChildViewPager
+	        <com.joy.Widget.ChildViewPager
                     android:id="@+id/pic_viewpager"
                     android:layout_width="fill_parent"
                     android:layout_height="160dip" />
@@ -58,8 +52,17 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="5dip"
                     android:orientation="horizontal" />
-            </RelativeLayout>
- <!-- 商品名称和描述 -->
+    	</RelativeLayout>
+	    <!-- 商品名称和描述 -->
+	     <ScrollView
+	        android:id="@+id/scroll_product"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:scrollbars="none" >
+                  <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -96,13 +99,8 @@
                          android:layout_marginLeft="10dip"
                          android:textColor="@color/BLACK" />
                 </LinearLayout>
-          
-
-       
-
             </LinearLayout>
-            
-            <!-- 颜色选择 -->
+	          <!-- 颜色选择 -->
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -139,7 +137,6 @@
                     android:layout_height="1px"
                     android:background="#c4c4c4" />
             </LinearLayout>
-
             <!-- 尺寸选择 -->
 
             <LinearLayout
@@ -174,9 +171,17 @@
                     android:layout_height="1px"
                     android:background="#c4c4c4" />
             </LinearLayout>
-
-            <!-- 加入购物车 -->
-
+    </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+    <!-- 加入购物车 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_marginBottom="5dip"
+        android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/store_layout"
                 android:layout_width="fill_parent"
@@ -184,12 +189,10 @@
                 android:layout_marginTop="20dip"
                 android:orientation="vertical" 
                 android:layout_gravity="bottom">
-
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1px"
                     android:background="#c4c4c4" />
-
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -265,13 +268,11 @@
                             android:textSize="13sp" />
                     </LinearLayout>
                 </RelativeLayout>
-
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1px"
                     android:background="#c4c4c4" />
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+    </RelativeLayout>
+           
+</RelativeLayout>
