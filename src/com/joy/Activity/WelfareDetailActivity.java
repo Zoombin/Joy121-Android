@@ -92,7 +92,7 @@ public class WelfareDetailActivity extends BaseActivity implements OnClickListen
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View v = inflater.inflate(R.layout.activity_orderdetail, null);
+		View v = inflater.inflate(R.layout.activity_welfaredetail, null);
 		setContentView(v);
 		commsetid = getIntent().getIntExtra(EXTRA_COMMSETID, -1);
 		//默认color2颜色

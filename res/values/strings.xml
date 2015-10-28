@@ -73,6 +73,8 @@
     <string name="compangphone">公司电话：</string>
     <string name="male">男</string>
     <string name="female">女</string>
+    <string name="unmarried">未婚</string>
+    <string name="married">已婚</string>
     
 
     <!-- welfare -->
@@ -304,6 +306,7 @@
     <string name="gender">性别：</string>
     <string name="address">籍贯：</string>
     <string name="idNo">身份证号：</string>
+    
     <string name="educationNo">学历证号：</string>
     <string name="accumFund">公积金编号：</string>
     <string name="depositBank">开户银行：</string>
@@ -367,7 +370,14 @@
     <string name="entry_save">保存</string>
     <string name="entry_next">下一步</string>
     <string name="entry_upload">提交</string>
-  
+     
+    
+    <!-- 体检 -->
+    <string name="bookingDate">预约时间：</string>
+    <string name="bookingPlace">预约地点：</string>
+    <string name="bookingPlan">体检套餐：</string>
+    <string name="isMarried">婚姻状况：</string>
+    <string name="addBooking">补充体检：</string>
     
     <!--footview-->
     <string name="total_integral">总计：0积分</string>
