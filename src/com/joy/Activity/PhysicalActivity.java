@@ -1,7 +1,5 @@
 package com.joy.Activity;
 
-import gejw.android.quickandroid.QActivity;
-
 import com.joy.R;
 import com.joy.Utils.Constants;
 
@@ -64,6 +62,14 @@ public class PhysicalActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.imageBooking:
 			intent.setClass(self, PhysicalBookingActivity.class);
+			startActivity(intent);
+			break;
+		case R.id.imageBookingResults:
+			intent.setClass(self, PhysicalBookingResultsActivity.class);
+			startActivity(intent);
+			break;
+		case R.id.imageResults:
+			intent.setClass(self, PhyscialResultsActivity.class);
 			startActivity(intent);
 			break;
 		default:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+ 
     <color name="bg">#eff3f3</color>
     
     <color name="red">#FF0000</color>
@@ -25,5 +25,8 @@
 	<color name="btn_disable">#D4D4D4</color>
 	<color name="gray">#8E8E8E</color>
 	<color name="black">#000000</color>
+	<!-- 体检日历 -->
+	<color name="white">#FFFFFF</color>
+    <color name="calendar_top_bg">#F5A0B3</color>
 	
 </resources>

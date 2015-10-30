@@ -373,12 +373,17 @@
      
     
     <!-- 体检 -->
-    <string name="bookingDate">预约时间：</string>
-    <string name="bookingPlace">预约地点：</string>
-    <string name="bookingPlan">体检套餐：</string>
+    <string name="documentType">证件类型：</string>
     <string name="isMarried">婚姻状况：</string>
-    <string name="addBooking">补充体检：</string>
-    
+    <string name="medicalInformation">体检须知：</string>
+    <string name="bookingProductName">产品名：</string>
+    <string name="bookingCity">城市：</string>
+    <string name="bookingCenter">体检中心：</string>
+    <string name="bookingPlace">体检地址：</string>
+    <string name="trafficRoutes">交通路线：</string>
+     <string name="bookingDate">体检日期：</string>
+      <string name="bookingPlan">体检套餐：</string>
+     <string name="addBooking">补充体检：</string>
     <!--footview-->
     <string name="total_integral">总计：0积分</string>
     <string name="nogoods">亲，暂时没有商品，选好商品后再回来结算哦！</string>

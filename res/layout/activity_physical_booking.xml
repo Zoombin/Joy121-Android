@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg"
+        android:background="@color/WHITE"
         android:orientation="vertical" >
 
         <RelativeLayout
@@ -26,6 +26,35 @@
                 android:layout_marginLeft="10dip"
                 android:scaleType="fitXY"
                 android:src="@drawable/arrow_left" />
+            <ImageView
+                android:id="@+id/iv_retBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/arrow_left"
+                android:visibility="invisible" />
+             <ImageView
+                android:id="@+id/iv_retBack1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/arrow_left"
+                android:visibility="invisible" />
+            <TextView
+                android:id="@+id/tv_goBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dip"
+                android:layout_marginLeft="25dip"
+                android:text="上一步"
+                android:textColor="@color/WHITE" 
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/tv_title"
@@ -33,15 +62,16 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="体检预约"
+                android:text="个人信息"
                 android:textColor="@color/WHITE" />
         </RelativeLayout>
-
-        <LinearLayout
+        
+          <LinearLayout
+              android:id="@+id/layout_personalInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/WHITE"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,20 +80,20 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:id="@+id/iv_bookingDate"
+                    android:id="@+id/iv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/entry_date" />
+                    android:background="@drawable/entry_chinesename" />
 
                 <TextView
-                    android:id="@+id/tv_bookingDate"
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bookingDate"
+                    android:text="@string/personName"
                     android:textColor="@color/BLACK" />
 
                 <EditText
-                    android:id="@+id/et_bookingDate"
+                    android:id="@+id/et_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/entry_manage_bg"
@@ -80,20 +110,20 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:id="@+id/iv_bookingPlace"
+                    android:id="@+id/iv_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/entry_nowaddress" />
+                    android:background="@drawable/entry_gender" />
 
                 <TextView
-                    android:id="@+id/tv_bookingPlace"
+                    android:id="@+id/tv_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bookingPlace"
+                    android:text="@string/gender"
                     android:textColor="@color/BLACK" />
 
                 <EditText
-                    android:id="@+id/et_bookingPlace"
+                    android:id="@+id/et_gender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/entry_manage_bg"
@@ -110,20 +140,20 @@
                 android:orientation="horizontal" >
 
                 <ImageView
-                    android:id="@+id/iv_bookingPlan"
+                    android:id="@+id/iv_documentType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/entry_checkreporting"/>
+                    android:background="@drawable/entry_academicphoto"/>
 
                 <TextView
-                    android:id="@+id/tv_bookingPlan"
+                    android:id="@+id/tv_documentType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/bookingPlan"
+                    android:text="@string/documentType"
                     android:textColor="@color/BLACK" />
 
-                <EditText
-                    android:id="@+id/et_bookingPlan"
+                <Spinner
+                    android:id="@+id/sp_documentType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/entry_manage_bg"
@@ -134,6 +164,35 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dip"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/iv_idNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_idno" />
+
+                <TextView
+                    android:id="@+id/tv_idNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/idNo"
+                    android:textColor="@color/BLACK" />
+
+                <EditText
+                    android:id="@+id/et_idNo"
+                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_manage_bg"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:singleLine="true"
+                    android:textColor="@color/BLACK"/>
+            </LinearLayout>
+              <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dip"
@@ -167,6 +226,252 @@
                 android:orientation="horizontal" >
 
                 <ImageView
+                    android:id="@+id/iv_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_contactway" />
+
+                <TextView
+                    android:id="@+id/tv_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mobile"
+                    android:textColor="@color/BLACK" />
+
+                <EditText
+                    android:id="@+id/et_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_manage_bg"
+                    android:textColor="@color/BLACK" />
+            </LinearLayout>
+        </LinearLayout>
+ 
+        <LinearLayout
+            android:id="@+id/layout_bookingInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/WHITE"
+            android:orientation="vertical" 
+            android:visibility="invisible" >
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dip"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/iv_bookingProductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_bankno" />
+
+                <TextView
+                    android:id="@+id/tv_bookingProductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bookingProductName"
+                    android:textColor="@color/BLACK" />
+
+                <EditText
+                    android:id="@+id/et_bookingProductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_manage_bg"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:singleLine="true"
+                    android:textColor="@color/BLACK" />
+            </LinearLayout>
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dip"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/iv_bookingCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_houschold" />
+
+                <TextView
+                    android:id="@+id/tv_bookingCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bookingCity"
+                    android:textColor="@color/BLACK" />
+
+                <EditText
+                    android:id="@+id/et_bookingCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_manage_bg"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:singleLine="true"
+                    android:textColor="@color/BLACK" />
+            </LinearLayout>
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dip"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/iv_bookingCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_nowaddress" />
+
+                <TextView
+                    android:id="@+id/tv_bookingCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bookingCenter"
+                    android:textColor="@color/BLACK" />
+
+                <EditText
+                    android:id="@+id/et_bookingCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_manage_bg"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:singleLine="true"
+                    android:textColor="@color/BLACK" />
+            </LinearLayout>
+              <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dip"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/iv_bookingPlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_birthplace" />
+
+                <TextView
+                    android:id="@+id/tv_bookingPlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bookingPlace"
+                    android:textColor="@color/BLACK" />
+
+                <EditText
+                    android:id="@+id/et_bookingPlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_manage_bg"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:singleLine="true"
+                    android:textColor="@color/BLACK" />
+            </LinearLayout>
+              <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dip"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/iv_trafficRoutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_rapairorder" />
+
+                <TextView
+                    android:id="@+id/tv_trafficRoutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trafficRoutes"
+                    android:textColor="@color/BLACK" />
+
+                <EditText
+                    android:id="@+id/et_trafficRoutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_manage_bg"
+                    android:textColor="@color/BLACK" />
+            </LinearLayout>
+ 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dip"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/iv_bookingDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_date" />
+
+                <TextView
+                    android:id="@+id/tv_bookingDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bookingDate"
+                    android:textColor="@color/BLACK" />
+
+                <EditText
+                    android:id="@+id/et_bookingDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_manage_bg"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:singleLine="true"
+                    android:textColor="@color/BLACK" />
+            </LinearLayout>
+        </LinearLayout>
+        
+        
+         <LinearLayout
+            android:id="@+id/layout_bookingInfo1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/WHITE"
+            android:orientation="vertical" 
+            android:visibility="invisible" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dip"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/iv_bookingPlan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_checkreporting"/>
+
+                <TextView
+                    android:id="@+id/tv_bookingPlan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bookingPlan"
+                    android:textColor="@color/BLACK" />
+
+                <EditText
+                    android:id="@+id/et_bookingPlan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_manage_bg"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:singleLine="true"
+                    android:textColor="@color/BLACK" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dip"
+                android:orientation="horizontal" >
+
+                <ImageView
                     android:id="@+id/iv_addBooking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -188,22 +493,68 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
     <RelativeLayout
+        android:id="@+id/bookingNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="15dip"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
+        <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:gravity="center" 
+           android:orientation="horizontal" >
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="180dip"
+                android:layout_height="wrap_content"
+                android:background="@drawable/entry_next"
+                android:text="@string/entry_next"
+                android:textColor="@color/WHITE" />
+       </LinearLayout>
+    </RelativeLayout>
+   <RelativeLayout
+        android:id="@+id/bookingNext1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dip"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible">
+        <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:gravity="center" 
+           android:orientation="horizontal" >
+            <Button
+                android:id="@+id/btn_next1"
+                android:layout_width="180dip"
+                android:layout_height="wrap_content"
+                android:background="@drawable/entry_next"
+                android:text="@string/entry_next"
+                android:textColor="@color/WHITE" />
+       </LinearLayout>
+    </RelativeLayout>
+     <RelativeLayout
+        android:id="@+id/bookingSumbit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dip"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-             android:gravity="center" >
+            android:gravity="center" >
             <Button
                 android:id="@+id/btn_sumbit"
-                android:layout_width="wrap_content"
+                android:layout_width="180dip"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_bookingsumbit"
                 android:text="@string/entry_upload"
