@@ -26,6 +26,7 @@
                 android:layout_marginLeft="10dip"
                 android:scaleType="fitXY"
                 android:src="@drawable/arrow_left" />
+
             <ImageView
                 android:id="@+id/iv_retBack"
                 android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/arrow_left"
                 android:visibility="invisible" />
-             <ImageView
+
+            <ImageView
                 android:id="@+id/iv_retBack1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,14 +48,15 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/arrow_left"
                 android:visibility="invisible" />
+
             <TextView
                 android:id="@+id/tv_goBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dip"
                 android:layout_marginLeft="25dip"
+                android:layout_marginTop="12dip"
                 android:text="上一步"
-                android:textColor="@color/WHITE" 
+                android:textColor="@color/WHITE"
                 android:visibility="invisible" />
 
             <TextView
@@ -65,13 +68,13 @@
                 android:text="个人信息"
                 android:textColor="@color/WHITE" />
         </RelativeLayout>
-        
-          <LinearLayout
-              android:id="@+id/layout_personalInfo"
+
+        <LinearLayout
+            android:id="@+id/layout_personalInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/WHITE"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,7 +146,7 @@
                     android:id="@+id/iv_documentType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/entry_academicphoto"/>
+                    android:background="@drawable/entry_academicphoto" />
 
                 <TextView
                     android:id="@+id/tv_documentType"
@@ -184,15 +187,16 @@
 
                 <EditText
                     android:id="@+id/et_idNo"
-                     android:layout_width="wrap_content"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/entry_manage_bg"
                     android:focusable="false"
                     android:inputType="none"
                     android:singleLine="true"
-                    android:textColor="@color/BLACK"/>
+                    android:textColor="@color/BLACK" />
             </LinearLayout>
-              <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dip"
@@ -246,15 +250,16 @@
                     android:textColor="@color/BLACK" />
             </LinearLayout>
         </LinearLayout>
- 
+
         <LinearLayout
             android:id="@+id/layout_bookingInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/WHITE"
-            android:orientation="vertical" 
+            android:orientation="vertical"
             android:visibility="invisible" >
-             <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dip"
@@ -283,7 +288,8 @@
                     android:singleLine="true"
                     android:textColor="@color/BLACK" />
             </LinearLayout>
-             <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dip"
@@ -301,9 +307,10 @@
                     android:layout_height="wrap_content"
                     android:text="@string/bookingCity"
                     android:textColor="@color/BLACK" />
-
-                <EditText
-                    android:id="@+id/et_bookingCity"
+                
+                
+                 <Spinner
+                    android:id="@+id/sp_bookingCity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/entry_manage_bg"
@@ -312,7 +319,8 @@
                     android:singleLine="true"
                     android:textColor="@color/BLACK" />
             </LinearLayout>
-             <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dip"
@@ -330,9 +338,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/bookingCenter"
                     android:textColor="@color/BLACK" />
-
-                <EditText
-                    android:id="@+id/et_bookingCenter"
+                
+                 <Spinner
+                    android:id="@+id/sp_bookingCenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/entry_manage_bg"
@@ -341,7 +349,8 @@
                     android:singleLine="true"
                     android:textColor="@color/BLACK" />
             </LinearLayout>
-              <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dip"
@@ -370,7 +379,8 @@
                     android:singleLine="true"
                     android:textColor="@color/BLACK" />
             </LinearLayout>
-              <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dip"
@@ -396,7 +406,7 @@
                     android:background="@drawable/entry_manage_bg"
                     android:textColor="@color/BLACK" />
             </LinearLayout>
- 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -420,22 +430,62 @@
                     android:id="@+id/et_bookingDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/entry_manage_bg"
+                    android:background="@null"
                     android:focusable="false"
                     android:inputType="none"
                     android:singleLine="true"
                     android:textColor="@color/BLACK" />
             </LinearLayout>
+             <RelativeLayout
+                android:id="@+id/layout_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="190dip"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:visibility="visible">
+                <TextView
+                    android:id="@+id/calendarCenter"
+                    style="@style/main_bar_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dip"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="8dip"
+                    android:textColor="@color/BLACK" />
+
+                <ImageButton
+                    android:id="@+id/calendarLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_marginLeft="110dip"
+                    android:contentDescription="@null"                 
+                    android:src="@drawable/calendar_month_left" />
+                <ImageButton
+                    android:id="@+id/calendarRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="210dip"
+                    android:background="@null"
+                    android:contentDescription="@null"
+                    android:src="@drawable/calendar_month_right" />
+                <com.joy.Dialog.CalendarView
+                    android:id="@+id/calendar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/calendarCenter" />
+            </RelativeLayout>
         </LinearLayout>
-        
-        
-         <LinearLayout
+
+        <LinearLayout
             android:id="@+id/layout_bookingInfo1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/WHITE"
-            android:orientation="vertical" 
+            android:orientation="vertical"
             android:visibility="invisible" >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -446,7 +496,7 @@
                     android:id="@+id/iv_bookingPlan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/entry_checkreporting"/>
+                    android:background="@drawable/entry_checkreporting" />
 
                 <TextView
                     android:id="@+id/tv_bookingPlan"
@@ -465,6 +515,7 @@
                     android:singleLine="true"
                     android:textColor="@color/BLACK" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -483,29 +534,199 @@
                     android:layout_height="wrap_content"
                     android:text="@string/addBooking"
                     android:textColor="@color/BLACK" />
+            </LinearLayout>
 
-                <EditText
-                    android:id="@+id/et_addBooking"
-                    android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/entry_manage_bg"
-                    android:textColor="@color/BLACK" />
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginTop="45dip"
+                    android:orientation="horizontal" >
+
+                    <CheckBox
+                        android:id="@+id/addBooking1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dip"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking1"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+
+                    <CheckBox
+                        android:id="@+id/addBooking2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dip"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking2"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+
+                    <CheckBox
+                        android:id="@+id/addBooking3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking3"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+                    <!-- 去掉checkbox前面的方框 -->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginTop="45dip"
+                    android:orientation="horizontal" >
+
+                    <CheckBox
+                        android:id="@+id/addBooking4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dip"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking4"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+
+                    <CheckBox
+                        android:id="@+id/addBooking5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dip"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking5"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+
+                    <CheckBox
+                        android:id="@+id/addBooking6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking6"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+                    <!-- 去掉checkbox前面的方框 -->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginTop="45dip"
+                    android:orientation="horizontal" >
+
+                    <CheckBox
+                        android:id="@+id/addBooking7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dip"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking7"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+
+                    <CheckBox
+                        android:id="@+id/addBooking8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dip"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking8"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+
+                    <CheckBox
+                        android:id="@+id/addBooking9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking9"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+                    <!-- 去掉checkbox前面的方框 -->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginTop="45dip"
+                    android:orientation="horizontal" >
+
+                    <CheckBox
+                        android:id="@+id/addBooking10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dip"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking10"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+
+                    <CheckBox
+                        android:id="@+id/addBooking11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dip"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking11"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+
+                    <CheckBox
+                        android:id="@+id/addBooking12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/addBooking12"
+                        android:textColor="@color/WHITE"
+                        android:textScaleX="0.8" />
+                    <!-- 去掉checkbox前面的方框 -->
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/bookingNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dip"
+        android:layout_marginBottom="7dip"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical" >
+
         <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:gravity="center" 
-           android:orientation="horizontal" >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
             <Button
                 android:id="@+id/btn_next"
                 android:layout_width="180dip"
@@ -513,22 +734,25 @@
                 android:background="@drawable/entry_next"
                 android:text="@string/entry_next"
                 android:textColor="@color/WHITE" />
-       </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
-   <RelativeLayout
+      
+
+    <RelativeLayout
         android:id="@+id/bookingNext1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dip"
+        android:layout_marginBottom="7dip"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="invisible" >
         <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:gravity="center" 
-           android:orientation="horizontal" >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
             <Button
                 android:id="@+id/btn_next1"
                 android:layout_width="180dip"
@@ -536,14 +760,15 @@
                 android:background="@drawable/entry_next"
                 android:text="@string/entry_next"
                 android:textColor="@color/WHITE" />
-       </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
-     <RelativeLayout
+
+    <RelativeLayout
         android:id="@+id/bookingSumbit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dip"
+        android:layout_marginBottom="7dip"
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="invisible" >
@@ -552,6 +777,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center" >
+
             <Button
                 android:id="@+id/btn_sumbit"
                 android:layout_width="180dip"

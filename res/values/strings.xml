@@ -382,8 +382,23 @@
     <string name="bookingPlace">体检地址：</string>
     <string name="trafficRoutes">交通路线：</string>
      <string name="bookingDate">体检日期：</string>
-      <string name="bookingPlan">体检套餐：</string>
+    <string name="bookingPlan">体检套餐：</string>
      <string name="addBooking">补充体检：</string>
+     
+     
+     <!--体检项选择-->
+     <string name="addBooking1">胃幽门螺杆菌</string>
+     <string name="addBooking2">动脉硬化检测</string>
+     <string name="addBooking3">乳腺癌检测</string>
+      <string name="addBooking4">肺癌检测</string>
+     <string name="addBooking5">糖尿病检测</string>
+     <string name="addBooking6">脑血管检测</string>
+      <string name="addBooking7">宫颈癌检测</string>
+     <string name="addBooking8">甲状腺检测</string>
+     <string name="addBooking9">骨质疏松检测</string>
+     <string name="addBooking10">前列腺癌检测</string>
+     <string name="addBooking11">鼻咽癌检测</string>
+     <string name="addBooking12">甲状腺检测</string>
     <!--footview-->
     <string name="total_integral">总计：0积分</string>
     <string name="nogoods">亲，暂时没有商品，选好商品后再回来结算哦！</string>
