@@ -48,7 +48,7 @@ public class CalendarView extends View implements View.OnTouchListener {
 
 	private void init() {
 		curDate = selectedStartDate = selectedEndDate = today = new Date();
-		calendar = Calendar.getInstance();
+		calendar = Calendar.getInstance();//获取当天指定点上的时间
 		calendar.setTime(curDate);
 		surface = new Surface();
 		surface.density = getResources().getDisplayMetrics().density;

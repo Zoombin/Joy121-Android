@@ -31,12 +31,12 @@ import android.widget.Toast;
 
 public class PhysicalBookingActivity extends BaseActivity implements
 		OnClickListener {
-	private RelativeLayout layout_title, bookingNext, bookingNext1,
+	private RelativeLayout layout_title, bookingNext, bookingNext1,bookingNext2,
 			bookingSumbit;
-	private LinearLayout layout_bookingInfo, layout_bookingInfo1,
-			layout_personalInfo;
-	private ImageView iv_ret, iv_retBack, iv_retBack1;
-	private TextView tv_title, tv_goBack;
+	private LinearLayout layout_bookingInfo, layout_bookingInfo1,layout_bookingInfo2,
+			layout_personalInfo,layout_ret,layout_retBack,layout_retBack1,layout_retBack2;
+	private ImageView iv_ret, iv_retBack, iv_retBack1,iv_retBack2;
+	private TextView tv_title;
 	private ImageView iv_name, iv_gender, iv_documentType, iv_idNo,
 			iv_isMarried, iv_mobile;
 	private TextView tv_name, tv_gender, tv_documentType, tv_idNo,
@@ -53,7 +53,7 @@ public class PhysicalBookingActivity extends BaseActivity implements
 	private EditText et_bookingProductName,et_trafficRoutes, et_bookingDate, et_bookingPlace, et_bookingPlan;
 	private List<String> data_list, data_documentTypeList,data_bookingCityList,data_bookingCenterList;
 	private ArrayAdapter<String> isMarried_adapter, documentType_adapter,bookingCity_adapter,bookingCenter_adapter;
-	private Button btn_next, btn_next1, btn_sumbit;
+	private Button btn_next, btn_next1,btn_next2, btn_sumbit;
 	// 增加体检项
 	private CheckBox addBooking1, addBooking2, addBooking3, addBooking4,
 			addBooking5, addBooking6, addBooking7, addBooking8, addBooking9,
@@ -69,73 +69,25 @@ public class PhysicalBookingActivity extends BaseActivity implements
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.activity_physical_booking, null);
 		setContentView(v);
-		format = new SimpleDateFormat("yyyy-MM-dd");
-		// 获取日历控件对象
-		calendar = (CalendarView) findViewById(R.id.calendar);
-		calendar.setSelectMore(false); // 单选
-
-		calendarLeft = (ImageButton) findViewById(R.id.calendarLeft);
-		calendarCenter = (TextView) findViewById(R.id.calendarCenter);
-		calendarRight = (ImageButton) findViewById(R.id.calendarRight);
-		try {
-			// 设置日历日期
-			Date date = format.parse("2015-01-01");
-			calendar.setCalendarData(date);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		// 获取日历中年月 ya[0]为年，ya[1]为月
-		String[] ya = calendar.getYearAndmonth().split("-");
-		calendarCenter.setText(ya[0] + "年" + ya[1] + "月");
-		calendarLeft.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// 点击上一月 同样返回年月
-				String leftYearAndmonth = calendar.clickLeftMonth();
-				String[] ya = leftYearAndmonth.split("-");
-				calendarCenter.setText(ya[0] + "年" + ya[1] + "月");
-			}
-		});
-
-		calendarRight.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// 点击下一月
-				String rightYearAndmonth = calendar.clickRightMonth();
-				String[] ya = rightYearAndmonth.split("-");
-				calendarCenter.setText(ya[0] + "年" + ya[1] + "月");
-			}
-		});
-		// 设置控件监听，可以监听到点击的每一天
-		calendar.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void OnItemClick(Date selectedStartDate,
-					Date selectedEndDate, Date downDate) {
-				if (calendar.isSelectMore()) {
-					Toast.makeText(
-							getApplicationContext(),
-							format.format(selectedStartDate) + "到"
-									+ format.format(selectedEndDate),
-							Toast.LENGTH_SHORT).show();
-				} else {
-					et_bookingDate.setText(format.format(downDate));
-					Toast.makeText(getApplicationContext(),
-							format.format(downDate), Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+		
 		initViewPersonalInfo();
 		initViewBookingInfo();
 		initViewBookingInfo1();
+		initViewBookingInfo2();
 		btn_next.setOnClickListener(this);
 		btn_next1.setOnClickListener(this);
+		btn_next2.setOnClickListener(this);
+		layout_retBack.setOnClickListener(this);
+		layout_retBack1.setOnClickListener(this);
+		layout_retBack2.setOnClickListener(this);
 		return v;
 	}
 
 	public void initViewPersonalInfo() {
+		layout_ret=(LinearLayout)findViewById(R.id.layout_ret);
+		layout_retBack=(LinearLayout)findViewById(R.id.layout_retBack);
+		layout_retBack1=(LinearLayout)findViewById(R.id.layout_retBack1);
+		layout_retBack2=(LinearLayout)findViewById(R.id.layout_retBack2);
 		layout_title = (RelativeLayout) findViewById(R.id.layout_title);
 		uiAdapter.setMargin(layout_title, LayoutParams.MATCH_PARENT,
 				Constants.SubTitleHeight, 0, 0, 0, 0);
@@ -144,7 +96,6 @@ public class PhysicalBookingActivity extends BaseActivity implements
 
 		iv_retBack = (ImageView) findViewById(R.id.iv_retBack);
 		iv_retBack.setOnClickListener(this);
-		tv_goBack = (TextView) findViewById(R.id.tv_goBack);
 
 		tv_title = (TextView) findViewById(R.id.tv_title);
 		uiAdapter.setTextSize(tv_title, Constants.TitleSize);
@@ -253,26 +204,27 @@ public class PhysicalBookingActivity extends BaseActivity implements
 
 	public void initViewBookingInfo() {
 		layout_bookingInfo = (LinearLayout) findViewById(R.id.layout_bookingInfo);
+		
 		iv_bookingProductName = (ImageView) findViewById(R.id.iv_bookingProductName);
 		uiAdapter.setMargin(iv_bookingProductName, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 23, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
 		tv_bookingProductName = (TextView) findViewById(R.id.tv_bookingProductName);
 		uiAdapter.setTextSize(tv_bookingProductName, 18);
 		uiAdapter.setMargin(tv_bookingProductName, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
 		et_bookingProductName = (EditText) findViewById(R.id.et_bookingProductName);
-		uiAdapter.setMargin(et_bookingProductName, LayoutParams.MATCH_PARENT,
-				35, 5, 20, 45, 0);
+		uiAdapter.setMargin(et_bookingProductName, LayoutParams.MATCH_PARENT,45, 5, 20,
+				45, 0);
 
 		iv_bookingCity = (ImageView) findViewById(R.id.iv_bookingCity);
 		uiAdapter.setMargin(iv_bookingCity, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 23, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
 		tv_bookingCity = (TextView) findViewById(R.id.tv_bookingCity);
 		uiAdapter.setTextSize(tv_bookingCity, 18);
 		uiAdapter.setMargin(tv_bookingCity, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
 		sp_bookingCity = (Spinner) findViewById(R.id.sp_bookingCity);
-		uiAdapter.setMargin(sp_bookingCity, LayoutParams.MATCH_PARENT, 35, 5,
+		uiAdapter.setMargin(sp_bookingCity, LayoutParams.MATCH_PARENT, 45, 5,
 				20, 45, 0);
 		
 		// 数据
@@ -290,13 +242,13 @@ public class PhysicalBookingActivity extends BaseActivity implements
 
 		iv_bookingCenter = (ImageView) findViewById(R.id.iv_bookingCenter);
 		uiAdapter.setMargin(iv_bookingCenter, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 23, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
 		tv_bookingCenter = (TextView) findViewById(R.id.tv_bookingCenter);
 		uiAdapter.setTextSize(tv_bookingCenter, 18);
 		uiAdapter.setMargin(tv_bookingCenter, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
 		sp_bookingCenter = (Spinner) findViewById(R.id.sp_bookingCenter);
-		uiAdapter.setMargin(sp_bookingCenter, LayoutParams.MATCH_PARENT, 35, 5,
+		uiAdapter.setMargin(sp_bookingCenter, LayoutParams.MATCH_PARENT, 45, 5,
 				20, 45, 0);
 		
 		// 数据
@@ -314,35 +266,26 @@ public class PhysicalBookingActivity extends BaseActivity implements
 
 		iv_trafficRoutes = (ImageView) findViewById(R.id.iv_trafficRoutes);
 		uiAdapter.setMargin(iv_trafficRoutes, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 23, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
 		tv_trafficRoutes = (TextView) findViewById(R.id.tv_trafficRoutes);
 		uiAdapter.setTextSize(tv_trafficRoutes, 18);
 		uiAdapter.setMargin(tv_trafficRoutes, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
 		et_trafficRoutes = (EditText) findViewById(R.id.et_trafficRoutes);
-		uiAdapter.setMargin(et_trafficRoutes, LayoutParams.MATCH_PARENT, 30, 5,
+		uiAdapter.setMargin(et_trafficRoutes, LayoutParams.MATCH_PARENT, 45, 5,
 				20, 45, 0);
 
-		iv_bookingDate = (ImageView) findViewById(R.id.iv_bookingDate);
-		uiAdapter.setMargin(iv_bookingDate, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 23, 0, 10);
-		tv_bookingDate = (TextView) findViewById(R.id.tv_bookingDate);
-		uiAdapter.setTextSize(tv_bookingDate, 18);
-		uiAdapter.setMargin(tv_bookingDate, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
-		et_bookingDate = (EditText) findViewById(R.id.et_bookingDate);
-		uiAdapter.setMargin(et_bookingDate, LayoutParams.MATCH_PARENT, 35, 5,
-				20, 45, 0);
+		
 
 		iv_bookingPlace = (ImageView) findViewById(R.id.iv_bookingPlace);
 		uiAdapter.setMargin(iv_bookingPlace, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 23, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
 		tv_bookingPlace = (TextView) findViewById(R.id.tv_bookingPlace);
 		uiAdapter.setTextSize(tv_bookingPlace, 18);
 		uiAdapter.setMargin(tv_bookingPlace, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
 		et_bookingPlace = (EditText) findViewById(R.id.et_bookingPlace);
-		uiAdapter.setMargin(et_bookingPlace, LayoutParams.MATCH_PARENT, 35, 5,
+		uiAdapter.setMargin(et_bookingPlace, LayoutParams.MATCH_PARENT, 45, 5,
 				20, 45, 0);
 		// 下一步
 		bookingNext1 = (RelativeLayout) findViewById(R.id.bookingNext1);
@@ -407,6 +350,85 @@ public class PhysicalBookingActivity extends BaseActivity implements
 
 		addBooking12 = (CheckBox) findViewById(R.id.addBooking12);
 		addBooking12.setBackgroundResource(R.drawable.check_physical);
+		
+		// 下一步
+		bookingNext2 = (RelativeLayout) findViewById(R.id.bookingNext2);
+		btn_next2 = (Button) findViewById(R.id.btn_next2);
+		uiAdapter.setTextSize(btn_next2, 24);
+		
+	}
+	public void initViewBookingInfo2(){
+		layout_bookingInfo2 = (LinearLayout) findViewById(R.id.layout_bookingInfo2);
+		iv_retBack2 = (ImageView) findViewById(R.id.iv_retBack2);
+		iv_retBack2.setOnClickListener(this);
+		iv_bookingDate = (ImageView) findViewById(R.id.iv_bookingDate);
+		uiAdapter.setMargin(iv_bookingDate, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
+		tv_bookingDate = (TextView) findViewById(R.id.tv_bookingDate);
+		uiAdapter.setTextSize(tv_bookingDate, 18);
+		uiAdapter.setMargin(tv_bookingDate, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+		et_bookingDate = (EditText) findViewById(R.id.et_bookingDate);
+		uiAdapter.setMargin(et_bookingDate, LayoutParams.MATCH_PARENT, 45, 5,
+				20, 45, 0);
+		format = new SimpleDateFormat("yyyy-MM-dd");
+		// 获取日历控件对象
+		calendar = (CalendarView) findViewById(R.id.calendar);
+		calendar.setSelectMore(false); // 单选
+
+		calendarLeft = (ImageButton) findViewById(R.id.calendarLeft);
+		calendarCenter = (TextView) findViewById(R.id.calendarCenter);
+		calendarRight = (ImageButton) findViewById(R.id.calendarRight);
+		try {
+			// 设置日历日期
+			Date date = format.parse("2015-01-01");
+			calendar.setCalendarData(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		// 获取日历中年月 ya[0]为年，ya[1]为月
+		String[] ya = calendar.getYearAndmonth().split("-");
+		calendarCenter.setText(ya[0] + "年" + ya[1] + "月");
+		calendarLeft.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// 点击上一月 同样返回年月
+				String leftYearAndmonth = calendar.clickLeftMonth();
+				String[] ya = leftYearAndmonth.split("-");
+				calendarCenter.setText(ya[0] + "年" + ya[1] + "月");
+			}
+		});
+
+		calendarRight.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// 点击下一月
+				String rightYearAndmonth = calendar.clickRightMonth();
+				String[] ya = rightYearAndmonth.split("-");
+				calendarCenter.setText(ya[0] + "年" + ya[1] + "月");
+			}
+		});
+		// 设置控件监听，可以监听到点击的每一天
+		calendar.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void OnItemClick(Date selectedStartDate,
+					Date selectedEndDate, Date downDate) {
+				if (calendar.isSelectMore()) {
+					Toast.makeText(
+							getApplicationContext(),
+							format.format(selectedStartDate) + "到"
+									+ format.format(selectedEndDate),
+							Toast.LENGTH_SHORT).show();
+				} else {
+					et_bookingDate.setText(format.format(downDate));
+					Toast.makeText(getApplicationContext(),
+							format.format(downDate), Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 		// 提交
 		bookingSumbit = (RelativeLayout) findViewById(R.id.bookingSumbit);
 		btn_sumbit = (Button) findViewById(R.id.btn_sumbit);
@@ -425,51 +447,90 @@ public class PhysicalBookingActivity extends BaseActivity implements
 			layout_personalInfo.setVisibility(View.GONE);
 			layout_bookingInfo.setVisibility(View.VISIBLE);
 			layout_bookingInfo1.setVisibility(View.GONE);
+			layout_bookingInfo2.setVisibility(View.GONE);
 			bookingNext.setVisibility(View.GONE);
 			bookingNext1.setVisibility(View.VISIBLE);
+			bookingNext2.setVisibility(View.GONE);
 			bookingSumbit.setVisibility(View.GONE);
 			iv_ret.setVisibility(View.GONE);
-			iv_retBack.setVisibility(View.VISIBLE);
-			tv_goBack.setVisibility(View.VISIBLE);
+			layout_retBack.setVisibility(View.VISIBLE);
+			layout_retBack1.setVisibility(View.GONE);
+			layout_retBack2.setVisibility(View.GONE);
 			tv_title.setText("体检信息");
 			break;
 		case R.id.btn_next1:
 			layout_personalInfo.setVisibility(View.GONE);
 			layout_bookingInfo.setVisibility(View.GONE);
 			layout_bookingInfo1.setVisibility(View.VISIBLE);
+			layout_bookingInfo2.setVisibility(View.GONE);
 			bookingNext.setVisibility(View.GONE);
 			bookingNext1.setVisibility(View.GONE);
-			bookingSumbit.setVisibility(View.VISIBLE);
+			bookingNext2.setVisibility(View.VISIBLE);
+			bookingSumbit.setVisibility(View.GONE);
 			iv_ret.setVisibility(View.GONE);
-			iv_retBack.setVisibility(View.GONE);
-			iv_retBack1.setVisibility(View.VISIBLE);
-			tv_goBack.setVisibility(View.VISIBLE);
+			layout_retBack.setVisibility(View.GONE);
+			layout_retBack1.setVisibility(View.VISIBLE);
+			layout_retBack2.setVisibility(View.GONE);
 			tv_title.setText("体检信息");
 			break;
-		case R.id.iv_retBack:
+		case R.id.btn_next2:
+			layout_personalInfo.setVisibility(View.GONE);
+			layout_bookingInfo.setVisibility(View.GONE);
+			layout_bookingInfo1.setVisibility(View.GONE);
+			layout_bookingInfo2.setVisibility(View.VISIBLE);
+			bookingNext.setVisibility(View.GONE);
+			bookingNext1.setVisibility(View.GONE);
+			bookingNext2.setVisibility(View.GONE);
+			bookingSumbit.setVisibility(View.VISIBLE);
+			iv_ret.setVisibility(View.GONE);
+			layout_retBack.setVisibility(View.GONE);
+			layout_retBack1.setVisibility(View.GONE);
+			layout_retBack2.setVisibility(View.VISIBLE);
+			tv_title.setText("体检信息");
+			break;
+		case R.id.layout_retBack:
 			layout_personalInfo.setVisibility(View.VISIBLE);
 			layout_bookingInfo.setVisibility(View.GONE);
 			layout_bookingInfo1.setVisibility(View.GONE);
+			layout_bookingInfo2.setVisibility(View.GONE);
 			bookingNext.setVisibility(View.VISIBLE);
 			bookingNext1.setVisibility(View.GONE);
+			bookingNext2.setVisibility(View.GONE);
 			bookingSumbit.setVisibility(View.GONE);
 			iv_ret.setVisibility(View.VISIBLE);
-			iv_retBack.setVisibility(View.GONE);
-			iv_retBack1.setVisibility(View.GONE);
-			tv_goBack.setVisibility(View.GONE);
+			layout_retBack.setVisibility(View.GONE);
+			layout_retBack1.setVisibility(View.GONE);
+			layout_retBack2.setVisibility(View.GONE);
 			tv_title.setText("个人信息");
 			break;
-		case R.id.iv_retBack1:
+		case R.id.layout_retBack1:
 			layout_personalInfo.setVisibility(View.GONE);
 			layout_bookingInfo.setVisibility(View.VISIBLE);
 			layout_bookingInfo1.setVisibility(View.GONE);
+			layout_bookingInfo2.setVisibility(View.GONE);
 			bookingNext.setVisibility(View.GONE);
 			bookingNext1.setVisibility(View.VISIBLE);
+			bookingNext2.setVisibility(View.GONE);
 			bookingSumbit.setVisibility(View.GONE);
 			iv_ret.setVisibility(View.GONE);
-			iv_retBack.setVisibility(View.VISIBLE);
-			iv_retBack1.setVisibility(View.GONE);
-			tv_goBack.setVisibility(View.VISIBLE);
+			layout_retBack.setVisibility(View.VISIBLE);
+			layout_retBack1.setVisibility(View.GONE);
+			layout_retBack2.setVisibility(View.GONE);
+			tv_title.setText("体检信息");
+			break;
+		case R.id.layout_retBack2:
+			layout_personalInfo.setVisibility(View.GONE);
+			layout_bookingInfo.setVisibility(View.GONE);
+			layout_bookingInfo1.setVisibility(View.VISIBLE);
+			layout_bookingInfo2.setVisibility(View.GONE);
+			bookingNext.setVisibility(View.GONE);
+			bookingNext1.setVisibility(View.VISIBLE);
+			bookingNext2.setVisibility(View.GONE);
+			bookingSumbit.setVisibility(View.GONE);
+			iv_ret.setVisibility(View.GONE);
+			layout_retBack.setVisibility(View.GONE);
+			layout_retBack1.setVisibility(View.VISIBLE);
+			layout_retBack2.setVisibility(View.GONE);
 			tv_title.setText("体检信息");
 			break;
 		default:
