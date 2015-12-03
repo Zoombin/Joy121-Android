@@ -122,7 +122,7 @@
         <LinearLayout
             android:id="@+id/layout_personalInfo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="500dip"
             android:background="@color/WHITE"
             android:orientation="vertical" >
 
@@ -304,7 +304,7 @@
         <LinearLayout
             android:id="@+id/layout_bookingInfo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="500dip"
             android:background="@color/WHITE"
             android:orientation="vertical"
             android:visibility="invisible" >
@@ -460,7 +460,7 @@
         <LinearLayout
             android:id="@+id/layout_bookingInfo1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="500dip"
             android:background="@color/WHITE"
             android:orientation="vertical"
             android:visibility="invisible" >
@@ -693,7 +693,7 @@
         <LinearLayout
             android:id="@+id/layout_bookingInfo2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="500dip"
             android:background="@color/WHITE"
             android:orientation="vertical"
             android:visibility="invisible" >

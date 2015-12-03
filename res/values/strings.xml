@@ -304,6 +304,17 @@
     <string name="personName">中文名：</string>
     <string name="englishName">英文名：</string>
     <string name="gender">性别：</string>
+    
+    
+    <string name="nation">民族：</string>
+    <string name="maritalStatus">婚姻状况:</string>
+    <string name="politicalStatus">政治面貌:</string>
+    <string name="healthCondition">健康状况:</string>
+    <string name="culturalDegree">文化程度:</string>
+    <string name="major">专业：</string>
+    <string name="urgentAddr">紧急联系人地址:</string>
+    <string name="socialSecurityNo">社保账户:</string>
+    
     <string name="address">籍贯：</string>
     <string name="idNo">身份证号：</string>
     
@@ -316,9 +327,7 @@
     <string name="entryEnglishName">请输入“英文名”</string>
      <string name="entryAddress">请输入“籍贯”</string>
     <string name="entryIdNo">请输入“身份证号”</string>
-    <string name="entryEducationNo">请输入“学历证号”</string>
-    <string name="entryDepositBank">请输入“开户银行”</string>
-    <string name="entryDepositCardNo">请输入“银行账号”</string> 
+    <string name="entryDepositBank">请输入“开户银行”</string> 
     <string name="idNoFormat">请正确输入“身份证号”</string>
     <!-- 证件信息 -->
     <string name="myselfPhoto">个人照片：</string>

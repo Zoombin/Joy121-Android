@@ -3,12 +3,7 @@ package com.joy.Activity;
 import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,6 +48,7 @@ import com.joy.json.model.EntryManageWorkExperienceInfoEntity;
 import com.joy.json.model.EntryUploadImageEntity;
 import com.joy.json.model.SpinnerData;
 import com.joy.json.operation.OperationBuilder;
+import com.joy.json.operation.impl.ComGroupSysData;
 import com.joy.json.operation.impl.EntryDepartmentOp;
 import com.joy.json.operation.impl.EntryManageOp;
 import com.joy.json.operation.impl.EntrySaveOp;
@@ -73,6 +69,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -94,6 +91,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -120,24 +118,33 @@ public class EntryManagementActiviy extends BaseActivity implements
 	private List<SpinnerData> list_comDep, list_comPos;
 	private ArrayAdapter<SpinnerData> comDep_adapter, comPos_adapter;
 	private ImageView iv_comDep, iv_comPos, iv_comEntryDate, iv_residence,
-			iv_mobile, iv_urgentContact, iv_urgentMobile, iv_regions;
+			iv_mobile, iv_urgentContact, iv_urgentMobile, iv_regions,iv_urgentAddr;
 	private TextView tv_comDep, tv_comPos, tv_comEntryDate, tv_residence,
-			tv_mobile, tv_urgentContact, tv_urgentMobile, tv_regions;
+			tv_mobile, tv_urgentContact, tv_urgentMobile, tv_regions,tv_urgentAddr;
 	private EditText et_comEntryDate, et_residence, et_mobile,
-			et_urgentContact, et_urgentMobile, et_regions;
+			et_urgentContact, et_urgentMobile, et_regions,et_urgentAddr;
 	private Spinner sp_comDep, sp_comPos;
 	private Button btn_saveEmployInfo, btn_employInfoNext;
 	// 个人信息
+	private List<SpinnerData> list_maritalStatus,list_politicalStatus,list_healthCondition,
+	                          list_culturalDegree,list_nation,list_depositBank;
+	private ArrayAdapter<SpinnerData> maritalStatus_adapter,politicalStatus_adapter,healthCondition_adapter,
+	                                  culturalDegree_adapter,nation_adapter,depositBank_adapter;
 	private ImageView iv_personName, iv_englishName, iv_gender, iv_address,
 			iv_idNo, iv_educationNo, iv_accumFund, iv_depositBank,
-			iv_depositCardNo;
+			iv_depositCardNo,iv_nation,iv_maritalStatus,iv_politicalStatus,
+			iv_healthCondition,iv_culturalDegree,iv_major,iv_socialSecurityNo;
 	private TextView tv_personName, tv_englishName, tv_gender, tv_address,
 			tv_idNo, tv_educationNo, tv_accumFund, tv_depositBank,
-			tv_depositCardNo;
+			tv_depositCardNo,tv_nation,tv_maritalStatus,tv_politicalStatus,
+			tv_healthCondition,tv_culturalDegree,tv_major,tv_socialSecurityNo;
+	private Spinner sp_nation,sp_maritalStatus,sp_politicalStatus,sp_healthCondition,
+	                sp_culturalDegree,sp_depositBank;
 	private RadioGroup radiogender;
 	private RadioButton maleButton, femaleButton;
 	private EditText et_personName, et_englishName, et_address, et_idNo,
-			et_educationNo, et_accumFund, et_depositBank, et_depositCardNo;
+			et_educationNo, et_accumFund,et_depositCardNo,
+			et_major,et_socialSecurityNo;
 	private Button btn_saveMyselfInfo, btn_myselfInfoNext;
 	// 证件信息
 	private ImageView iv_myselfPhoto, iv_myselfVideo, iv_academicPhoto,
@@ -173,13 +180,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 	CompAppSet appSet;
 	int color;
 	private Resources resources;
+    private ScrollView scroll_myselfInfo;
+	private LinearLayout employInfo,myselfInfo,papersInfo,history,familyInfo,hobbies;
+	private RelativeLayout employInfoNext,myselfInfoNext,papersInfoNext,historyNext,familyInfoNext,hobbiesSumbit;
 
-	private LinearLayout employInfo;
-	private LinearLayout myselfInfo;
-	private LinearLayout papersInfo;
-	private LinearLayout history;
-	private LinearLayout familyInfo;
-	private LinearLayout hobbies;
+	
 	// 创建线程显示图片
 //	private static final int THREAD_Photo = 1;
 //	private static final int THREAD_Academic = 2;
@@ -188,17 +193,10 @@ public class EntryManagementActiviy extends BaseActivity implements
 //	private static final int THREAD_RepairOrder = 5;
 //	private static final int THREAD_CheckupReporting = 6;
 	Window window;
-	 Bitmap bitmap;
+    Bitmap bitmap;
 
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
-		// 隐藏虚拟按键实现全屏
-
-//		View decorView = getWindow().getDecorView();
-//		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-//		              | View.SYSTEM_UI_FLAG_FULLSCREEN;
-//		decorView.setSystemUiVisibility(uiOptions);
-
 		resources = getResources();
 		color = Color.parseColor("#ffa800");
 		appSet = JoyApplication.getInstance().getCompAppSet();
@@ -212,15 +210,12 @@ public class EntryManagementActiviy extends BaseActivity implements
 		}
 		int id;
 		View v = inflater.inflate(R.layout.activity_entry_basic_info, null);
-		setContentView(v);
-//		View v = getLayoutInflater().from(this).inflate(R.layout.activity_entry_basic_info, null);  
-//		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-//        v.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);  
-//        v.setOnClickListener(this);  
+		setContentView(v); 
         setContentView(v); 
 		initEmployInfo();
 		bindDepartmentOrPos("CostCenterno", -1);// 传入-1显示全部部门
 		bindDepartmentOrPos("Compos", -1);
+		bindSysData();
 		initViewMyselfInfo();
 		initViewPapersInfo();
 		initViewHistory();
@@ -334,6 +329,9 @@ public class EntryManagementActiviy extends BaseActivity implements
 
 		layout_goBackFamilyInfo = (LinearLayout) findViewById(R.id.layout_goBackFamilyInfo);
 		layout_goBackFamilyInfo.setOnClickListener(this);
+		
+	
+		
 		iv_step1 = (ImageView) findViewById(R.id.iv_step1);
 		iv_step2 = (ImageView) findViewById(R.id.iv_step2);
 		iv_step3 = (ImageView) findViewById(R.id.iv_step3);
@@ -346,37 +344,37 @@ public class EntryManagementActiviy extends BaseActivity implements
 		// 应聘部门
 		iv_comDep = (ImageView) findViewById(R.id.iv_comDep);
 		uiAdapter.setMargin(iv_comDep, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_comDep = (TextView) findViewById(R.id.tv_comDep);
 		uiAdapter.setTextSize(tv_comDep, 18);
 		uiAdapter.setMargin(tv_comDep, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		sp_comDep = (Spinner) findViewById(R.id.sp_comDep);
-		uiAdapter.setMargin(sp_comDep, LayoutParams.MATCH_PARENT, 45, 5, 20,
+		uiAdapter.setMargin(sp_comDep, LayoutParams.MATCH_PARENT, 37, 5, 20,
 				45, 0);
 
 		// 应聘职位
 		iv_comPos = (ImageView) findViewById(R.id.iv_comPos);
 		uiAdapter.setMargin(iv_comPos, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_comPos = (TextView) findViewById(R.id.tv_comPos);
 		uiAdapter.setTextSize(tv_comPos, 18);
 		uiAdapter.setMargin(tv_comPos, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		sp_comPos = (Spinner) findViewById(R.id.sp_comPos);
-		uiAdapter.setMargin(sp_comPos, LayoutParams.MATCH_PARENT, 45, 5, 20,
+		uiAdapter.setMargin(sp_comPos, LayoutParams.MATCH_PARENT, 37, 5, 20,
 				45, 0);
 		// 入职日期
 		iv_comEntryDate = (ImageView) findViewById(R.id.iv_comEntryDate);
 		uiAdapter.setMargin(iv_comEntryDate, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_comEntryDate = (TextView) findViewById(R.id.tv_comEntryDate);
 		uiAdapter.setTextSize(tv_comEntryDate, 18);
 		uiAdapter.setMargin(tv_comEntryDate, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_comEntryDate = (EditText) findViewById(R.id.et_comEntryDate);
 		et_comEntryDate.setText(initDate);
-		uiAdapter.setMargin(et_comEntryDate, LayoutParams.MATCH_PARENT, 45, 5,
+		uiAdapter.setMargin(et_comEntryDate, LayoutParams.MATCH_PARENT, 37, 5,
 				20, 45, 0);
 		et_comEntryDate.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -388,68 +386,77 @@ public class EntryManagementActiviy extends BaseActivity implements
 		// 现居地址
 		iv_residence = (ImageView) findViewById(R.id.iv_residence);
 		uiAdapter.setMargin(iv_residence, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 25, 0, 10);
 		tv_residence = (TextView) findViewById(R.id.tv_residence);
 		uiAdapter.setTextSize(tv_residence, 18);
 		uiAdapter.setMargin(tv_residence, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_address = (EditText) findViewById(R.id.et_address);
-		uiAdapter.setMargin(et_address, LayoutParams.MATCH_PARENT, 45, 5, 20,
+		uiAdapter.setMargin(et_address, LayoutParams.MATCH_PARENT, 37, 5, 20,
 				45, 0);
 		// 联系方式
 		iv_mobile = (ImageView) findViewById(R.id.iv_mobile);
 		uiAdapter.setMargin(iv_mobile, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 25, 0, 10);
 		tv_mobile = (TextView) findViewById(R.id.tv_mobile);
 		uiAdapter.setTextSize(tv_mobile, 18);
 		uiAdapter.setMargin(tv_mobile, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_mobile = (EditText) findViewById(R.id.et_mobile);
-		uiAdapter.setMargin(et_mobile, LayoutParams.MATCH_PARENT, 45, 5, 20,
+		uiAdapter.setMargin(et_mobile, LayoutParams.MATCH_PARENT, 37, 5, 20,
 				45, 0);
 		// 紧急联系人
 		iv_urgentContact = (ImageView) findViewById(R.id.iv_urgentContact);
 		uiAdapter.setMargin(iv_urgentContact, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 25, 0, 10);
 		tv_urgentContact = (TextView) findViewById(R.id.tv_urgentContact);
 		uiAdapter.setTextSize(tv_urgentContact, 18);
 		uiAdapter.setMargin(tv_urgentContact, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_urgentContact = (EditText) findViewById(R.id.et_urgentContact);
-		uiAdapter.setMargin(et_urgentContact, LayoutParams.MATCH_PARENT, 45, 5,
+		uiAdapter.setMargin(et_urgentContact, LayoutParams.MATCH_PARENT, 37, 5,
 				20, 45, 0);
 		// 紧急联系方式
 		iv_urgentMobile = (ImageView) findViewById(R.id.iv_urgentMobile);
 		uiAdapter.setMargin(iv_urgentMobile, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 25, 0, 10);
 		tv_urgentMobile = (TextView) findViewById(R.id.tv_urgentMobile);
 		uiAdapter.setTextSize(tv_urgentMobile, 18);
 		uiAdapter.setMargin(tv_urgentMobile, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_urgentMobile = (EditText) findViewById(R.id.et_urgentMobile);
-		uiAdapter.setMargin(et_urgentMobile, LayoutParams.MATCH_PARENT, 45, 5,
+		uiAdapter.setMargin(et_urgentMobile, LayoutParams.MATCH_PARENT, 37, 5,
+				20, 45, 0);
+		
+	    //紧急联系人地址
+		iv_urgentAddr = (ImageView) findViewById(R.id.iv_urgentAddr);
+		uiAdapter.setMargin(iv_urgentAddr, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 25, 0, 10);
+		tv_urgentAddr = (TextView) findViewById(R.id.tv_urgentAddr);
+		uiAdapter.setTextSize(tv_urgentAddr, 18);
+		uiAdapter.setMargin(tv_urgentAddr, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+		et_urgentAddr = (EditText) findViewById(R.id.et_urgentAddr);
+		uiAdapter.setMargin(et_urgentAddr, LayoutParams.MATCH_PARENT, 37, 5,
 				20, 45, 0);
 		// 户口所在地
 		iv_regions = (ImageView) findViewById(R.id.iv_regions);
 		uiAdapter.setMargin(iv_regions, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 33, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 25, 0, 10);
 		tv_regions = (TextView) findViewById(R.id.tv_regions);
 		uiAdapter.setTextSize(tv_regions, 18);
 		uiAdapter.setMargin(tv_regions, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_residence = (EditText) findViewById(R.id.et_residence);
-		uiAdapter.setMargin(et_residence, LayoutParams.MATCH_PARENT, 45, 5, 20,
+		uiAdapter.setMargin(et_residence, LayoutParams.MATCH_PARENT, 37, 5, 20,
 				45, 0);
+		employInfoNext=(RelativeLayout)findViewById(R.id.employInfoNext);
 		// 保存
 		btn_saveEmployInfo = (Button) findViewById(R.id.btn_saveEmployInfo);
-		uiAdapter.setMargin(btn_saveEmployInfo, LayoutParams.MATCH_PARENT, 45,
-				30, 20, 30, 0);
 		uiAdapter.setTextSize(btn_saveEmployInfo, 24);
 
 		// 下一步
 		btn_employInfoNext = (Button) findViewById(R.id.btn_employInfoNext);
-		uiAdapter.setMargin(btn_employInfoNext, LayoutParams.MATCH_PARENT, 45,
-				30, 20, 30, 0);
 		uiAdapter.setTextSize(btn_employInfoNext, 24);
 
 	}
@@ -461,30 +468,30 @@ public class EntryManagementActiviy extends BaseActivity implements
 		// 中文名
 		iv_personName = (ImageView) findViewById(R.id.iv_personName);
 		uiAdapter.setMargin(iv_personName, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_personName = (TextView) findViewById(R.id.tv_personName);
 		uiAdapter.setTextSize(tv_personName, 18);
 		uiAdapter.setMargin(tv_personName, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_personName = (EditText) findViewById(R.id.et_personName);
-		uiAdapter.setMargin(et_personName, LayoutParams.MATCH_PARENT, 45, 5,
+		uiAdapter.setMargin(et_personName, LayoutParams.MATCH_PARENT, 37, 5,
 				20, 45, 0);
 		// 英文名
 		iv_englishName = (ImageView) findViewById(R.id.iv_englishName);
 		uiAdapter.setMargin(iv_englishName, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_englishName = (TextView) findViewById(R.id.tv_englishName);
 		uiAdapter.setTextSize(tv_englishName, 18);
 		uiAdapter.setMargin(tv_englishName, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_englishName = (EditText) findViewById(R.id.et_englishName);
-		uiAdapter.setMargin(et_englishName, LayoutParams.MATCH_PARENT, 45, 5,
+		uiAdapter.setMargin(et_englishName, LayoutParams.MATCH_PARENT, 37, 5,
 				20, 45, 0);
 		uiAdapter.setPadding(et_englishName, 10, 0, 0, 0);
 		// 性别
 		iv_gender = (ImageView) findViewById(R.id.iv_gender);
 		uiAdapter.setMargin(iv_gender, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 17, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 17, 15, 0, 10);
 		tv_gender = (TextView) findViewById(R.id.tv_gender);
 		uiAdapter.setTextSize(tv_gender, 18);
 		uiAdapter.setMargin(tv_gender, LayoutParams.WRAP_CONTENT,
@@ -492,91 +499,164 @@ public class EntryManagementActiviy extends BaseActivity implements
 		radiogender = (RadioGroup) findViewById(R.id.radiogender);
 		maleButton = (RadioButton) findViewById(R.id.male);
 		femaleButton = (RadioButton) findViewById(R.id.female);
-		uiAdapter.setMargin(radiogender, LayoutParams.MATCH_PARENT, 40, 5, 20,
+		uiAdapter.setPadding(radiogender, 10, 15, 0, 0);
+		//民族sp_nation
+		iv_nation = (ImageView) findViewById(R.id.iv_nation);
+		uiAdapter.setMargin(iv_nation, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
+		tv_nation = (TextView) findViewById(R.id.tv_nation);
+		uiAdapter.setTextSize(tv_nation, 18);
+		uiAdapter.setMargin(tv_nation, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+		sp_nation = (Spinner) findViewById(R.id.sp_nation);
+		uiAdapter.setMargin(sp_nation, LayoutParams.MATCH_PARENT, 37, 5, 20,
 				45, 0);
-		uiAdapter.setPadding(radiogender, 10, 0, 0, 0);
 		// 籍贯
 		iv_address = (ImageView) findViewById(R.id.iv_address);
 		uiAdapter.setMargin(iv_address, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 25, 0, 10);
 		tv_address = (TextView) findViewById(R.id.tv_address);
 		uiAdapter.setTextSize(tv_address, 18);
 		uiAdapter.setMargin(tv_address, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_regions = (EditText) findViewById(R.id.et_regions);
-		uiAdapter.setMargin(et_regions, LayoutParams.MATCH_PARENT, 45, 5, 20,
+		uiAdapter.setMargin(et_regions, LayoutParams.MATCH_PARENT, 37, 5, 20,
 				45, 0);
 		uiAdapter.setPadding(et_regions, 10, 0, 0, 0);
 		// 身份证号
 		iv_idNo = (ImageView) findViewById(R.id.iv_idNo);
 		uiAdapter.setMargin(iv_idNo, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_idNo = (TextView) findViewById(R.id.tv_idNo);
 		uiAdapter.setTextSize(tv_idNo, 18);
 		uiAdapter.setMargin(tv_idNo, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_idNo = (EditText) findViewById(R.id.et_idNo);
-		uiAdapter.setMargin(et_idNo, LayoutParams.MATCH_PARENT, 45, 5, 20, 45,
+		uiAdapter.setMargin(et_idNo, LayoutParams.MATCH_PARENT, 37, 5, 20, 45,
 				0);
 		uiAdapter.setPadding(et_idNo, 10, 0, 0, 0);
+		//婚姻状况
+		iv_maritalStatus = (ImageView) findViewById(R.id.iv_maritalStatus);
+		uiAdapter.setMargin(iv_maritalStatus, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
+		tv_maritalStatus = (TextView) findViewById(R.id.tv_maritalStatus);
+		uiAdapter.setTextSize(tv_maritalStatus, 18);
+		uiAdapter.setMargin(tv_maritalStatus, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 10,15, 0, 10);
+		sp_maritalStatus = (Spinner) findViewById(R.id.sp_maritalStatus);
+		uiAdapter.setMargin(sp_maritalStatus, LayoutParams.MATCH_PARENT, 37, 5, 20,
+				45, 0);
+		//政治面貌
+		iv_politicalStatus = (ImageView) findViewById(R.id.iv_politicalStatus);
+		uiAdapter.setMargin(iv_politicalStatus, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
+		tv_politicalStatus = (TextView) findViewById(R.id.tv_politicalStatus);
+		uiAdapter.setTextSize(tv_politicalStatus, 18);
+		uiAdapter.setMargin(tv_politicalStatus, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+		sp_politicalStatus = (Spinner) findViewById(R.id.sp_politicalStatus);
+		uiAdapter.setMargin(sp_politicalStatus, LayoutParams.MATCH_PARENT, 37, 5, 20,
+				45, 0);
+		//健康状况
+		iv_healthCondition = (ImageView) findViewById(R.id.iv_healthCondition);
+		uiAdapter.setMargin(iv_healthCondition, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
+		tv_healthCondition = (TextView) findViewById(R.id.tv_healthCondition);
+		uiAdapter.setTextSize(tv_healthCondition, 18);
+		uiAdapter.setMargin(tv_healthCondition, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+		sp_healthCondition = (Spinner) findViewById(R.id.sp_healthCondition);
+		uiAdapter.setMargin(sp_healthCondition, LayoutParams.MATCH_PARENT, 37, 5, 20,
+				45, 0);
+		//文化程度
+		iv_culturalDegree = (ImageView) findViewById(R.id.iv_culturalDegree);
+		uiAdapter.setMargin(iv_culturalDegree, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
+		tv_culturalDegree = (TextView) findViewById(R.id.tv_culturalDegree);
+		uiAdapter.setTextSize(tv_culturalDegree, 18);
+		uiAdapter.setMargin(tv_culturalDegree, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+		sp_culturalDegree = (Spinner) findViewById(R.id.sp_culturalDegree);
+		uiAdapter.setMargin(sp_culturalDegree, LayoutParams.MATCH_PARENT, 37, 5, 20,
+				45, 0);
 		// 学历号
 		iv_educationNo = (ImageView) findViewById(R.id.iv_educationNo);
 		uiAdapter.setMargin(iv_educationNo, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_educationNo = (TextView) findViewById(R.id.tv_educationNo);
 		uiAdapter.setTextSize(tv_educationNo, 18);
 		uiAdapter.setMargin(tv_educationNo, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_educationNo = (EditText) findViewById(R.id.et_educationNo);
-		uiAdapter.setMargin(et_educationNo, LayoutParams.MATCH_PARENT, 45, 5,
+		uiAdapter.setMargin(et_educationNo, LayoutParams.MATCH_PARENT, 37, 5,
 				20, 45, 0);
 		uiAdapter.setPadding(et_educationNo, 10, 0, 0, 0);
-
+        //专业
+		iv_major = (ImageView) findViewById(R.id.iv_major);
+		uiAdapter.setMargin(iv_major, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
+		tv_major = (TextView) findViewById(R.id.tv_major);
+		uiAdapter.setTextSize(tv_major, 18);
+		uiAdapter.setMargin(tv_major, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+		et_major = (EditText) findViewById(R.id.et_major);
+		uiAdapter.setMargin(et_major, LayoutParams.MATCH_PARENT, 37, 5,
+				20, 45, 0);
+		uiAdapter.setPadding(et_major, 10, 0, 0, 0);
 		// 开户银行
 		iv_depositBank = (ImageView) findViewById(R.id.iv_depositBank);
 		uiAdapter.setMargin(iv_depositBank, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_depositBank = (TextView) findViewById(R.id.tv_depositBank);
 		uiAdapter.setTextSize(tv_depositBank, 18);
 		uiAdapter.setMargin(tv_depositBank, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
-		et_depositBank = (EditText) findViewById(R.id.et_depositBank);
-		uiAdapter.setMargin(et_depositBank, LayoutParams.MATCH_PARENT, 45, 5,
-				20, 45, 0);
-		uiAdapter.setPadding(et_depositBank, 10, 0, 0, 0);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+		sp_depositBank = (Spinner) findViewById(R.id.sp_depositBank);
+		uiAdapter.setMargin(sp_depositBank, LayoutParams.MATCH_PARENT, 37, 5, 20,
+				45, 0);
 		// 银行账号
 		iv_depositCardNo = (ImageView) findViewById(R.id.iv_depositCardNo);
 		uiAdapter.setMargin(iv_depositCardNo, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_depositCardNo = (TextView) findViewById(R.id.tv_depositCardNo);
 		uiAdapter.setTextSize(tv_depositCardNo, 18);
 		uiAdapter.setMargin(tv_depositCardNo, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_depositCardNo = (EditText) findViewById(R.id.et_depositCardNo);
-		uiAdapter.setMargin(et_depositCardNo, LayoutParams.MATCH_PARENT, 45, 5,
+		uiAdapter.setMargin(et_depositCardNo, LayoutParams.MATCH_PARENT, 37, 5,
 				20, 45, 0);
 		uiAdapter.setPadding(et_depositCardNo, 10, 0, 0, 0);
 		// 社会公积金编号
 		iv_accumFund = (ImageView) findViewById(R.id.iv_accumFund);
 		uiAdapter.setMargin(iv_accumFund, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_accumFund = (TextView) findViewById(R.id.tv_accumFund);
 		uiAdapter.setTextSize(tv_accumFund, 18);
 		uiAdapter.setMargin(tv_accumFund, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 20, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_accumFund = (EditText) findViewById(R.id.et_accumFund);
-		uiAdapter.setMargin(et_accumFund, LayoutParams.MATCH_PARENT, 45, 5, 20,
+		uiAdapter.setMargin(et_accumFund, LayoutParams.MATCH_PARENT, 37, 5, 20,
 				45, 0);
 		uiAdapter.setPadding(et_accumFund, 10, 0, 0, 0);
+		//社保账号
+		iv_socialSecurityNo = (ImageView) findViewById(R.id.iv_socialSecurityNo);
+		uiAdapter.setMargin(iv_socialSecurityNo, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
+		tv_socialSecurityNo = (TextView) findViewById(R.id.tv_socialSecurityNo);
+		uiAdapter.setTextSize(tv_socialSecurityNo, 18);
+		uiAdapter.setMargin(tv_socialSecurityNo, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
+		et_socialSecurityNo = (EditText) findViewById(R.id.et_socialSecurityNo);
+		uiAdapter.setMargin(et_socialSecurityNo, LayoutParams.MATCH_PARENT, 37, 5, 20,
+				45, 0);
+		uiAdapter.setPadding(et_socialSecurityNo, 10, 0, 0, 0);
+		
+		myselfInfoNext=(RelativeLayout)findViewById(R.id.myselfInfoNext);
 		// 保存
 		btn_saveMyselfInfo = (Button) findViewById(R.id.btn_saveMyselfInfo);
-		uiAdapter.setMargin(btn_saveMyselfInfo, LayoutParams.MATCH_PARENT, 45,
-				30, 20, 30, 0);
 		uiAdapter.setTextSize(btn_saveMyselfInfo, 24);
 		// 下一步
 		btn_myselfInfoNext = (Button) findViewById(R.id.btn_myselfInfoNext);
-		uiAdapter.setMargin(btn_myselfInfoNext, LayoutParams.MATCH_PARENT, 45,
-				30, 20, 30, 0);
 		uiAdapter.setTextSize(btn_myselfInfoNext, 24);
 	}
 
@@ -639,15 +719,13 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setTextSize(tv_checkupReporting, 18);
 		uiAdapter.setMargin(tv_checkupReporting, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
+		papersInfoNext=(RelativeLayout)findViewById(R.id.papersInfoNext);
+		
 		// 保存
 		btn_savePapersInfo = (Button) findViewById(R.id.btn_savePapersInfo);
-		uiAdapter.setMargin(btn_savePapersInfo, LayoutParams.MATCH_PARENT, 45,
-				30, 20, 30, 0);
 		uiAdapter.setTextSize(btn_savePapersInfo, 24);
 		// 下一步
 		btn_papersInfoNext = (Button) findViewById(R.id.btn_papersInfoNext);
-		uiAdapter.setMargin(btn_papersInfoNext, LayoutParams.MATCH_PARENT, 45,
-				30, 20, 30, 0);
 		uiAdapter.setTextSize(btn_papersInfoNext, 24);
 	}
 
@@ -684,15 +762,13 @@ public class EntryManagementActiviy extends BaseActivity implements
 				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
 		workExperienceAdapter = new EntryWrokExperienceDetailAdapter(self, self);
 		list_workExperienceInfo.setAdapter(workExperienceAdapter);
+		historyNext=(RelativeLayout)findViewById(R.id.historyNext);
+		
 		// 保存
 		btn_saveHistory = (Button) findViewById(R.id.btn_saveHistory);
-		uiAdapter.setMargin(btn_saveHistory, LayoutParams.MATCH_PARENT, 45, 30,
-				20, 30, 0);
 		uiAdapter.setTextSize(btn_saveHistory, 24);
 		// 下一步
 		btn_historyNext = (Button) findViewById(R.id.btn_historyNext);
-		uiAdapter.setMargin(btn_historyNext, LayoutParams.MATCH_PARENT, 45, 30,
-				20, 30, 0);
 		uiAdapter.setTextSize(btn_historyNext, 24);
 		defaultShow();// 初始化显示经历的后背景框
 	}
@@ -743,16 +819,13 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(btn_addFamilyInfo, LayoutParams.MATCH_PARENT, 45,
 				10, 20, 10, 0);
 		uiAdapter.setTextSize(btn_addFamilyInfo, 20);
-
+		familyInfoNext=(RelativeLayout)findViewById(R.id.familyInfoNext);
+		
 		// 保存
 		btn_saveFamilyInfo = (Button) findViewById(R.id.btn_saveFamilyInfo);
-		uiAdapter.setMargin(btn_saveFamilyInfo, LayoutParams.MATCH_PARENT, 45,
-				30, 20, 30, 0);
 		uiAdapter.setTextSize(btn_saveFamilyInfo, 24);
 		// 下一步
 		btn_familyInfoNext = (Button) findViewById(R.id.btn_familyInfoNext);
-		uiAdapter.setMargin(btn_familyInfoNext, LayoutParams.MATCH_PARENT, 45,
-				30, 20, 30, 0);
 		uiAdapter.setTextSize(btn_familyInfoNext, 24);
 	}
 
@@ -795,16 +868,12 @@ public class EntryManagementActiviy extends BaseActivity implements
 
 		photography = (CheckBox) findViewById(R.id.photography);
 		photography.setBackgroundResource(R.drawable.check_hobbies);
-
+		hobbiesSumbit=(RelativeLayout)findViewById(R.id.hobbiesSumbit);
 		// 保存
 		btn_saveHobbies = (Button) findViewById(R.id.btn_saveHobbies);
-		uiAdapter.setMargin(btn_saveHobbies, LayoutParams.MATCH_PARENT, 45, 30,
-				20, 30, 0);
 		uiAdapter.setTextSize(btn_saveHobbies, 24);
 		// 上传
 		btn_sumbit = (Button) findViewById(R.id.btn_sumbit);
-		uiAdapter.setMargin(btn_sumbit, LayoutParams.MATCH_PARENT, 45, 30, 20,
-				30, 0);
 		uiAdapter.setTextSize(btn_sumbit, 24);
 	}
 
@@ -814,6 +883,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 	private void step1() {
 		employInfo.setVisibility(View.VISIBLE);
 		myselfInfo.setVisibility(View.GONE);
+		scroll_myselfInfo.setVisibility(View.GONE);
 		papersInfo.setVisibility(View.GONE);
 		history.setVisibility(View.GONE);
 		familyInfo.setVisibility(View.GONE);
@@ -830,6 +900,12 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step4.setVisibility(View.GONE);
 		iv_step5.setVisibility(View.GONE);
 		iv_step6.setVisibility(View.GONE);
+		employInfoNext.setVisibility(View.VISIBLE);
+	    myselfInfoNext.setVisibility(View.GONE);
+		papersInfoNext.setVisibility(View.GONE);
+		historyNext.setVisibility(View.GONE);
+		familyInfoNext.setVisibility(View.GONE);
+		hobbiesSumbit.setVisibility(View.GONE);
 		tv_title.setText("应聘信息");
 	}
 
@@ -837,6 +913,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 
 		employInfo.setVisibility(View.GONE);
 		myselfInfo.setVisibility(View.VISIBLE);
+		scroll_myselfInfo.setVisibility(View.VISIBLE);
 		papersInfo.setVisibility(View.GONE);
 		history.setVisibility(View.GONE);
 		familyInfo.setVisibility(View.GONE);
@@ -854,11 +931,18 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step4.setVisibility(View.GONE);
 		iv_step5.setVisibility(View.GONE);
 		iv_step6.setVisibility(View.GONE);
+		employInfoNext.setVisibility(View.GONE);
+	    myselfInfoNext.setVisibility(View.VISIBLE);
+		papersInfoNext.setVisibility(View.GONE);
+		historyNext.setVisibility(View.GONE);
+		familyInfoNext.setVisibility(View.GONE);
+		hobbiesSumbit.setVisibility(View.GONE);
 	}
 
 	private void step3() {
 		employInfo.setVisibility(View.GONE);
 		myselfInfo.setVisibility(View.GONE);
+		scroll_myselfInfo.setVisibility(View.GONE);
 		papersInfo.setVisibility(View.VISIBLE);
 		history.setVisibility(View.GONE);
 		familyInfo.setVisibility(View.GONE);
@@ -876,11 +960,18 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step4.setVisibility(View.GONE);
 		iv_step5.setVisibility(View.GONE);
 		iv_step6.setVisibility(View.GONE);
+		employInfoNext.setVisibility(View.GONE);
+	    myselfInfoNext.setVisibility(View.GONE);
+		papersInfoNext.setVisibility(View.VISIBLE);
+		historyNext.setVisibility(View.GONE);
+		familyInfoNext.setVisibility(View.GONE);
+		hobbiesSumbit.setVisibility(View.GONE);
 	}
 
 	private void step4() {
 		employInfo.setVisibility(View.GONE);
 		myselfInfo.setVisibility(View.GONE);
+		scroll_myselfInfo.setVisibility(View.GONE);
 		papersInfo.setVisibility(View.GONE);
 		history.setVisibility(View.VISIBLE);
 		familyInfo.setVisibility(View.GONE);
@@ -898,11 +989,18 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step4.setVisibility(View.VISIBLE);
 		iv_step5.setVisibility(View.GONE);
 		iv_step6.setVisibility(View.GONE);
+		employInfoNext.setVisibility(View.GONE);
+	    myselfInfoNext.setVisibility(View.GONE);
+		papersInfoNext.setVisibility(View.GONE);
+		historyNext.setVisibility(View.VISIBLE);
+		familyInfoNext.setVisibility(View.GONE);
+		hobbiesSumbit.setVisibility(View.GONE);
 	}
 
 	private void step5() {
 		employInfo.setVisibility(View.GONE);
 		myselfInfo.setVisibility(View.GONE);
+		scroll_myselfInfo.setVisibility(View.GONE);
 		papersInfo.setVisibility(View.GONE);
 		history.setVisibility(View.GONE);
 		familyInfo.setVisibility(View.VISIBLE);
@@ -920,11 +1018,18 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step4.setVisibility(View.GONE);
 		iv_step5.setVisibility(View.VISIBLE);
 		iv_step6.setVisibility(View.GONE);
+		employInfoNext.setVisibility(View.GONE);
+	    myselfInfoNext.setVisibility(View.GONE);
+		papersInfoNext.setVisibility(View.GONE);
+		historyNext.setVisibility(View.GONE);
+		familyInfoNext.setVisibility(View.VISIBLE);
+		hobbiesSumbit.setVisibility(View.GONE);
 	}
 
 	private void step6() {
 		employInfo.setVisibility(View.GONE);
 		myselfInfo.setVisibility(View.GONE);
+		scroll_myselfInfo.setVisibility(View.GONE);
 		papersInfo.setVisibility(View.GONE);
 		history.setVisibility(View.GONE);
 		familyInfo.setVisibility(View.GONE);
@@ -942,6 +1047,12 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step4.setVisibility(View.GONE);
 		iv_step5.setVisibility(View.GONE);
 		iv_step6.setVisibility(View.VISIBLE);
+		employInfoNext.setVisibility(View.GONE);
+	    myselfInfoNext.setVisibility(View.GONE);
+		papersInfoNext.setVisibility(View.GONE);
+		historyNext.setVisibility(View.GONE);
+		familyInfoNext.setVisibility(View.GONE);
+		hobbiesSumbit.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -950,6 +1061,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		String upLoadSuccess = "提交成功";
 		employInfo = (LinearLayout) findViewById(R.id.employInfo);
 		myselfInfo = (LinearLayout) findViewById(R.id.myselfInfo);
+		scroll_myselfInfo=(ScrollView) findViewById(R.id.scroll_myselfInfo);
 		papersInfo = (LinearLayout) findViewById(R.id.papersInfo);
 		history = (LinearLayout) findViewById(R.id.history);
 		familyInfo = (LinearLayout) findViewById(R.id.layout_familyInfo);
@@ -1008,7 +1120,6 @@ public class EntryManagementActiviy extends BaseActivity implements
 			String regions = et_regions.getText().toString();
 			String idNo = et_idNo.getText().toString();
 			String enducationNo = et_educationNo.getText().toString();
-			String depositBank = et_depositBank.getText().toString();
 			String depositCardNo = et_depositCardNo.getText().toString();
 			if (TextUtils.isEmpty(personName)) {
 				Toast.show(self, resources.getString(R.string.entryPersonName));
@@ -1019,17 +1130,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			} else if (TextUtils.isEmpty(idNo)) {
 				Toast.show(self, resources.getString(R.string.entryIdNo));
 				return;
-			} else if (TextUtils.isEmpty(enducationNo)) {
-				Toast.show(self, resources.getString(R.string.entryEducationNo));
-				return;
-			} else if (TextUtils.isEmpty(depositBank)) {
-				Toast.show(self, resources.getString(R.string.entryDepositBank));
-				return;
-			} else if (TextUtils.isEmpty(depositCardNo)) {
-				Toast.show(self,
-						resources.getString(R.string.entryDepositCardNo));
-				return;
-			} else if (!isIdNo(et_idNo.getText().toString())) {
+			}else if (!isIdNo(et_idNo.getText().toString())) {
 				Toast.show(self, resources.getString(R.string.idNoFormat));
 				return;
 			} else {
@@ -1138,6 +1239,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			public void onOperationFinished(List<Object> resList) {
 				employInfo = (LinearLayout) findViewById(R.id.employInfo);
 				myselfInfo = (LinearLayout) findViewById(R.id.myselfInfo);
+				scroll_myselfInfo=(ScrollView) findViewById(R.id.scroll_myselfInfo);
 				papersInfo = (LinearLayout) findViewById(R.id.papersInfo);
 				history = (LinearLayout) findViewById(R.id.history);
 				familyInfo = (LinearLayout) findViewById(R.id.layout_familyInfo);
@@ -1170,6 +1272,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 							}
 						}
 					}
+					
 					SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 					 et_comEntryDate.setText(date.format(new
 					 Date(Long.parseLong(entryManageEntity.getComEntryDate().substring(6,
@@ -1180,6 +1283,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 							.getUrgentContact());
 					et_urgentMobile
 							.setText(entryManageEntity.getUrgentMobile());
+					et_urgentAddr
+					        .setText(entryManageEntity.getUrgentAddr());
 					et_regions.setText(entryManageEntity.getRegions());
 					// 个人信息
 					et_personName.setText(entryManageEntity.getPersonName());
@@ -1197,10 +1302,79 @@ public class EntryManagementActiviy extends BaseActivity implements
 					et_address.setText(entryManageEntity.getAddress());
 					et_idNo.setText(entryManageEntity.getIdNo());
 					et_educationNo.setText(entryManageEntity.getEducationNo());
-					et_depositBank.setText(entryManageEntity.getDepositBank());
+					et_major.setText(entryManageEntity.getMajor());
 					et_depositCardNo.setText(entryManageEntity
 							.getDepositCardNo());
 					et_accumFund.setText(entryManageEntity.getAccumFund());
+					et_socialSecurityNo.setText(entryManageEntity.getSocialSecurityNo());
+					if (entryManageEntity.getMaritalStatus()!=null) {
+						ArrayAdapter<SpinnerData> maritalStatus = (ArrayAdapter<SpinnerData>) sp_maritalStatus.getAdapter();
+						for (int i = 0; i < maritalStatus.getCount(); i++) {
+							if (entryManageEntity.getMaritalStatus().equals(
+									maritalStatus.getItem(i).getText())) {
+								sp_maritalStatus.setSelection(i, true);
+							}
+						}
+					} else {
+						sp_maritalStatus.setSelection(0, true);
+					}
+					if (entryManageEntity.getPoliticalStatus()!=null) {
+						ArrayAdapter<SpinnerData> politicalStatus = (ArrayAdapter<SpinnerData>) sp_politicalStatus.getAdapter();
+						for (int i = 0; i < politicalStatus.getCount(); i++) {
+							if (entryManageEntity.getPoliticalStatus().equals(
+									politicalStatus.getItem(i).getText())) {
+								sp_politicalStatus.setSelection(i, true);
+							}
+						}
+					} else {
+						sp_politicalStatus.setSelection(0, true);
+					}
+					if (entryManageEntity.getHealthCondition()!=null) {
+						ArrayAdapter<SpinnerData> healthCondition = (ArrayAdapter<SpinnerData>) sp_healthCondition.getAdapter();
+						for (int i = 0; i < healthCondition.getCount(); i++) {
+							if (entryManageEntity.getHealthCondition().equals(
+									healthCondition.getItem(i).getText())) {
+								sp_healthCondition.setSelection(i, true);
+							}
+						}
+					} else {
+						sp_healthCondition.setSelection(0, true);
+					}
+					if (entryManageEntity.getCulturalDegree()!=null) {
+						ArrayAdapter<SpinnerData> culturalDegree = (ArrayAdapter<SpinnerData>) sp_culturalDegree.getAdapter();
+						for (int i = 0; i < culturalDegree.getCount(); i++) {
+							if (entryManageEntity.getCulturalDegree().equals(
+									culturalDegree.getItem(i).getText())) {
+								sp_culturalDegree.setSelection(i, true);
+							}
+						}
+					} else {
+						sp_culturalDegree.setSelection(0, true);
+					}
+					if (entryManageEntity.getNation()!=null) {
+						ArrayAdapter<SpinnerData> nation = (ArrayAdapter<SpinnerData>) sp_nation.getAdapter();
+						for (int i = 0; i < nation.getCount(); i++) {
+							if (entryManageEntity.getNation().equals(
+									nation.getItem(i).getText())) {
+								sp_nation.setSelection(i, true);
+							}
+						}
+					} else {
+						sp_nation.setSelection(0, true);
+					}
+					//开户银行
+					if (entryManageEntity.getDepositBank()!=null) {
+						ArrayAdapter<SpinnerData> depositBank = (ArrayAdapter<SpinnerData>) sp_depositBank.getAdapter();
+						for (int i = 0; i < depositBank.getCount(); i++) {
+							if (entryManageEntity.getDepositBank().equals(
+									depositBank.getItem(i).getText())) {
+								sp_depositBank.setSelection(i, true);
+							}
+						}
+					} else {
+						sp_depositBank.setSelection(0, true);
+					}
+					
 					// 证件信息
 					String materials = entryManageEntity.getMaterials();
 					if (materials != null) {
@@ -1226,29 +1400,34 @@ public class EntryManagementActiviy extends BaseActivity implements
 									jsonObjectMaterials.getString("Physical") };
 							if(urls[0].equals("")){
 							}else{
-								ImageLoader.getInstance().displayImage(urls[0], imgViewPhoto);
+								ImageLoader.getInstance().displayImage(urls[0].trim(), imgViewPhoto);
 							}
 							if(urls[1].equals("")){
 							}else{
 //								new Thread(new LoadImageRunnable(mHandler,
 //										THREAD_Academic, urls[1])).start();
-								ImageLoader.getInstance().displayImage(urls[1], imgViewAcademic);
+								ImageLoader.getInstance().displayImage(urls[1].trim(), imgViewAcademic);
+//								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewAcademic);
 							}
                             if(urls[2].equals("")){	
 							}else{
-								ImageLoader.getInstance().displayImage(urls[2], imgViewIdPhoto1);
+								ImageLoader.getInstance().displayImage(urls[2].trim(), imgViewIdPhoto1);
+//								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewIdPhoto1);
 							}
                             if(urls[3].equals("")){	
 							}else{
-								ImageLoader.getInstance().displayImage(urls[3], imgViewIdPhoto2);
+								ImageLoader.getInstance().displayImage(urls[3].trim(), imgViewIdPhoto2);
+//								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewIdPhoto2);
 							}
                             if(urls[4].equals("")){
 							}else{
-								ImageLoader.getInstance().displayImage(urls[4], imgViewRepairOrder);
+//								ImageLoader.getInstance().displayImage(urls[4].trim(), imgViewRepairOrder);
+								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewRepairOrder);
 							}
                             if(urls[5].equals("")){	
 							}else{	
-								ImageLoader.getInstance().displayImage(urls[5], imgViewCheckupReporting);
+								ImageLoader.getInstance().displayImage(urls[5].trim(), imgViewCheckupReporting);
+//								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewCheckupReporting);
 							}
                             certificates=urls[0];
                             learningCertificate=urls[1];
@@ -1589,7 +1768,117 @@ public class EntryManagementActiviy extends BaseActivity implements
 				JsonCommon.PROGRESSCOMMIT);
 		task.execute();
 	}
+	/**
+	 * 根据syskey绑定syskeyname
+	 * 
+	 */
+	private void bindSysData() {
+		EntryDepartmentDetailEntity entry = new EntryDepartmentDetailEntity();
+		OperationBuilder builder = new OperationBuilder().append(
+				new ComGroupSysData(), entry);
+		OnOperationListener listener = new OnOperationListener() {
+			@Override
+			public void onOperationFinished(List<Object> resList) {
+				if (self.isFinishing()) {
+					return;
+				}
+				if (resList == null) {
+					Toast.show(self, resources.getString(R.string.timeout));
+					return;
+				}
+				EntryDepartmentEntity entity = (EntryDepartmentEntity) resList
+						.get(0);
+				List<EntryDepartmentDetailEntity> allList = entity
+						.getRetObj();
+				list_maritalStatus = new ArrayList<SpinnerData>();
+				list_politicalStatus= new ArrayList<SpinnerData>();
+				list_healthCondition= new ArrayList<SpinnerData>();
+				list_culturalDegree= new ArrayList<SpinnerData>();
+				list_nation= new ArrayList<SpinnerData>();
+				list_depositBank= new ArrayList<SpinnerData>();
+				for (int i = 0; i < allList.size(); i++) {
+					if(allList.get(i).getSysKey().equals("maritalStatus"))
+					{
+						SpinnerData maritalStatus = new SpinnerData(allList
+								.get(i).getSysValue(), allList.get(i)
+								.getSysKeyName());
+						list_maritalStatus.add(maritalStatus);
+					}else if(allList.get(i).getSysKey().equals("politicalStatus"))
+					{
+						SpinnerData politicalStatus = new SpinnerData(allList
+								.get(i).getSysValue(), allList.get(i)
+								.getSysKeyName());
+						list_politicalStatus.add(politicalStatus);
+					}else if(allList.get(i).getSysKey().equals("healthCondition"))
+					{
+						SpinnerData healthCondition = new SpinnerData(allList
+								.get(i).getSysValue(), allList.get(i)
+								.getSysKeyName());
+						list_healthCondition.add(healthCondition);
+					}else if(allList.get(i).getSysKey().equals("culturalDegree"))
+					{
+						SpinnerData culturalDegree = new SpinnerData(allList
+								.get(i).getSysValue(), allList.get(i)
+								.getSysKeyName());
+						list_culturalDegree.add(culturalDegree);
+					}else if(allList.get(i).getSysKey().equals("nation"))
+					{
+						SpinnerData nation = new SpinnerData(allList
+								.get(i).getSysValue(), allList.get(i)
+								.getSysKeyName());
+						list_nation.add(nation);
+					}else if(allList.get(i).getSysKey().equals("depositBank")){
+						SpinnerData depositBank = new SpinnerData(allList
+								.get(i).getSysValue(), allList.get(i)
+								.getSysKeyName());
+						list_depositBank.add(depositBank);
+					}
+				}
+				
+				// 适配器
+				maritalStatus_adapter = new ArrayAdapter<SpinnerData>(
+						EntryManagementActiviy.this,
+						android.R.layout.simple_spinner_item, list_maritalStatus);
+				politicalStatus_adapter = new ArrayAdapter<SpinnerData>(
+						EntryManagementActiviy.this,
+						android.R.layout.simple_spinner_item, list_politicalStatus);
+				healthCondition_adapter = new ArrayAdapter<SpinnerData>(
+						EntryManagementActiviy.this,
+						android.R.layout.simple_spinner_item, list_healthCondition);
+				culturalDegree_adapter = new ArrayAdapter<SpinnerData>(
+						EntryManagementActiviy.this,
+						android.R.layout.simple_spinner_item, list_culturalDegree);
+				nation_adapter = new ArrayAdapter<SpinnerData>(
+						EntryManagementActiviy.this,
+						android.R.layout.simple_spinner_item, list_nation);
+				depositBank_adapter = new ArrayAdapter<SpinnerData>(
+						EntryManagementActiviy.this,
+						android.R.layout.simple_spinner_item, list_depositBank);
+				// 设置样式
+				maritalStatus_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				politicalStatus_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				healthCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				culturalDegree_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				nation_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				depositBank_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				// 加载适配器
+				sp_maritalStatus.setAdapter(maritalStatus_adapter);
+				sp_politicalStatus.setAdapter(politicalStatus_adapter);
+				sp_healthCondition.setAdapter(healthCondition_adapter);
+				sp_culturalDegree.setAdapter(culturalDegree_adapter);
+				sp_nation.setAdapter(nation_adapter);
+				sp_depositBank.setAdapter(depositBank_adapter);
+			}
 
+			@Override
+			public void onOperationError(Exception e) {
+				e.printStackTrace();
+			}
+		};
+		JsonCommon task = new JsonCommon(self, builder, listener,
+				JsonCommon.PROGRESSCOMMIT);
+		task.execute();
+	}
 
 	/**
 	 * @param submited
@@ -1641,6 +1930,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 					}
 				}
 				entity1.setUrgentContact(et_urgentContact.getText().toString());
+				entity1.setUrgentAddr(et_urgentAddr.getText().toString());
 				entity1.setRegions(et_regions.getText().toString());
 				// 个人信息
 				entity1.setPersonName(et_personName.getText().toString());
@@ -1662,9 +1952,16 @@ public class EntryManagementActiviy extends BaseActivity implements
 					}
 				}
 				entity1.setEducationNo(et_educationNo.getText().toString());
+				entity1.setNation(((SpinnerData) sp_nation.getSelectedItem()).getText());
+				entity1.setMaritalStatus(((SpinnerData) sp_maritalStatus.getSelectedItem()).getText());
+				entity1.setPoliticalStatus(((SpinnerData) sp_politicalStatus.getSelectedItem()).getText());
+				entity1.setHealthCondition(((SpinnerData) sp_healthCondition.getSelectedItem()).getText());
+				entity1.setCulturalDegree(((SpinnerData) sp_culturalDegree.getSelectedItem()).getText());
 				entity1.setAccumFund(et_accumFund.getText().toString());
-				entity1.setDepositBank(et_depositBank.getText().toString());
+				entity1.setDepositBank(((SpinnerData) sp_depositBank.getSelectedItem()).getText());
 				entity1.setDepositCardNo(et_depositCardNo.getText().toString());
+				entity1.setMajor(et_major.getText().toString());
+				entity1.setSocialSecurityNo(et_socialSecurityNo.getText().toString());
 				
 //				certificates,video,learningCertificate,
 //		        positive,reverse,retirement,physical;
@@ -1789,6 +2086,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		entity.setUrgentContact(et_urgentContact.getText().toString());
 		entity.setRegions(et_regions.getText().toString());
 		// 个人信息
+		// 个人信息
 		entity.setPersonName(et_personName.getText().toString());
 		entity.setEnglishName(et_englishName.getText().toString());
 		if (femaleButton.isChecked()) {
@@ -1800,16 +2098,24 @@ public class EntryManagementActiviy extends BaseActivity implements
 		if (TextUtils.isEmpty(et_idNo.getText().toString())) {
 		} else {
 			if (!isIdNo(et_idNo.getText().toString())) {
-				Toast.show(self, resources.getString(R.string.idNoFormat));
+				Toast.show(self,
+						resources.getString(R.string.idNoFormat));
 				return;
 			} else {
 				entity.setIdNo(et_idNo.getText().toString());
 			}
 		}
 		entity.setEducationNo(et_educationNo.getText().toString());
+		entity.setNation(((SpinnerData) sp_nation.getSelectedItem()).getText());
+		entity.setMaritalStatus(((SpinnerData) sp_maritalStatus.getSelectedItem()).getText());
+		entity.setPoliticalStatus(((SpinnerData) sp_politicalStatus.getSelectedItem()).getText());
+		entity.setHealthCondition(((SpinnerData) sp_healthCondition.getSelectedItem()).getText());
+		entity.setCulturalDegree(((SpinnerData) sp_culturalDegree.getSelectedItem()).getText());
 		entity.setAccumFund(et_accumFund.getText().toString());
-		entity.setDepositBank(et_depositBank.getText().toString());
+		entity.setDepositBank(((SpinnerData) sp_depositBank.getSelectedItem()).getText());
 		entity.setDepositCardNo(et_depositCardNo.getText().toString());
+		entity.setMajor(et_major.getText().toString());
+		entity.setSocialSecurityNo(et_socialSecurityNo.getText().toString());
 		//个人证件
 		//避免解析的时候解析掉等于号
 		GsonBuilder gb =new GsonBuilder();

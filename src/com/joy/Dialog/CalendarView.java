@@ -128,6 +128,7 @@ public class CalendarView extends View implements View.OnTouchListener {
 				+ calendar.get(Calendar.MONTH);
 		if (curYearAndMonth.equals(todayYearAndMonth)) {
 			int todayNumber = calendar.get(Calendar.DAY_OF_MONTH);
+			Log.e("=======================",todayNumber+"");
 			todayIndex = curStartIndex + todayNumber - 1;
 		}
 		for (int i = 0; i < 42; i++) {
@@ -139,6 +140,7 @@ public class CalendarView extends View implements View.OnTouchListener {
 			}
 			if (todayIndex != -1 && i == todayIndex) {
 				color = surface.todayNumberColor;
+				
 			}
 			drawCellText(canvas, i, date[i] + "", color);
 		}

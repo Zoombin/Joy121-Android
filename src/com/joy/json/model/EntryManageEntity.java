@@ -28,6 +28,14 @@ public class EntryManageEntity extends TResult{
 	private String EnglishName;//英文名
 	private int Gender;//性别
 	private String Address;//现居地
+	private String Nation;//民族
+	private String MaritalStatus;//婚姻状况
+	private String PoliticalStatus;//政治面貌
+	private String HealthCondition;//健康状况
+	private String CulturalDegree;//文化程度
+	private String UrgentAddr;//紧急联系人地址
+	private String SocialSecurityNo;//社保账号
+	private String Major;//专业
 	private String IdNo;//身份证号
 	private String EducationNo;//学历证号
 	private String DepositBank;//开户银行
@@ -177,4 +185,54 @@ public class EntryManageEntity extends TResult{
 	public void setExperiences(String experiences) {
 		Experiences = experiences;
 	}
+	public String getNation() {
+		return Nation;
+	}
+	public void setNation(String nation) {
+		Nation = nation;
+	}
+	public String getMaritalStatus() {
+		return MaritalStatus;
+	}
+	public void setMaritalStatus(String maritalStatus) {
+		MaritalStatus = maritalStatus;
+	}
+	public String getPoliticalStatus() {
+		return PoliticalStatus;
+	}
+	public void setPoliticalStatus(String politicalStatus) {
+		PoliticalStatus = politicalStatus;
+	}
+	public String getHealthCondition() {
+		return HealthCondition;
+	}
+	public void setHealthCondition(String healthCondition) {
+		HealthCondition = healthCondition;
+	}
+	public String getCulturalDegree() {
+		return CulturalDegree;
+	}
+	public void setCulturalDegree(String culturalDegree) {
+		CulturalDegree = culturalDegree;
+	}
+	public String getUrgentAddr() {
+		return UrgentAddr;
+	}
+	public void setUrgentAddr(String urgentAddr) {
+		UrgentAddr = urgentAddr;
+	}
+	public String getSocialSecurityNo() {
+		return SocialSecurityNo;
+	}
+	public void setSocialSecurityNo(String socialSecurityNo) {
+		SocialSecurityNo = socialSecurityNo;
+	}
+	public String getMajor() {
+		return Major;
+	}
+	public void setMajor(String major) {
+		Major = major;
+	}
+	
+	
 }
