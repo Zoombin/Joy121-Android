@@ -665,7 +665,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 	 */
 	private void initViewPapersInfo() {
 		imgViewPhoto = (ImageView) findViewById(R.id.imgViewPhoto);
-		imgViewVedio = (ImageView) findViewById(R.id.imgViewVideo);
+//		imgViewVedio = (ImageView) findViewById(R.id.imgViewVideo);
 		imgViewAcademic = (ImageView) findViewById(R.id.imgViewAcademic);
 		imgViewIdPhoto1 = (ImageView) findViewById(R.id.imgViewIdPhoto1);// 身份证正面
 		imgViewIdPhoto2 = (ImageView) findViewById(R.id.imgViewIdPhoto2);// 身份证反面
@@ -680,13 +680,13 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(tv_myselfPhoto, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
 		// 个人视频
-		iv_myselfVideo = (ImageView) findViewById(R.id.iv_myselfVideo);
-		uiAdapter.setMargin(iv_myselfVideo, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
-		tv_myselfVideo = (TextView) findViewById(R.id.tv_myselfVideo);
-		uiAdapter.setTextSize(tv_myselfVideo, 18);
-		uiAdapter.setMargin(tv_myselfVideo, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
+//		iv_myselfVideo = (ImageView) findViewById(R.id.iv_myselfVideo);
+//		uiAdapter.setMargin(iv_myselfVideo, LayoutParams.WRAP_CONTENT,
+//				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+//		tv_myselfVideo = (TextView) findViewById(R.id.tv_myselfVideo);
+//		uiAdapter.setTextSize(tv_myselfVideo, 18);
+//		uiAdapter.setMargin(tv_myselfVideo, LayoutParams.WRAP_CONTENT,
+//				LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
 		// 学历证书
 		iv_academicPhoto = (ImageView) findViewById(R.id.iv_academicPhoto);
 		uiAdapter.setMargin(iv_academicPhoto, LayoutParams.WRAP_CONTENT,
@@ -1154,8 +1154,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 			}else if(reverse.equals("")){
 				Toast.show(self, "请添加身份证反面照");
 				return;
-			}else if(physical.equals("")){
-				Toast.show(self, "请添加体检报告");
+			}else if(learningCertificate.equals("")){
+				Toast.show(self, "请添加学历证书");
 				return;
 			}else{
 				step4();
@@ -1421,8 +1421,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 							}
                             if(urls[4].equals("")){
 							}else{
-//								ImageLoader.getInstance().displayImage(urls[4].trim(), imgViewRepairOrder);
-								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewRepairOrder);
+								ImageLoader.getInstance().displayImage(urls[4].trim(), imgViewRepairOrder);
+//								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewRepairOrder);
 							}
                             if(urls[5].equals("")){	
 							}else{	
