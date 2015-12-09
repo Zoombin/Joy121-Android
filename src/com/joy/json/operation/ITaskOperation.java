@@ -6,7 +6,7 @@ public interface ITaskOperation extends IOperation<Object, Object, Object> {
 	//public static final String IP = "http://cloud.joy121.com/ajaxpage/app/msg.ashx";
 	public static final String IP = "http://cloud.joy121.com:99/ajaxpage/app/msg.ashx";
 	//得到的模块
-	public static final String getModules="http://cloud.joy121.com:999/api/SysData/GetModulesByCompany";
+//  public static final String getModules="http://cloud.joy121.com:999/api/SysData/GetModulesByCompany";
 //	public static final String entryGetInfoIp="http://test.joy121.com:999/api/Entry/GetPersonInfo";
 //	public static final String entryUpdatePersonInfo="http://test.joy121.com:999/api/Entry/PostUpdatePersonInfo";
 //	//部门绑定
@@ -19,7 +19,8 @@ public interface ITaskOperation extends IOperation<Object, Object, Object> {
 	
 	
 	
-	
+	//得到的模块
+	public static final String getModules="http://cloud.joy121.com:70/api/SysData/GetModulesByCompany";
 	public static final String entryGetInfoIp="http://test.joy121.com:70/api/Entry/GetPersonInfo";
 	public static final String entryUpdatePersonInfo="http://test.joy121.com:70/api/Entry/PostUpdatePersonInfo";
 	//部门绑定

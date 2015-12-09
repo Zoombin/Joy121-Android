@@ -1235,6 +1235,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		OperationBuilder builder = new OperationBuilder().append(
 				new EntryManageOp(), null);
 		OnOperationListener listener = new OnOperationListener() {
+			@SuppressWarnings("unchecked")
 			@Override
 			public void onOperationFinished(List<Object> resList) {
 				employInfo = (LinearLayout) findViewById(R.id.employInfo);
@@ -1311,29 +1312,32 @@ public class EntryManagementActiviy extends BaseActivity implements
 						ArrayAdapter<SpinnerData> maritalStatus = (ArrayAdapter<SpinnerData>) sp_maritalStatus.getAdapter();
 						for (int i = 0; i < maritalStatus.getCount(); i++) {
 							if (entryManageEntity.getMaritalStatus().equals(
-									maritalStatus.getItem(i).getText())) {
+									maritalStatus.getItem(i).getValue())) {
 								sp_maritalStatus.setSelection(i, true);
 							}
 						}
 					} else {
 						sp_maritalStatus.setSelection(0, true);
+						
 					}
 					if (entryManageEntity.getPoliticalStatus()!=null) {
 						ArrayAdapter<SpinnerData> politicalStatus = (ArrayAdapter<SpinnerData>) sp_politicalStatus.getAdapter();
 						for (int i = 0; i < politicalStatus.getCount(); i++) {
 							if (entryManageEntity.getPoliticalStatus().equals(
-									politicalStatus.getItem(i).getText())) {
+									politicalStatus.getItem(i).getValue())) {
 								sp_politicalStatus.setSelection(i, true);
 							}
 						}
 					} else {
 						sp_politicalStatus.setSelection(0, true);
+						
+						
 					}
 					if (entryManageEntity.getHealthCondition()!=null) {
 						ArrayAdapter<SpinnerData> healthCondition = (ArrayAdapter<SpinnerData>) sp_healthCondition.getAdapter();
 						for (int i = 0; i < healthCondition.getCount(); i++) {
 							if (entryManageEntity.getHealthCondition().equals(
-									healthCondition.getItem(i).getText())) {
+									healthCondition.getItem(i).getValue())) {
 								sp_healthCondition.setSelection(i, true);
 							}
 						}
@@ -1344,18 +1348,19 @@ public class EntryManagementActiviy extends BaseActivity implements
 						ArrayAdapter<SpinnerData> culturalDegree = (ArrayAdapter<SpinnerData>) sp_culturalDegree.getAdapter();
 						for (int i = 0; i < culturalDegree.getCount(); i++) {
 							if (entryManageEntity.getCulturalDegree().equals(
-									culturalDegree.getItem(i).getText())) {
+									culturalDegree.getItem(i).getValue())) {
 								sp_culturalDegree.setSelection(i, true);
 							}
 						}
 					} else {
 						sp_culturalDegree.setSelection(0, true);
+						
 					}
 					if (entryManageEntity.getNation()!=null) {
 						ArrayAdapter<SpinnerData> nation = (ArrayAdapter<SpinnerData>) sp_nation.getAdapter();
 						for (int i = 0; i < nation.getCount(); i++) {
 							if (entryManageEntity.getNation().equals(
-									nation.getItem(i).getText())) {
+									nation.getItem(i).getValue())) {
 								sp_nation.setSelection(i, true);
 							}
 						}
@@ -1367,12 +1372,13 @@ public class EntryManagementActiviy extends BaseActivity implements
 						ArrayAdapter<SpinnerData> depositBank = (ArrayAdapter<SpinnerData>) sp_depositBank.getAdapter();
 						for (int i = 0; i < depositBank.getCount(); i++) {
 							if (entryManageEntity.getDepositBank().equals(
-									depositBank.getItem(i).getText())) {
+									depositBank.getItem(i).getValue())) {
 								sp_depositBank.setSelection(i, true);
 							}
 						}
 					} else {
 						sp_depositBank.setSelection(0, true);
+//						list_depositBank.remove(0);
 					}
 					
 					// 证件信息
@@ -1777,6 +1783,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		OperationBuilder builder = new OperationBuilder().append(
 				new ComGroupSysData(), entry);
 		OnOperationListener listener = new OnOperationListener() {
+
 			@Override
 			public void onOperationFinished(List<Object> resList) {
 				if (self.isFinishing()) {
@@ -1790,12 +1797,19 @@ public class EntryManagementActiviy extends BaseActivity implements
 						.get(0);
 				List<EntryDepartmentDetailEntity> allList = entity
 						.getRetObj();
+				SpinnerData a = new SpinnerData("", "");
 				list_maritalStatus = new ArrayList<SpinnerData>();
+			
 				list_politicalStatus= new ArrayList<SpinnerData>();
 				list_healthCondition= new ArrayList<SpinnerData>();
 				list_culturalDegree= new ArrayList<SpinnerData>();
 				list_nation= new ArrayList<SpinnerData>();
 				list_depositBank= new ArrayList<SpinnerData>();
+//				list_maritalStatus.add(a);
+//				list_politicalStatus.add(a);
+//				list_culturalDegree.add(a);
+//				list_depositBank.add(a);
+				
 				for (int i = 0; i < allList.size(); i++) {
 					if(allList.get(i).getSysKey().equals("maritalStatus"))
 					{
@@ -1952,13 +1966,13 @@ public class EntryManagementActiviy extends BaseActivity implements
 					}
 				}
 				entity1.setEducationNo(et_educationNo.getText().toString());
-				entity1.setNation(((SpinnerData) sp_nation.getSelectedItem()).getText());
-				entity1.setMaritalStatus(((SpinnerData) sp_maritalStatus.getSelectedItem()).getText());
-				entity1.setPoliticalStatus(((SpinnerData) sp_politicalStatus.getSelectedItem()).getText());
-				entity1.setHealthCondition(((SpinnerData) sp_healthCondition.getSelectedItem()).getText());
-				entity1.setCulturalDegree(((SpinnerData) sp_culturalDegree.getSelectedItem()).getText());
+				entity1.setNation(((SpinnerData) sp_nation.getSelectedItem()).getValue());
+				entity1.setMaritalStatus(((SpinnerData) sp_maritalStatus.getSelectedItem()).getValue());
+				entity1.setPoliticalStatus(((SpinnerData) sp_politicalStatus.getSelectedItem()).getValue());
+				entity1.setHealthCondition(((SpinnerData) sp_healthCondition.getSelectedItem()).getValue());
+				entity1.setCulturalDegree(((SpinnerData) sp_culturalDegree.getSelectedItem()).getValue());
 				entity1.setAccumFund(et_accumFund.getText().toString());
-				entity1.setDepositBank(((SpinnerData) sp_depositBank.getSelectedItem()).getText());
+				entity1.setDepositBank(((SpinnerData) sp_depositBank.getSelectedItem()).getValue());
 				entity1.setDepositCardNo(et_depositCardNo.getText().toString());
 				entity1.setMajor(et_major.getText().toString());
 				entity1.setSocialSecurityNo(et_socialSecurityNo.getText().toString());
@@ -2086,7 +2100,6 @@ public class EntryManagementActiviy extends BaseActivity implements
 		entity.setUrgentContact(et_urgentContact.getText().toString());
 		entity.setRegions(et_regions.getText().toString());
 		// 个人信息
-		// 个人信息
 		entity.setPersonName(et_personName.getText().toString());
 		entity.setEnglishName(et_englishName.getText().toString());
 		if (femaleButton.isChecked()) {
@@ -2106,13 +2119,13 @@ public class EntryManagementActiviy extends BaseActivity implements
 			}
 		}
 		entity.setEducationNo(et_educationNo.getText().toString());
-		entity.setNation(((SpinnerData) sp_nation.getSelectedItem()).getText());
-		entity.setMaritalStatus(((SpinnerData) sp_maritalStatus.getSelectedItem()).getText());
-		entity.setPoliticalStatus(((SpinnerData) sp_politicalStatus.getSelectedItem()).getText());
-		entity.setHealthCondition(((SpinnerData) sp_healthCondition.getSelectedItem()).getText());
-		entity.setCulturalDegree(((SpinnerData) sp_culturalDegree.getSelectedItem()).getText());
+		entity.setNation(((SpinnerData) sp_nation.getSelectedItem()).getValue());
+		entity.setMaritalStatus(((SpinnerData) sp_maritalStatus.getSelectedItem()).getValue());
+		entity.setPoliticalStatus(((SpinnerData) sp_politicalStatus.getSelectedItem()).getValue());
+		entity.setHealthCondition(((SpinnerData) sp_healthCondition.getSelectedItem()).getValue());
+		entity.setCulturalDegree(((SpinnerData) sp_culturalDegree.getSelectedItem()).getValue());
 		entity.setAccumFund(et_accumFund.getText().toString());
-		entity.setDepositBank(((SpinnerData) sp_depositBank.getSelectedItem()).getText());
+		entity.setDepositBank(((SpinnerData) sp_depositBank.getSelectedItem()).getValue());
 		entity.setDepositCardNo(et_depositCardNo.getText().toString());
 		entity.setMajor(et_major.getText().toString());
 		entity.setSocialSecurityNo(et_socialSecurityNo.getText().toString());
