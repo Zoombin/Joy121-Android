@@ -4,6 +4,9 @@ import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,6 +70,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -75,12 +79,15 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.animation.AnimationUtils;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -88,12 +95,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * @rainbow 入职管理
@@ -154,6 +163,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 			imgViewCheckupReporting;
 	private TextView tv_myselfPhoto, tv_myselfVideo, tv_academicPhoto,
 			tv_idPhoto, tv_repairOrder, tv_checkupReporting;
+	private LinearLayout ll_popup;//证件信息调用拍照或者从相册选择布局
+	private PopupWindow pop = null;
 	private Button btn_savePapersInfo, btn_papersInfoNext;
 	private String certificates="",video,learningCertificate="",
 	               positive="",reverse="",retirement="",physical="";
@@ -183,7 +194,8 @@ public class EntryManagementActiviy extends BaseActivity implements
     private ScrollView scroll_myselfInfo;
 	private LinearLayout employInfo,myselfInfo,papersInfo,history,familyInfo,hobbies;
 	private RelativeLayout employInfoNext,myselfInfoNext,papersInfoNext,historyNext,familyInfoNext,hobbiesSumbit;
-
+    int j=0;//从图片库选着图片的线程显示
+    int m=6;//调用系统照相机的线程显示
 	
 	// 创建线程显示图片
 //	private static final int THREAD_Photo = 1;
@@ -245,67 +257,126 @@ public class EntryManagementActiviy extends BaseActivity implements
 		btn_familyInfoNext.setOnClickListener(this);
 		btn_saveHobbies.setOnClickListener(this);
 		btn_sumbit.setOnClickListener(this);
-		// 响应img图片选择图库相片
-		imgViewPhoto.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-//				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//				intent.setType("image/*");
-//				intent.putExtra("crop", true);
-//				intent.putExtra("return-data", true);
-//				startActivityForResult(intent, 0);
-				 Intent i = new Intent(
-		                    Intent.ACTION_PICK,
-		                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-		            startActivityForResult(i, 0);
-			}
-		});
-		imgViewAcademic.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent i = new Intent(
-	                    Intent.ACTION_PICK,
-	                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-	            startActivityForResult(i, 1);
-			}
-		});
-		imgViewIdPhoto1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent i = new Intent(
-	                    Intent.ACTION_PICK,
-	                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-	            startActivityForResult(i, 2);
-			}
-		});
-		imgViewIdPhoto2.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent i = new Intent(
-	                    Intent.ACTION_PICK,
-	                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-	            startActivityForResult(i, 3);
-			}
-		});
-		imgViewRepairOrder.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent i = new Intent(
-	                    Intent.ACTION_PICK,
-	                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-	            startActivityForResult(i, 4);
-			}
-		});
-		imgViewCheckupReporting.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				Intent i = new Intent(
-	                    Intent.ACTION_PICK,
-	                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-	            startActivityForResult(i, 5);
-			}
-		});
+		initImage();
 		return v;
+	}
+	private void initImage()
+	{
+        pop = new PopupWindow(EntryManagementActiviy.this);
+		View view = getLayoutInflater().inflate(R.layout.item_popupwindows, null);
+
+		ll_popup = (LinearLayout) view.findViewById(R.id.ll_popup);
+		
+		pop.setWidth(LayoutParams.MATCH_PARENT);
+		pop.setHeight(LayoutParams.WRAP_CONTENT);
+		pop.setBackgroundDrawable(new BitmapDrawable());
+		pop.setFocusable(true);
+		pop.setOutsideTouchable(true);
+		pop.setContentView(view);
+		
+		RelativeLayout parent = (RelativeLayout) view.findViewById(R.id.parent);
+		Button bt1 = (Button) view
+				.findViewById(R.id.item_popupwindows_camera);
+		Button bt2 = (Button) view
+				.findViewById(R.id.item_popupwindows_Photo);
+		Button bt3 = (Button) view
+				.findViewById(R.id.item_popupwindows_cancel);
+	    parent.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				pop.dismiss();
+				ll_popup.clearAnimation();
+			}
+		});
+		bt1.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				photo(m);
+				pop.dismiss();
+				ll_popup.clearAnimation();
+			}
+		});
+		bt2.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent i = new Intent(
+                Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, j);
+				pop.dismiss();
+				ll_popup.clearAnimation();
+			}
+		});
+		bt3.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				pop.dismiss();
+				ll_popup.clearAnimation();
+			}
+		});
+		// 响应img图片选择图库相片
+				imgViewPhoto.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+//						Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//						intent.setType("image/*");
+//						intent.putExtra("crop", true);
+//						intent.putExtra("return-data", true);
+//						startActivityForResult(intent, 0);
+						j=0;
+						m=6;
+						 pop.showAtLocation(imgViewPhoto, Gravity.BOTTOM, 0, 0);
+//						 Intent i = new Intent(
+//				                    Intent.ACTION_PICK,
+//				                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//				            startActivityForResult(i, 0);
+//				          
+					}
+				});
+				imgViewAcademic.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+							// TODO Auto-generated method stub
+						j=1;
+						m=7;
+						 pop.showAtLocation(imgViewAcademic, Gravity.BOTTOM, 0, 0);
+						}
+					});
+				imgViewIdPhoto1.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View arg0) {					
+						j=2;
+						m=8;
+						 pop.showAtLocation(imgViewIdPhoto1, Gravity.BOTTOM, 0, 0);
+					}
+				});
+				imgViewIdPhoto2.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						j=3;
+						m=9;
+						 pop.showAtLocation(imgViewIdPhoto2, Gravity.BOTTOM, 0, 0);
+					}
+				});
+				imgViewRepairOrder.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+						j=4;
+						m=10;
+						 pop.showAtLocation(imgViewRepairOrder, Gravity.BOTTOM, 0, 0);
+					}
+				});
+				imgViewCheckupReporting.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View arg0) {
+//						Intent i = new Intent(
+//			                    Intent.ACTION_PICK,
+//			                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//			            startActivityForResult(i, 5);
+						j=5;
+						m=11;
+			            pop.showAtLocation(imgViewCheckupReporting, Gravity.BOTTOM, 0, 0);
+					}
+				});
 	}
 	/**
 	 * 应聘信息
@@ -1797,7 +1868,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 						.get(0);
 				List<EntryDepartmentDetailEntity> allList = entity
 						.getRetObj();
-				SpinnerData a = new SpinnerData("", "");
+//				SpinnerData a = new SpinnerData("", "");
 				list_maritalStatus = new ArrayList<SpinnerData>();
 			
 				list_politicalStatus= new ArrayList<SpinnerData>();
@@ -2232,29 +2303,34 @@ public class EntryManagementActiviy extends BaseActivity implements
 		Matcher idNoMatcher = idNoPattern.matcher(idNo);
 		return idNoMatcher.matches();
 	}
+	/**
+	 * 0-5为选择图片库图片并且上传到服务器
+	 * 6-11为调用系统照相机照相并且上传到服务器
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode == RESULT_OK && null != data){
-			Uri selectedImage = data.getData();
-			String[] filePathColumn = { MediaStore.Images.Media.DATA };
-			Cursor cursor = getContentResolver().query(selectedImage,
-					filePathColumn, null, null, null);
-			cursor.moveToFirst();
-			BitmapFactory.Options options = new BitmapFactory.Options();
-			// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
-			options.inJustDecodeBounds = true;
-			
-			int scale = (int) (options.outWidth / (float) 100);
-			if (scale <= 0)
-				scale = 2;
-			options.inSampleSize = scale;
-			options.inJustDecodeBounds = false;
-			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-			
-			File file;
-			long size;
-			if (requestCode == 0) {
+		switch(requestCode){
+		case 0:
+			if(resultCode == RESULT_OK){
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+				Cursor cursor = getContentResolver().query(selectedImage,
+						filePathColumn, null, null, null);
+				cursor.moveToFirst();
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
+				options.inJustDecodeBounds = true;
+				
+				int scale = (int) (options.outWidth / (float) 100);
+				if (scale <= 0)
+					scale = 2;
+				options.inSampleSize = scale;
+				options.inJustDecodeBounds = false;
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				
+				File file;
+				long size;
 				certificates = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(certificates, options); 
@@ -2292,7 +2368,28 @@ public class EntryManagementActiviy extends BaseActivity implements
 							JsonCommon.PROGRESSCOMMIT);
 					task.execute();
 				}
-			}else if(requestCode == 1){
+			}
+			break;
+		case 1:
+			if(resultCode == RESULT_OK){
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+				Cursor cursor = getContentResolver().query(selectedImage,
+						filePathColumn, null, null, null);
+				cursor.moveToFirst();
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
+				options.inJustDecodeBounds = true;
+				
+				int scale = (int) (options.outWidth / (float) 100);
+				if (scale <= 0)
+					scale = 2;
+				options.inSampleSize = scale;
+				options.inJustDecodeBounds = false;
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				
+				File file;
+				long size;
 				learningCertificate = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(learningCertificate, options);
@@ -2330,7 +2427,28 @@ public class EntryManagementActiviy extends BaseActivity implements
 								JsonCommon.PROGRESSCOMMIT);
 						task.execute();
 					}
-			}else if(requestCode == 2){
+			}
+			break;
+		case 2:
+			if(resultCode == RESULT_OK){
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+				Cursor cursor = getContentResolver().query(selectedImage,
+						filePathColumn, null, null, null);
+				cursor.moveToFirst();
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
+				options.inJustDecodeBounds = true;
+				
+				int scale = (int) (options.outWidth / (float) 100);
+				if (scale <= 0)
+					scale = 2;
+				options.inSampleSize = scale;
+				options.inJustDecodeBounds = false;
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				
+				File file;
+				long size;
 				positive = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(positive, options);
@@ -2367,8 +2485,28 @@ public class EntryManagementActiviy extends BaseActivity implements
 								JsonCommon.PROGRESSCOMMIT);
 						task.execute();
 					}
+			}
+			break;
+		case 3:
+			if(resultCode == RESULT_OK){
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+				Cursor cursor = getContentResolver().query(selectedImage,
+						filePathColumn, null, null, null);
+				cursor.moveToFirst();
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
+				options.inJustDecodeBounds = true;
 				
-			}else if(requestCode == 3){
+				int scale = (int) (options.outWidth / (float) 100);
+				if (scale <= 0)
+					scale = 2;
+				options.inSampleSize = scale;
+				options.inJustDecodeBounds = false;
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				
+				File file;
+				long size;
 				reverse = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(reverse, options);
@@ -2405,7 +2543,28 @@ public class EntryManagementActiviy extends BaseActivity implements
 								JsonCommon.PROGRESSCOMMIT);
 						task.execute();
 					}
-			}else if(requestCode == 4){
+			}
+			break;
+		case 4:
+			if(resultCode == RESULT_OK){
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+				Cursor cursor = getContentResolver().query(selectedImage,
+						filePathColumn, null, null, null);
+				cursor.moveToFirst();
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
+				options.inJustDecodeBounds = true;
+				
+				int scale = (int) (options.outWidth / (float) 100);
+				if (scale <= 0)
+					scale = 2;
+				options.inSampleSize = scale;
+				options.inJustDecodeBounds = false;
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				
+				File file;
+				long size;
 				retirement = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(retirement, options);
@@ -2442,12 +2601,33 @@ public class EntryManagementActiviy extends BaseActivity implements
 							JsonCommon.PROGRESSCOMMIT);
 					task.execute();
 				}	
-			}else if(requestCode == 5){
+			}
+			break;
+		case 5:
+			if(resultCode == RESULT_OK){
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+				Cursor cursor = getContentResolver().query(selectedImage,
+						filePathColumn, null, null, null);
+				cursor.moveToFirst();
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
+				options.inJustDecodeBounds = true;
+				
+				int scale = (int) (options.outWidth / (float) 100);
+				if (scale <= 0)
+					scale = 2;
+				options.inSampleSize = scale;
+				options.inJustDecodeBounds = false;
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+				
+				File file;
+				long size;
 				physical = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(physical, options);
 				file = new File(physical);
-				size =   file.length();
+				size =file.length();
 				if(size>2097152){
 					Toast.show(self, "上传失败，请选择小于2M的图片");
 				}else{
@@ -2480,8 +2660,310 @@ public class EntryManagementActiviy extends BaseActivity implements
 					task.execute();
 				}
 			}
-		}
-		}
+			break;
+		case 6:
+			 if (resultCode == RESULT_OK) {
+					String fileName = String.valueOf(System.currentTimeMillis());
+					Bitmap bm = (Bitmap) data.getExtras().get("data");
+					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+					File f = new File(SDPATH, fileName + ".JPEG"); 
+					try {
+						FileOutputStream out = new FileOutputStream(f);
+						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+						out.flush();
+						out.close();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					File file1;
+					certificates=f.toString();
+						bitmap = BitmapFactory.decodeFile(certificates); 
+						file1 = new File(certificates);
+							OperationBuilder builder = new OperationBuilder().append(
+									new UploadImgOp(), file1);
+							OnOperationListener listener = new OnOperationListener() {
+								@Override
+								public void onOperationFinished(List<Object> resList) {
+									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+									certificates=uploadImgEntity.getRetFilePath();
+									if (self.isFinishing()) {
+										return;
+									} else if (resList == null) {
+										Toast.show(self, "连接超时");
+										return;
+									} else {
+//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
+										imgViewPhoto.setImageBitmap(bitmap);
+										imgViewPhoto.setMaxHeight(200);
+										imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP); 
+										Toast.show(self, "上传成功");
+									}
+								}
+								@Override
+								public void onOperationError(Exception e) {
+									e.printStackTrace();
+								}
+							};
+							JsonCommon task = new JsonCommon(self, builder, listener,
+									JsonCommon.PROGRESSCOMMIT);
+							task.execute();
+						}
+			break;
+		case 7:
+			 if (resultCode == RESULT_OK) {
+					String fileName = String.valueOf(System.currentTimeMillis());
+					Bitmap bm = (Bitmap) data.getExtras().get("data");
+					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+					File f = new File(SDPATH, fileName + ".JPEG"); 
+					try {
+						FileOutputStream out = new FileOutputStream(f);
+						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+						out.flush();
+						out.close();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					File file1;
+					learningCertificate =f.toString();
+						bitmap = BitmapFactory.decodeFile(learningCertificate ); 
+						file1 = new File(learningCertificate );
+							OperationBuilder builder = new OperationBuilder().append(
+									new UploadImgOp(), file1);
+							OnOperationListener listener = new OnOperationListener() {
+								@Override
+								public void onOperationFinished(List<Object> resList) {
+									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+									certificates=uploadImgEntity.getRetFilePath();
+									if (self.isFinishing()) {
+										return;
+									} else if (resList == null) {
+										Toast.show(self, "连接超时");
+										return;
+									} else {
+//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
+										imgViewAcademic.setImageBitmap(bitmap);
+										imgViewAcademic.setMaxHeight(200);
+										imgViewAcademic.setScaleType(ImageView.ScaleType.CENTER_CROP); 
+										Toast.show(self, "上传成功");
+									}
+								}
+								@Override
+								public void onOperationError(Exception e) {
+									e.printStackTrace();
+								}
+							};
+							JsonCommon task = new JsonCommon(self, builder, listener,
+									JsonCommon.PROGRESSCOMMIT);
+							task.execute();
+						}
+			break;
+		case 8:
+			 if (resultCode == RESULT_OK) {
+					String fileName = String.valueOf(System.currentTimeMillis());
+					Bitmap bm = (Bitmap) data.getExtras().get("data");
+					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+					File f = new File(SDPATH, fileName + ".JPEG"); 
+					try {
+						FileOutputStream out = new FileOutputStream(f);
+						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+						out.flush();
+						out.close();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					File file1;
+					positive  =f.toString();
+						bitmap = BitmapFactory.decodeFile(positive  ); 
+						file1 = new File(positive  );
+							OperationBuilder builder = new OperationBuilder().append(
+									new UploadImgOp(), file1);
+							OnOperationListener listener = new OnOperationListener() {
+								@Override
+								public void onOperationFinished(List<Object> resList) {
+									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+									positive =uploadImgEntity.getRetFilePath();
+									if (self.isFinishing()) {
+										return;
+									} else if (resList == null) {
+										Toast.show(self, "连接超时");
+										return;
+									} else {
+//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
+										imgViewIdPhoto1.setImageBitmap(bitmap);
+										imgViewIdPhoto1.setMaxHeight(200);
+										imgViewIdPhoto1.setScaleType(ImageView.ScaleType.CENTER_CROP); 
+										Toast.show(self, "上传成功");
+									}
+								}
+								@Override
+								public void onOperationError(Exception e) {
+									e.printStackTrace();
+								}
+							};
+							JsonCommon task = new JsonCommon(self, builder, listener,
+									JsonCommon.PROGRESSCOMMIT);
+							task.execute();
+						}
+			break;
+		case 9:
+			 if (resultCode == RESULT_OK) {
+					String fileName = String.valueOf(System.currentTimeMillis());
+					Bitmap bm = (Bitmap) data.getExtras().get("data");
+					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+					File f = new File(SDPATH, fileName + ".JPEG"); 
+					try {
+						FileOutputStream out = new FileOutputStream(f);
+						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+						out.flush();
+						out.close();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					File file1;
+					reverse  =f.toString();
+						bitmap = BitmapFactory.decodeFile(reverse); 
+						file1 = new File(reverse);
+							OperationBuilder builder = new OperationBuilder().append(
+									new UploadImgOp(), file1);
+							OnOperationListener listener = new OnOperationListener() {
+								@Override
+								public void onOperationFinished(List<Object> resList) {
+									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+									reverse =uploadImgEntity.getRetFilePath();
+									if (self.isFinishing()) {
+										return;
+									} else if (resList == null) {
+										Toast.show(self, "连接超时");
+										return;
+									} else {
+//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
+										imgViewIdPhoto2.setImageBitmap(bitmap);
+										imgViewIdPhoto2.setMaxHeight(200);
+										imgViewIdPhoto2.setScaleType(ImageView.ScaleType.CENTER_CROP); 
+										Toast.show(self, "上传成功");
+									}
+								}
+								@Override
+								public void onOperationError(Exception e) {
+									e.printStackTrace();
+								}
+							};
+							JsonCommon task = new JsonCommon(self, builder, listener,
+									JsonCommon.PROGRESSCOMMIT);
+							task.execute();
+						}
+			break;
+		case 10:
+			 if (resultCode == RESULT_OK) {
+					String fileName = String.valueOf(System.currentTimeMillis());
+					Bitmap bm = (Bitmap) data.getExtras().get("data");
+					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+					File f = new File(SDPATH, fileName + ".JPEG"); 
+					try {
+						FileOutputStream out = new FileOutputStream(f);
+						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+						out.flush();
+						out.close();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					File file1;
+					retirement  =f.toString();
+						bitmap = BitmapFactory.decodeFile(retirement); 
+						file1 = new File(retirement);
+							OperationBuilder builder = new OperationBuilder().append(
+									new UploadImgOp(), file1);
+							OnOperationListener listener = new OnOperationListener() {
+								@Override
+								public void onOperationFinished(List<Object> resList) {
+									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+									retirement =uploadImgEntity.getRetFilePath();
+									if (self.isFinishing()) {
+										return;
+									} else if (resList == null) {
+										Toast.show(self, "连接超时");
+										return;
+									} else {
+//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
+										imgViewRepairOrder.setImageBitmap(bitmap);
+										imgViewRepairOrder.setMaxHeight(200);
+										imgViewRepairOrder.setScaleType(ImageView.ScaleType.CENTER_CROP); 
+										Toast.show(self, "上传成功");
+									}
+								}
+								@Override
+								public void onOperationError(Exception e) {
+									e.printStackTrace();
+								}
+							};
+							JsonCommon task = new JsonCommon(self, builder, listener,
+									JsonCommon.PROGRESSCOMMIT);
+							task.execute();
+						}
+			break;
+		case 11:
+			 if (resultCode == RESULT_OK) {
+					String fileName = String.valueOf(System.currentTimeMillis());
+					Bitmap bm = (Bitmap) data.getExtras().get("data");
+					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+					File f = new File(SDPATH, fileName + ".JPEG"); 
+					try {
+						FileOutputStream out = new FileOutputStream(f);
+						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+						out.flush();
+						out.close();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					File file1;
+					physical  =f.toString();
+						bitmap = BitmapFactory.decodeFile(physical  ); 
+						file1 = new File(physical  );
+							OperationBuilder builder = new OperationBuilder().append(
+									new UploadImgOp(), file1);
+							OnOperationListener listener = new OnOperationListener() {
+								@Override
+								public void onOperationFinished(List<Object> resList) {
+									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
+									physical =uploadImgEntity.getRetFilePath();
+									if (self.isFinishing()) {
+										return;
+									} else if (resList == null) {
+										Toast.show(self, "连接超时");
+										return;
+									} else {
+//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
+										imgViewCheckupReporting.setImageBitmap(bitmap);
+										imgViewCheckupReporting.setMaxHeight(200);
+										imgViewCheckupReporting.setScaleType(ImageView.ScaleType.CENTER_CROP); 
+										Toast.show(self, "上传成功");
+									}
+								}
+								@Override
+								public void onOperationError(Exception e) {
+									e.printStackTrace();
+								}
+							};
+							JsonCommon task = new JsonCommon(self, builder, listener,
+									JsonCommon.PROGRESSCOMMIT);
+							task.execute();
+						}
+			break;
+			
+	}
+}
 	//在退出Activity时，将bitmap回收
 	@Override
     protected void onDestroy() {
@@ -2489,4 +2971,9 @@ public class EntryManagementActiviy extends BaseActivity implements
             bitmap.recycle();
         super.onDestroy();
     }
+	private static final int TAKE_PICTURE = 0x000001;
+	public void photo(int k) {
+		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(openCameraIntent, k);
+	}
 }
