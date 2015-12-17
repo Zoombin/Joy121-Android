@@ -10,6 +10,20 @@ public class EntryManageFamilyInfoEntity extends TResult{
 	private String Birthday;//家人生日
 	private String Address;//家人住址
 	private String RelationShip;//家人关系
+	private String Mobile;//家人电话
+	public String getMobile() {
+		return Mobile;
+	}
+	public void setMobile(String mobile) {
+		Mobile = mobile;
+	}
+	public String getUnit() {
+		return Unit;
+	}
+	public void setUnit(String unit) {
+		Unit = unit;
+	}
+	private String Unit;//学习或者工作单位
 	public String getName() {
 		return Name;
 	}

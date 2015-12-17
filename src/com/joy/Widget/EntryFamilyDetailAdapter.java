@@ -95,6 +95,10 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 			holder.v_line = (View) convertView.findViewById(R.id.v_line);
 			GradientDrawable shapeDrawable = (GradientDrawable) holder.v_line.getBackground();
 			shapeDrawable.setColor(Color.parseColor("#6f93f4"));
+			//关系
+			holder.layout_familyRelationShip=(LinearLayout) convertView.findViewById(R.id.layout_familyRelationShip);
+			holder.tv_familyRelationShip=(TextView) convertView.findViewById(R.id.tv_familyRelationShip);
+			holder.tv_familyRelationShip1=(TextView) convertView.findViewById(R.id.tv_familyRelationShip1);
 			//姓名
 			holder.layout_familyName=(LinearLayout) convertView.findViewById(R.id.layout_familyName);
 			holder.tv_familyName=(TextView) convertView.findViewById(R.id.tv_familyName);
@@ -107,10 +111,14 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 			holder.layout_familyAddress=(LinearLayout) convertView.findViewById(R.id.layout_familyAddress);
 			holder.tv_familyAddress=(TextView) convertView.findViewById(R.id.tv_familyAddress);
 			holder.tv_familyAddress1=(TextView) convertView.findViewById(R.id.tv_familyAddress1);
-			//关系
-			holder.layout_familyRelationShip=(LinearLayout) convertView.findViewById(R.id.layout_familyRelationShip);
-			holder.tv_familyRelationShip=(TextView) convertView.findViewById(R.id.tv_familyRelationShip);
-			holder.tv_familyRelationShip1=(TextView) convertView.findViewById(R.id.tv_familyRelationShip1);
+			//电话
+			holder.layout_familyMobile=(LinearLayout)convertView.findViewById(R.id.layout_familyMobile);
+			holder.tv_familyMobile=(TextView)convertView.findViewById(R.id.tv_familyMobile);
+			holder.tv_familyMobile1=(TextView)convertView.findViewById(R.id.tv_familyMobile1);
+			//学习或者工作单位
+			holder.layout_unit=(LinearLayout)convertView.findViewById(R.id.layout_unit);
+			holder.tv_unit=(TextView)convertView.findViewById(R.id.tv_unit);
+			holder.tv_unit1=(TextView)convertView.findViewById(R.id.tv_unit1);
 			//删除
 			holder.btn_remove=(Button)convertView.findViewById(R.id.btn_remove);
 			//编辑
@@ -119,10 +127,12 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
+		holder.tv_familyRelationShip1.setText(entity.getRelationShip());
 		holder.tv_familyName1.setText(entity.getName());
 		holder.tv_familyBirthday1.setText(entity.getBirthday());
 		holder.tv_familyAddress1.setText(entity.getAddress());
-		holder.tv_familyRelationShip1.setText(entity.getRelationShip());
+		holder.tv_familyMobile1.setText(entity.getMobile());
+		holder.tv_unit1.setText(entity.getUnit());
 		//删除
 		holder.btn_remove.setOnClickListener(new OnClickListener(){
 			@Override
@@ -151,10 +161,12 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 				entryAddInfo=new EntryManagementAddFamilyInfoDialog(mActivity,R.style.dialog);
 				entryAddInfo.show();
 				entryAddInfo.setTitle("修改家庭信息");
+				entryAddInfo.et_faimlyRelation.setText(entity.getRelationShip());
 				entryAddInfo.et_familyName.setText(entity.getName());
 				entryAddInfo.et_familyBirthday.setText(entity.getBirthday());
 				entryAddInfo.et_familyAddress.setText(entity.getAddress());
-				entryAddInfo.et_faimlyRelation.setText(entity.getRelationShip());
+				entryAddInfo.et_familyMobile.setText(entity.getMobile());
+				entryAddInfo.et_unit.setText(entity.getUnit());
 				entryAddInfo.setButtonYes("确定");
 				entryAddInfo.setButtonNo("取消");
 				entryAddInfo.setOnClickButton(new AddFamilyInfoDialogButtonClickCallback(){
@@ -165,8 +177,8 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 					public void negativeButtonClick() {}
 					@Override
 					public void getAddFamilyInfoDialogButtonClickCallback(
-							String addName, String addBirthday,
-							String addAddress, String addRelationShip) {
+							String addRelationShip,String addName, String addBirthday,
+							String addAddress,String addMobile,String addUnit) {
 						EntryManageFamilyInfoEntity temp =new EntryManageFamilyInfoEntity();
 						 boolean convertSuccess=true;
 							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -185,10 +197,12 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 								Toast.show(mActivity, "生日格式为：1990-01-01");
 								return;
 							} else {
+								temp.setRelationShip(addRelationShip);
 								temp.setName(addName);
 								temp.setBirthday(addBirthday);
 								temp.setAddress(addAddress);
-								temp.setRelationShip(addRelationShip);
+								temp.setMobile(addMobile);
+								temp.setUnit(addUnit);
 								for(int i=0;i<getCount();i++){
 									if(entity==getItem(i)){
 										updateItem(i,temp);
@@ -222,6 +236,14 @@ public class EntryFamilyDetailAdapter extends BaseAdapter{
 		LinearLayout layout_familyRelationShip;
 		TextView tv_familyRelationShip;
 		TextView tv_familyRelationShip1;
+		
+		LinearLayout layout_familyMobile;
+		TextView tv_familyMobile;
+		TextView tv_familyMobile1;
+		
+		LinearLayout layout_unit;
+		TextView tv_unit;
+		TextView tv_unit1;
 		
 		Button btn_remove;
 		Button btn_edit;

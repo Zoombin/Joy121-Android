@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_educationInfo"
     android:layout_width="match_parent"
-    android:layout_height="115dip"
+    android:layout_height="160dip"
     android:paddingLeft="10dip"
     android:paddingTop="5dip"
     android:paddingBottom="5dip"
@@ -31,6 +31,24 @@
 		        android:layout_marginLeft="18dip"
 		        android:layout_marginRight="25dip"
 		        android:orientation="vertical">
+		        <LinearLayout
+	    	        android:id="@+id/layout_familyRelationShip"
+	    	        android:layout_width="wrap_content"
+	    	        android:layout_height="wrap_content"
+	    	        android:layout_marginBottom="2dip" >   	    	
+	    	        <TextView 
+	    	        	android:id="@+id/tv_familyRelationShip" 
+	    	        	android:layout_width="wrap_content"
+	    	    		android:layout_height="wrap_content"
+	    	    		android:textSize="16sp"
+	    	    		android:text="@string/familyRelationShip" />
+	    	        <TextView 
+	    	        	android:id="@+id/tv_familyRelationShip1" 
+	    	        	android:layout_width="wrap_content"
+	    	    		android:layout_height="wrap_content"
+	    	    		android:textSize="16sp" />
+	    	    </LinearLayout>   
+	    	    
 	    	    <LinearLayout
 	    	        android:id="@+id/layout_familyName"
 	    	        android:layout_width="wrap_content"
@@ -85,19 +103,37 @@
                         android:maxLines="1"
 	    	    		android:textSize="16sp" />
 	    	    </LinearLayout>  	
-	    	      <LinearLayout
-	    	        android:id="@+id/layout_familyRelationShip"
+	    	   
+	    	     <LinearLayout
+	    	        android:id="@+id/layout_familyMobile"
 	    	        android:layout_width="wrap_content"
 	    	        android:layout_height="wrap_content"
 	    	        android:layout_marginBottom="2dip" >   	    	
 	    	        <TextView 
-	    	        	android:id="@+id/tv_familyRelationShip" 
+	    	        	android:id="@+id/tv_familyMobile" 
 	    	        	android:layout_width="wrap_content"
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textSize="16sp"
-	    	    		android:text="@string/familyRelationShip" />
+	    	    		android:text="@string/familyMobile" />
 	    	        <TextView 
-	    	        	android:id="@+id/tv_familyRelationShip1" 
+	    	        	android:id="@+id/tv_familyMobile1" 
+	    	        	android:layout_width="wrap_content"
+	    	    		android:layout_height="wrap_content"
+	    	    		android:textSize="16sp" />
+	    	    </LinearLayout>  
+	    	     <LinearLayout
+	    	        android:id="@+id/layout_unit"
+	    	        android:layout_width="wrap_content"
+	    	        android:layout_height="wrap_content"
+	    	        android:layout_marginBottom="2dip" >   	    	
+	    	        <TextView 
+	    	        	android:id="@+id/tv_unit" 
+	    	        	android:layout_width="wrap_content"
+	    	    		android:layout_height="wrap_content"
+	    	    		android:textSize="16sp"
+	    	    		android:text="@string/unit" />
+	    	        <TextView 
+	    	        	android:id="@+id/tv_unit1" 
 	    	        	android:layout_width="wrap_content"
 	    	    		android:layout_height="wrap_content"
 	    	    		android:textSize="16sp" />

@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 public class EntryManagementAddFamilyInfoDialog extends Dialog{
 	TextView tv_title;
-    public 	EditText et_familyName,et_familyBirthday,et_familyAddress,et_faimlyRelation;
+    public 	EditText et_faimlyRelation,et_familyName,et_familyBirthday,et_familyAddress,et_familyMobile,et_unit;
 	Button buttonYes,buttonNo;
 	public EntryManagementAddFamilyInfoDialog(Context context) {
 		super(context);
@@ -51,9 +51,11 @@ public class EntryManagementAddFamilyInfoDialog extends Dialog{
 		buttonYes.setOnClickListener(new Button.OnClickListener(){    
 	           public void onClick(View v) {
 	               //dismiss();
-	               callback.getAddFamilyInfoDialogButtonClickCallback(et_familyName.getText().toString(),
-	            		   et_familyBirthday.getText().toString(), et_familyAddress.getText().toString(), 
-	            		   et_faimlyRelation.getText().toString()); 
+	               callback.getAddFamilyInfoDialogButtonClickCallback(et_faimlyRelation.getText().toString(),
+	            		   et_familyName.getText().toString(),et_familyBirthday.getText().toString(), 
+	            		   et_familyAddress.getText().toString(), 
+	            		   et_familyMobile.getText().toString(),
+	            		   et_unit.getText().toString()); 
 	           }    
 	       });
 			buttonNo.setOnClickListener(new Button.OnClickListener(){    
@@ -71,10 +73,12 @@ public class EntryManagementAddFamilyInfoDialog extends Dialog{
         tv_title.setText("增加家庭信息");
         tv_title.setTextSize(18);
         
+        et_faimlyRelation=(EditText)findViewById(R.id.et_addRelationShip);
         et_familyName=(EditText)findViewById(R.id.et_addName);
         et_familyBirthday=(EditText)findViewById(R.id.et_addBirthday);
         et_familyAddress=(EditText)findViewById(R.id.et_addAddress);
-        et_faimlyRelation=(EditText)findViewById(R.id.et_addRelationShip);
+        et_familyMobile=(EditText)findViewById(R.id.et_addMobile);
+        et_unit=(EditText)findViewById(R.id.et_addUnit);
         //限制日期只能输入0-9的数字和'-'
         et_familyBirthday.setKeyListener(new NumberKeyListener(){
 
@@ -92,15 +96,19 @@ public class EntryManagementAddFamilyInfoDialog extends Dialog{
 			}
         	
         });
-        int newHeight = 76;
-        //用ViewGroup还是用LinearLayout或者是FrameLayout，主要是看EditTex控件所在的父控件布局，如果是LinearLayout，那么这里就要改成LinearLayout.LayoutParams
-        ViewGroup.LayoutParams lp = et_faimlyRelation.getLayoutParams();
-        lp.height = newHeight;
-        et_faimlyRelation.setLayoutParams(lp);
+//        int newHeight = 90;
+//        //用ViewGroup还是用LinearLayout或者是FrameLayout，主要是看EditTex控件所在的父控件布局，如果是LinearLayout，那么这里就要改成LinearLayout.LayoutParams
+//        ViewGroup.LayoutParams lp = et_faimlyRelation.getLayoutParams();
+//        lp.height = newHeight;
+//        et_faimlyRelation.setLayoutParams(lp);
        //设置hint字体大小
+        AbsoluteSizeSpan size = new AbsoluteSizeSpan(15, true);// 新建一个属性对象,设置文字的大小
+        
+         SpannableString familyRelation = new SpannableString("关系(父亲，母亲，女儿，儿子)");
+		 familyRelation.setSpan(size, 0, familyRelation.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
+		 et_faimlyRelation.setHint(new SpannedString(familyRelation));
+        
          SpannableString familyName = new SpannableString("姓名");
-
-		 AbsoluteSizeSpan size = new AbsoluteSizeSpan(15, true);// 新建一个属性对象,设置文字的大小
 		 familyName.setSpan(size, 0, familyName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); // 附加属性到文本
 		 et_familyName.setHint(new SpannedString(familyName)); 
 		 
@@ -112,9 +120,14 @@ public class EntryManagementAddFamilyInfoDialog extends Dialog{
 		 familyAddress.setSpan(size, 0, familyAddress.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
 		 et_familyAddress.setHint(new SpannedString(familyAddress)); 
 		 
-		 SpannableString familyRelation = new SpannableString("关系(父亲，母亲，女儿，儿子)");
-		 familyRelation.setSpan(size, 0, familyRelation.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
-		 et_faimlyRelation.setHint(new SpannedString(familyRelation));
+		
+		 SpannableString familyMobile = new SpannableString("电话");
+		 familyMobile.setSpan(size, 0, familyMobile.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
+		 et_familyMobile.setHint(new SpannedString(familyMobile));
+		 
+		 SpannableString unit = new SpannableString("学习或者工作单位");
+		 unit.setSpan(size, 0, unit.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
+		 et_unit.setHint(new SpannedString(unit));
 	 
         buttonNo = (Button) findViewById(R.id.btn_no);
         buttonNo.setTextSize(16);

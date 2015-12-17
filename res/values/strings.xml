@@ -355,6 +355,8 @@
     <string name="familyBirthday">生日：</string>
     <string name="familyAddress">住址：</string>
     <string name="familyRelationShip">关系：</string>
+    <string name="familyMobile">电话：</string>
+    <string name="unit">单位：</string>
     <string name="addFamilyInfo">添加亲属信息</string>
     <!--兴趣爱好 -->
     

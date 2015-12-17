@@ -81,9 +81,10 @@ public class EntryAddInfoManager extends QActivity {
 					}
 
 					@Override
-					public void getAddFamilyInfoDialogButtonClickCallback(
-							String addName, String addBirthday,
-							String addAddress, String addRelationShip) {
+					public void getAddFamilyInfoDialogButtonClickCallback(String addRelationShip
+							,String addName, String addBirthday,
+							String addAddress,
+							String addMobile, String addUnit) {
 						EntryManageFamilyInfoEntity temp = new EntryManageFamilyInfoEntity();
 						boolean convertSuccess = true;
 						// 指定日期格式为四位年/两位月份/两位日期，注意yyyy-MM-dd区分大小写；
@@ -106,10 +107,12 @@ public class EntryAddInfoManager extends QActivity {
 							Toast.show(mActivity, "生日格式为：1990-01-01");
 							return;
 						} else {
+							temp.setRelationShip(addRelationShip);
 							temp.setName(addName);
 							temp.setBirthday(addBirthday);
 							temp.setAddress(addAddress);
-							temp.setRelationShip(addRelationShip);
+							temp.setMobile(addMobile);
+							temp.setUnit(addUnit);
 							adapterFamily.addItem(temp);
 							adapterFamily.notifyDataSetChanged();
 							entryAddFamilyInfo.dismiss();
