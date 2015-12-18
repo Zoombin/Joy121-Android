@@ -4,9 +4,11 @@ import gejw.android.quickandroid.QActivity;
 import gejw.android.quickandroid.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -2334,7 +2336,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				certificates = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(certificates, options); 
-				file = new File(certificates);
+				file=scal(certificates);
 			    size =   file.length();
 				if(size>2097152){
 					Toast.show(self, "上传失败，请选择小于2M的图片");
@@ -2393,11 +2395,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 				learningCertificate = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(learningCertificate, options);
-				file = new File(learningCertificate);
+				file=scal(learningCertificate);
 				 size =   file.length();
-					if(size>2097152){
-						Toast.show(self, "上传失败，请选择小于2M的图片");
-					}else{
+//					if(size>2097152){
+//						Toast.show(self, "上传失败，请选择小于2M的图片");
+//					}else{
 						OperationBuilder builder = new OperationBuilder().append(
 								new UploadImgOp(), file);
 						OnOperationListener listener = new OnOperationListener() {
@@ -2426,7 +2428,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 						JsonCommon task = new JsonCommon(self, builder, listener,
 								JsonCommon.PROGRESSCOMMIT);
 						task.execute();
-					}
+//					}
 			}
 			break;
 		case 2:
@@ -2439,20 +2441,18 @@ public class EntryManagementActiviy extends BaseActivity implements
 				BitmapFactory.Options options = new BitmapFactory.Options();
 				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
 				options.inJustDecodeBounds = true;
-				
 				int scale = (int) (options.outWidth / (float) 100);
 				if (scale <= 0)
 					scale = 2;
 				options.inSampleSize = scale;
 				options.inJustDecodeBounds = false;
 				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				
 				File file;
 				long size;
 				positive = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(positive, options);
-				file = new File(positive);
+				file=scal(positive);
 				 size =   file.length();
 					if(size>2097152){
 						Toast.show(self, "上传失败，请选择小于2M的图片");
@@ -2510,7 +2510,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				reverse = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(reverse, options);
-				file = new File(reverse);
+				file=scal(reverse);
 				 size =   file.length();
 					if(size>2097152){
 						Toast.show(self, "上传失败，请选择小于2M的图片");
@@ -2568,7 +2568,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				retirement = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(retirement, options);
-				file = new File(retirement);
+				file=scal(retirement);
 				size =   file.length();
 				if(size>2097152){
 					Toast.show(self, "上传失败，请选择小于2M的图片");
@@ -2626,7 +2626,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				physical = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(physical, options);
-				file = new File(physical);
+				file=scal(physical);
 				size =file.length();
 				if(size>2097152){
 					Toast.show(self, "上传失败，请选择小于2M的图片");
@@ -2680,7 +2680,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 					File file1;
 					certificates=f.toString();
 						bitmap = BitmapFactory.decodeFile(certificates); 
-						file1 = new File(certificates);
+//						file1 = new File(certificates);
+						file1=scal(certificates);
 							OperationBuilder builder = new OperationBuilder().append(
 									new UploadImgOp(), file1);
 							OnOperationListener listener = new OnOperationListener() {
@@ -2730,7 +2731,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 					File file1;
 					learningCertificate =f.toString();
 						bitmap = BitmapFactory.decodeFile(learningCertificate ); 
-						file1 = new File(learningCertificate );
+						file1=scal(learningCertificate);
 							OperationBuilder builder = new OperationBuilder().append(
 									new UploadImgOp(), file1);
 							OnOperationListener listener = new OnOperationListener() {
@@ -2780,7 +2781,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 					File file1;
 					positive  =f.toString();
 						bitmap = BitmapFactory.decodeFile(positive  ); 
-						file1 = new File(positive  );
+						file1=scal(positive);
 							OperationBuilder builder = new OperationBuilder().append(
 									new UploadImgOp(), file1);
 							OnOperationListener listener = new OnOperationListener() {
@@ -2880,7 +2881,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 					File file1;
 					retirement  =f.toString();
 						bitmap = BitmapFactory.decodeFile(retirement); 
-						file1 = new File(retirement);
+						file1=scal(retirement);
 							OperationBuilder builder = new OperationBuilder().append(
 									new UploadImgOp(), file1);
 							OnOperationListener listener = new OnOperationListener() {
@@ -2919,7 +2920,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 					File f = new File(SDPATH, fileName + ".JPEG"); 
 					try {
 						FileOutputStream out = new FileOutputStream(f);
-						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+//						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
 						out.flush();
 						out.close();
 					} catch (FileNotFoundException e) {
@@ -2930,7 +2931,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 					File file1;
 					physical  =f.toString();
 						bitmap = BitmapFactory.decodeFile(physical  ); 
-						file1 = new File(physical  );
+						file1=scal(physical);
 							OperationBuilder builder = new OperationBuilder().append(
 									new UploadImgOp(), file1);
 							OnOperationListener listener = new OnOperationListener() {
@@ -2976,4 +2977,88 @@ public class EntryManagementActiviy extends BaseActivity implements
 		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		startActivityForResult(openCameraIntent, k);
 	}
+	
+	
+	//压缩图片
+	public static File scal(String path){
+//        String path = fileUri.getPath();
+        File outputFile = new File(path);
+        long fileSize = outputFile.length();
+        final long fileMaxSize = 200 * 1024;
+         if (fileSize >= fileMaxSize) {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                BitmapFactory.decodeFile(path, options);
+                int height = options.outHeight;
+                int width = options.outWidth;
+ 
+                double scale = Math.sqrt((float) fileSize / fileMaxSize);
+                options.outHeight = (int) (height / scale);
+                options.outWidth = (int) (width / scale);
+                options.inSampleSize = (int) (scale + 0.5);
+                options.inJustDecodeBounds = false;
+ 
+                Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+                outputFile = new File(EntryManagementActiviy.createImageFile().getPath());
+                FileOutputStream fos = null;
+                try {
+                    fos = new FileOutputStream(outputFile);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
+                    fos.close();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                if (!bitmap.isRecycled()) {
+                    bitmap.recycle();
+                }else{
+                    File tempFile = outputFile;
+                    outputFile = new File(EntryManagementActiviy.createImageFile().getPath());
+                    EntryManagementActiviy.copyFileUsingFileChannels(tempFile, outputFile);
+                }
+                 
+            }
+         return outputFile;
+         
+    }
+	public static Uri createImageFile(){
+        // Create an image file name
+		String time = new SimpleDateFormat(
+			    "yyyyMMddHHmmss").format(new Date());
+		String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+		File image = new File(SDPATH, time + ".JPEG"); 
+		try {
+			FileOutputStream out = new FileOutputStream(image);
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        // Save a file: path for use with ACTION_VIEW intents
+        return Uri.fromFile(image);
+    }
+    public static void copyFileUsingFileChannels(File source, File dest){
+        FileChannel inputChannel = null;
+        FileChannel outputChannel = null;
+        try {
+            try {
+                inputChannel = new FileInputStream(source).getChannel();
+                outputChannel = new FileOutputStream(dest).getChannel();
+                outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } finally {
+            try {
+                inputChannel.close();
+                outputChannel.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
 }

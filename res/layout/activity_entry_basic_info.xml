@@ -1542,6 +1542,7 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+     </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/employInfoNext"
@@ -1777,6 +1778,6 @@
                     android:layout_marginLeft="20dip" />
             </LinearLayout>
         </RelativeLayout>
-    </LinearLayout>
+
 
 </RelativeLayout>
