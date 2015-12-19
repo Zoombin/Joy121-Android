@@ -2305,6 +2305,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		Matcher idNoMatcher = idNoPattern.matcher(idNo);
 		return idNoMatcher.matches();
 	}
+
 	/**
 	 * 0-5为选择图片库图片并且上传到服务器
 	 * 6-11为调用系统照相机照相并且上传到服务器
@@ -2665,8 +2666,10 @@ public class EntryManagementActiviy extends BaseActivity implements
 			 if (resultCode == RESULT_OK) {
 					String fileName = String.valueOf(System.currentTimeMillis());
 					Bitmap bm = (Bitmap) data.getExtras().get("data");
-					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+//					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+					String SDPATH= "/sdcard/DCIM/Camera";
 					File f = new File(SDPATH, fileName + ".JPEG"); 
+					Log.e("ffffffffffffffffffffffffffffffffff",f+"");
 					try {
 						FileOutputStream out = new FileOutputStream(f);
 						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
@@ -2716,7 +2719,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 			 if (resultCode == RESULT_OK) {
 					String fileName = String.valueOf(System.currentTimeMillis());
 					Bitmap bm = (Bitmap) data.getExtras().get("data");
-					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+//					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+					String SDPATH= "/sdcard/DCIM/Camera";
 					File f = new File(SDPATH, fileName + ".JPEG"); 
 					try {
 						FileOutputStream out = new FileOutputStream(f);
@@ -2766,7 +2770,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			 if (resultCode == RESULT_OK) {
 					String fileName = String.valueOf(System.currentTimeMillis());
 					Bitmap bm = (Bitmap) data.getExtras().get("data");
-					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+					String SDPATH = "/sdcard/DCIM/Camera";
 					File f = new File(SDPATH, fileName + ".JPEG"); 
 					try {
 						FileOutputStream out = new FileOutputStream(f);
@@ -2866,7 +2870,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			 if (resultCode == RESULT_OK) {
 					String fileName = String.valueOf(System.currentTimeMillis());
 					Bitmap bm = (Bitmap) data.getExtras().get("data");
-					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+					String SDPATH = "/sdcard/DCIM/Camera";
 					File f = new File(SDPATH, fileName + ".JPEG"); 
 					try {
 						FileOutputStream out = new FileOutputStream(f);
@@ -2916,7 +2920,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			 if (resultCode == RESULT_OK) {
 					String fileName = String.valueOf(System.currentTimeMillis());
 					Bitmap bm = (Bitmap) data.getExtras().get("data");
-					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+					String SDPATH = "/sdcard/DCIM/Camera";;
 					File f = new File(SDPATH, fileName + ".JPEG"); 
 					try {
 						FileOutputStream out = new FileOutputStream(f);
@@ -2965,6 +2969,10 @@ public class EntryManagementActiviy extends BaseActivity implements
 			
 	}
 }
+	//选择图片的公共方法
+	public void selectImage(){
+		
+	}
 	//在退出Activity时，将bitmap回收
 	@Override
     protected void onDestroy() {
@@ -3025,7 +3033,7 @@ public class EntryManagementActiviy extends BaseActivity implements
         // Create an image file name
 		String time = new SimpleDateFormat(
 			    "yyyyMMddHHmmss").format(new Date());
-		String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
+		String SDPATH = "/sdcard/DCIM/Camera";
 		File image = new File(SDPATH, time + ".JPEG"); 
 		try {
 			FileOutputStream out = new FileOutputStream(image);
