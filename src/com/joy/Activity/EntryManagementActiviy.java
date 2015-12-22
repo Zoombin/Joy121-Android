@@ -113,7 +113,6 @@ public class EntryManagementActiviy extends BaseActivity implements
 		OnClickListener {
 	protected QActivity mActivity;
 	private static int RESULT_LOAD_IMAGE = 1;
-	
 
 	private RelativeLayout layout_title;
 	private LinearLayout layout_ret, layout_goBackEmployInfo,
@@ -129,33 +128,39 @@ public class EntryManagementActiviy extends BaseActivity implements
 	private List<SpinnerData> list_comDep, list_comPos;
 	private ArrayAdapter<SpinnerData> comDep_adapter, comPos_adapter;
 	private ImageView iv_comDep, iv_comPos, iv_comEntryDate, iv_residence,
-			iv_mobile, iv_urgentContact, iv_urgentMobile, iv_regions,iv_urgentAddr;
+			iv_mobile, iv_urgentContact, iv_urgentMobile, iv_regions,
+			iv_urgentAddr;
 	private TextView tv_comDep, tv_comPos, tv_comEntryDate, tv_residence,
-			tv_mobile, tv_urgentContact, tv_urgentMobile, tv_regions,tv_urgentAddr;
+			tv_mobile, tv_urgentContact, tv_urgentMobile, tv_regions,
+			tv_urgentAddr;
 	private EditText et_comEntryDate, et_residence, et_mobile,
-			et_urgentContact, et_urgentMobile, et_regions,et_urgentAddr;
+			et_urgentContact, et_urgentMobile, et_regions, et_urgentAddr;
 	private Spinner sp_comDep, sp_comPos;
 	private Button btn_saveEmployInfo, btn_employInfoNext;
 	// 个人信息
-	private List<SpinnerData> list_maritalStatus,list_politicalStatus,list_healthCondition,
-	                          list_culturalDegree,list_nation,list_depositBank;
-	private ArrayAdapter<SpinnerData> maritalStatus_adapter,politicalStatus_adapter,healthCondition_adapter,
-	                                  culturalDegree_adapter,nation_adapter,depositBank_adapter;
+	private List<SpinnerData> list_maritalStatus, list_politicalStatus,
+			list_healthCondition, list_culturalDegree, list_nation,
+			list_depositBank;
+	private ArrayAdapter<SpinnerData> maritalStatus_adapter,
+			politicalStatus_adapter, healthCondition_adapter,
+			culturalDegree_adapter, nation_adapter, depositBank_adapter;
 	private ImageView iv_personName, iv_englishName, iv_gender, iv_address,
 			iv_idNo, iv_educationNo, iv_accumFund, iv_depositBank,
-			iv_depositCardNo,iv_nation,iv_maritalStatus,iv_politicalStatus,
-			iv_healthCondition,iv_culturalDegree,iv_major,iv_socialSecurityNo;
+			iv_depositCardNo, iv_nation, iv_maritalStatus, iv_politicalStatus,
+			iv_healthCondition, iv_culturalDegree, iv_major,
+			iv_socialSecurityNo;
 	private TextView tv_personName, tv_englishName, tv_gender, tv_address,
 			tv_idNo, tv_educationNo, tv_accumFund, tv_depositBank,
-			tv_depositCardNo,tv_nation,tv_maritalStatus,tv_politicalStatus,
-			tv_healthCondition,tv_culturalDegree,tv_major,tv_socialSecurityNo;
-	private Spinner sp_nation,sp_maritalStatus,sp_politicalStatus,sp_healthCondition,
-	                sp_culturalDegree,sp_depositBank;
+			tv_depositCardNo, tv_nation, tv_maritalStatus, tv_politicalStatus,
+			tv_healthCondition, tv_culturalDegree, tv_major,
+			tv_socialSecurityNo;
+	private Spinner sp_nation, sp_maritalStatus, sp_politicalStatus,
+			sp_healthCondition, sp_culturalDegree, sp_depositBank;
 	private RadioGroup radiogender;
 	private RadioButton maleButton, femaleButton;
 	private EditText et_personName, et_englishName, et_address, et_idNo,
-			et_educationNo, et_accumFund,et_depositCardNo,
-			et_major,et_socialSecurityNo;
+			et_educationNo, et_accumFund, et_depositCardNo, et_major,
+			et_socialSecurityNo;
 	private Button btn_saveMyselfInfo, btn_myselfInfoNext;
 	// 证件信息
 	private ImageView iv_myselfPhoto, iv_myselfVideo, iv_academicPhoto,
@@ -165,11 +170,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 			imgViewCheckupReporting;
 	private TextView tv_myselfPhoto, tv_myselfVideo, tv_academicPhoto,
 			tv_idPhoto, tv_repairOrder, tv_checkupReporting;
-	private LinearLayout ll_popup;//证件信息调用拍照或者从相册选择布局
+	private LinearLayout ll_popup;// 证件信息调用拍照或者从相册选择布局
 	private PopupWindow pop = null;
 	private Button btn_savePapersInfo, btn_papersInfoNext;
-	private String certificates="",video,learningCertificate="",
-	               positive="",reverse="",retirement="",physical="";
+	private String certificates = "", video, learningCertificate = "",
+			positive = "", reverse = "", retirement = "", physical = "";
 	// 个人经历
 	private LinearLayout layout_menu, layout_education, layout_workExperience;
 	private TextView tv_education, tv_workExperience;
@@ -193,21 +198,23 @@ public class EntryManagementActiviy extends BaseActivity implements
 	CompAppSet appSet;
 	int color;
 	private Resources resources;
-    private ScrollView scroll_myselfInfo;
-	private LinearLayout employInfo,myselfInfo,papersInfo,history,familyInfo,hobbies;
-	private RelativeLayout employInfoNext,myselfInfoNext,papersInfoNext,historyNext,familyInfoNext,hobbiesSumbit;
-    int j=0;//从图片库选着图片的线程显示
-    int m=6;//调用系统照相机的线程显示
-	
+	private ScrollView scroll_myselfInfo;
+	private LinearLayout employInfo, myselfInfo, papersInfo, history,
+			familyInfo, hobbies;
+	private RelativeLayout employInfoNext, myselfInfoNext, papersInfoNext,
+			historyNext, familyInfoNext, hobbiesSumbit;
+	int j = 0;// 从图片库选着图片的线程显示
+	int m = 6;// 调用系统照相机的线程显示
+
 	// 创建线程显示图片
-//	private static final int THREAD_Photo = 1;
-//	private static final int THREAD_Academic = 2;
-//	private static final int THREAD_IdPhoto1 = 3;
-//	private static final int THREAD_IdPhoto2 = 4;
-//	private static final int THREAD_RepairOrder = 5;
-//	private static final int THREAD_CheckupReporting = 6;
+	// private static final int THREAD_Photo = 1;
+	// private static final int THREAD_Academic = 2;
+	// private static final int THREAD_IdPhoto1 = 3;
+	// private static final int THREAD_IdPhoto2 = 4;
+	// private static final int THREAD_RepairOrder = 5;
+	// private static final int THREAD_CheckupReporting = 6;
 	Window window;
-    Bitmap bitmap;
+	Bitmap bitmap;
 
 	@Override
 	protected View ceateView(LayoutInflater inflater, Bundle savedInstanceState) {
@@ -224,8 +231,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 		}
 		int id;
 		View v = inflater.inflate(R.layout.activity_entry_basic_info, null);
-		setContentView(v); 
-        setContentView(v); 
+		setContentView(v);
+		setContentView(v);
 		initEmployInfo();
 		bindDepartmentOrPos("CostCenterno", -1);// 传入-1显示全部部门
 		bindDepartmentOrPos("Compos", -1);
@@ -262,29 +269,27 @@ public class EntryManagementActiviy extends BaseActivity implements
 		initImage();
 		return v;
 	}
-	private void initImage()
-	{
-        pop = new PopupWindow(EntryManagementActiviy.this);
-		View view = getLayoutInflater().inflate(R.layout.item_popupwindows, null);
+
+	private void initImage() {
+		pop = new PopupWindow(EntryManagementActiviy.this);
+		View view = getLayoutInflater().inflate(R.layout.item_popupwindows,
+				null);
 
 		ll_popup = (LinearLayout) view.findViewById(R.id.ll_popup);
-		
+
 		pop.setWidth(LayoutParams.MATCH_PARENT);
 		pop.setHeight(LayoutParams.WRAP_CONTENT);
 		pop.setBackgroundDrawable(new BitmapDrawable());
 		pop.setFocusable(true);
 		pop.setOutsideTouchable(true);
 		pop.setContentView(view);
-		
+
 		RelativeLayout parent = (RelativeLayout) view.findViewById(R.id.parent);
-		Button bt1 = (Button) view
-				.findViewById(R.id.item_popupwindows_camera);
-		Button bt2 = (Button) view
-				.findViewById(R.id.item_popupwindows_Photo);
-		Button bt3 = (Button) view
-				.findViewById(R.id.item_popupwindows_cancel);
-	    parent.setOnClickListener(new OnClickListener() {
-			
+		Button bt1 = (Button) view.findViewById(R.id.item_popupwindows_camera);
+		Button bt2 = (Button) view.findViewById(R.id.item_popupwindows_Photo);
+		Button bt3 = (Button) view.findViewById(R.id.item_popupwindows_cancel);
+		parent.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -302,9 +307,9 @@ public class EntryManagementActiviy extends BaseActivity implements
 		bt2.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent i = new Intent(
-                Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, j);
+						Intent.ACTION_PICK,
+						android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				startActivityForResult(i, j);
 				pop.dismiss();
 				ll_popup.clearAnimation();
 			}
@@ -316,70 +321,72 @@ public class EntryManagementActiviy extends BaseActivity implements
 			}
 		});
 		// 响应img图片选择图库相片
-				imgViewPhoto.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-//						Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//						intent.setType("image/*");
-//						intent.putExtra("crop", true);
-//						intent.putExtra("return-data", true);
-//						startActivityForResult(intent, 0);
-						j=0;
-						m=6;
-						 pop.showAtLocation(imgViewPhoto, Gravity.BOTTOM, 0, 0);
-//						 Intent i = new Intent(
-//				                    Intent.ACTION_PICK,
-//				                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//				            startActivityForResult(i, 0);
-//				          
-					}
-				});
-				imgViewAcademic.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-							// TODO Auto-generated method stub
-						j=1;
-						m=7;
-						 pop.showAtLocation(imgViewAcademic, Gravity.BOTTOM, 0, 0);
-						}
-					});
-				imgViewIdPhoto1.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View arg0) {					
-						j=2;
-						m=8;
-						 pop.showAtLocation(imgViewIdPhoto1, Gravity.BOTTOM, 0, 0);
-					}
-				});
-				imgViewIdPhoto2.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						j=3;
-						m=9;
-						 pop.showAtLocation(imgViewIdPhoto2, Gravity.BOTTOM, 0, 0);
-					}
-				});
-				imgViewRepairOrder.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						j=4;
-						m=10;
-						 pop.showAtLocation(imgViewRepairOrder, Gravity.BOTTOM, 0, 0);
-					}
-				});
-				imgViewCheckupReporting.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-//						Intent i = new Intent(
-//			                    Intent.ACTION_PICK,
-//			                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//			            startActivityForResult(i, 5);
-						j=5;
-						m=11;
-			            pop.showAtLocation(imgViewCheckupReporting, Gravity.BOTTOM, 0, 0);
-					}
-				});
+		imgViewPhoto.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+				// intent.setType("image/*");
+				// intent.putExtra("crop", true);
+				// intent.putExtra("return-data", true);
+				// startActivityForResult(intent, 0);
+				j = 0;
+				m = 6;
+				pop.showAtLocation(imgViewPhoto, Gravity.BOTTOM, 0, 0);
+				// Intent i = new Intent(
+				// Intent.ACTION_PICK,
+				// android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				// startActivityForResult(i, 0);
+				//
+			}
+		});
+		imgViewAcademic.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				j = 1;
+				m = 7;
+				pop.showAtLocation(imgViewAcademic, Gravity.BOTTOM, 0, 0);
+			}
+		});
+		imgViewIdPhoto1.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				j = 2;
+				m = 8;
+				pop.showAtLocation(imgViewIdPhoto1, Gravity.BOTTOM, 0, 0);
+			}
+		});
+		imgViewIdPhoto2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				j = 3;
+				m = 9;
+				pop.showAtLocation(imgViewIdPhoto2, Gravity.BOTTOM, 0, 0);
+			}
+		});
+		imgViewRepairOrder.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				j = 4;
+				m = 10;
+				pop.showAtLocation(imgViewRepairOrder, Gravity.BOTTOM, 0, 0);
+			}
+		});
+		imgViewCheckupReporting.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// Intent i = new Intent(
+				// Intent.ACTION_PICK,
+				// android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				// startActivityForResult(i, 5);
+				j = 5;
+				m = 11;
+				pop.showAtLocation(imgViewCheckupReporting, Gravity.BOTTOM, 0,
+						0);
+			}
+		});
 	}
+
 	/**
 	 * 应聘信息
 	 */
@@ -402,9 +409,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 
 		layout_goBackFamilyInfo = (LinearLayout) findViewById(R.id.layout_goBackFamilyInfo);
 		layout_goBackFamilyInfo.setOnClickListener(this);
-		
-	
-		
+
 		iv_step1 = (ImageView) findViewById(R.id.iv_step1);
 		iv_step2 = (ImageView) findViewById(R.id.iv_step2);
 		iv_step3 = (ImageView) findViewById(R.id.iv_step3);
@@ -500,8 +505,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 		et_urgentMobile = (EditText) findViewById(R.id.et_urgentMobile);
 		uiAdapter.setMargin(et_urgentMobile, LayoutParams.MATCH_PARENT, 37, 5,
 				20, 45, 0);
-		
-	    //紧急联系人地址
+
+		// 紧急联系人地址
 		iv_urgentAddr = (ImageView) findViewById(R.id.iv_urgentAddr);
 		uiAdapter.setMargin(iv_urgentAddr, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 20, 25, 0, 10);
@@ -523,7 +528,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		et_residence = (EditText) findViewById(R.id.et_residence);
 		uiAdapter.setMargin(et_residence, LayoutParams.MATCH_PARENT, 37, 5, 20,
 				45, 0);
-		employInfoNext=(RelativeLayout)findViewById(R.id.employInfoNext);
+		employInfoNext = (RelativeLayout) findViewById(R.id.employInfoNext);
 		// 保存
 		btn_saveEmployInfo = (Button) findViewById(R.id.btn_saveEmployInfo);
 		uiAdapter.setTextSize(btn_saveEmployInfo, 24);
@@ -573,7 +578,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		maleButton = (RadioButton) findViewById(R.id.male);
 		femaleButton = (RadioButton) findViewById(R.id.female);
 		uiAdapter.setPadding(radiogender, 10, 15, 0, 0);
-		//民族sp_nation
+		// 民族sp_nation
 		iv_nation = (ImageView) findViewById(R.id.iv_nation);
 		uiAdapter.setMargin(iv_nation, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
@@ -608,18 +613,18 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(et_idNo, LayoutParams.MATCH_PARENT, 37, 5, 20, 45,
 				0);
 		uiAdapter.setPadding(et_idNo, 10, 0, 0, 0);
-		//婚姻状况
+		// 婚姻状况
 		iv_maritalStatus = (ImageView) findViewById(R.id.iv_maritalStatus);
 		uiAdapter.setMargin(iv_maritalStatus, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_maritalStatus = (TextView) findViewById(R.id.tv_maritalStatus);
 		uiAdapter.setTextSize(tv_maritalStatus, 18);
 		uiAdapter.setMargin(tv_maritalStatus, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 10,15, 0, 10);
+				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		sp_maritalStatus = (Spinner) findViewById(R.id.sp_maritalStatus);
-		uiAdapter.setMargin(sp_maritalStatus, LayoutParams.MATCH_PARENT, 37, 5, 20,
-				45, 0);
-		//政治面貌
+		uiAdapter.setMargin(sp_maritalStatus, LayoutParams.MATCH_PARENT, 37, 5,
+				20, 45, 0);
+		// 政治面貌
 		iv_politicalStatus = (ImageView) findViewById(R.id.iv_politicalStatus);
 		uiAdapter.setMargin(iv_politicalStatus, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
@@ -628,9 +633,9 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(tv_politicalStatus, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		sp_politicalStatus = (Spinner) findViewById(R.id.sp_politicalStatus);
-		uiAdapter.setMargin(sp_politicalStatus, LayoutParams.MATCH_PARENT, 37, 5, 20,
-				45, 0);
-		//健康状况
+		uiAdapter.setMargin(sp_politicalStatus, LayoutParams.MATCH_PARENT, 37,
+				5, 20, 45, 0);
+		// 健康状况
 		iv_healthCondition = (ImageView) findViewById(R.id.iv_healthCondition);
 		uiAdapter.setMargin(iv_healthCondition, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
@@ -639,9 +644,9 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(tv_healthCondition, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		sp_healthCondition = (Spinner) findViewById(R.id.sp_healthCondition);
-		uiAdapter.setMargin(sp_healthCondition, LayoutParams.MATCH_PARENT, 37, 5, 20,
-				45, 0);
-		//文化程度
+		uiAdapter.setMargin(sp_healthCondition, LayoutParams.MATCH_PARENT, 37,
+				5, 20, 45, 0);
+		// 文化程度
 		iv_culturalDegree = (ImageView) findViewById(R.id.iv_culturalDegree);
 		uiAdapter.setMargin(iv_culturalDegree, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
@@ -650,8 +655,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(tv_culturalDegree, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		sp_culturalDegree = (Spinner) findViewById(R.id.sp_culturalDegree);
-		uiAdapter.setMargin(sp_culturalDegree, LayoutParams.MATCH_PARENT, 37, 5, 20,
-				45, 0);
+		uiAdapter.setMargin(sp_culturalDegree, LayoutParams.MATCH_PARENT, 37,
+				5, 20, 45, 0);
 		// 学历号
 		iv_educationNo = (ImageView) findViewById(R.id.iv_educationNo);
 		uiAdapter.setMargin(iv_educationNo, LayoutParams.WRAP_CONTENT,
@@ -664,7 +669,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(et_educationNo, LayoutParams.MATCH_PARENT, 37, 5,
 				20, 45, 0);
 		uiAdapter.setPadding(et_educationNo, 10, 0, 0, 0);
-        //专业
+		// 专业
 		iv_major = (ImageView) findViewById(R.id.iv_major);
 		uiAdapter.setMargin(iv_major, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
@@ -673,8 +678,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(tv_major, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_major = (EditText) findViewById(R.id.et_major);
-		uiAdapter.setMargin(et_major, LayoutParams.MATCH_PARENT, 37, 5,
-				20, 45, 0);
+		uiAdapter.setMargin(et_major, LayoutParams.MATCH_PARENT, 37, 5, 20, 45,
+				0);
 		uiAdapter.setPadding(et_major, 10, 0, 0, 0);
 		// 开户银行
 		iv_depositBank = (ImageView) findViewById(R.id.iv_depositBank);
@@ -685,8 +690,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(tv_depositBank, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		sp_depositBank = (Spinner) findViewById(R.id.sp_depositBank);
-		uiAdapter.setMargin(sp_depositBank, LayoutParams.MATCH_PARENT, 37, 5, 20,
-				45, 0);
+		uiAdapter.setMargin(sp_depositBank, LayoutParams.MATCH_PARENT, 37, 5,
+				20, 45, 0);
 		// 银行账号
 		iv_depositCardNo = (ImageView) findViewById(R.id.iv_depositCardNo);
 		uiAdapter.setMargin(iv_depositCardNo, LayoutParams.WRAP_CONTENT,
@@ -711,7 +716,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(et_accumFund, LayoutParams.MATCH_PARENT, 37, 5, 20,
 				45, 0);
 		uiAdapter.setPadding(et_accumFund, 10, 0, 0, 0);
-		//社保账号
+		// 社保账号
 		iv_socialSecurityNo = (ImageView) findViewById(R.id.iv_socialSecurityNo);
 		uiAdapter.setMargin(iv_socialSecurityNo, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
@@ -720,11 +725,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(tv_socialSecurityNo, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_socialSecurityNo = (EditText) findViewById(R.id.et_socialSecurityNo);
-		uiAdapter.setMargin(et_socialSecurityNo, LayoutParams.MATCH_PARENT, 37, 5, 20,
-				45, 0);
+		uiAdapter.setMargin(et_socialSecurityNo, LayoutParams.MATCH_PARENT, 37,
+				5, 20, 45, 0);
 		uiAdapter.setPadding(et_socialSecurityNo, 10, 0, 0, 0);
-		
-		myselfInfoNext=(RelativeLayout)findViewById(R.id.myselfInfoNext);
+
+		myselfInfoNext = (RelativeLayout) findViewById(R.id.myselfInfoNext);
 		// 保存
 		btn_saveMyselfInfo = (Button) findViewById(R.id.btn_saveMyselfInfo);
 		uiAdapter.setTextSize(btn_saveMyselfInfo, 24);
@@ -738,7 +743,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 	 */
 	private void initViewPapersInfo() {
 		imgViewPhoto = (ImageView) findViewById(R.id.imgViewPhoto);
-//		imgViewVedio = (ImageView) findViewById(R.id.imgViewVideo);
+		// imgViewVedio = (ImageView) findViewById(R.id.imgViewVideo);
 		imgViewAcademic = (ImageView) findViewById(R.id.imgViewAcademic);
 		imgViewIdPhoto1 = (ImageView) findViewById(R.id.imgViewIdPhoto1);// 身份证正面
 		imgViewIdPhoto2 = (ImageView) findViewById(R.id.imgViewIdPhoto2);// 身份证反面
@@ -753,13 +758,13 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(tv_myselfPhoto, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
 		// 个人视频
-//		iv_myselfVideo = (ImageView) findViewById(R.id.iv_myselfVideo);
-//		uiAdapter.setMargin(iv_myselfVideo, LayoutParams.WRAP_CONTENT,
-//				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
-//		tv_myselfVideo = (TextView) findViewById(R.id.tv_myselfVideo);
-//		uiAdapter.setTextSize(tv_myselfVideo, 18);
-//		uiAdapter.setMargin(tv_myselfVideo, LayoutParams.WRAP_CONTENT,
-//				LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
+		// iv_myselfVideo = (ImageView) findViewById(R.id.iv_myselfVideo);
+		// uiAdapter.setMargin(iv_myselfVideo, LayoutParams.WRAP_CONTENT,
+		// LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+		// tv_myselfVideo = (TextView) findViewById(R.id.tv_myselfVideo);
+		// uiAdapter.setTextSize(tv_myselfVideo, 18);
+		// uiAdapter.setMargin(tv_myselfVideo, LayoutParams.WRAP_CONTENT,
+		// LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
 		// 学历证书
 		iv_academicPhoto = (ImageView) findViewById(R.id.iv_academicPhoto);
 		uiAdapter.setMargin(iv_academicPhoto, LayoutParams.WRAP_CONTENT,
@@ -792,8 +797,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setTextSize(tv_checkupReporting, 18);
 		uiAdapter.setMargin(tv_checkupReporting, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
-		papersInfoNext=(RelativeLayout)findViewById(R.id.papersInfoNext);
-		
+		papersInfoNext = (RelativeLayout) findViewById(R.id.papersInfoNext);
+
 		// 保存
 		btn_savePapersInfo = (Button) findViewById(R.id.btn_savePapersInfo);
 		uiAdapter.setTextSize(btn_savePapersInfo, 24);
@@ -835,8 +840,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 				LayoutParams.WRAP_CONTENT, 0, 0, 0, 0);
 		workExperienceAdapter = new EntryWrokExperienceDetailAdapter(self, self);
 		list_workExperienceInfo.setAdapter(workExperienceAdapter);
-		historyNext=(RelativeLayout)findViewById(R.id.historyNext);
-		
+		historyNext = (RelativeLayout) findViewById(R.id.historyNext);
+
 		// 保存
 		btn_saveHistory = (Button) findViewById(R.id.btn_saveHistory);
 		uiAdapter.setTextSize(btn_saveHistory, 24);
@@ -892,8 +897,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(btn_addFamilyInfo, LayoutParams.MATCH_PARENT, 45,
 				10, 20, 10, 0);
 		uiAdapter.setTextSize(btn_addFamilyInfo, 20);
-		familyInfoNext=(RelativeLayout)findViewById(R.id.familyInfoNext);
-		
+		familyInfoNext = (RelativeLayout) findViewById(R.id.familyInfoNext);
+
 		// 保存
 		btn_saveFamilyInfo = (Button) findViewById(R.id.btn_saveFamilyInfo);
 		uiAdapter.setTextSize(btn_saveFamilyInfo, 24);
@@ -941,7 +946,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 
 		photography = (CheckBox) findViewById(R.id.photography);
 		photography.setBackgroundResource(R.drawable.check_hobbies);
-		hobbiesSumbit=(RelativeLayout)findViewById(R.id.hobbiesSumbit);
+		hobbiesSumbit = (RelativeLayout) findViewById(R.id.hobbiesSumbit);
 		// 保存
 		btn_saveHobbies = (Button) findViewById(R.id.btn_saveHobbies);
 		uiAdapter.setTextSize(btn_saveHobbies, 24);
@@ -974,7 +979,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step5.setVisibility(View.GONE);
 		iv_step6.setVisibility(View.GONE);
 		employInfoNext.setVisibility(View.VISIBLE);
-	    myselfInfoNext.setVisibility(View.GONE);
+		myselfInfoNext.setVisibility(View.GONE);
 		papersInfoNext.setVisibility(View.GONE);
 		historyNext.setVisibility(View.GONE);
 		familyInfoNext.setVisibility(View.GONE);
@@ -1005,7 +1010,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step5.setVisibility(View.GONE);
 		iv_step6.setVisibility(View.GONE);
 		employInfoNext.setVisibility(View.GONE);
-	    myselfInfoNext.setVisibility(View.VISIBLE);
+		myselfInfoNext.setVisibility(View.VISIBLE);
 		papersInfoNext.setVisibility(View.GONE);
 		historyNext.setVisibility(View.GONE);
 		familyInfoNext.setVisibility(View.GONE);
@@ -1034,7 +1039,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step5.setVisibility(View.GONE);
 		iv_step6.setVisibility(View.GONE);
 		employInfoNext.setVisibility(View.GONE);
-	    myselfInfoNext.setVisibility(View.GONE);
+		myselfInfoNext.setVisibility(View.GONE);
 		papersInfoNext.setVisibility(View.VISIBLE);
 		historyNext.setVisibility(View.GONE);
 		familyInfoNext.setVisibility(View.GONE);
@@ -1063,7 +1068,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step5.setVisibility(View.GONE);
 		iv_step6.setVisibility(View.GONE);
 		employInfoNext.setVisibility(View.GONE);
-	    myselfInfoNext.setVisibility(View.GONE);
+		myselfInfoNext.setVisibility(View.GONE);
 		papersInfoNext.setVisibility(View.GONE);
 		historyNext.setVisibility(View.VISIBLE);
 		familyInfoNext.setVisibility(View.GONE);
@@ -1092,7 +1097,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step5.setVisibility(View.VISIBLE);
 		iv_step6.setVisibility(View.GONE);
 		employInfoNext.setVisibility(View.GONE);
-	    myselfInfoNext.setVisibility(View.GONE);
+		myselfInfoNext.setVisibility(View.GONE);
 		papersInfoNext.setVisibility(View.GONE);
 		historyNext.setVisibility(View.GONE);
 		familyInfoNext.setVisibility(View.VISIBLE);
@@ -1121,7 +1126,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		iv_step5.setVisibility(View.GONE);
 		iv_step6.setVisibility(View.VISIBLE);
 		employInfoNext.setVisibility(View.GONE);
-	    myselfInfoNext.setVisibility(View.GONE);
+		myselfInfoNext.setVisibility(View.GONE);
 		papersInfoNext.setVisibility(View.GONE);
 		historyNext.setVisibility(View.GONE);
 		familyInfoNext.setVisibility(View.GONE);
@@ -1134,7 +1139,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		String upLoadSuccess = "提交成功";
 		employInfo = (LinearLayout) findViewById(R.id.employInfo);
 		myselfInfo = (LinearLayout) findViewById(R.id.myselfInfo);
-		scroll_myselfInfo=(ScrollView) findViewById(R.id.scroll_myselfInfo);
+		scroll_myselfInfo = (ScrollView) findViewById(R.id.scroll_myselfInfo);
 		papersInfo = (LinearLayout) findViewById(R.id.papersInfo);
 		history = (LinearLayout) findViewById(R.id.history);
 		familyInfo = (LinearLayout) findViewById(R.id.layout_familyInfo);
@@ -1203,7 +1208,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			} else if (TextUtils.isEmpty(idNo)) {
 				Toast.show(self, resources.getString(R.string.entryIdNo));
 				return;
-			}else if (!isIdNo(et_idNo.getText().toString())) {
+			} else if (!isIdNo(et_idNo.getText().toString())) {
 				Toast.show(self, resources.getString(R.string.idNoFormat));
 				return;
 			} else {
@@ -1218,19 +1223,19 @@ public class EntryManagementActiviy extends BaseActivity implements
 			saveAll(3, saveSuccess);
 			break;
 		case R.id.btn_papersInfoNext: // 证件信息的下一步进入到个人经历
-			if(certificates.equals("")){
+			if (certificates.equals("")) {
 				Toast.show(self, "请添加个人照片");
 				return;
-			}else if(positive.equals("")){
+			} else if (positive.equals("")) {
 				Toast.show(self, "请添加身份证正面照");
 				return;
-			}else if(reverse.equals("")){
+			} else if (reverse.equals("")) {
 				Toast.show(self, "请添加身份证反面照");
 				return;
-			}else if(learningCertificate.equals("")){
+			} else if (learningCertificate.equals("")) {
 				Toast.show(self, "请添加学历证书");
 				return;
-			}else{
+			} else {
 				step4();
 			}
 			break;
@@ -1313,7 +1318,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			public void onOperationFinished(List<Object> resList) {
 				employInfo = (LinearLayout) findViewById(R.id.employInfo);
 				myselfInfo = (LinearLayout) findViewById(R.id.myselfInfo);
-				scroll_myselfInfo=(ScrollView) findViewById(R.id.scroll_myselfInfo);
+				scroll_myselfInfo = (ScrollView) findViewById(R.id.scroll_myselfInfo);
 				papersInfo = (LinearLayout) findViewById(R.id.papersInfo);
 				history = (LinearLayout) findViewById(R.id.history);
 				familyInfo = (LinearLayout) findViewById(R.id.layout_familyInfo);
@@ -1346,19 +1351,18 @@ public class EntryManagementActiviy extends BaseActivity implements
 							}
 						}
 					}
-					
+
 					SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-					 et_comEntryDate.setText(date.format(new
-					 Date(Long.parseLong(entryManageEntity.getComEntryDate().substring(6,
-					 19)))));
+					et_comEntryDate.setText(date.format(new Date(Long
+							.parseLong(entryManageEntity.getComEntryDate()
+									.substring(6, 19)))));
 					et_residence.setText(entryManageEntity.getResidence());
 					et_mobile.setText(entryManageEntity.getMobile());
 					et_urgentContact.setText(entryManageEntity
 							.getUrgentContact());
 					et_urgentMobile
 							.setText(entryManageEntity.getUrgentMobile());
-					et_urgentAddr
-					        .setText(entryManageEntity.getUrgentAddr());
+					et_urgentAddr.setText(entryManageEntity.getUrgentAddr());
 					et_regions.setText(entryManageEntity.getRegions());
 					// 个人信息
 					et_personName.setText(entryManageEntity.getPersonName());
@@ -1380,9 +1384,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 					et_depositCardNo.setText(entryManageEntity
 							.getDepositCardNo());
 					et_accumFund.setText(entryManageEntity.getAccumFund());
-					et_socialSecurityNo.setText(entryManageEntity.getSocialSecurityNo());
-					if (entryManageEntity.getMaritalStatus()!=null) {
-						ArrayAdapter<SpinnerData> maritalStatus = (ArrayAdapter<SpinnerData>) sp_maritalStatus.getAdapter();
+					et_socialSecurityNo.setText(entryManageEntity
+							.getSocialSecurityNo());
+					if (entryManageEntity.getMaritalStatus() != null) {
+						ArrayAdapter<SpinnerData> maritalStatus = (ArrayAdapter<SpinnerData>) sp_maritalStatus
+								.getAdapter();
 						for (int i = 0; i < maritalStatus.getCount(); i++) {
 							if (entryManageEntity.getMaritalStatus().equals(
 									maritalStatus.getItem(i).getValue())) {
@@ -1391,10 +1397,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 						}
 					} else {
 						sp_maritalStatus.setSelection(0, true);
-						
+
 					}
-					if (entryManageEntity.getPoliticalStatus()!=null) {
-						ArrayAdapter<SpinnerData> politicalStatus = (ArrayAdapter<SpinnerData>) sp_politicalStatus.getAdapter();
+					if (entryManageEntity.getPoliticalStatus() != null) {
+						ArrayAdapter<SpinnerData> politicalStatus = (ArrayAdapter<SpinnerData>) sp_politicalStatus
+								.getAdapter();
 						for (int i = 0; i < politicalStatus.getCount(); i++) {
 							if (entryManageEntity.getPoliticalStatus().equals(
 									politicalStatus.getItem(i).getValue())) {
@@ -1403,11 +1410,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 						}
 					} else {
 						sp_politicalStatus.setSelection(0, true);
-						
-						
+
 					}
-					if (entryManageEntity.getHealthCondition()!=null) {
-						ArrayAdapter<SpinnerData> healthCondition = (ArrayAdapter<SpinnerData>) sp_healthCondition.getAdapter();
+					if (entryManageEntity.getHealthCondition() != null) {
+						ArrayAdapter<SpinnerData> healthCondition = (ArrayAdapter<SpinnerData>) sp_healthCondition
+								.getAdapter();
 						for (int i = 0; i < healthCondition.getCount(); i++) {
 							if (entryManageEntity.getHealthCondition().equals(
 									healthCondition.getItem(i).getValue())) {
@@ -1417,8 +1424,9 @@ public class EntryManagementActiviy extends BaseActivity implements
 					} else {
 						sp_healthCondition.setSelection(0, true);
 					}
-					if (entryManageEntity.getCulturalDegree()!=null) {
-						ArrayAdapter<SpinnerData> culturalDegree = (ArrayAdapter<SpinnerData>) sp_culturalDegree.getAdapter();
+					if (entryManageEntity.getCulturalDegree() != null) {
+						ArrayAdapter<SpinnerData> culturalDegree = (ArrayAdapter<SpinnerData>) sp_culturalDegree
+								.getAdapter();
 						for (int i = 0; i < culturalDegree.getCount(); i++) {
 							if (entryManageEntity.getCulturalDegree().equals(
 									culturalDegree.getItem(i).getValue())) {
@@ -1427,10 +1435,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 						}
 					} else {
 						sp_culturalDegree.setSelection(0, true);
-						
+
 					}
-					if (entryManageEntity.getNation()!=null) {
-						ArrayAdapter<SpinnerData> nation = (ArrayAdapter<SpinnerData>) sp_nation.getAdapter();
+					if (entryManageEntity.getNation() != null) {
+						ArrayAdapter<SpinnerData> nation = (ArrayAdapter<SpinnerData>) sp_nation
+								.getAdapter();
 						for (int i = 0; i < nation.getCount(); i++) {
 							if (entryManageEntity.getNation().equals(
 									nation.getItem(i).getValue())) {
@@ -1440,9 +1449,10 @@ public class EntryManagementActiviy extends BaseActivity implements
 					} else {
 						sp_nation.setSelection(0, true);
 					}
-					//开户银行
-					if (entryManageEntity.getDepositBank()!=null) {
-						ArrayAdapter<SpinnerData> depositBank = (ArrayAdapter<SpinnerData>) sp_depositBank.getAdapter();
+					// 开户银行
+					if (entryManageEntity.getDepositBank() != null) {
+						ArrayAdapter<SpinnerData> depositBank = (ArrayAdapter<SpinnerData>) sp_depositBank
+								.getAdapter();
 						for (int i = 0; i < depositBank.getCount(); i++) {
 							if (entryManageEntity.getDepositBank().equals(
 									depositBank.getItem(i).getValue())) {
@@ -1451,9 +1461,9 @@ public class EntryManagementActiviy extends BaseActivity implements
 						}
 					} else {
 						sp_depositBank.setSelection(0, true);
-//						list_depositBank.remove(0);
+						// list_depositBank.remove(0);
 					}
-					
+
 					// 证件信息
 					String materials = entryManageEntity.getMaterials();
 					if (materials != null) {
@@ -1471,49 +1481,63 @@ public class EntryManagementActiviy extends BaseActivity implements
 										.getString("Reverse");
 							}
 							String[] urls = new String[] {
-									jsonObjectMaterials.getString("Certificates"),
-									jsonObjectMaterials.getString("LearningCertificate"),
+									jsonObjectMaterials
+											.getString("Certificates"),
+									jsonObjectMaterials
+											.getString("LearningCertificate"),
 									positive1,
 									reverse1,
 									jsonObjectMaterials.getString("Retirement"),
 									jsonObjectMaterials.getString("Physical") };
-							if(urls[0].equals("")){
-							}else{
-								ImageLoader.getInstance().displayImage(urls[0].trim(), imgViewPhoto);
+							if (urls[0].equals("")) {
+							} else {
+								ImageLoader.getInstance().displayImage(
+										urls[0].trim(), imgViewPhoto);
 							}
-							if(urls[1].equals("")){
-							}else{
-//								new Thread(new LoadImageRunnable(mHandler,
-//										THREAD_Academic, urls[1])).start();
-								ImageLoader.getInstance().displayImage(urls[1].trim(), imgViewAcademic);
-//								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewAcademic);
+							if (urls[1].equals("")) {
+							} else {
+								// new Thread(new LoadImageRunnable(mHandler,
+								// THREAD_Academic, urls[1])).start();
+								ImageLoader.getInstance().displayImage(
+										urls[1].trim(), imgViewAcademic);
+								// ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg",
+								// imgViewAcademic);
 							}
-                            if(urls[2].equals("")){	
-							}else{
-								ImageLoader.getInstance().displayImage(urls[2].trim(), imgViewIdPhoto1);
-//								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewIdPhoto1);
+							if (urls[2].equals("")) {
+							} else {
+								ImageLoader.getInstance().displayImage(
+										urls[2].trim(), imgViewIdPhoto1);
+								// ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg",
+								// imgViewIdPhoto1);
 							}
-                            if(urls[3].equals("")){	
-							}else{
-								ImageLoader.getInstance().displayImage(urls[3].trim(), imgViewIdPhoto2);
-//								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewIdPhoto2);
+							if (urls[3].equals("")) {
+							} else {
+								ImageLoader.getInstance().displayImage(
+										urls[3].trim(), imgViewIdPhoto2);
+								// ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg",
+								// imgViewIdPhoto2);
 							}
-                            if(urls[4].equals("")){
-							}else{
-								ImageLoader.getInstance().displayImage(urls[4].trim(), imgViewRepairOrder);
-//								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewRepairOrder);
+							if (urls[4].equals("")) {
+							} else {
+								ImageLoader.getInstance().displayImage(
+										urls[4].trim(), imgViewRepairOrder);
+								// ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg",
+								// imgViewRepairOrder);
 							}
-                            if(urls[5].equals("")){	
-							}else{	
-								ImageLoader.getInstance().displayImage(urls[5].trim(), imgViewCheckupReporting);
-//								ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg", imgViewCheckupReporting);
+							if (urls[5].equals("")) {
+							} else {
+								ImageLoader.getInstance()
+										.displayImage(urls[5].trim(),
+												imgViewCheckupReporting);
+								// ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg",
+								// imgViewCheckupReporting);
 							}
-                            certificates=urls[0];
-                            learningCertificate=urls[1];
-                 	        positive=urls[2];
-                 	        reverse=urls[3];
-                 	        retirement=urls[4];
-                 	        physical=urls[5];
+							certificates = urls[0];
+							learningCertificate = urls[1];
+							positive = urls[2];
+							reverse = urls[3];
+							retirement = urls[4];
+							physical = urls[5];
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -1719,58 +1743,69 @@ public class EntryManagementActiviy extends BaseActivity implements
 		// TODO Auto-generated method stub
 		return null;
 	}
-/**
-	private Handler mHandler = new Handler() {
 
-		// 利用handleMessage更新UI
-		@SuppressWarnings("deprecation")
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case EntryManagementActiviy.THREAD_Photo:
-				BitmapFactory.Options options = new BitmapFactory.Options();
-				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
-				options.inJustDecodeBounds = true;
-				
-				int scale = (int) (options.outWidth / (float) 100);
-				if (scale <= 0)
-					scale = 2;
-				options.inSampleSize = scale;
-				options.inJustDecodeBounds = false;
-				Object m=msg.obj;
-				Log.e("img=============================", m.toString());
-//				bitmap = BitmapFactory.decodeFile(retirement, options);
-//				bitmap = BitmapFactory.decodeFile( msg.obj, options); 
-				imgViewPhoto.setImageBitmap((Bitmap)msg.obj);
-				imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				break;
-			case EntryManagementActiviy.THREAD_Academic:
-				imgViewAcademic.setImageBitmap((Bitmap) msg.obj);
-				imgViewAcademic.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				break;
-			case EntryManagementActiviy.THREAD_IdPhoto1:
-				imgViewIdPhoto1.setImageBitmap((Bitmap) msg.obj);
-				imgViewIdPhoto1.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				break;
-			case EntryManagementActiviy.THREAD_IdPhoto2:
-				imgViewIdPhoto2.setImageBitmap((Bitmap) msg.obj);
-				imgViewIdPhoto2.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				break;
-			case EntryManagementActiviy.THREAD_RepairOrder:
-				imgViewRepairOrder.setImageBitmap((Bitmap) msg.obj);
-				imgViewRepairOrder.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				break;
-			case EntryManagementActiviy.THREAD_CheckupReporting:
-				imgViewCheckupReporting.setImageBitmap((Bitmap) msg.obj);
-				imgViewCheckupReporting.setScaleType(ImageView.ScaleType.CENTER_CROP);
-				break;
-			// 如有异常会有提示
-			default:
-				break;
-			}
-
-		}
-	};
-	*/
+	/**
+	 * private Handler mHandler = new Handler() {
+	 * 
+	 * // 利用handleMessage更新UI
+	 * 
+	 * @SuppressWarnings("deprecation") public void handleMessage(Message msg) {
+	 *                                  switch (msg.what) { case
+	 *                                  EntryManagementActiviy.THREAD_Photo:
+	 *                                  BitmapFactory.Options options = new
+	 *                                  BitmapFactory.Options(); // options
+	 *                                  设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，
+	 *                                  设为false时，才有图片 options.inJustDecodeBounds
+	 *                                  = true;
+	 * 
+	 *                                  int scale = (int) (options.outWidth /
+	 *                                  (float) 100); if (scale <= 0) scale = 2;
+	 *                                  options.inSampleSize = scale;
+	 *                                  options.inJustDecodeBounds = false;
+	 *                                  Object m=msg.obj;
+	 *                                  Log.e("img============================="
+	 *                                  , m.toString()); // bitmap =
+	 *                                  BitmapFactory.decodeFile(retirement,
+	 *                                  options); // bitmap =
+	 *                                  BitmapFactory.decodeFile( msg.obj,
+	 *                                  options);
+	 *                                  imgViewPhoto.setImageBitmap((Bitmap
+	 *                                  )msg.obj);
+	 *                                  imgViewPhoto.setScaleType(ImageView
+	 *                                  .ScaleType.CENTER_CROP); break; case
+	 *                                  EntryManagementActiviy.THREAD_Academic:
+	 *                                  imgViewAcademic.setImageBitmap((Bitmap)
+	 *                                  msg.obj);
+	 *                                  imgViewAcademic.setScaleType(ImageView
+	 *                                  .ScaleType.CENTER_CROP); break; case
+	 *                                  EntryManagementActiviy.THREAD_IdPhoto1:
+	 *                                  imgViewIdPhoto1.setImageBitmap((Bitmap)
+	 *                                  msg.obj);
+	 *                                  imgViewIdPhoto1.setScaleType(ImageView
+	 *                                  .ScaleType.CENTER_CROP); break; case
+	 *                                  EntryManagementActiviy.THREAD_IdPhoto2:
+	 *                                  imgViewIdPhoto2.setImageBitmap((Bitmap)
+	 *                                  msg.obj);
+	 *                                  imgViewIdPhoto2.setScaleType(ImageView
+	 *                                  .ScaleType.CENTER_CROP); break; case
+	 *                                  EntryManagementActiviy
+	 *                                  .THREAD_RepairOrder:
+	 *                                  imgViewRepairOrder.setImageBitmap
+	 *                                  ((Bitmap) msg.obj);
+	 *                                  imgViewRepairOrder.setScaleType
+	 *                                  (ImageView.ScaleType.CENTER_CROP);
+	 *                                  break; case
+	 *                                  EntryManagementActiviy.THREAD_CheckupReporting
+	 *                                  :
+	 *                                  imgViewCheckupReporting.setImageBitmap(
+	 *                                  (Bitmap) msg.obj);
+	 *                                  imgViewCheckupReporting
+	 *                                  .setScaleType(ImageView
+	 *                                  .ScaleType.CENTER_CROP); break; //
+	 *                                  如有异常会有提示 default: break; }
+	 * 
+	 *                                  } };
+	 */
 	/**
 	 * 绑定部门和职位
 	 * 
@@ -1847,6 +1882,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				JsonCommon.PROGRESSCOMMIT);
 		task.execute();
 	}
+
 	/**
 	 * 根据syskey绑定syskeyname
 	 * 
@@ -1868,73 +1904,73 @@ public class EntryManagementActiviy extends BaseActivity implements
 				}
 				EntryDepartmentEntity entity = (EntryDepartmentEntity) resList
 						.get(0);
-				List<EntryDepartmentDetailEntity> allList = entity
-						.getRetObj();
-//				SpinnerData a = new SpinnerData("", "");
+				List<EntryDepartmentDetailEntity> allList = entity.getRetObj();
+				// SpinnerData a = new SpinnerData("", "");
 				list_maritalStatus = new ArrayList<SpinnerData>();
-			
-				list_politicalStatus= new ArrayList<SpinnerData>();
-				list_healthCondition= new ArrayList<SpinnerData>();
-				list_culturalDegree= new ArrayList<SpinnerData>();
-				list_nation= new ArrayList<SpinnerData>();
-				list_depositBank= new ArrayList<SpinnerData>();
-//				list_maritalStatus.add(a);
-//				list_politicalStatus.add(a);
-//				list_culturalDegree.add(a);
-//				list_depositBank.add(a);
-				
+
+				list_politicalStatus = new ArrayList<SpinnerData>();
+				list_healthCondition = new ArrayList<SpinnerData>();
+				list_culturalDegree = new ArrayList<SpinnerData>();
+				list_nation = new ArrayList<SpinnerData>();
+				list_depositBank = new ArrayList<SpinnerData>();
+				// list_maritalStatus.add(a);
+				// list_politicalStatus.add(a);
+				// list_culturalDegree.add(a);
+				// list_depositBank.add(a);
+
 				for (int i = 0; i < allList.size(); i++) {
-					if(allList.get(i).getSysKey().equals("maritalStatus"))
-					{
+					if (allList.get(i).getSysKey().equals("maritalStatus")) {
 						SpinnerData maritalStatus = new SpinnerData(allList
 								.get(i).getSysValue(), allList.get(i)
 								.getSysKeyName());
 						list_maritalStatus.add(maritalStatus);
-					}else if(allList.get(i).getSysKey().equals("politicalStatus"))
-					{
+					} else if (allList.get(i).getSysKey()
+							.equals("politicalStatus")) {
 						SpinnerData politicalStatus = new SpinnerData(allList
 								.get(i).getSysValue(), allList.get(i)
 								.getSysKeyName());
 						list_politicalStatus.add(politicalStatus);
-					}else if(allList.get(i).getSysKey().equals("healthCondition"))
-					{
+					} else if (allList.get(i).getSysKey()
+							.equals("healthCondition")) {
 						SpinnerData healthCondition = new SpinnerData(allList
 								.get(i).getSysValue(), allList.get(i)
 								.getSysKeyName());
 						list_healthCondition.add(healthCondition);
-					}else if(allList.get(i).getSysKey().equals("culturalDegree"))
-					{
+					} else if (allList.get(i).getSysKey()
+							.equals("culturalDegree")) {
 						SpinnerData culturalDegree = new SpinnerData(allList
 								.get(i).getSysValue(), allList.get(i)
 								.getSysKeyName());
 						list_culturalDegree.add(culturalDegree);
-					}else if(allList.get(i).getSysKey().equals("nation"))
-					{
-						SpinnerData nation = new SpinnerData(allList
-								.get(i).getSysValue(), allList.get(i)
-								.getSysKeyName());
+					} else if (allList.get(i).getSysKey().equals("nation")) {
+						SpinnerData nation = new SpinnerData(allList.get(i)
+								.getSysValue(), allList.get(i).getSysKeyName());
 						list_nation.add(nation);
-					}else if(allList.get(i).getSysKey().equals("depositBank")){
+					} else if (allList.get(i).getSysKey().equals("depositBank")) {
 						SpinnerData depositBank = new SpinnerData(allList
 								.get(i).getSysValue(), allList.get(i)
 								.getSysKeyName());
 						list_depositBank.add(depositBank);
 					}
 				}
-				
+
 				// 适配器
 				maritalStatus_adapter = new ArrayAdapter<SpinnerData>(
 						EntryManagementActiviy.this,
-						android.R.layout.simple_spinner_item, list_maritalStatus);
+						android.R.layout.simple_spinner_item,
+						list_maritalStatus);
 				politicalStatus_adapter = new ArrayAdapter<SpinnerData>(
 						EntryManagementActiviy.this,
-						android.R.layout.simple_spinner_item, list_politicalStatus);
+						android.R.layout.simple_spinner_item,
+						list_politicalStatus);
 				healthCondition_adapter = new ArrayAdapter<SpinnerData>(
 						EntryManagementActiviy.this,
-						android.R.layout.simple_spinner_item, list_healthCondition);
+						android.R.layout.simple_spinner_item,
+						list_healthCondition);
 				culturalDegree_adapter = new ArrayAdapter<SpinnerData>(
 						EntryManagementActiviy.this,
-						android.R.layout.simple_spinner_item, list_culturalDegree);
+						android.R.layout.simple_spinner_item,
+						list_culturalDegree);
 				nation_adapter = new ArrayAdapter<SpinnerData>(
 						EntryManagementActiviy.this,
 						android.R.layout.simple_spinner_item, list_nation);
@@ -1942,12 +1978,18 @@ public class EntryManagementActiviy extends BaseActivity implements
 						EntryManagementActiviy.this,
 						android.R.layout.simple_spinner_item, list_depositBank);
 				// 设置样式
-				maritalStatus_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				politicalStatus_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				healthCondition_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				culturalDegree_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				nation_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				depositBank_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				maritalStatus_adapter
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				politicalStatus_adapter
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				healthCondition_adapter
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				culturalDegree_adapter
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				nation_adapter
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				depositBank_adapter
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				// 加载适配器
 				sp_maritalStatus.setAdapter(maritalStatus_adapter);
 				sp_politicalStatus.setAdapter(politicalStatus_adapter);
@@ -1983,7 +2025,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				EntryEntity entity = (EntryEntity) resList.get(0);
 				entryManageEntity = entity.getRetObj();
 				EntryManageEntity entity1 = new EntryManageEntity();
-				EntryManageImageEntity image=new EntryManageImageEntity();
+				EntryManageImageEntity image = new EntryManageImageEntity();
 				EntryManageExperiencesListEntity experience = new EntryManageExperiencesListEntity();
 				EntryManageFamilyListEntity family = new EntryManageFamilyListEntity();
 				entity1.setLoginName(SharedPreferencesUtils
@@ -2039,24 +2081,31 @@ public class EntryManagementActiviy extends BaseActivity implements
 					}
 				}
 				entity1.setEducationNo(et_educationNo.getText().toString());
-				entity1.setNation(((SpinnerData) sp_nation.getSelectedItem()).getValue());
-				entity1.setMaritalStatus(((SpinnerData) sp_maritalStatus.getSelectedItem()).getValue());
-				entity1.setPoliticalStatus(((SpinnerData) sp_politicalStatus.getSelectedItem()).getValue());
-				entity1.setHealthCondition(((SpinnerData) sp_healthCondition.getSelectedItem()).getValue());
-				entity1.setCulturalDegree(((SpinnerData) sp_culturalDegree.getSelectedItem()).getValue());
+				entity1.setNation(((SpinnerData) sp_nation.getSelectedItem())
+						.getValue());
+				entity1.setMaritalStatus(((SpinnerData) sp_maritalStatus
+						.getSelectedItem()).getValue());
+				entity1.setPoliticalStatus(((SpinnerData) sp_politicalStatus
+						.getSelectedItem()).getValue());
+				entity1.setHealthCondition(((SpinnerData) sp_healthCondition
+						.getSelectedItem()).getValue());
+				entity1.setCulturalDegree(((SpinnerData) sp_culturalDegree
+						.getSelectedItem()).getValue());
 				entity1.setAccumFund(et_accumFund.getText().toString());
-				entity1.setDepositBank(((SpinnerData) sp_depositBank.getSelectedItem()).getValue());
+				entity1.setDepositBank(((SpinnerData) sp_depositBank
+						.getSelectedItem()).getValue());
 				entity1.setDepositCardNo(et_depositCardNo.getText().toString());
 				entity1.setMajor(et_major.getText().toString());
-				entity1.setSocialSecurityNo(et_socialSecurityNo.getText().toString());
-				
-//				certificates,video,learningCertificate,
-//		        positive,reverse,retirement,physical;
-				//个人证件
-				//避免解析的时候解析掉等于号
-				GsonBuilder gb =new GsonBuilder();
+				entity1.setSocialSecurityNo(et_socialSecurityNo.getText()
+						.toString());
+
+				// certificates,video,learningCertificate,
+				// positive,reverse,retirement,physical;
+				// 个人证件
+				// 避免解析的时候解析掉等于号
+				GsonBuilder gb = new GsonBuilder();
 				gb.disableHtmlEscaping();
-				EntryManageIDImageEntity idImage=new EntryManageIDImageEntity();
+				EntryManageIDImageEntity idImage = new EntryManageIDImageEntity();
 				image.setCertificates(certificates);
 				image.setLearningCertificate(learningCertificate);
 				idImage.setPositive(positive);
@@ -2143,7 +2192,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 	private void submited(int currentStep, final String retMessage) {
 		EntryManageEntity entity = new EntryManageEntity();
 		EntryManageExperiencesListEntity experience = new EntryManageExperiencesListEntity();
-		EntryManageImageEntity image=new EntryManageImageEntity();
+		EntryManageImageEntity image = new EntryManageImageEntity();
 		EntryManageFamilyListEntity family = new EntryManageFamilyListEntity();
 		entity.setLoginName(SharedPreferencesUtils.getLoginName(JoyApplication
 				.getSelf()));
@@ -2171,6 +2220,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			}
 		}
 		entity.setUrgentContact(et_urgentContact.getText().toString());
+		entity.setUrgentAddr(et_urgentAddr.getText().toString());
 		entity.setRegions(et_regions.getText().toString());
 		// 个人信息
 		entity.setPersonName(et_personName.getText().toString());
@@ -2184,8 +2234,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		if (TextUtils.isEmpty(et_idNo.getText().toString())) {
 		} else {
 			if (!isIdNo(et_idNo.getText().toString())) {
-				Toast.show(self,
-						resources.getString(R.string.idNoFormat));
+				Toast.show(self, resources.getString(R.string.idNoFormat));
 				return;
 			} else {
 				entity.setIdNo(et_idNo.getText().toString());
@@ -2193,20 +2242,25 @@ public class EntryManagementActiviy extends BaseActivity implements
 		}
 		entity.setEducationNo(et_educationNo.getText().toString());
 		entity.setNation(((SpinnerData) sp_nation.getSelectedItem()).getValue());
-		entity.setMaritalStatus(((SpinnerData) sp_maritalStatus.getSelectedItem()).getValue());
-		entity.setPoliticalStatus(((SpinnerData) sp_politicalStatus.getSelectedItem()).getValue());
-		entity.setHealthCondition(((SpinnerData) sp_healthCondition.getSelectedItem()).getValue());
-		entity.setCulturalDegree(((SpinnerData) sp_culturalDegree.getSelectedItem()).getValue());
+		entity.setMaritalStatus(((SpinnerData) sp_maritalStatus
+				.getSelectedItem()).getValue());
+		entity.setPoliticalStatus(((SpinnerData) sp_politicalStatus
+				.getSelectedItem()).getValue());
+		entity.setHealthCondition(((SpinnerData) sp_healthCondition
+				.getSelectedItem()).getValue());
+		entity.setCulturalDegree(((SpinnerData) sp_culturalDegree
+				.getSelectedItem()).getValue());
 		entity.setAccumFund(et_accumFund.getText().toString());
-		entity.setDepositBank(((SpinnerData) sp_depositBank.getSelectedItem()).getValue());
+		entity.setDepositBank(((SpinnerData) sp_depositBank.getSelectedItem())
+				.getValue());
 		entity.setDepositCardNo(et_depositCardNo.getText().toString());
 		entity.setMajor(et_major.getText().toString());
 		entity.setSocialSecurityNo(et_socialSecurityNo.getText().toString());
-		//个人证件
-		//避免解析的时候解析掉等于号
-		GsonBuilder gb =new GsonBuilder();
+		// 个人证件
+		// 避免解析的时候解析掉等于号
+		GsonBuilder gb = new GsonBuilder();
 		gb.disableHtmlEscaping();
-		EntryManageIDImageEntity idImage=new EntryManageIDImageEntity();
+		EntryManageIDImageEntity idImage = new EntryManageIDImageEntity();
 		image.setCertificates(certificates);
 		image.setLearningCertificate(learningCertificate);
 		idImage.setPositive(positive);
@@ -2307,15 +2361,14 @@ public class EntryManagementActiviy extends BaseActivity implements
 	}
 
 	/**
-	 * 0-5为选择图片库图片并且上传到服务器
-	 * 6-11为调用系统照相机照相并且上传到服务器
+	 * 0-5为选择图片库图片并且上传到服务器 6-11为调用系统照相机照相并且上传到服务器
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		switch(requestCode){
+		switch (requestCode) {
 		case 0:
-			if(resultCode == RESULT_OK){
+			if (resultCode == RESULT_OK) {
 				Uri selectedImage = data.getData();
 				String[] filePathColumn = { MediaStore.Images.Media.DATA };
 				Cursor cursor = getContentResolver().query(selectedImage,
@@ -2324,57 +2377,57 @@ public class EntryManagementActiviy extends BaseActivity implements
 				BitmapFactory.Options options = new BitmapFactory.Options();
 				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
 				options.inJustDecodeBounds = true;
-				
+
 				int scale = (int) (options.outWidth / (float) 100);
 				if (scale <= 0)
 					scale = 2;
 				options.inSampleSize = scale;
 				options.inJustDecodeBounds = false;
 				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				
+
 				File file;
 				long size;
 				certificates = cursor.getString(columnIndex);
 				cursor.close();
-				bitmap = BitmapFactory.decodeFile(certificates, options); 
-				file=scal(certificates);
-			    size =   file.length();
-				if(size>2097152){
-					Toast.show(self, "上传失败，请选择小于2M的图片");
-				}else{
-					OperationBuilder builder = new OperationBuilder().append(
-							new UploadImgOp(), file);
-					OnOperationListener listener = new OnOperationListener() {
-						@Override
-						public void onOperationFinished(List<Object> resList) {
-							EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-							certificates=uploadImgEntity.getRetFilePath();
-							if (self.isFinishing()) {
-								return;
-							} else if (resList == null) {
-								Toast.show(self, "连接超时");
-								return;
-							} else {
-//								ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
-								imgViewPhoto.setImageBitmap(bitmap);
-								imgViewPhoto.setMaxHeight(200);
-								imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP); 
-								Toast.show(self, "上传成功");
-							}
+				bitmap = BitmapFactory.decodeFile(certificates, options);
+				file = scal(certificates);
+
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						certificates = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							// ImageLoader.getInstance().displayImage(certificates,
+							// imgViewPhoto);
+							imgViewPhoto.setImageBitmap(bitmap);
+							imgViewPhoto.setMaxHeight(200);
+							imgViewPhoto
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
 						}
-						@Override
-						public void onOperationError(Exception e) {
-							e.printStackTrace();
-						}
-					};
-					JsonCommon task = new JsonCommon(self, builder, listener,
-							JsonCommon.PROGRESSCOMMIT);
-					task.execute();
-				}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
+						e.printStackTrace();
+					}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
 			}
 			break;
 		case 1:
-			if(resultCode == RESULT_OK){
+			if (resultCode == RESULT_OK) {
 				Uri selectedImage = data.getData();
 				String[] filePathColumn = { MediaStore.Images.Media.DATA };
 				Cursor cursor = getContentResolver().query(selectedImage,
@@ -2383,57 +2436,61 @@ public class EntryManagementActiviy extends BaseActivity implements
 				BitmapFactory.Options options = new BitmapFactory.Options();
 				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
 				options.inJustDecodeBounds = true;
-				
+
 				int scale = (int) (options.outWidth / (float) 100);
 				if (scale <= 0)
 					scale = 2;
 				options.inSampleSize = scale;
 				options.inJustDecodeBounds = false;
 				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				
+
 				File file;
-				long size;
+				// long size;
 				learningCertificate = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(learningCertificate, options);
-				file=scal(learningCertificate);
-				 size =   file.length();
-//					if(size>2097152){
-//						Toast.show(self, "上传失败，请选择小于2M的图片");
-//					}else{
-						OperationBuilder builder = new OperationBuilder().append(
-								new UploadImgOp(), file);
-						OnOperationListener listener = new OnOperationListener() {
-							@Override
-							public void onOperationFinished(List<Object> resList) {
-								EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-								learningCertificate=uploadImgEntity.getRetFilePath();
-								if (self.isFinishing()) {
-									return;
-								} else if (resList == null) {
-									Toast.show(self, "连接超时");
-									return;
-								} else {
-									imgViewAcademic.setImageBitmap(bitmap);
-									imgViewAcademic.setMaxHeight(200);
-									imgViewAcademic.setScaleType(ImageView.ScaleType.CENTER_CROP);
-									Toast.show(self, "上传成功");
-									
-								}
-							}
-							@Override
-							public void onOperationError(Exception e) {
-								e.printStackTrace();
-							}
-						};
-						JsonCommon task = new JsonCommon(self, builder, listener,
-								JsonCommon.PROGRESSCOMMIT);
-						task.execute();
-//					}
+				file = scal(learningCertificate);
+				// 限制上传图片的大小
+				// size = file.length();
+				// if(size>2097152){
+				// Toast.show(self, "上传失败，请选择小于2M的图片");
+				// }else{
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						learningCertificate = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							imgViewAcademic.setImageBitmap(bitmap);
+							imgViewAcademic.setMaxHeight(200);
+							imgViewAcademic
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+
+						}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
+						e.printStackTrace();
+					}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+				// }
 			}
 			break;
 		case 2:
-			if(resultCode == RESULT_OK){
+			if (resultCode == RESULT_OK) {
 				Uri selectedImage = data.getData();
 				String[] filePathColumn = { MediaStore.Images.Media.DATA };
 				Cursor cursor = getContentResolver().query(selectedImage,
@@ -2449,47 +2506,44 @@ public class EntryManagementActiviy extends BaseActivity implements
 				options.inJustDecodeBounds = false;
 				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 				File file;
-				long size;
 				positive = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(positive, options);
-				file=scal(positive);
-				 size =   file.length();
-					if(size>2097152){
-						Toast.show(self, "上传失败，请选择小于2M的图片");
-					}else{
-						OperationBuilder builder = new OperationBuilder().append(
-								new UploadImgOp(), file);
-						OnOperationListener listener = new OnOperationListener() {
-							@Override
-							public void onOperationFinished(List<Object> resList) {
-								EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-								positive=uploadImgEntity.getRetFilePath();
-								if (self.isFinishing()) {
-									return;
-								} else if (resList == null) {
-									Toast.show(self, "连接超时");
-									return;
-								} else {
-									imgViewIdPhoto1.setImageBitmap(bitmap);
-									imgViewIdPhoto1.setMaxHeight(200);
-									imgViewIdPhoto1.setScaleType(ImageView.ScaleType.CENTER_CROP);
-									Toast.show(self, "上传成功");
-								}
-							}
-							@Override
-							public void onOperationError(Exception e) {
-								e.printStackTrace();
-							}
-						};
-						JsonCommon task = new JsonCommon(self, builder, listener,
-								JsonCommon.PROGRESSCOMMIT);
-						task.execute();
+				file = scal(positive);
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						positive = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							imgViewIdPhoto1.setImageBitmap(bitmap);
+							imgViewIdPhoto1.setMaxHeight(200);
+							imgViewIdPhoto1
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
 					}
+
+					@Override
+					public void onOperationError(Exception e) {
+						e.printStackTrace();
+					}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
 			}
 			break;
 		case 3:
-			if(resultCode == RESULT_OK){
+			if (resultCode == RESULT_OK) {
 				Uri selectedImage = data.getData();
 				String[] filePathColumn = { MediaStore.Images.Media.DATA };
 				Cursor cursor = getContentResolver().query(selectedImage,
@@ -2498,56 +2552,52 @@ public class EntryManagementActiviy extends BaseActivity implements
 				BitmapFactory.Options options = new BitmapFactory.Options();
 				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
 				options.inJustDecodeBounds = true;
-				
 				int scale = (int) (options.outWidth / (float) 100);
 				if (scale <= 0)
 					scale = 2;
 				options.inSampleSize = scale;
 				options.inJustDecodeBounds = false;
 				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				
+
 				File file;
-				long size;
 				reverse = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(reverse, options);
-				file=scal(reverse);
-				 size =   file.length();
-					if(size>2097152){
-						Toast.show(self, "上传失败，请选择小于2M的图片");
-					}else{
-						OperationBuilder builder = new OperationBuilder().append(
-								new UploadImgOp(), file);
-						OnOperationListener listener = new OnOperationListener() {
-							@Override
-							public void onOperationFinished(List<Object> resList) {
-								EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-								reverse=uploadImgEntity.getRetFilePath();
-								if (self.isFinishing()) {
-									return;
-								} else if (resList == null) {
-									Toast.show(self, "连接超时");
-									return;
-								} else {
-									imgViewIdPhoto2.setImageBitmap(bitmap);
-									imgViewIdPhoto2.setMaxHeight(200);
-									imgViewIdPhoto2.setScaleType(ImageView.ScaleType.CENTER_CROP);
-									Toast.show(self, "上传成功");
-								}
-							}
-							@Override
-							public void onOperationError(Exception e) {
-								e.printStackTrace();
-							}
-						};
-						JsonCommon task = new JsonCommon(self, builder, listener,
-								JsonCommon.PROGRESSCOMMIT);
-						task.execute();
+				file = scal(reverse);
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						reverse = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							imgViewIdPhoto2.setImageBitmap(bitmap);
+							imgViewIdPhoto2.setMaxHeight(200);
+							imgViewIdPhoto2
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
 					}
+
+					@Override
+					public void onOperationError(Exception e) {
+						e.printStackTrace();
+					}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
 			}
 			break;
 		case 4:
-			if(resultCode == RESULT_OK){
+			if (resultCode == RESULT_OK) {
 				Uri selectedImage = data.getData();
 				String[] filePathColumn = { MediaStore.Images.Media.DATA };
 				Cursor cursor = getContentResolver().query(selectedImage,
@@ -2556,56 +2606,54 @@ public class EntryManagementActiviy extends BaseActivity implements
 				BitmapFactory.Options options = new BitmapFactory.Options();
 				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
 				options.inJustDecodeBounds = true;
-				
 				int scale = (int) (options.outWidth / (float) 100);
 				if (scale <= 0)
 					scale = 2;
 				options.inSampleSize = scale;
 				options.inJustDecodeBounds = false;
 				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				
+
 				File file;
-				long size;
 				retirement = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(retirement, options);
-				file=scal(retirement);
-				size =   file.length();
-				if(size>2097152){
-					Toast.show(self, "上传失败，请选择小于2M的图片");
-				}else{
-					OperationBuilder builder = new OperationBuilder().append(
-							new UploadImgOp(), file);
-					OnOperationListener listener = new OnOperationListener() {
-						@Override
-						public void onOperationFinished(List<Object> resList) {
-							EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-							retirement=uploadImgEntity.getRetFilePath();
-							if (self.isFinishing()) {
-								return;
-							} else if (resList == null) {
-								Toast.show(self, "连接超时");
-								return;
-							} else {
-								imgViewRepairOrder.setImageBitmap(bitmap);
-								imgViewRepairOrder.setMaxHeight(200);
-								imgViewRepairOrder.setScaleType(ImageView.ScaleType.CENTER_CROP);
-								Toast.show(self, "上传成功");
-							}
+				file = scal(retirement);
+
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						retirement = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							imgViewRepairOrder.setImageBitmap(bitmap);
+							imgViewRepairOrder.setMaxHeight(200);
+							imgViewRepairOrder
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
 						}
-						@Override
-						public void onOperationError(Exception e) {
-							e.printStackTrace();
-						}
-					};
-					JsonCommon task = new JsonCommon(self, builder, listener,
-							JsonCommon.PROGRESSCOMMIT);
-					task.execute();
-				}	
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
+						e.printStackTrace();
+					}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+
 			}
 			break;
 		case 5:
-			if(resultCode == RESULT_OK){
+			if (resultCode == RESULT_OK) {
 				Uri selectedImage = data.getData();
 				String[] filePathColumn = { MediaStore.Images.Media.DATA };
 				Cursor cursor = getContentResolver().query(selectedImage,
@@ -2614,427 +2662,453 @@ public class EntryManagementActiviy extends BaseActivity implements
 				BitmapFactory.Options options = new BitmapFactory.Options();
 				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
 				options.inJustDecodeBounds = true;
-				
+
 				int scale = (int) (options.outWidth / (float) 100);
 				if (scale <= 0)
 					scale = 2;
 				options.inSampleSize = scale;
 				options.inJustDecodeBounds = false;
 				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-				
+
 				File file;
-				long size;
 				physical = cursor.getString(columnIndex);
 				cursor.close();
 				bitmap = BitmapFactory.decodeFile(physical, options);
-				file=scal(physical);
-				size =file.length();
-				if(size>2097152){
-					Toast.show(self, "上传失败，请选择小于2M的图片");
-				}else{
-					OperationBuilder builder = new OperationBuilder().append(
-							new UploadImgOp(), file);
-					OnOperationListener listener = new OnOperationListener() {
-						@Override
-						public void onOperationFinished(List<Object> resList) {
-							EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-							physical=uploadImgEntity.getRetFilePath();
-							if (self.isFinishing()) {
-								return;
-							} else if (resList == null) {
-								Toast.show(self, "连接超时");
-								return;
-							} else {
-								imgViewCheckupReporting.setImageBitmap(bitmap);
-								imgViewCheckupReporting.setMaxHeight(200);
-								imgViewCheckupReporting.setScaleType(ImageView.ScaleType.CENTER_CROP);
-								Toast.show(self, "上传成功");
-							}
+				file = scal(physical);
+
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						physical = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							imgViewCheckupReporting.setImageBitmap(bitmap);
+							imgViewCheckupReporting.setMaxHeight(200);
+							imgViewCheckupReporting
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
 						}
-						@Override
-						public void onOperationError(Exception e) {
-							e.printStackTrace();
-						}
-					};
-					JsonCommon task = new JsonCommon(self, builder, listener,
-							JsonCommon.PROGRESSCOMMIT);
-					task.execute();
-				}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
+						e.printStackTrace();
+					}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+
 			}
 			break;
 		case 6:
-			 if (resultCode == RESULT_OK) {
-					String fileName = String.valueOf(System.currentTimeMillis());
-					Bitmap bm = (Bitmap) data.getExtras().get("data");
-//					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
-					String SDPATH= "/sdcard/DCIM/Camera";
-					File f = new File(SDPATH, fileName + ".JPEG"); 
-					Log.e("ffffffffffffffffffffffffffffffffff",f+"");
-					try {
-						FileOutputStream out = new FileOutputStream(f);
-						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
-						out.flush();
-						out.close();
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
+			if (resultCode == RESULT_OK) {
+				String fileName = String.valueOf(System.currentTimeMillis());
+				Bitmap bm = (Bitmap) data.getExtras().get("data");
+				// String SDPATH = Environment.getExternalStorageDirectory()+
+				// "/Photo_LJ/";
+				String SDPATH = "/sdcard/DCIM/Camera";
+				File f = new File(SDPATH, fileName + ".JPEG");
+				try {
+					FileOutputStream out = new FileOutputStream(f);
+					bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				File file1;
+				certificates = f.toString();
+				bitmap = BitmapFactory.decodeFile(certificates);
+				// file1 = new File(certificates);
+				file1 = scal(certificates);
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file1);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						certificates = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							// ImageLoader.getInstance().displayImage(certificates,
+							// imgViewPhoto);
+							imgViewPhoto.setImageBitmap(bitmap);
+							imgViewPhoto.setMaxHeight(200);
+							imgViewPhoto
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
 						e.printStackTrace();
 					}
-					File file1;
-					certificates=f.toString();
-						bitmap = BitmapFactory.decodeFile(certificates); 
-//						file1 = new File(certificates);
-						file1=scal(certificates);
-							OperationBuilder builder = new OperationBuilder().append(
-									new UploadImgOp(), file1);
-							OnOperationListener listener = new OnOperationListener() {
-								@Override
-								public void onOperationFinished(List<Object> resList) {
-									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-									certificates=uploadImgEntity.getRetFilePath();
-									if (self.isFinishing()) {
-										return;
-									} else if (resList == null) {
-										Toast.show(self, "连接超时");
-										return;
-									} else {
-//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
-										imgViewPhoto.setImageBitmap(bitmap);
-										imgViewPhoto.setMaxHeight(200);
-										imgViewPhoto.setScaleType(ImageView.ScaleType.CENTER_CROP); 
-										Toast.show(self, "上传成功");
-									}
-								}
-								@Override
-								public void onOperationError(Exception e) {
-									e.printStackTrace();
-								}
-							};
-							JsonCommon task = new JsonCommon(self, builder, listener,
-									JsonCommon.PROGRESSCOMMIT);
-							task.execute();
-						}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+			}
 			break;
 		case 7:
-			 if (resultCode == RESULT_OK) {
-					String fileName = String.valueOf(System.currentTimeMillis());
-					Bitmap bm = (Bitmap) data.getExtras().get("data");
-//					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
-					String SDPATH= "/sdcard/DCIM/Camera";
-					File f = new File(SDPATH, fileName + ".JPEG"); 
-					try {
-						FileOutputStream out = new FileOutputStream(f);
-						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
-						out.flush();
-						out.close();
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
+			if (resultCode == RESULT_OK) {
+				String fileName = String.valueOf(System.currentTimeMillis());
+				Bitmap bm = (Bitmap) data.getExtras().get("data");
+				// String SDPATH = Environment.getExternalStorageDirectory()+
+				// "/Photo_LJ/";
+				String SDPATH = "/sdcard/DCIM/Camera";
+				File f = new File(SDPATH, fileName + ".JPEG");
+				try {
+					FileOutputStream out = new FileOutputStream(f);
+					bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				File file1;
+				learningCertificate = f.toString();
+				bitmap = BitmapFactory.decodeFile(learningCertificate);
+				file1 = scal(learningCertificate);
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file1);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						certificates = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							// ImageLoader.getInstance().displayImage(certificates,
+							// imgViewPhoto);
+							imgViewAcademic.setImageBitmap(bitmap);
+							imgViewAcademic.setMaxHeight(200);
+							imgViewAcademic
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
 						e.printStackTrace();
 					}
-					File file1;
-					learningCertificate =f.toString();
-						bitmap = BitmapFactory.decodeFile(learningCertificate ); 
-						file1=scal(learningCertificate);
-							OperationBuilder builder = new OperationBuilder().append(
-									new UploadImgOp(), file1);
-							OnOperationListener listener = new OnOperationListener() {
-								@Override
-								public void onOperationFinished(List<Object> resList) {
-									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-									certificates=uploadImgEntity.getRetFilePath();
-									if (self.isFinishing()) {
-										return;
-									} else if (resList == null) {
-										Toast.show(self, "连接超时");
-										return;
-									} else {
-//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
-										imgViewAcademic.setImageBitmap(bitmap);
-										imgViewAcademic.setMaxHeight(200);
-										imgViewAcademic.setScaleType(ImageView.ScaleType.CENTER_CROP); 
-										Toast.show(self, "上传成功");
-									}
-								}
-								@Override
-								public void onOperationError(Exception e) {
-									e.printStackTrace();
-								}
-							};
-							JsonCommon task = new JsonCommon(self, builder, listener,
-									JsonCommon.PROGRESSCOMMIT);
-							task.execute();
-						}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+			}
 			break;
 		case 8:
-			 if (resultCode == RESULT_OK) {
-					String fileName = String.valueOf(System.currentTimeMillis());
-					Bitmap bm = (Bitmap) data.getExtras().get("data");
-					String SDPATH = "/sdcard/DCIM/Camera";
-					File f = new File(SDPATH, fileName + ".JPEG"); 
-					try {
-						FileOutputStream out = new FileOutputStream(f);
-						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
-						out.flush();
-						out.close();
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
+			if (resultCode == RESULT_OK) {
+				String fileName = String.valueOf(System.currentTimeMillis());
+				Bitmap bm = (Bitmap) data.getExtras().get("data");
+				String SDPATH = "/sdcard/DCIM/Camera";
+				File f = new File(SDPATH, fileName + ".JPEG");
+				try {
+					FileOutputStream out = new FileOutputStream(f);
+					bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				File file1;
+				positive = f.toString();
+				bitmap = BitmapFactory.decodeFile(positive);
+				file1 = scal(positive);
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file1);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						positive = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							// ImageLoader.getInstance().displayImage(certificates,
+							// imgViewPhoto);
+							imgViewIdPhoto1.setImageBitmap(bitmap);
+							imgViewIdPhoto1.setMaxHeight(200);
+							imgViewIdPhoto1
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
 						e.printStackTrace();
 					}
-					File file1;
-					positive  =f.toString();
-						bitmap = BitmapFactory.decodeFile(positive  ); 
-						file1=scal(positive);
-							OperationBuilder builder = new OperationBuilder().append(
-									new UploadImgOp(), file1);
-							OnOperationListener listener = new OnOperationListener() {
-								@Override
-								public void onOperationFinished(List<Object> resList) {
-									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-									positive =uploadImgEntity.getRetFilePath();
-									if (self.isFinishing()) {
-										return;
-									} else if (resList == null) {
-										Toast.show(self, "连接超时");
-										return;
-									} else {
-//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
-										imgViewIdPhoto1.setImageBitmap(bitmap);
-										imgViewIdPhoto1.setMaxHeight(200);
-										imgViewIdPhoto1.setScaleType(ImageView.ScaleType.CENTER_CROP); 
-										Toast.show(self, "上传成功");
-									}
-								}
-								@Override
-								public void onOperationError(Exception e) {
-									e.printStackTrace();
-								}
-							};
-							JsonCommon task = new JsonCommon(self, builder, listener,
-									JsonCommon.PROGRESSCOMMIT);
-							task.execute();
-						}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+			}
 			break;
 		case 9:
-			 if (resultCode == RESULT_OK) {
-					String fileName = String.valueOf(System.currentTimeMillis());
-					Bitmap bm = (Bitmap) data.getExtras().get("data");
-					String SDPATH = Environment.getExternalStorageDirectory()+ "/Photo_LJ/";
-					File f = new File(SDPATH, fileName + ".JPEG"); 
-					try {
-						FileOutputStream out = new FileOutputStream(f);
-						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
-						out.flush();
-						out.close();
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
+			if (resultCode == RESULT_OK) {
+				String fileName = String.valueOf(System.currentTimeMillis());
+				Bitmap bm = (Bitmap) data.getExtras().get("data");
+				String SDPATH = Environment.getExternalStorageDirectory()
+						+ "/Photo_LJ/";
+				File f = new File(SDPATH, fileName + ".JPEG");
+				try {
+					FileOutputStream out = new FileOutputStream(f);
+					bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				File file1;
+				reverse = f.toString();
+				bitmap = BitmapFactory.decodeFile(reverse);
+				file1 = new File(reverse);
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file1);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						reverse = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							// ImageLoader.getInstance().displayImage(certificates,
+							// imgViewPhoto);
+							imgViewIdPhoto2.setImageBitmap(bitmap);
+							imgViewIdPhoto2.setMaxHeight(200);
+							imgViewIdPhoto2
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
 						e.printStackTrace();
 					}
-					File file1;
-					reverse  =f.toString();
-						bitmap = BitmapFactory.decodeFile(reverse); 
-						file1 = new File(reverse);
-							OperationBuilder builder = new OperationBuilder().append(
-									new UploadImgOp(), file1);
-							OnOperationListener listener = new OnOperationListener() {
-								@Override
-								public void onOperationFinished(List<Object> resList) {
-									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-									reverse =uploadImgEntity.getRetFilePath();
-									if (self.isFinishing()) {
-										return;
-									} else if (resList == null) {
-										Toast.show(self, "连接超时");
-										return;
-									} else {
-//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
-										imgViewIdPhoto2.setImageBitmap(bitmap);
-										imgViewIdPhoto2.setMaxHeight(200);
-										imgViewIdPhoto2.setScaleType(ImageView.ScaleType.CENTER_CROP); 
-										Toast.show(self, "上传成功");
-									}
-								}
-								@Override
-								public void onOperationError(Exception e) {
-									e.printStackTrace();
-								}
-							};
-							JsonCommon task = new JsonCommon(self, builder, listener,
-									JsonCommon.PROGRESSCOMMIT);
-							task.execute();
-						}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+			}
 			break;
 		case 10:
-			 if (resultCode == RESULT_OK) {
-					String fileName = String.valueOf(System.currentTimeMillis());
-					Bitmap bm = (Bitmap) data.getExtras().get("data");
-					String SDPATH = "/sdcard/DCIM/Camera";
-					File f = new File(SDPATH, fileName + ".JPEG"); 
-					try {
-						FileOutputStream out = new FileOutputStream(f);
-						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
-						out.flush();
-						out.close();
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
+			if (resultCode == RESULT_OK) {
+				String fileName = String.valueOf(System.currentTimeMillis());
+				Bitmap bm = (Bitmap) data.getExtras().get("data");
+				String SDPATH = "/sdcard/DCIM/Camera";
+				File f = new File(SDPATH, fileName + ".JPEG");
+				try {
+					FileOutputStream out = new FileOutputStream(f);
+					bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				File file1;
+				retirement = f.toString();
+				bitmap = BitmapFactory.decodeFile(retirement);
+				file1 = scal(retirement);
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file1);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						retirement = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							// ImageLoader.getInstance().displayImage(certificates,
+							// imgViewPhoto);
+							imgViewRepairOrder.setImageBitmap(bitmap);
+							imgViewRepairOrder.setMaxHeight(200);
+							imgViewRepairOrder
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
 						e.printStackTrace();
 					}
-					File file1;
-					retirement  =f.toString();
-						bitmap = BitmapFactory.decodeFile(retirement); 
-						file1=scal(retirement);
-							OperationBuilder builder = new OperationBuilder().append(
-									new UploadImgOp(), file1);
-							OnOperationListener listener = new OnOperationListener() {
-								@Override
-								public void onOperationFinished(List<Object> resList) {
-									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-									retirement =uploadImgEntity.getRetFilePath();
-									if (self.isFinishing()) {
-										return;
-									} else if (resList == null) {
-										Toast.show(self, "连接超时");
-										return;
-									} else {
-//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
-										imgViewRepairOrder.setImageBitmap(bitmap);
-										imgViewRepairOrder.setMaxHeight(200);
-										imgViewRepairOrder.setScaleType(ImageView.ScaleType.CENTER_CROP); 
-										Toast.show(self, "上传成功");
-									}
-								}
-								@Override
-								public void onOperationError(Exception e) {
-									e.printStackTrace();
-								}
-							};
-							JsonCommon task = new JsonCommon(self, builder, listener,
-									JsonCommon.PROGRESSCOMMIT);
-							task.execute();
-						}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+			}
 			break;
 		case 11:
-			 if (resultCode == RESULT_OK) {
-					String fileName = String.valueOf(System.currentTimeMillis());
-					Bitmap bm = (Bitmap) data.getExtras().get("data");
-					String SDPATH = "/sdcard/DCIM/Camera";;
-					File f = new File(SDPATH, fileName + ".JPEG"); 
-					try {
-						FileOutputStream out = new FileOutputStream(f);
-//						bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
-						out.flush();
-						out.close();
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
+			if (resultCode == RESULT_OK) {
+				String fileName = String.valueOf(System.currentTimeMillis());
+				Bitmap bm = (Bitmap) data.getExtras().get("data");
+				String SDPATH = "/sdcard/DCIM/Camera";
+				;
+				File f = new File(SDPATH, fileName + ".JPEG");
+				try {
+					FileOutputStream out = new FileOutputStream(f);
+					// bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				File file1;
+				physical = f.toString();
+				bitmap = BitmapFactory.decodeFile(physical);
+				file1 = scal(physical);
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file1);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						physical = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							// ImageLoader.getInstance().displayImage(certificates,
+							// imgViewPhoto);
+							imgViewCheckupReporting.setImageBitmap(bitmap);
+							imgViewCheckupReporting.setMaxHeight(200);
+							imgViewCheckupReporting
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
 						e.printStackTrace();
 					}
-					File file1;
-					physical  =f.toString();
-						bitmap = BitmapFactory.decodeFile(physical  ); 
-						file1=scal(physical);
-							OperationBuilder builder = new OperationBuilder().append(
-									new UploadImgOp(), file1);
-							OnOperationListener listener = new OnOperationListener() {
-								@Override
-								public void onOperationFinished(List<Object> resList) {
-									EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList.get(0);
-									physical =uploadImgEntity.getRetFilePath();
-									if (self.isFinishing()) {
-										return;
-									} else if (resList == null) {
-										Toast.show(self, "连接超时");
-										return;
-									} else {
-//										ImageLoader.getInstance().displayImage(certificates, imgViewPhoto);
-										imgViewCheckupReporting.setImageBitmap(bitmap);
-										imgViewCheckupReporting.setMaxHeight(200);
-										imgViewCheckupReporting.setScaleType(ImageView.ScaleType.CENTER_CROP); 
-										Toast.show(self, "上传成功");
-									}
-								}
-								@Override
-								public void onOperationError(Exception e) {
-									e.printStackTrace();
-								}
-							};
-							JsonCommon task = new JsonCommon(self, builder, listener,
-									JsonCommon.PROGRESSCOMMIT);
-							task.execute();
-						}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+			}
 			break;
-			
+		}
 	}
-}
-	//选择图片的公共方法
-	public void selectImage(){
-		
-	}
-	//在退出Activity时，将bitmap回收
+
+	// 在退出Activity时，将bitmap回收
 	@Override
-    protected void onDestroy() {
-        if (bitmap != null && !bitmap.isRecycled())
-            bitmap.recycle();
-        super.onDestroy();
-    }
+	protected void onDestroy() {
+		if (bitmap != null && !bitmap.isRecycled())
+			bitmap.recycle();
+		super.onDestroy();
+	}
+
 	private static final int TAKE_PICTURE = 0x000001;
+
 	public void photo(int k) {
 		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		startActivityForResult(openCameraIntent, k);
 	}
-	
-	
-	//压缩图片
-	public static File scal(String path){
-//        String path = fileUri.getPath();
-        File outputFile = new File(path);
-        long fileSize = outputFile.length();
-        final long fileMaxSize = 200 * 1024;
-         if (fileSize >= fileMaxSize) {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inJustDecodeBounds = true;
-                BitmapFactory.decodeFile(path, options);
-                int height = options.outHeight;
-                int width = options.outWidth;
- 
-                double scale = Math.sqrt((float) fileSize / fileMaxSize);
-                options.outHeight = (int) (height / scale);
-                options.outWidth = (int) (width / scale);
-                options.inSampleSize = (int) (scale + 0.5);
-                options.inJustDecodeBounds = false;
- 
-                Bitmap bitmap = BitmapFactory.decodeFile(path, options);
-                outputFile = new File(EntryManagementActiviy.createImageFile().getPath());
-                FileOutputStream fos = null;
-                try {
-                    fos = new FileOutputStream(outputFile);
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
-                    fos.close();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                if (!bitmap.isRecycled()) {
-                    bitmap.recycle();
-                }else{
-                    File tempFile = outputFile;
-                    outputFile = new File(EntryManagementActiviy.createImageFile().getPath());
-                    EntryManagementActiviy.copyFileUsingFileChannels(tempFile, outputFile);
-                }
-                 
-            }
-         return outputFile;
-         
-    }
-	public static Uri createImageFile(){
-        // Create an image file name
-		String time = new SimpleDateFormat(
-			    "yyyyMMddHHmmss").format(new Date());
+
+	// 压缩图片
+	public static File scal(String path) {
+		// String path = fileUri.getPath();
+		File outputFile = new File(path);
+		long fileSize = outputFile.length();
+		final long fileMaxSize = 200 * 1024;
+		if (fileSize >= fileMaxSize) {
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inJustDecodeBounds = true;
+			BitmapFactory.decodeFile(path, options);
+			int height = options.outHeight;
+			int width = options.outWidth;
+
+			double scale = Math.sqrt((float) fileSize / fileMaxSize);
+			options.outHeight = (int) (height / scale);
+			options.outWidth = (int) (width / scale);
+			options.inSampleSize = (int) (scale + 0.5);
+			options.inJustDecodeBounds = false;
+
+			Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+			outputFile = new File(EntryManagementActiviy.createImageFile()
+					.getPath());
+			FileOutputStream fos = null;
+			try {
+				fos = new FileOutputStream(outputFile);
+				bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
+				fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (!bitmap.isRecycled()) {
+				bitmap.recycle();
+			} else {
+				File tempFile = outputFile;
+				outputFile = new File(EntryManagementActiviy.createImageFile()
+						.getPath());
+				EntryManagementActiviy.copyFileUsingFileChannels(tempFile,
+						outputFile);
+			}
+
+		}
+		return outputFile;
+
+	}
+
+	public static Uri createImageFile() {
+		// Create an image file name
+		String time = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 		String SDPATH = "/sdcard/DCIM/Camera";
-		File image = new File(SDPATH, time + ".JPEG"); 
+		File image = new File(SDPATH, time + ".JPEG");
 		try {
 			FileOutputStream out = new FileOutputStream(image);
 			out.flush();
@@ -3044,29 +3118,31 @@ public class EntryManagementActiviy extends BaseActivity implements
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        // Save a file: path for use with ACTION_VIEW intents
-        return Uri.fromFile(image);
-    }
-    public static void copyFileUsingFileChannels(File source, File dest){
-        FileChannel inputChannel = null;
-        FileChannel outputChannel = null;
-        try {
-            try {
-                inputChannel = new FileInputStream(source).getChannel();
-                outputChannel = new FileOutputStream(dest).getChannel();
-                outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } finally {
-            try {
-                inputChannel.close();
-                outputChannel.close();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    }
+		// Save a file: path for use with ACTION_VIEW intents
+		return Uri.fromFile(image);
+	}
+
+	public static void copyFileUsingFileChannels(File source, File dest) {
+		FileChannel inputChannel = null;
+		FileChannel outputChannel = null;
+		try {
+			try {
+				inputChannel = new FileInputStream(source).getChannel();
+				outputChannel = new FileOutputStream(dest).getChannel();
+				outputChannel
+						.transferFrom(inputChannel, 0, inputChannel.size());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} finally {
+			try {
+				inputChannel.close();
+				outputChannel.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

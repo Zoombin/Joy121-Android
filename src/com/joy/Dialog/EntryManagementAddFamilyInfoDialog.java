@@ -104,7 +104,7 @@ public class EntryManagementAddFamilyInfoDialog extends Dialog{
        //设置hint字体大小
         AbsoluteSizeSpan size = new AbsoluteSizeSpan(15, true);// 新建一个属性对象,设置文字的大小
         
-         SpannableString familyRelation = new SpannableString("关系(父亲，母亲，女儿，儿子)");
+         SpannableString familyRelation = new SpannableString("关系(父亲,母亲,女儿,儿子,配偶)");
 		 familyRelation.setSpan(size, 0, familyRelation.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
 		 et_faimlyRelation.setHint(new SpannedString(familyRelation));
         

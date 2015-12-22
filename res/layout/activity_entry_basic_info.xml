@@ -1187,9 +1187,7 @@
                 android:id="@+id/layout_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <LinearLayout
+                android:orientation="horizontal" ><LinearLayout
                     android:id="@+id/layout_education"
                     android:layout_width="0dp"
                     android:layout_height="34dp"
@@ -1547,10 +1545,10 @@
         <RelativeLayout
             android:id="@+id/employInfoNext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dip"
+            android:background="@color/WHITE"
             android:layout_alignParentBottom="true"
             android:visibility="invisible"
-            android:layout_marginBottom="2dip"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -1586,9 +1584,9 @@
         <RelativeLayout
             android:id="@+id/myselfInfoNext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dip"
+            android:background="@color/WHITE"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="2dip"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="invisible" >
@@ -1624,10 +1622,10 @@
 
         <RelativeLayout
             android:id="@+id/papersInfoNext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"     
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="2dip"
+            android:layout_height="45dip"
+            android:background="@color/WHITE"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="invisible" >
@@ -1664,9 +1662,9 @@
         <RelativeLayout
             android:id="@+id/historyNext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="2dip"
+            android:layout_height="45dip"
+            android:background="@color/WHITE"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="invisible" >
@@ -1702,9 +1700,9 @@
         <RelativeLayout
             android:id="@+id/familyInfoNext"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="2dip"
+            android:layout_height="45dip"
+            android:background="@color/WHITE"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="invisible" >
@@ -1742,9 +1740,9 @@
         <RelativeLayout
             android:id="@+id/hobbiesSumbit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="2dip"
+            android:layout_height="45dip"
+            android:background="@color/WHITE"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="invisible" >
