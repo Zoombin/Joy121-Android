@@ -34,7 +34,7 @@ public interface ITaskOperation extends IOperation<Object, Object, Object> {
 //	//上传图片
 //	public static final String uploadImg="http://test.joy121.com:70/api/UpFile/PostFile";
 //	
-//	
+	
 	
 	
 	

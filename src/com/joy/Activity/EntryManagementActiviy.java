@@ -2113,7 +2113,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 				image.setIDImage(gb.create().toJson(idImage));
 				image.setRetirement(retirement);
 				image.setPhysical(physical);
-				entity1.setMaterials(gb.create().toJson(image));
+				String a=gb.create().toJson(image);
+				a=a.replace("\\","");
+				a=a.replace("\"{","{");
+				a=a.replace("}\"","}");
+				entity1.setMaterials(a);
 				// 个人经历
 				experience.setLearning(educationAdapter.getData());// 学习经历的数据
 				experience.setJob(workExperienceAdapter.getData());// 工作经历的数据
@@ -2268,7 +2272,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 		image.setIDImage(gb.create().toJson(idImage));
 		image.setRetirement(retirement);
 		image.setPhysical(physical);
-		entity.setMaterials(gb.create().toJson(image));
+		String a=gb.create().toJson(image);
+		a=a.replace("\\","");
+		a=a.replace("\"{","{");
+		a=a.replace("}\"","}");
+		entity.setMaterials(a);
 		// 个人经历
 		experience.setLearning(educationAdapter.getData());// 学习经历的数据
 		experience.setJob(workExperienceAdapter.getData());// 工作经历的数据
@@ -2795,7 +2803,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 					public void onOperationFinished(List<Object> resList) {
 						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
 								.get(0);
-						certificates = uploadImgEntity.getRetFilePath();
+						learningCertificate = uploadImgEntity.getRetFilePath();
 						if (self.isFinishing()) {
 							return;
 						} else if (resList == null) {
@@ -2880,8 +2888,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			if (resultCode == RESULT_OK) {
 				String fileName = String.valueOf(System.currentTimeMillis());
 				Bitmap bm = (Bitmap) data.getExtras().get("data");
-				String SDPATH = Environment.getExternalStorageDirectory()
-						+ "/Photo_LJ/";
+				String SDPATH = "/sdcard/DCIM/Camera";
 				File f = new File(SDPATH, fileName + ".JPEG");
 				try {
 					FileOutputStream out = new FileOutputStream(f);
@@ -2990,11 +2997,10 @@ public class EntryManagementActiviy extends BaseActivity implements
 				String fileName = String.valueOf(System.currentTimeMillis());
 				Bitmap bm = (Bitmap) data.getExtras().get("data");
 				String SDPATH = "/sdcard/DCIM/Camera";
-				;
 				File f = new File(SDPATH, fileName + ".JPEG");
 				try {
 					FileOutputStream out = new FileOutputStream(f);
-					// bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+					bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
 					out.flush();
 					out.close();
 				} catch (FileNotFoundException e) {
