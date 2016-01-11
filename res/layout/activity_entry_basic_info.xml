@@ -658,14 +658,11 @@
                     android:layout_height="wrap_content"
                     android:text="@string/address"
                     android:textColor="@color/BLACK" />
-
-                <EditText
-                    android:id="@+id/et_regions"
+                <Spinner
+                    android:id="@+id/sp_regions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/entry_manage_bg"
-                    android:hint="@string/notNull"
-                    android:singleLine="true"
                     android:textColor="@color/BLACK" />
             </LinearLayout>
 
@@ -982,7 +979,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dip"
-                android:layout_marginTop="20dip"
+                android:layout_marginTop="4dip"
                 android:orientation="horizontal" >
 
                 <ImageView
@@ -1038,7 +1035,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dip"
-                android:layout_marginTop="20dip"
+                android:layout_marginTop="4dip"
                 android:orientation="horizontal" >
 
                 <ImageView
@@ -1066,7 +1063,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dip"
-                android:layout_marginTop="20dip"
+                android:layout_marginTop="4dip"
                 android:orientation="horizontal" >
 
                 <ImageView
@@ -1120,7 +1117,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dip"
-                android:layout_marginTop="20dip"
+                android:layout_marginTop="4dip"
                 android:orientation="horizontal" >
 
                 <ImageView
@@ -1148,7 +1145,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dip"
-                android:layout_marginTop="20dip"
+                android:layout_marginTop="4dip"
                 android:orientation="horizontal" >
 
                 <ImageView
@@ -1171,6 +1168,60 @@
                     android:layout_marginLeft="20dip"
                     android:scaleType="center"
                     android:src="@drawable/add_picture" />
+            </LinearLayout>
+            <!-- 银行卡正反面 -->
+             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dip"
+                android:layout_marginTop="4dip"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/iv_bankCardPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/entry_idphoto" />
+
+                <TextView
+                    android:id="@+id/tv_bankCardPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bankCardPhoto"
+                    android:textColor="@color/BLACK" />
+
+                <ImageView
+                    android:id="@+id/imgViewBankCardPositive"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_marginLeft="33dip"
+                    android:scaleType="center"
+                    android:src="@drawable/add_picture" />
+
+                <TextView
+                    android:id="@+id/tv_bankCardPositive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dip"
+                    android:text="(正面照)"
+                    android:textColor="@color/BLACK"
+                    android:textSize="9dip" />
+
+                <ImageView
+                    android:id="@+id/imgViewBankCardReverse"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_marginLeft="0dip"
+                    android:scaleType="center"
+                    android:src="@drawable/add_picture" />
+
+                <TextView
+                    android:id="@+id/tv_bankCardReverse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dip"
+                    android:text="(反面照)"
+                    android:textColor="@color/BLACK"
+                    android:textSize="9dip" />
             </LinearLayout>
         </LinearLayout>
         <!-- 个人经历 -->

@@ -42,6 +42,7 @@ import com.joy.json.model.CompAppSet;
 import com.joy.json.model.EntryDepartmentDetailEntity;
 import com.joy.json.model.EntryDepartmentEntity;
 import com.joy.json.model.EntryEntity;
+import com.joy.json.model.EntryManageBankCardImageEntity;
 import com.joy.json.model.EntryManageEducationInfoEntity;
 import com.joy.json.model.EntryManageEntity;
 import com.joy.json.model.EntryManageExperiencesListEntity;
@@ -139,11 +140,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 	private Button btn_saveEmployInfo, btn_employInfoNext;
 	// 个人信息
 	private List<SpinnerData> list_maritalStatus, list_politicalStatus,
-			list_healthCondition, list_culturalDegree, list_nation,
+			list_healthCondition, list_culturalDegree, list_nation,list_regions,
 			list_depositBank;
 	private ArrayAdapter<SpinnerData> maritalStatus_adapter,
 			politicalStatus_adapter, healthCondition_adapter,
-			culturalDegree_adapter, nation_adapter, depositBank_adapter;
+			culturalDegree_adapter, nation_adapter, depositBank_adapter,regions_adapter;
 	private ImageView iv_personName, iv_englishName, iv_gender, iv_address,
 			iv_idNo, iv_educationNo, iv_accumFund, iv_depositBank,
 			iv_depositCardNo, iv_nation, iv_maritalStatus, iv_politicalStatus,
@@ -155,7 +156,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			tv_healthCondition, tv_culturalDegree, tv_major,
 			tv_socialSecurityNo;
 	private Spinner sp_nation, sp_maritalStatus, sp_politicalStatus,
-			sp_healthCondition, sp_culturalDegree, sp_depositBank;
+			sp_healthCondition, sp_culturalDegree, sp_depositBank,sp_regions;
 	private RadioGroup radiogender;
 	private RadioButton maleButton, femaleButton;
 	private EditText et_personName, et_englishName, et_address, et_idNo,
@@ -164,17 +165,18 @@ public class EntryManagementActiviy extends BaseActivity implements
 	private Button btn_saveMyselfInfo, btn_myselfInfoNext;
 	// 证件信息
 	private ImageView iv_myselfPhoto, iv_myselfVideo, iv_academicPhoto,
-			iv_idPhoto, iv_repairOrder, iv_checkupReporting;
+			iv_idPhoto,iv_bankCardPhoto,iv_repairOrder, iv_checkupReporting;
 	private ImageView imgViewPhoto, imgViewVedio, imgViewAcademic,
-			imgViewIdPhoto1, imgViewIdPhoto2, imgViewRepairOrder,
+			imgViewIdPhoto1, imgViewIdPhoto2,imgViewBankCardPositive,imgViewBankCardReverse, imgViewRepairOrder,
 			imgViewCheckupReporting;
 	private TextView tv_myselfPhoto, tv_myselfVideo, tv_academicPhoto,
-			tv_idPhoto, tv_repairOrder, tv_checkupReporting;
+			tv_idPhoto,tv_bankCardPhoto, tv_repairOrder, tv_checkupReporting;
 	private LinearLayout ll_popup;// 证件信息调用拍照或者从相册选择布局
 	private PopupWindow pop = null;
 	private Button btn_savePapersInfo, btn_papersInfoNext;
 	private String certificates = "", video, learningCertificate = "",
-			positive = "", reverse = "", retirement = "", physical = "";
+			positive = "", reverse = "",cardpositive = "", cardreverse = "", retirement = "", physical = "";
+	private int submite=0;
 	// 个人经历
 	private LinearLayout layout_menu, layout_education, layout_workExperience;
 	private TextView tv_education, tv_workExperience;
@@ -330,7 +332,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				// intent.putExtra("return-data", true);
 				// startActivityForResult(intent, 0);
 				j = 0;
-				m = 6;
+				m = 8;
 				pop.showAtLocation(imgViewPhoto, Gravity.BOTTOM, 0, 0);
 				// Intent i = new Intent(
 				// Intent.ACTION_PICK,
@@ -344,7 +346,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				j = 1;
-				m = 7;
+				m = 9;
 				pop.showAtLocation(imgViewAcademic, Gravity.BOTTOM, 0, 0);
 			}
 		});
@@ -352,7 +354,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			@Override
 			public void onClick(View arg0) {
 				j = 2;
-				m = 8;
+				m = 10;
 				pop.showAtLocation(imgViewIdPhoto1, Gravity.BOTTOM, 0, 0);
 			}
 		});
@@ -360,7 +362,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			@Override
 			public void onClick(View arg0) {
 				j = 3;
-				m = 9;
+				m = 11;
 				pop.showAtLocation(imgViewIdPhoto2, Gravity.BOTTOM, 0, 0);
 			}
 		});
@@ -368,7 +370,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 			@Override
 			public void onClick(View arg0) {
 				j = 4;
-				m = 10;
+				m = 12;
 				pop.showAtLocation(imgViewRepairOrder, Gravity.BOTTOM, 0, 0);
 			}
 		});
@@ -380,9 +382,25 @@ public class EntryManagementActiviy extends BaseActivity implements
 				// android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 				// startActivityForResult(i, 5);
 				j = 5;
-				m = 11;
+				m = 13;
 				pop.showAtLocation(imgViewCheckupReporting, Gravity.BOTTOM, 0,
 						0);
+			}
+		});
+		imgViewBankCardPositive.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				j = 6;
+				m = 14;
+				pop.showAtLocation(imgViewBankCardPositive, Gravity.BOTTOM, 0, 0);
+			}
+		});
+		imgViewBankCardReverse.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				j = 7;
+				m = 15;
+				pop.showAtLocation(imgViewBankCardReverse, Gravity.BOTTOM, 0, 0);
 			}
 		});
 	}
@@ -592,15 +610,14 @@ public class EntryManagementActiviy extends BaseActivity implements
 		// 籍贯
 		iv_address = (ImageView) findViewById(R.id.iv_address);
 		uiAdapter.setMargin(iv_address, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT, 20, 25, 0, 10);
+				LayoutParams.WRAP_CONTENT, 20, 22, 0, 10);
 		tv_address = (TextView) findViewById(R.id.tv_address);
 		uiAdapter.setTextSize(tv_address, 18);
 		uiAdapter.setMargin(tv_address, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
-		et_regions = (EditText) findViewById(R.id.et_regions);
-		uiAdapter.setMargin(et_regions, LayoutParams.MATCH_PARENT, 37, 5, 20,
-				45, 0);
-		uiAdapter.setPadding(et_regions, 10, 0, 0, 0);
+		sp_regions = (Spinner) findViewById(R.id.sp_regions);
+		uiAdapter.setMargin(sp_regions, LayoutParams.MATCH_PARENT, 37, 5, 20,
+				45, 0);		
 		// 身份证号
 		iv_idNo = (ImageView) findViewById(R.id.iv_idNo);
 		uiAdapter.setMargin(iv_idNo, LayoutParams.WRAP_CONTENT,
@@ -743,10 +760,13 @@ public class EntryManagementActiviy extends BaseActivity implements
 	 */
 	private void initViewPapersInfo() {
 		imgViewPhoto = (ImageView) findViewById(R.id.imgViewPhoto);
+		
 		// imgViewVedio = (ImageView) findViewById(R.id.imgViewVideo);
 		imgViewAcademic = (ImageView) findViewById(R.id.imgViewAcademic);
 		imgViewIdPhoto1 = (ImageView) findViewById(R.id.imgViewIdPhoto1);// 身份证正面
 		imgViewIdPhoto2 = (ImageView) findViewById(R.id.imgViewIdPhoto2);// 身份证反面
+		imgViewBankCardPositive = (ImageView) findViewById(R.id.imgViewBankCardPositive);//银行卡正面
+		imgViewBankCardReverse = (ImageView) findViewById(R.id.imgViewBankCardReverse);// 银行卡反面
 		imgViewRepairOrder = (ImageView) findViewById(R.id.imgViewRepairOrder);
 		imgViewCheckupReporting = (ImageView) findViewById(R.id.imgViewCheckupReporting);
 		// 个人照片
@@ -757,6 +777,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setTextSize(tv_myselfPhoto, 18);
 		uiAdapter.setMargin(tv_myselfPhoto, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
+		
 		// 个人视频
 		// iv_myselfVideo = (ImageView) findViewById(R.id.iv_myselfVideo);
 		// uiAdapter.setMargin(iv_myselfVideo, LayoutParams.WRAP_CONTENT,
@@ -780,6 +801,14 @@ public class EntryManagementActiviy extends BaseActivity implements
 		tv_idPhoto = (TextView) findViewById(R.id.tv_idPhoto);
 		uiAdapter.setTextSize(tv_idPhoto, 18);
 		uiAdapter.setMargin(tv_idPhoto, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
+		//银行卡
+		iv_bankCardPhoto = (ImageView) findViewById(R.id.iv_bankCardPhoto);
+		uiAdapter.setMargin(iv_bankCardPhoto, LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT, 20, 30, 0, 10);
+		tv_bankCardPhoto = (TextView) findViewById(R.id.tv_bankCardPhoto);
+		uiAdapter.setTextSize(tv_bankCardPhoto, 18);
+		uiAdapter.setMargin(tv_bankCardPhoto, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 30, 0, 10);
 		// 退工单
 		iv_repairOrder = (ImageView) findViewById(R.id.iv_repairOrder);
@@ -1150,7 +1179,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 			break;
 		// 应聘信息
 		case R.id.btn_saveEmployInfo: // 保存应聘信息
-			saveAll(1, saveSuccess);
+			if(submite==1){
+				saveAll(6, saveSuccess);
+			}else{
+				saveAll(1, saveSuccess);
+			}
 			break;
 		case R.id.btn_employInfoNext: // 应聘信息上的下一步进入到个人信息的填写
 			String address = et_address.getText().toString();
@@ -1191,19 +1224,20 @@ public class EntryManagementActiviy extends BaseActivity implements
 			step1();
 			break;
 		case R.id.btn_saveMyselfInfo: // 个人信息
-			saveAll(2, saveSuccess);
+			if(submite==1){
+				saveAll(6, saveSuccess);
+			}else{
+				saveAll(2, saveSuccess);
+			}
 			break;
 		case R.id.btn_myselfInfoNext: // 个人信息上的下一步进入到证件信息
 			String personName = et_personName.getText().toString();
-			String regions = et_regions.getText().toString();
+//			String regions = et_regions.getText().toString();
 			String idNo = et_idNo.getText().toString();
 			String enducationNo = et_educationNo.getText().toString();
 			String depositCardNo = et_depositCardNo.getText().toString();
 			if (TextUtils.isEmpty(personName)) {
 				Toast.show(self, resources.getString(R.string.entryPersonName));
-				return;
-			} else if (TextUtils.isEmpty(regions)) {
-				Toast.show(self, resources.getString(R.string.entryAddress));
 				return;
 			} else if (TextUtils.isEmpty(idNo)) {
 				Toast.show(self, resources.getString(R.string.entryIdNo));
@@ -1220,7 +1254,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 			step2();
 			break;
 		case R.id.btn_savePapersInfo: // 保存证件信息
-			saveAll(3, saveSuccess);
+			if(submite==1){
+				saveAll(6, saveSuccess);
+			}else{
+				saveAll(3, saveSuccess);
+			}
 			break;
 		case R.id.btn_papersInfoNext: // 证件信息的下一步进入到个人经历
 			if (certificates.equals("")) {
@@ -1244,7 +1282,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 			step3();
 			break;
 		case R.id.btn_saveHistory: // 保存经历信息
-			saveAll(4, saveSuccess);
+			if(submite==1){
+				saveAll(6, saveSuccess);
+			}else{
+				saveAll(4, saveSuccess);
+			}
 			break;
 		case R.id.btn_historyNext: // 个人经历的下一步进入到家庭信息
 			step5();
@@ -1285,7 +1327,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 			entryAddFamilyInfo.addFamilyInfo(adapterFamily);
 			break;
 		case R.id.btn_saveFamilyInfo: // 保存证件信息
-			saveAll(5, saveSuccess);
+			if(submite==1){
+				saveAll(6, saveSuccess);
+			}else{
+				saveAll(5, saveSuccess);
+			}
 			break;
 		case R.id.btn_familyInfoNext: // 家庭信息的下一步进入到兴趣爱好
 			step6();
@@ -1295,7 +1341,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 			step5();
 			break;
 		case R.id.btn_saveHobbies:
-			saveAll(6, saveSuccess);
+			if(submite==1){
+				saveAll(6, saveSuccess);
+			}else{
+				saveAll(6, saveSuccess);
+			}
 			break;
 		// 提交改变状态位
 		case R.id.btn_sumbit:
@@ -1326,6 +1376,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				// 应聘信息
 				EntryEntity entity = (EntryEntity) resList.get(0);
 				entryManageEntity = entity.getRetObj();
+				submite=entryManageEntity.getSubmited();
 				if (entryManageEntity != null) {
 					if (entryManageEntity.getComDep() == null) {
 						sp_comDep.setSelection(0, true);
@@ -1363,7 +1414,20 @@ public class EntryManagementActiviy extends BaseActivity implements
 					et_urgentMobile
 							.setText(entryManageEntity.getUrgentMobile());
 					et_urgentAddr.setText(entryManageEntity.getUrgentAddr());
-					et_regions.setText(entryManageEntity.getRegions());
+//					et_regions.setText(entryManageEntity.getRegions());
+					if (entryManageEntity.getRegions() != null) {
+						ArrayAdapter<SpinnerData> regions = (ArrayAdapter<SpinnerData>) sp_regions
+								.getAdapter();
+						for (int i = 0; i < regions.getCount(); i++) {
+							if (entryManageEntity.getRegions().equals(
+									regions.getItem(i).getValue())) {
+								sp_regions.setSelection(i, true);
+							}
+						}
+					} else {
+						sp_regions.setSelection(0, true);
+
+					}
 					// 个人信息
 					et_personName.setText(entryManageEntity.getPersonName());
 					et_englishName.setText(entryManageEntity.getEnglishName());
@@ -1470,6 +1534,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 						try {
 							JSONObject jsonObjectMaterials = new JSONObject(
 									materials);
+							//身份证
 							JSONObject jsonObjectIDImage = new JSONObject(
 									jsonObjectMaterials.getString("IDImage"));
 							String positive1 = "";
@@ -1480,6 +1545,17 @@ public class EntryManagementActiviy extends BaseActivity implements
 								reverse1 = jsonObjectIDImage
 										.getString("Reverse");
 							}
+							//银行卡
+							JSONObject jsonObjectBankCardImage = new JSONObject(
+									jsonObjectMaterials.getString("BankCard"));
+							String cardpositive1 = "";
+							String cardreverse1 = "";
+							if (jsonObjectMaterials.getString("BankCard") != null) {
+								cardpositive1 = jsonObjectBankCardImage
+										.getString("BankCardPositive");
+								cardreverse1 = jsonObjectBankCardImage
+										.getString("BankCardReverse");
+							}
 							String[] urls = new String[] {
 									jsonObjectMaterials
 											.getString("Certificates"),
@@ -1488,7 +1564,10 @@ public class EntryManagementActiviy extends BaseActivity implements
 									positive1,
 									reverse1,
 									jsonObjectMaterials.getString("Retirement"),
-									jsonObjectMaterials.getString("Physical") };
+									jsonObjectMaterials.getString("Physical") ,
+									cardpositive1,
+									cardreverse1
+									};
 							if (urls[0].equals("")) {
 							} else {
 								ImageLoader.getInstance().displayImage(
@@ -1532,12 +1611,28 @@ public class EntryManagementActiviy extends BaseActivity implements
 								// ImageLoader.getInstance().displayImage("http://test.joy121.com:999/api/OutFile/GetImage?imageEncryptedName=9110caedb154b75587b185d2487abbcb.jpg",
 								// imgViewCheckupReporting);
 							}
+							if (urls[6].equals("")) {
+							} else {
+								ImageLoader.getInstance().displayImage(
+										urls[6].trim(), imgViewBankCardPositive);
+							}
+							if (urls[7].equals("")) {
+							} else {
+								ImageLoader.getInstance().displayImage(
+										urls[7].trim(), imgViewBankCardReverse);
+							}
 							certificates = urls[0];
 							learningCertificate = urls[1];
 							positive = urls[2];
 							reverse = urls[3];
 							retirement = urls[4];
 							physical = urls[5];
+							cardpositive=urls[6];
+							cardreverse=urls[7];
+							Log.e("retirement",urls[4]);
+							Log.e("cardpositive",urls[6]);
+							Log.e("cardreverse",urls[7]);
+							
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -1739,10 +1834,6 @@ public class EntryManagementActiviy extends BaseActivity implements
 		task.execute();
 	}
 
-	protected Bitmap getHttpBitmap(String positive2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**
 	 * private Handler mHandler = new Handler() {
@@ -1913,6 +2004,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				list_culturalDegree = new ArrayList<SpinnerData>();
 				list_nation = new ArrayList<SpinnerData>();
 				list_depositBank = new ArrayList<SpinnerData>();
+				list_regions=new ArrayList<SpinnerData>();
 				// list_maritalStatus.add(a);
 				// list_politicalStatus.add(a);
 				// list_culturalDegree.add(a);
@@ -1951,6 +2043,11 @@ public class EntryManagementActiviy extends BaseActivity implements
 								.get(i).getSysValue(), allList.get(i)
 								.getSysKeyName());
 						list_depositBank.add(depositBank);
+					}else if(allList.get(i).getSysKey().equals("province")){
+						SpinnerData regions = new SpinnerData(allList
+								.get(i).getSysValue(), allList.get(i)
+								.getSysKeyName());
+						list_regions.add(regions);
 					}
 				}
 
@@ -1977,6 +2074,9 @@ public class EntryManagementActiviy extends BaseActivity implements
 				depositBank_adapter = new ArrayAdapter<SpinnerData>(
 						EntryManagementActiviy.this,
 						android.R.layout.simple_spinner_item, list_depositBank);
+				regions_adapter = new ArrayAdapter<SpinnerData>(
+						EntryManagementActiviy.this,
+						android.R.layout.simple_spinner_item, list_regions);
 				// 设置样式
 				maritalStatus_adapter
 						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1990,6 +2090,8 @@ public class EntryManagementActiviy extends BaseActivity implements
 						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				depositBank_adapter
 						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				regions_adapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				// 加载适配器
 				sp_maritalStatus.setAdapter(maritalStatus_adapter);
 				sp_politicalStatus.setAdapter(politicalStatus_adapter);
@@ -1997,6 +2099,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				sp_culturalDegree.setAdapter(culturalDegree_adapter);
 				sp_nation.setAdapter(nation_adapter);
 				sp_depositBank.setAdapter(depositBank_adapter);
+				sp_regions.setAdapter(regions_adapter);
 			}
 
 			@Override
@@ -2060,7 +2163,9 @@ public class EntryManagementActiviy extends BaseActivity implements
 				}
 				entity1.setUrgentContact(et_urgentContact.getText().toString());
 				entity1.setUrgentAddr(et_urgentAddr.getText().toString());
-				entity1.setRegions(et_regions.getText().toString());
+//				entity1.setRegions(et_regions.getText().toString());
+				entity1.setRegions(((SpinnerData) sp_regions.getSelectedItem())
+						.getValue());
 				// 个人信息
 				entity1.setPersonName(et_personName.getText().toString());
 				entity1.setEnglishName(et_englishName.getText().toString());
@@ -2111,6 +2216,12 @@ public class EntryManagementActiviy extends BaseActivity implements
 				idImage.setPositive(positive);
 				idImage.setReverse(reverse);
 				image.setIDImage(gb.create().toJson(idImage));
+				
+				EntryManageBankCardImageEntity bankCardImage = new EntryManageBankCardImageEntity();
+				bankCardImage.setBankCardPositive(cardpositive);
+				bankCardImage.setBankCardReverse(cardreverse);
+				image.setBankCard(gb.create().toJson(bankCardImage));
+				
 				image.setRetirement(retirement);
 				image.setPhysical(physical);
 				String a=gb.create().toJson(image);
@@ -2225,7 +2336,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		}
 		entity.setUrgentContact(et_urgentContact.getText().toString());
 		entity.setUrgentAddr(et_urgentAddr.getText().toString());
-		entity.setRegions(et_regions.getText().toString());
+		entity.setRegions(((SpinnerData) sp_regions.getSelectedItem()).getValue());
 		// 个人信息
 		entity.setPersonName(et_personName.getText().toString());
 		entity.setEnglishName(et_englishName.getText().toString());
@@ -2270,6 +2381,12 @@ public class EntryManagementActiviy extends BaseActivity implements
 		idImage.setPositive(positive);
 		idImage.setReverse(reverse);
 		image.setIDImage(gb.create().toJson(idImage));
+		
+		EntryManageBankCardImageEntity bankCardImage = new EntryManageBankCardImageEntity();
+		bankCardImage.setBankCardPositive(cardpositive);
+		bankCardImage.setBankCardReverse(cardreverse);
+		image.setBankCard(gb.create().toJson(bankCardImage));
+		
 		image.setRetirement(retirement);
 		image.setPhysical(physical);
 		String a=gb.create().toJson(image);
@@ -2369,7 +2486,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 	}
 
 	/**
-	 * 0-5为选择图片库图片并且上传到服务器 6-11为调用系统照相机照相并且上传到服务器
+	 * 0-7为选择图片库图片并且上传到服务器 8-15为调用系统照相机照相并且上传到服务器
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -2719,6 +2836,119 @@ public class EntryManagementActiviy extends BaseActivity implements
 			break;
 		case 6:
 			if (resultCode == RESULT_OK) {
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+				Cursor cursor = getContentResolver().query(selectedImage,
+						filePathColumn, null, null, null);
+				cursor.moveToFirst();
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
+				options.inJustDecodeBounds = true;
+				int scale = (int) (options.outWidth / (float) 100);
+				if (scale <= 0)
+					scale = 2;
+				options.inSampleSize = scale;
+				options.inJustDecodeBounds = false;
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+
+				File file;
+				cardpositive = cursor.getString(columnIndex);
+				cursor.close();
+				bitmap = BitmapFactory.decodeFile(cardpositive, options);
+				file = scal(cardpositive);
+
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						cardpositive = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							imgViewBankCardPositive.setImageBitmap(bitmap);
+							imgViewBankCardPositive.setMaxHeight(200);
+							imgViewBankCardPositive
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
+						e.printStackTrace();
+					}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+
+			}
+			break;
+		case 7:
+			if (resultCode == RESULT_OK) {
+				Uri selectedImage = data.getData();
+				String[] filePathColumn = { MediaStore.Images.Media.DATA };
+				Cursor cursor = getContentResolver().query(selectedImage,
+						filePathColumn, null, null, null);
+				cursor.moveToFirst();
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				// options 设为true时，构造出的bitmap没有图片，只有一些长宽等配置信息，但比较快，设为false时，才有图片
+				options.inJustDecodeBounds = true;
+
+				int scale = (int) (options.outWidth / (float) 100);
+				if (scale <= 0)
+					scale = 2;
+				options.inSampleSize = scale;
+				options.inJustDecodeBounds = false;
+				int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+
+				File file;
+				cardreverse = cursor.getString(columnIndex);
+				cursor.close();
+				bitmap = BitmapFactory.decodeFile(cardreverse, options);
+				file = scal(cardreverse);
+
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						cardreverse = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							imgViewBankCardReverse.setImageBitmap(bitmap);
+							imgViewBankCardReverse.setMaxHeight(200);
+							imgViewBankCardReverse
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
+						e.printStackTrace();
+					}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+
+			}
+			break;
+		case 8:
+			if (resultCode == RESULT_OK) {
 				String fileName = String.valueOf(System.currentTimeMillis());
 				Bitmap bm = (Bitmap) data.getExtras().get("data");
 				// String SDPATH = Environment.getExternalStorageDirectory()+
@@ -2774,7 +3004,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				task.execute();
 			}
 			break;
-		case 7:
+		case 9:
 			if (resultCode == RESULT_OK) {
 				String fileName = String.valueOf(System.currentTimeMillis());
 				Bitmap bm = (Bitmap) data.getExtras().get("data");
@@ -2830,7 +3060,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				task.execute();
 			}
 			break;
-		case 8:
+		case 10:
 			if (resultCode == RESULT_OK) {
 				String fileName = String.valueOf(System.currentTimeMillis());
 				Bitmap bm = (Bitmap) data.getExtras().get("data");
@@ -2884,7 +3114,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				task.execute();
 			}
 			break;
-		case 9:
+		case 11:
 			if (resultCode == RESULT_OK) {
 				String fileName = String.valueOf(System.currentTimeMillis());
 				Bitmap bm = (Bitmap) data.getExtras().get("data");
@@ -2938,7 +3168,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				task.execute();
 			}
 			break;
-		case 10:
+		case 12:
 			if (resultCode == RESULT_OK) {
 				String fileName = String.valueOf(System.currentTimeMillis());
 				Bitmap bm = (Bitmap) data.getExtras().get("data");
@@ -2992,7 +3222,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 				task.execute();
 			}
 			break;
-		case 11:
+		case 13:
 			if (resultCode == RESULT_OK) {
 				String fileName = String.valueOf(System.currentTimeMillis());
 				Bitmap bm = (Bitmap) data.getExtras().get("data");
@@ -3031,6 +3261,114 @@ public class EntryManagementActiviy extends BaseActivity implements
 							imgViewCheckupReporting.setImageBitmap(bitmap);
 							imgViewCheckupReporting.setMaxHeight(200);
 							imgViewCheckupReporting
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
+						e.printStackTrace();
+					}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+			}
+			break;
+		case 14:
+			if (resultCode == RESULT_OK) {
+				String fileName = String.valueOf(System.currentTimeMillis());
+				Bitmap bm = (Bitmap) data.getExtras().get("data");
+				String SDPATH = "/sdcard/DCIM/Camera";
+				File f = new File(SDPATH, fileName + ".JPEG");
+				try {
+					FileOutputStream out = new FileOutputStream(f);
+					bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				File file1;
+				cardpositive = f.toString();
+				bitmap = BitmapFactory.decodeFile(cardpositive);
+				file1 = scal(cardpositive);
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file1);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						cardpositive = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							// ImageLoader.getInstance().displayImage(certificates,
+							// imgViewPhoto);
+							imgViewBankCardPositive.setImageBitmap(bitmap);
+							imgViewBankCardPositive.setMaxHeight(200);
+							imgViewBankCardPositive
+									.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							Toast.show(self, "上传成功");
+						}
+					}
+
+					@Override
+					public void onOperationError(Exception e) {
+						e.printStackTrace();
+					}
+				};
+				JsonCommon task = new JsonCommon(self, builder, listener,
+						JsonCommon.PROGRESSCOMMIT);
+				task.execute();
+			}
+			break;
+		case 15:
+			if (resultCode == RESULT_OK) {
+				String fileName = String.valueOf(System.currentTimeMillis());
+				Bitmap bm = (Bitmap) data.getExtras().get("data");
+				String SDPATH = "/sdcard/DCIM/Camera";
+				File f = new File(SDPATH, fileName + ".JPEG");
+				try {
+					FileOutputStream out = new FileOutputStream(f);
+					bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+					out.flush();
+					out.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				File file1;
+				cardreverse = f.toString();
+				bitmap = BitmapFactory.decodeFile(cardreverse);
+				file1 = new File(cardreverse);
+				OperationBuilder builder = new OperationBuilder().append(
+						new UploadImgOp(), file1);
+				OnOperationListener listener = new OnOperationListener() {
+					@Override
+					public void onOperationFinished(List<Object> resList) {
+						EntryUploadImageEntity uploadImgEntity = (EntryUploadImageEntity) resList
+								.get(0);
+						cardreverse = uploadImgEntity.getRetFilePath();
+						if (self.isFinishing()) {
+							return;
+						} else if (resList == null) {
+							Toast.show(self, "连接超时");
+							return;
+						} else {
+							// ImageLoader.getInstance().displayImage(certificates,
+							// imgViewPhoto);
+							imgViewBankCardReverse.setImageBitmap(bitmap);
+							imgViewBankCardReverse.setMaxHeight(200);
+							imgViewBankCardReverse
 									.setScaleType(ImageView.ScaleType.CENTER_CROP);
 							Toast.show(self, "上传成功");
 						}

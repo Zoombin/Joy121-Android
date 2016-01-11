@@ -17,7 +17,6 @@ public class EntryUploadImageParse extends AbstractParser<TResult> {
 	@Override
 	public EntryUploadImageEntity parse(JSONObject json) throws JSONException {
 		// TODO Auto-generated method stub
-		Log.d("dfdfdsfsdfdfdfdfffffffffff", json.toString());
 		EntryUploadImageEntity entity = new EntryUploadImageEntity();
 		if(json!=null){
 			entity = new Gson().fromJson(

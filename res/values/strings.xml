@@ -290,13 +290,13 @@
     <string name="mobile">联系方式：</string>
     <string name="urgentContact">紧急联系人：</string>
     <string name="urgentMobile">紧急联系方式：</string>
-    <string name="regions">户口所在地：</string>
+    <string name="regions">户籍详细地址：</string>
     
     <string name="entryResidence">请输入“现居地”</string>
     <string name="entryMobile">请输入“联系方式”</string>
     <string name="entryUrgentContact">请输入“紧急联系人”</string>
     <string name="entryUrgentMobile">请输入“紧急联系方式”</string>
-    <string name="entryRegions">请输入“户口所在地”</string>
+    <string name="entryRegions">请输入“户籍详细地址”</string>
     <string name="mobileFormat">请正确输入“联系方式”</string>
      <string name="urgentMobileFormat">请正确输入“紧急联系方式”</string>
     
@@ -336,6 +336,7 @@
     <string name="idPhoto">身份证：</string>
     <string name="repairOrder">退工单：</string>
     <string name="checkupReporting">体检报告：</string>
+    <string name="bankCardPhoto">银行卡：</string>
     <!-- 个人经历 -->
     <string name="education">学习经历</string> 
     <string name="educationSchool">学校：</string>
