@@ -1261,19 +1261,13 @@ public class EntryManagementActiviy extends BaseActivity implements
 			}
 			break;
 		case R.id.btn_papersInfoNext: // 证件信息的下一步进入到个人经历
-			if (certificates.equals("")) {
-				Toast.show(self, "请添加个人照片");
-				return;
-			} else if (positive.equals("")) {
+			 if (positive.equals("")) {
 				Toast.show(self, "请添加身份证正面照");
 				return;
 			} else if (reverse.equals("")) {
 				Toast.show(self, "请添加身份证反面照");
 				return;
-			} else if (learningCertificate.equals("")) {
-				Toast.show(self, "请添加学历证书");
-				return;
-			} else {
+			}else {
 				step4();
 			}
 			break;

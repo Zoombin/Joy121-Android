@@ -1180,7 +1180,7 @@
                     android:id="@+id/iv_bankCardPhoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/entry_idphoto" />
+                    android:background="@drawable/entry_bankno" />
 
                 <TextView
                     android:id="@+id/tv_bankCardPhoto"
