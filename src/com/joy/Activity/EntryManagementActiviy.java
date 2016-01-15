@@ -742,7 +742,7 @@ public class EntryManagementActiviy extends BaseActivity implements
 		uiAdapter.setMargin(tv_socialSecurityNo, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, 10, 15, 0, 10);
 		et_socialSecurityNo = (EditText) findViewById(R.id.et_socialSecurityNo);
-		uiAdapter.setMargin(et_socialSecurityNo, LayoutParams.MATCH_PARENT, 37,
+		uiAdapter.setMargin(et_socialSecurityNo, LayoutParams.MATCH_PARENT, 30,
 				5, 20, 45, 0);
 		uiAdapter.setPadding(et_socialSecurityNo, 10, 0, 0, 0);
 
